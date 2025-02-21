@@ -477,7 +477,10 @@ class OrderBusinessInformationApi
                 'Missing the required parameter $campaign_id when calling getOrderBusinessBuyerInfo'
             );
         }
-
+        if ($campaign_id < 1) {
+            throw new \InvalidArgumentException('invalid value for "$campaign_id" when calling OrderBusinessInformationApi.getOrderBusinessBuyerInfo, must be bigger than or equal to 1.');
+        }
+        
         // verify the required parameter 'order_id' is set
         if ($order_id === null || (is_array($order_id) && count($order_id) === 0)) {
             throw new \InvalidArgumentException(
@@ -544,9 +547,14 @@ class OrderBusinessInformationApi
             }
         }
 
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
-            $headers['Api-Key'] = $this->config->getAccessToken();
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
         }
 
         $defaultHeaders = [];
@@ -922,7 +930,10 @@ class OrderBusinessInformationApi
                 'Missing the required parameter $campaign_id when calling getOrderBusinessDocumentsInfo'
             );
         }
-
+        if ($campaign_id < 1) {
+            throw new \InvalidArgumentException('invalid value for "$campaign_id" when calling OrderBusinessInformationApi.getOrderBusinessDocumentsInfo, must be bigger than or equal to 1.');
+        }
+        
         // verify the required parameter 'order_id' is set
         if ($order_id === null || (is_array($order_id) && count($order_id) === 0)) {
             throw new \InvalidArgumentException(
@@ -989,9 +1000,14 @@ class OrderBusinessInformationApi
             }
         }
 
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
-            $headers['Api-Key'] = $this->config->getAccessToken();
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
         }
 
         $defaultHeaders = [];
