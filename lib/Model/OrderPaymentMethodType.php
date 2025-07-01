@@ -97,6 +97,9 @@ class OrderPaymentMethodType
             self::TINKOFF_INSTALLMENTS,
             self::B2_B_ACCOUNT_PREPAYMENT,
             self::B2_B_ACCOUNT_POSTPAYMENT,
+            self::BNPL_BANK_ON_DELIVERY,
+            self::BNPL_ON_DELIVERY,
+            self::YA_PLUS_POINTS,
             self::UNKNOWN
         ];
     }
