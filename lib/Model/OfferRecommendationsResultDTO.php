@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -282,6 +282,9 @@ class OfferRecommendationsResultDTO implements ModelInterface, ArrayAccess, \Jso
     {
         $invalidProperties = [];
 
+        if ($this->container['offer_recommendations'] === null) {
+            $invalidProperties[] = "'offer_recommendations' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -327,7 +330,7 @@ class OfferRecommendationsResultDTO implements ModelInterface, ArrayAccess, \Jso
     /**
      * Gets offer_recommendations
      *
-     * @return \YandexMarketApi\Model\OfferRecommendationDTO[]|null
+     * @return \YandexMarketApi\Model\OfferRecommendationDTO[]
      */
     public function getOfferRecommendations()
     {
@@ -337,7 +340,7 @@ class OfferRecommendationsResultDTO implements ModelInterface, ArrayAccess, \Jso
     /**
      * Sets offer_recommendations
      *
-     * @param \YandexMarketApi\Model\OfferRecommendationDTO[]|null $offer_recommendations Страница списка товаров.
+     * @param \YandexMarketApi\Model\OfferRecommendationDTO[] $offer_recommendations Страница списка товаров.
      *
      * @return self
      */

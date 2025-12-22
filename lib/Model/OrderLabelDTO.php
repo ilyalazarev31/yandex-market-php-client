@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -305,6 +305,14 @@ class OrderLabelDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['url'] === null) {
             $invalidProperties[] = "'url' can't be null";
         }
+        if ((mb_strlen($this->container['url']) > 2000)) {
+            $invalidProperties[] = "invalid value for 'url', the character length must be smaller than or equal to 2000.";
+        }
+
+        if ((mb_strlen($this->container['url']) < 1)) {
+            $invalidProperties[] = "invalid value for 'url', the character length must be bigger than or equal to 1.";
+        }
+
         if ($this->container['parcel_box_labels'] === null) {
             $invalidProperties[] = "'parcel_box_labels' can't be null";
         }
@@ -390,7 +398,7 @@ class OrderLabelDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets url
      *
-     * @param string $url URL файла с ярлыками‑наклейками на все коробки в заказе.  Соответствует URL, по которому выполняется запрос [GET campaigns/{campaignId}/orders/{orderId}/delivery/labels](../../reference/orders/generateOrderLabels.md).
+     * @param string $url url
      *
      * @return self
      */
@@ -399,6 +407,13 @@ class OrderLabelDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         if (is_null($url)) {
             throw new \InvalidArgumentException('non-nullable url cannot be null');
         }
+        if ((mb_strlen($url) > 2000)) {
+            throw new \InvalidArgumentException('invalid length for $url when calling OrderLabelDTO., must be smaller than or equal to 2000.');
+        }
+        if ((mb_strlen($url) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $url when calling OrderLabelDTO., must be bigger than or equal to 1.');
+        }
+
         $this->container['url'] = $url;
 
         return $this;

@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -282,6 +282,14 @@ class PalletsCountDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if (!is_null($this->container['planned']) && ($this->container['planned'] < 0)) {
+            $invalidProperties[] = "invalid value for 'planned', must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['fact']) && ($this->container['fact'] < 0)) {
+            $invalidProperties[] = "invalid value for 'fact', must be bigger than or equal to 0.";
+        }
+
         return $invalidProperties;
     }
 
@@ -319,6 +327,11 @@ class PalletsCountDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         if (is_null($planned)) {
             throw new \InvalidArgumentException('non-nullable planned cannot be null');
         }
+
+        if (($planned < 0)) {
+            throw new \InvalidArgumentException('invalid value for $planned when calling PalletsCountDTO., must be bigger than or equal to 0.');
+        }
+
         $this->container['planned'] = $planned;
 
         return $this;
@@ -346,6 +359,11 @@ class PalletsCountDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         if (is_null($fact)) {
             throw new \InvalidArgumentException('non-nullable fact cannot be null');
         }
+
+        if (($fact < 0)) {
+            throw new \InvalidArgumentException('invalid value for $fact when calling PalletsCountDTO., must be bigger than or equal to 0.');
+        }
+
         $this->container['fact'] = $fact;
 
         return $this;

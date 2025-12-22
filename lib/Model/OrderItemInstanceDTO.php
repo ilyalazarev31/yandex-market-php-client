@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -35,7 +35,7 @@ use \YandexMarketApi\ObjectSerializer;
  * OrderItemInstanceDTO Class Doc Comment
  *
  * @category Class
- * @description Переданные вами для данной позиции коды маркировки или УИНы. Коды «Честного знака» возвращаются в двух вариантах — с криптохвостом и без.
+ * @description Переданные для данной позиции коды маркировки или УИНы. Коды «Честного знака» возвращаются в двух вариантах — с криптохвостом и без.
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -62,7 +62,8 @@ class OrderItemInstanceDTO implements ModelInterface, ArrayAccess, \JsonSerializ
         'cis_full' => 'string',
         'uin' => 'string',
         'rnpt' => 'string',
-        'gtd' => 'string'
+        'gtd' => 'string',
+        'country_code' => 'string'
     ];
 
     /**
@@ -77,7 +78,8 @@ class OrderItemInstanceDTO implements ModelInterface, ArrayAccess, \JsonSerializ
         'cis_full' => null,
         'uin' => null,
         'rnpt' => null,
-        'gtd' => null
+        'gtd' => null,
+        'country_code' => null
     ];
 
     /**
@@ -90,7 +92,8 @@ class OrderItemInstanceDTO implements ModelInterface, ArrayAccess, \JsonSerializ
 		'cis_full' => false,
 		'uin' => false,
 		'rnpt' => false,
-		'gtd' => false
+		'gtd' => false,
+		'country_code' => false
     ];
 
     /**
@@ -183,7 +186,8 @@ class OrderItemInstanceDTO implements ModelInterface, ArrayAccess, \JsonSerializ
         'cis_full' => 'cisFull',
         'uin' => 'uin',
         'rnpt' => 'rnpt',
-        'gtd' => 'gtd'
+        'gtd' => 'gtd',
+        'country_code' => 'countryCode'
     ];
 
     /**
@@ -196,7 +200,8 @@ class OrderItemInstanceDTO implements ModelInterface, ArrayAccess, \JsonSerializ
         'cis_full' => 'setCisFull',
         'uin' => 'setUin',
         'rnpt' => 'setRnpt',
-        'gtd' => 'setGtd'
+        'gtd' => 'setGtd',
+        'country_code' => 'setCountryCode'
     ];
 
     /**
@@ -209,7 +214,8 @@ class OrderItemInstanceDTO implements ModelInterface, ArrayAccess, \JsonSerializ
         'cis_full' => 'getCisFull',
         'uin' => 'getUin',
         'rnpt' => 'getRnpt',
-        'gtd' => 'getGtd'
+        'gtd' => 'getGtd',
+        'country_code' => 'getCountryCode'
     ];
 
     /**
@@ -274,6 +280,7 @@ class OrderItemInstanceDTO implements ModelInterface, ArrayAccess, \JsonSerializ
         $this->setIfExists('uin', $data ?? [], null);
         $this->setIfExists('rnpt', $data ?? [], null);
         $this->setIfExists('gtd', $data ?? [], null);
+        $this->setIfExists('country_code', $data ?? [], null);
     }
 
     /**
@@ -303,6 +310,18 @@ class OrderItemInstanceDTO implements ModelInterface, ArrayAccess, \JsonSerializ
     {
         $invalidProperties = [];
 
+        if (!is_null($this->container['country_code']) && (mb_strlen($this->container['country_code']) > 2)) {
+            $invalidProperties[] = "invalid value for 'country_code', the character length must be smaller than or equal to 2.";
+        }
+
+        if (!is_null($this->container['country_code']) && (mb_strlen($this->container['country_code']) < 2)) {
+            $invalidProperties[] = "invalid value for 'country_code', the character length must be bigger than or equal to 2.";
+        }
+
+        if (!is_null($this->container['country_code']) && !preg_match("/^[A-Z]{2}$/", $this->container['country_code'])) {
+            $invalidProperties[] = "invalid value for 'country_code', must be conform to the pattern /^[A-Z]{2}$/.";
+        }
+
         return $invalidProperties;
     }
 
@@ -331,7 +350,7 @@ class OrderItemInstanceDTO implements ModelInterface, ArrayAccess, \JsonSerializ
     /**
      * Sets cis
      *
-     * @param string|null $cis Код идентификации единицы товара [в системе «Честный ЗНАК»](https://честныйзнак.рф/) без криптохвоста.
+     * @param string|null $cis Код идентификации единицы товара в системе [«Честный ЗНАК»](https://честныйзнак.рф/) без криптохвоста или [«ASL BELGISI»](https://aslbelgisi.uz) (для продавцов Market Yandex Go).
      *
      * @return self
      */
@@ -358,7 +377,7 @@ class OrderItemInstanceDTO implements ModelInterface, ArrayAccess, \JsonSerializ
     /**
      * Sets cis_full
      *
-     * @param string|null $cis_full Код идентификации единицы товара [в системе «Честный ЗНАК»](https://честныйзнак.рф/) с криптохвостом.
+     * @param string|null $cis_full Код идентификации единицы товара в системе [«Честный ЗНАК»](https://честныйзнак.рф/) с криптохвостом.
      *
      * @return self
      */
@@ -449,6 +468,43 @@ class OrderItemInstanceDTO implements ModelInterface, ArrayAccess, \JsonSerializ
             throw new \InvalidArgumentException('non-nullable gtd cannot be null');
         }
         $this->container['gtd'] = $gtd;
+
+        return $this;
+    }
+
+    /**
+     * Gets country_code
+     *
+     * @return string|null
+     */
+    public function getCountryCode()
+    {
+        return $this->container['country_code'];
+    }
+
+    /**
+     * Sets country_code
+     *
+     * @param string|null $country_code Страна производства в формате ISO 3166-1 alpha-2. [Как получить](../../reference/regions/getRegionsCodes.md)
+     *
+     * @return self
+     */
+    public function setCountryCode($country_code)
+    {
+        if (is_null($country_code)) {
+            throw new \InvalidArgumentException('non-nullable country_code cannot be null');
+        }
+        if ((mb_strlen($country_code) > 2)) {
+            throw new \InvalidArgumentException('invalid length for $country_code when calling OrderItemInstanceDTO., must be smaller than or equal to 2.');
+        }
+        if ((mb_strlen($country_code) < 2)) {
+            throw new \InvalidArgumentException('invalid length for $country_code when calling OrderItemInstanceDTO., must be bigger than or equal to 2.');
+        }
+        if ((!preg_match("/^[A-Z]{2}$/", $country_code))) {
+            throw new \InvalidArgumentException("invalid value for \$country_code when calling OrderItemInstanceDTO., must conform to the pattern /^[A-Z]{2}$/.");
+        }
+
+        $this->container['country_code'] = $country_code;
 
         return $this;
     }

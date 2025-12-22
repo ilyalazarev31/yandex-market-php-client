@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -109,15 +109,15 @@ class CategoryParameterDTO implements ModelInterface, ArrayAccess, \JsonSerializ
 		'type' => false,
 		'unit' => false,
 		'description' => false,
-		'recommendation_types' => false,
+		'recommendation_types' => true,
 		'required' => false,
 		'filtering' => false,
 		'distinctive' => false,
 		'multivalue' => false,
 		'allow_custom_values' => false,
-		'values' => false,
+		'values' => true,
 		'constraints' => false,
-		'value_restrictions' => false
+		'value_restrictions' => true
     ];
 
     /**
@@ -369,9 +369,17 @@ class CategoryParameterDTO implements ModelInterface, ArrayAccess, \JsonSerializ
         if ($this->container['id'] === null) {
             $invalidProperties[] = "'id' can't be null";
         }
+        if (($this->container['id'] < 1)) {
+            $invalidProperties[] = "invalid value for 'id', must be bigger than or equal to 1.";
+        }
+
         if ($this->container['type'] === null) {
             $invalidProperties[] = "'type' can't be null";
         }
+        if (!is_null($this->container['recommendation_types']) && (count($this->container['recommendation_types']) < 1)) {
+            $invalidProperties[] = "invalid value for 'recommendation_types', number of items must be greater than or equal to 1.";
+        }
+
         if ($this->container['required'] === null) {
             $invalidProperties[] = "'required' can't be null";
         }
@@ -387,6 +395,14 @@ class CategoryParameterDTO implements ModelInterface, ArrayAccess, \JsonSerializ
         if ($this->container['allow_custom_values'] === null) {
             $invalidProperties[] = "'allow_custom_values' can't be null";
         }
+        if (!is_null($this->container['values']) && (count($this->container['values']) < 1)) {
+            $invalidProperties[] = "invalid value for 'values', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['value_restrictions']) && (count($this->container['value_restrictions']) < 1)) {
+            $invalidProperties[] = "invalid value for 'value_restrictions', number of items must be greater than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -424,6 +440,11 @@ class CategoryParameterDTO implements ModelInterface, ArrayAccess, \JsonSerializ
         if (is_null($id)) {
             throw new \InvalidArgumentException('non-nullable id cannot be null');
         }
+
+        if (($id < 1)) {
+            throw new \InvalidArgumentException('invalid value for $id when calling CategoryParameterDTO., must be bigger than or equal to 1.');
+        }
+
         $this->container['id'] = $id;
 
         return $this;
@@ -557,7 +578,19 @@ class CategoryParameterDTO implements ModelInterface, ArrayAccess, \JsonSerializ
     public function setRecommendationTypes($recommendation_types)
     {
         if (is_null($recommendation_types)) {
-            throw new \InvalidArgumentException('non-nullable recommendation_types cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'recommendation_types');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('recommendation_types', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+
+        if (!is_null($recommendation_types) && (count($recommendation_types) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $recommendation_types when calling CategoryParameterDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['recommendation_types'] = $recommendation_types;
 
@@ -719,7 +752,19 @@ class CategoryParameterDTO implements ModelInterface, ArrayAccess, \JsonSerializ
     public function setValues($values)
     {
         if (is_null($values)) {
-            throw new \InvalidArgumentException('non-nullable values cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'values');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('values', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+
+        if (!is_null($values) && (count($values) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $values when calling CategoryParameterDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['values'] = $values;
 
@@ -773,7 +818,19 @@ class CategoryParameterDTO implements ModelInterface, ArrayAccess, \JsonSerializ
     public function setValueRestrictions($value_restrictions)
     {
         if (is_null($value_restrictions)) {
-            throw new \InvalidArgumentException('non-nullable value_restrictions cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'value_restrictions');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('value_restrictions', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+
+        if (!is_null($value_restrictions) && (count($value_restrictions) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $value_restrictions when calling CategoryParameterDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['value_restrictions'] = $value_restrictions;
 

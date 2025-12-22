@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -274,6 +274,9 @@ class VerifyOrderEacRequest implements ModelInterface, ArrayAccess, \JsonSeriali
     {
         $invalidProperties = [];
 
+        if ($this->container['code'] === null) {
+            $invalidProperties[] = "'code' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -292,7 +295,7 @@ class VerifyOrderEacRequest implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Gets code
      *
-     * @return string|null
+     * @return string
      */
     public function getCode()
     {
@@ -302,7 +305,7 @@ class VerifyOrderEacRequest implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Sets code
      *
-     * @param string|null $code Код для подтверждения ЭАПП.
+     * @param string $code Код для подтверждения ЭАПП.
      *
      * @return self
      */

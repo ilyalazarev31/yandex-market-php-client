@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -33,7 +33,7 @@ use \YandexMarketApi\ObjectSerializer;
  * OrdersStatsStockType Class Doc Comment
  *
  * @category Class
- * @description Тип товара:  * &#x60;DEFECT&#x60; — товар бракованный.  * &#x60;FIT&#x60; — товар надлежащего качества.
+ * @description Тип товара:  * &#x60;FIT&#x60; — товар надлежащего качества.  * &#x60;DEFECT&#x60; — товар бракованный.  * &#x60;EXPIRED&#x60; — товар с истекшим сроком годности.
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -44,14 +44,6 @@ class OrdersStatsStockType
      * Possible values of this enum
      */
     public const FIT = 'FIT';
-
-    public const FREEZE = 'FREEZE';
-
-    public const AVAILABLE = 'AVAILABLE';
-
-    public const QUARANTINE = 'QUARANTINE';
-
-    public const UTILIZATION = 'UTILIZATION';
 
     public const DEFECT = 'DEFECT';
 
@@ -65,10 +57,6 @@ class OrdersStatsStockType
     {
         return [
             self::FIT,
-            self::FREEZE,
-            self::AVAILABLE,
-            self::QUARANTINE,
-            self::UTILIZATION,
             self::DEFECT,
             self::EXPIRED
         ];

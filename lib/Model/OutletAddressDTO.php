@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -386,7 +386,7 @@ class OutletAddressDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets region_id
      *
-     * @param int $region_id Идентификатор региона. Идентификатор можно получить c помощью запроса [GET regions](../../reference/regions/searchRegionsByName.md).  {% note alert %}  При создании и редактировании точек продаж можно указывать только регионы типов `TOWN` (город), `CITY` (крупный город) и `REPUBLIC_AREA` (район субъекта федерации). Тип региона указан в выходных параметрах type запросов [GET regions](../../reference/regions/searchRegionsByName.md) и [GET regions/{regionId}](../../reference/regions/searchRegionsById.md).  {% endnote %}
+     * @param int $region_id Идентификатор региона.  Идентификатор можно получить c помощью запроса [GET v2/regions](../../reference/regions/searchRegionsByName.md).  {% note alert \"Типы регионов при создании и редактировании точек продаж\" %}  Указывайте только регионы типов `TOWN` (город), `CITY` (крупный город) и `REPUBLIC_AREA` (район субъекта федерации). Тип региона указан в выходных параметрах `type` запросов [GET v2/regions](../../reference/regions/searchRegionsByName.md) и [GET v2/regions/{regionId}](../../reference/regions/searchRegionsById.md).  {% endnote %}
      *
      * @return self
      */
@@ -613,6 +613,7 @@ class OutletAddressDTO implements ModelInterface, ArrayAccess, \JsonSerializable
      * Gets city
      *
      * @return string|null
+     * @deprecated
      */
     public function getCity()
     {
@@ -622,9 +623,10 @@ class OutletAddressDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets city
      *
-     * @param string|null $city {% note alert %}  Параметр устарел и не рекомендуется к использованию. Город или населенный пункт возвращается в параметре `regionId`.  {% endnote %}
+     * @param string|null $city {% note warning \"В ответах города и населенные пункты возвращаются в параметре `regionId`.\" %}     {% endnote %}
      *
      * @return self
+     * @deprecated
      */
     public function setCity($city)
     {

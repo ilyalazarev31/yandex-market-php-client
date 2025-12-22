@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -35,7 +35,7 @@ use \YandexMarketApi\ObjectSerializer;
  * OrderItemsModificationResultDTO Class Doc Comment
  *
  * @category Class
- * @description Краткие сведения о промаркированных товарах — возвращаются, если ответ &#x60;OK&#x60;.
+ * @description Краткие сведения о промаркированных товарах. Параметр возвращается, если ответ &#x60;OK&#x60;.
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -275,6 +275,9 @@ class OrderItemsModificationResultDTO implements ModelInterface, ArrayAccess, \J
     {
         $invalidProperties = [];
 
+        if ($this->container['items'] === null) {
+            $invalidProperties[] = "'items' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -293,7 +296,7 @@ class OrderItemsModificationResultDTO implements ModelInterface, ArrayAccess, \J
     /**
      * Gets items
      *
-     * @return \YandexMarketApi\Model\BriefOrderItemDTO[]|null
+     * @return \YandexMarketApi\Model\BriefOrderItemDTO[]
      */
     public function getItems()
     {
@@ -303,7 +306,7 @@ class OrderItemsModificationResultDTO implements ModelInterface, ArrayAccess, \J
     /**
      * Sets items
      *
-     * @param \YandexMarketApi\Model\BriefOrderItemDTO[]|null $items Список позиций в заказе, подлежащих маркировке.
+     * @param \YandexMarketApi\Model\BriefOrderItemDTO[] $items Список позиций в заказе, подлежащих маркировке.
      *
      * @return self
      */

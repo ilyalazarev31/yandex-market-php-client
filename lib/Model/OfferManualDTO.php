@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -285,6 +285,18 @@ class OfferManualDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['url'] === null) {
             $invalidProperties[] = "'url' can't be null";
         }
+        if ((mb_strlen($this->container['url']) > 2000)) {
+            $invalidProperties[] = "invalid value for 'url', the character length must be smaller than or equal to 2000.";
+        }
+
+        if ((mb_strlen($this->container['url']) < 1)) {
+            $invalidProperties[] = "invalid value for 'url', the character length must be bigger than or equal to 1.";
+        }
+
+        if (!is_null($this->container['title']) && (mb_strlen($this->container['title']) > 500)) {
+            $invalidProperties[] = "invalid value for 'title', the character length must be smaller than or equal to 500.";
+        }
+
         return $invalidProperties;
     }
 
@@ -313,7 +325,7 @@ class OfferManualDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets url
      *
-     * @param string $url Ссылка на инструкцию.
+     * @param string $url url
      *
      * @return self
      */
@@ -322,6 +334,13 @@ class OfferManualDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         if (is_null($url)) {
             throw new \InvalidArgumentException('non-nullable url cannot be null');
         }
+        if ((mb_strlen($url) > 2000)) {
+            throw new \InvalidArgumentException('invalid length for $url when calling OfferManualDTO., must be smaller than or equal to 2000.');
+        }
+        if ((mb_strlen($url) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $url when calling OfferManualDTO., must be bigger than or equal to 1.');
+        }
+
         $this->container['url'] = $url;
 
         return $this;
@@ -349,6 +368,10 @@ class OfferManualDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         if (is_null($title)) {
             throw new \InvalidArgumentException('non-nullable title cannot be null');
         }
+        if ((mb_strlen($title) > 500)) {
+            throw new \InvalidArgumentException('invalid length for $title when calling OfferManualDTO., must be smaller than or equal to 500.');
+        }
+
         $this->container['title'] = $title;
 
         return $this;

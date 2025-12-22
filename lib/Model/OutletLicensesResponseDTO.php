@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -275,6 +275,9 @@ class OutletLicensesResponseDTO implements ModelInterface, ArrayAccess, \JsonSer
     {
         $invalidProperties = [];
 
+        if ($this->container['licenses'] === null) {
+            $invalidProperties[] = "'licenses' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -293,7 +296,7 @@ class OutletLicensesResponseDTO implements ModelInterface, ArrayAccess, \JsonSer
     /**
      * Gets licenses
      *
-     * @return \YandexMarketApi\Model\FullOutletLicenseDTO[]|null
+     * @return \YandexMarketApi\Model\FullOutletLicenseDTO[]
      */
     public function getLicenses()
     {
@@ -303,7 +306,7 @@ class OutletLicensesResponseDTO implements ModelInterface, ArrayAccess, \JsonSer
     /**
      * Sets licenses
      *
-     * @param \YandexMarketApi\Model\FullOutletLicenseDTO[]|null $licenses Список лицензий.
+     * @param \YandexMarketApi\Model\FullOutletLicenseDTO[] $licenses Список лицензий.
      *
      * @return self
      */

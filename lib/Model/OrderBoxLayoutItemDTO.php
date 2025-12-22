@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -87,7 +87,7 @@ class OrderBoxLayoutItemDTO implements ModelInterface, ArrayAccess, \JsonSeriali
         'id' => false,
 		'full_count' => false,
 		'partial_count' => false,
-		'instances' => false
+		'instances' => true
     ];
 
     /**
@@ -303,6 +303,10 @@ class OrderBoxLayoutItemDTO implements ModelInterface, ArrayAccess, \JsonSeriali
             $invalidProperties[] = "invalid value for 'full_count', must be bigger than or equal to 1.";
         }
 
+        if (!is_null($this->container['instances']) && (count($this->container['instances']) < 1)) {
+            $invalidProperties[] = "invalid value for 'instances', number of items must be greater than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -331,7 +335,7 @@ class OrderBoxLayoutItemDTO implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Sets id
      *
-     * @param int $id Идентификатор товара в заказе.  {% cut \"Где его взять\" %}  Идентификатор приходит в ответе на запрос [GET campaigns/{campaignId}/orders/{orderId}](../../reference/orders/getOrder.md) и в запросе Маркета [POST order/accept](../../pushapi/reference/orderAccept.md) — параметр `id` в `items`.  {% endcut %}  
+     * @param int $id Идентификатор товара в заказе.  Он приходит в ответе метода [POST v1/businesses/{businessId}/orders](../../reference/orders/getBusinessOrders.md) — параметр `id` в `items`.
      *
      * @return self
      */
@@ -417,14 +421,26 @@ class OrderBoxLayoutItemDTO implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Sets instances
      *
-     * @param \YandexMarketApi\Model\BriefOrderItemInstanceDTO[]|null $instances Переданные вами коды маркировки.
+     * @param \YandexMarketApi\Model\BriefOrderItemInstanceDTO[]|null $instances Переданные коды маркировки.
      *
      * @return self
      */
     public function setInstances($instances)
     {
         if (is_null($instances)) {
-            throw new \InvalidArgumentException('non-nullable instances cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'instances');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('instances', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+
+        if (!is_null($instances) && (count($instances) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $instances when calling OrderBoxLayoutItemDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['instances'] = $instances;
 

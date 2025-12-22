@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -57,7 +57,7 @@ class SetOrderShipmentBoxesRequest implements ModelInterface, ArrayAccess, \Json
       * @var string[]
       */
     protected static $openAPITypes = [
-        'boxes' => '\YandexMarketApi\Model\ParcelBoxDTO[]'
+        'boxes' => '\YandexMarketApi\Model\ParcelBoxRequestDTO[]'
     ];
 
     /**
@@ -299,7 +299,7 @@ class SetOrderShipmentBoxesRequest implements ModelInterface, ArrayAccess, \Json
     /**
      * Gets boxes
      *
-     * @return \YandexMarketApi\Model\ParcelBoxDTO[]
+     * @return \YandexMarketApi\Model\ParcelBoxRequestDTO[]
      */
     public function getBoxes()
     {
@@ -309,7 +309,7 @@ class SetOrderShipmentBoxesRequest implements ModelInterface, ArrayAccess, \Json
     /**
      * Sets boxes
      *
-     * @param \YandexMarketApi\Model\ParcelBoxDTO[] $boxes Список грузовых мест. Маркет определяет количество мест по длине этого списка.
+     * @param \YandexMarketApi\Model\ParcelBoxRequestDTO[] $boxes Список грузовых мест. По его длине Маркет определяет количество мест.
      *
      * @return self
      */

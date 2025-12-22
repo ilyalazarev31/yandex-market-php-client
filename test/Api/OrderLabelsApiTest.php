@@ -10,7 +10,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -74,7 +74,7 @@ class OrderLabelsApiTest extends TestCase
     /**
      * Test case for generateOrderLabel
      *
-     * Ярлык‑наклейка для коробки в заказе.
+     * Готовый ярлык‑наклейка для коробки в заказе.
      *
      */
     public function testGenerateOrderLabel()
@@ -86,7 +86,7 @@ class OrderLabelsApiTest extends TestCase
     /**
      * Test case for generateOrderLabels
      *
-     * Ярлыки‑наклейки на все грузовые места в заказе.
+     * Готовые ярлыки‑наклейки на все коробки в одном заказе.
      *
      */
     public function testGenerateOrderLabels()
@@ -98,7 +98,7 @@ class OrderLabelsApiTest extends TestCase
     /**
      * Test case for getOrderLabelsData
      *
-     * Информация на ярлыках‑наклейках.
+     * Данные для самостоятельного изготовления ярлыков.
      *
      */
     public function testGetOrderLabelsData()

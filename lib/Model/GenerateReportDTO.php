@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -35,7 +35,7 @@ use \YandexMarketApi\ObjectSerializer;
  * GenerateReportDTO Class Doc Comment
  *
  * @category Class
- * @description Идентификатор, который понадобится для отслеживания статуса генерации и получения готового отчета.
+ * @description Идентификатор, который понадобится для отслеживания статуса генерации и получения готового отчета или документа.
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -316,7 +316,7 @@ class GenerateReportDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets report_id
      *
-     * @param string $report_id Идентификатор, который понадобится для отслеживания статуса генерации и получения готового отчета.
+     * @param string $report_id Идентификатор, который понадобится для отслеживания статуса генерации и получения готового отчета или документа.
      *
      * @return self
      */

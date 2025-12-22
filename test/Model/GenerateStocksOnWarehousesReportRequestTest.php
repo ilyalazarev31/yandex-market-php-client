@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -34,7 +34,7 @@ use PHPUnit\Framework\TestCase;
  * GenerateStocksOnWarehousesReportRequestTest Class Doc Comment
  *
  * @category    Class
- * @description Данные, необходимые для генерации отчета.
+ * @description Данные, необходимые для генерации отчета. Передавайте либо &#x60;businessId&#x60;, либо &#x60;campaignId&#x60;/&#x60;campaignIds&#x60;, но не все сразу.
  * @package     YandexMarketApi
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech
@@ -89,6 +89,15 @@ class GenerateStocksOnWarehousesReportRequestTest extends TestCase
     }
 
     /**
+     * Test attribute "business_id"
+     */
+    public function testPropertyBusinessId()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test attribute "warehouse_ids"
      */
     public function testPropertyWarehouseIds()
@@ -119,6 +128,15 @@ class GenerateStocksOnWarehousesReportRequestTest extends TestCase
      * Test attribute "has_stocks"
      */
     public function testPropertyHasStocks()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "campaign_ids"
+     */
+    public function testPropertyCampaignIds()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

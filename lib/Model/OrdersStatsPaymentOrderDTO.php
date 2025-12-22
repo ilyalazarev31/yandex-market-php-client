@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -35,7 +35,7 @@ use \YandexMarketApi\ObjectSerializer;
  * OrdersStatsPaymentOrderDTO Class Doc Comment
  *
  * @category Class
- * @description Информация о платежном получении.
+ * @description Информация о платежном поручении.
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -337,7 +337,7 @@ class OrdersStatsPaymentOrderDTO implements ModelInterface, ArrayAccess, \JsonSe
     /**
      * Sets date
      *
-     * @param \DateTime|null $date Дата платежного поручения. Формат даты: `ГГГГ‑ММ‑ДД`.
+     * @param \DateTime|null $date Дата платежного поручения.  Формат даты: `ГГГГ‑ММ‑ДД`.
      *
      * @return self
      */

@@ -10,7 +10,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -160,7 +160,7 @@ class ShipmentsApi
      *
      * Подтверждение отгрузки
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  \YandexMarketApi\Model\ConfirmShipmentRequest $confirm_shipment_request confirm_shipment_request (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['confirmShipment'] to see the possible values for this operation
@@ -180,7 +180,7 @@ class ShipmentsApi
      *
      * Подтверждение отгрузки
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  \YandexMarketApi\Model\ConfirmShipmentRequest $confirm_shipment_request (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['confirmShipment'] to see the possible values for this operation
@@ -420,7 +420,7 @@ class ShipmentsApi
      *
      * Подтверждение отгрузки
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  \YandexMarketApi\Model\ConfirmShipmentRequest $confirm_shipment_request (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['confirmShipment'] to see the possible values for this operation
@@ -443,7 +443,7 @@ class ShipmentsApi
      *
      * Подтверждение отгрузки
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  \YandexMarketApi\Model\ConfirmShipmentRequest $confirm_shipment_request (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['confirmShipment'] to see the possible values for this operation
@@ -495,7 +495,7 @@ class ShipmentsApi
     /**
      * Create request for operation 'confirmShipment'
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  \YandexMarketApi\Model\ConfirmShipmentRequest $confirm_shipment_request (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['confirmShipment'] to see the possible values for this operation
@@ -512,17 +512,23 @@ class ShipmentsApi
                 'Missing the required parameter $campaign_id when calling confirmShipment'
             );
         }
-
+        if ($campaign_id < 1) {
+            throw new \InvalidArgumentException('invalid value for "$campaign_id" when calling ShipmentsApi.confirmShipment, must be bigger than or equal to 1.');
+        }
+        
         // verify the required parameter 'shipment_id' is set
         if ($shipment_id === null || (is_array($shipment_id) && count($shipment_id) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $shipment_id when calling confirmShipment'
             );
         }
+        if ($shipment_id < 1) {
+            throw new \InvalidArgumentException('invalid value for "$shipment_id" when calling ShipmentsApi.confirmShipment, must be bigger than or equal to 1.');
+        }
+        
 
 
-
-        $resourcePath = '/campaigns/{campaignId}/first-mile/shipments/{shipmentId}/confirm';
+        $resourcePath = '/v2/campaigns/{campaignId}/first-mile/shipments/{shipmentId}/confirm';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -587,6 +593,11 @@ class ShipmentsApi
             }
         }
 
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
@@ -618,7 +629,7 @@ class ShipmentsApi
      *
      * Получение акта приема-передачи
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadShipmentAct'] to see the possible values for this operation
      *
@@ -637,7 +648,7 @@ class ShipmentsApi
      *
      * Получение акта приема-передачи
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadShipmentAct'] to see the possible values for this operation
      *
@@ -876,7 +887,7 @@ class ShipmentsApi
      *
      * Получение акта приема-передачи
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadShipmentAct'] to see the possible values for this operation
      *
@@ -898,7 +909,7 @@ class ShipmentsApi
      *
      * Получение акта приема-передачи
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadShipmentAct'] to see the possible values for this operation
      *
@@ -949,7 +960,7 @@ class ShipmentsApi
     /**
      * Create request for operation 'downloadShipmentAct'
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadShipmentAct'] to see the possible values for this operation
      *
@@ -965,16 +976,22 @@ class ShipmentsApi
                 'Missing the required parameter $campaign_id when calling downloadShipmentAct'
             );
         }
-
+        if ($campaign_id < 1) {
+            throw new \InvalidArgumentException('invalid value for "$campaign_id" when calling ShipmentsApi.downloadShipmentAct, must be bigger than or equal to 1.');
+        }
+        
         // verify the required parameter 'shipment_id' is set
         if ($shipment_id === null || (is_array($shipment_id) && count($shipment_id) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $shipment_id when calling downloadShipmentAct'
             );
         }
+        if ($shipment_id < 1) {
+            throw new \InvalidArgumentException('invalid value for "$shipment_id" when calling ShipmentsApi.downloadShipmentAct, must be bigger than or equal to 1.');
+        }
+        
 
-
-        $resourcePath = '/campaigns/{campaignId}/first-mile/shipments/{shipmentId}/act';
+        $resourcePath = '/v2/campaigns/{campaignId}/first-mile/shipments/{shipmentId}/act';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1032,6 +1049,11 @@ class ShipmentsApi
             }
         }
 
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
@@ -1063,7 +1085,7 @@ class ShipmentsApi
      *
      * Получение акта расхождений
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadShipmentDiscrepancyAct'] to see the possible values for this operation
      *
@@ -1082,7 +1104,7 @@ class ShipmentsApi
      *
      * Получение акта расхождений
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadShipmentDiscrepancyAct'] to see the possible values for this operation
      *
@@ -1321,7 +1343,7 @@ class ShipmentsApi
      *
      * Получение акта расхождений
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadShipmentDiscrepancyAct'] to see the possible values for this operation
      *
@@ -1343,7 +1365,7 @@ class ShipmentsApi
      *
      * Получение акта расхождений
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadShipmentDiscrepancyAct'] to see the possible values for this operation
      *
@@ -1394,7 +1416,7 @@ class ShipmentsApi
     /**
      * Create request for operation 'downloadShipmentDiscrepancyAct'
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadShipmentDiscrepancyAct'] to see the possible values for this operation
      *
@@ -1410,16 +1432,22 @@ class ShipmentsApi
                 'Missing the required parameter $campaign_id when calling downloadShipmentDiscrepancyAct'
             );
         }
-
+        if ($campaign_id < 1) {
+            throw new \InvalidArgumentException('invalid value for "$campaign_id" when calling ShipmentsApi.downloadShipmentDiscrepancyAct, must be bigger than or equal to 1.');
+        }
+        
         // verify the required parameter 'shipment_id' is set
         if ($shipment_id === null || (is_array($shipment_id) && count($shipment_id) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $shipment_id when calling downloadShipmentDiscrepancyAct'
             );
         }
+        if ($shipment_id < 1) {
+            throw new \InvalidArgumentException('invalid value for "$shipment_id" when calling ShipmentsApi.downloadShipmentDiscrepancyAct, must be bigger than or equal to 1.');
+        }
+        
 
-
-        $resourcePath = '/campaigns/{campaignId}/first-mile/shipments/{shipmentId}/discrepancy-act';
+        $resourcePath = '/v2/campaigns/{campaignId}/first-mile/shipments/{shipmentId}/discrepancy-act';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1477,6 +1505,11 @@ class ShipmentsApi
             }
         }
 
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
@@ -1508,7 +1541,7 @@ class ShipmentsApi
      *
      * Получение фактического акта приема-передачи
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadShipmentInboundAct'] to see the possible values for this operation
      *
@@ -1527,7 +1560,7 @@ class ShipmentsApi
      *
      * Получение фактического акта приема-передачи
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadShipmentInboundAct'] to see the possible values for this operation
      *
@@ -1766,7 +1799,7 @@ class ShipmentsApi
      *
      * Получение фактического акта приема-передачи
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadShipmentInboundAct'] to see the possible values for this operation
      *
@@ -1788,7 +1821,7 @@ class ShipmentsApi
      *
      * Получение фактического акта приема-передачи
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadShipmentInboundAct'] to see the possible values for this operation
      *
@@ -1839,7 +1872,7 @@ class ShipmentsApi
     /**
      * Create request for operation 'downloadShipmentInboundAct'
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadShipmentInboundAct'] to see the possible values for this operation
      *
@@ -1855,16 +1888,22 @@ class ShipmentsApi
                 'Missing the required parameter $campaign_id when calling downloadShipmentInboundAct'
             );
         }
-
+        if ($campaign_id < 1) {
+            throw new \InvalidArgumentException('invalid value for "$campaign_id" when calling ShipmentsApi.downloadShipmentInboundAct, must be bigger than or equal to 1.');
+        }
+        
         // verify the required parameter 'shipment_id' is set
         if ($shipment_id === null || (is_array($shipment_id) && count($shipment_id) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $shipment_id when calling downloadShipmentInboundAct'
             );
         }
+        if ($shipment_id < 1) {
+            throw new \InvalidArgumentException('invalid value for "$shipment_id" when calling ShipmentsApi.downloadShipmentInboundAct, must be bigger than or equal to 1.');
+        }
+        
 
-
-        $resourcePath = '/campaigns/{campaignId}/first-mile/shipments/{shipmentId}/inbound-act';
+        $resourcePath = '/v2/campaigns/{campaignId}/first-mile/shipments/{shipmentId}/inbound-act';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1922,6 +1961,11 @@ class ShipmentsApi
             }
         }
 
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
@@ -1951,11 +1995,11 @@ class ShipmentsApi
     /**
      * Operation downloadShipmentPalletLabels
      *
-     * Ярлыки на все упаковки в отгрузке
+     * Ярлыки для доверительной приемки
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
-     * @param  ShipmentPalletLabelPageFormatType $format Формат страниц PDF-файла с ярлыками: * &#x60;A4&#x60; — по 16 ярлыков на странице. * &#x60;A8&#x60; — по одному ярлыку на странице. (optional)
+     * @param  ShipmentPalletLabelPageFormatType $format Формат страниц PDF-файла с ярлыками:  * &#x60;A4&#x60; — по 16 ярлыков на странице. * &#x60;A8&#x60; — по одному ярлыку на странице. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadShipmentPalletLabels'] to see the possible values for this operation
      *
      * @throws \YandexMarketApi\ApiException on non-2xx response
@@ -1971,11 +2015,11 @@ class ShipmentsApi
     /**
      * Operation downloadShipmentPalletLabelsWithHttpInfo
      *
-     * Ярлыки на все упаковки в отгрузке
+     * Ярлыки для доверительной приемки
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
-     * @param  ShipmentPalletLabelPageFormatType $format Формат страниц PDF-файла с ярлыками: * &#x60;A4&#x60; — по 16 ярлыков на странице. * &#x60;A8&#x60; — по одному ярлыку на странице. (optional)
+     * @param  ShipmentPalletLabelPageFormatType $format Формат страниц PDF-файла с ярлыками:  * &#x60;A4&#x60; — по 16 ярлыков на странице. * &#x60;A8&#x60; — по одному ярлыку на странице. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadShipmentPalletLabels'] to see the possible values for this operation
      *
      * @throws \YandexMarketApi\ApiException on non-2xx response
@@ -2211,11 +2255,11 @@ class ShipmentsApi
     /**
      * Operation downloadShipmentPalletLabelsAsync
      *
-     * Ярлыки на все упаковки в отгрузке
+     * Ярлыки для доверительной приемки
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
-     * @param  ShipmentPalletLabelPageFormatType $format Формат страниц PDF-файла с ярлыками: * &#x60;A4&#x60; — по 16 ярлыков на странице. * &#x60;A8&#x60; — по одному ярлыку на странице. (optional)
+     * @param  ShipmentPalletLabelPageFormatType $format Формат страниц PDF-файла с ярлыками:  * &#x60;A4&#x60; — по 16 ярлыков на странице. * &#x60;A8&#x60; — по одному ярлыку на странице. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadShipmentPalletLabels'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -2234,11 +2278,11 @@ class ShipmentsApi
     /**
      * Operation downloadShipmentPalletLabelsAsyncWithHttpInfo
      *
-     * Ярлыки на все упаковки в отгрузке
+     * Ярлыки для доверительной приемки
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
-     * @param  ShipmentPalletLabelPageFormatType $format Формат страниц PDF-файла с ярлыками: * &#x60;A4&#x60; — по 16 ярлыков на странице. * &#x60;A8&#x60; — по одному ярлыку на странице. (optional)
+     * @param  ShipmentPalletLabelPageFormatType $format Формат страниц PDF-файла с ярлыками:  * &#x60;A4&#x60; — по 16 ярлыков на странице. * &#x60;A8&#x60; — по одному ярлыку на странице. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadShipmentPalletLabels'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -2288,9 +2332,9 @@ class ShipmentsApi
     /**
      * Create request for operation 'downloadShipmentPalletLabels'
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
-     * @param  ShipmentPalletLabelPageFormatType $format Формат страниц PDF-файла с ярлыками: * &#x60;A4&#x60; — по 16 ярлыков на странице. * &#x60;A8&#x60; — по одному ярлыку на странице. (optional)
+     * @param  ShipmentPalletLabelPageFormatType $format Формат страниц PDF-файла с ярлыками:  * &#x60;A4&#x60; — по 16 ярлыков на странице. * &#x60;A8&#x60; — по одному ярлыку на странице. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadShipmentPalletLabels'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -2305,17 +2349,23 @@ class ShipmentsApi
                 'Missing the required parameter $campaign_id when calling downloadShipmentPalletLabels'
             );
         }
-
+        if ($campaign_id < 1) {
+            throw new \InvalidArgumentException('invalid value for "$campaign_id" when calling ShipmentsApi.downloadShipmentPalletLabels, must be bigger than or equal to 1.');
+        }
+        
         // verify the required parameter 'shipment_id' is set
         if ($shipment_id === null || (is_array($shipment_id) && count($shipment_id) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $shipment_id when calling downloadShipmentPalletLabels'
             );
         }
+        if ($shipment_id < 1) {
+            throw new \InvalidArgumentException('invalid value for "$shipment_id" when calling ShipmentsApi.downloadShipmentPalletLabels, must be bigger than or equal to 1.');
+        }
+        
 
 
-
-        $resourcePath = '/campaigns/{campaignId}/first-mile/shipments/{shipmentId}/pallet/labels';
+        $resourcePath = '/v2/campaigns/{campaignId}/first-mile/shipments/{shipmentId}/pallet/labels';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2382,6 +2432,11 @@ class ShipmentsApi
             }
         }
 
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
@@ -2413,17 +2468,18 @@ class ShipmentsApi
      *
      * Подтверждение ближайшей отгрузки и получение акта приема-передачи для нее
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
-     * @param  int $warehouse_id Идентификатор склада (optional)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
+     * @param  int $warehouse_id Идентификатор склада. (optional)
+     * @param  string $signatory Логин пользователя в Яндекс ID, от имени которого будет подписываться электронный акт приема-передачи.  Указывается без &#x60;@yandex.ru&#x60;.  {% note info \&quot;Электронная подпись\&quot; %}  Если вы указываете параметр &#x60;signatory&#x60;, акт приема-передачи подписывается электронной подписью и становится электронным документом. В этом случае печатать и подписывать акт вручную не требуется — он уже имеет юридическую силу в электронном виде.  Подробнее о работе с актами приема-передачи читайте [в Справке Маркета для продавцов](https://yandex.ru/support/marketplace/ru/orders/fbs/process#act).  {% endnote %}  Где найти логин:  * на странице [Яндекс ID](https://id.yandex.ru); * в [кабинете продавца на Маркете](https://partner.market.yandex.ru/):  * в правом верхнем углу под иконкой пользователя;   * на странице **Настройки** → **Сотрудники и доступы**. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadShipmentReceptionTransferAct'] to see the possible values for this operation
      *
      * @throws \YandexMarketApi\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \SplFileObject|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiNotFoundErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse
      */
-    public function downloadShipmentReceptionTransferAct($campaign_id, $warehouse_id = null, string $contentType = self::contentTypes['downloadShipmentReceptionTransferAct'][0])
+    public function downloadShipmentReceptionTransferAct($campaign_id, $warehouse_id = null, $signatory = null, string $contentType = self::contentTypes['downloadShipmentReceptionTransferAct'][0])
     {
-        list($response) = $this->downloadShipmentReceptionTransferActWithHttpInfo($campaign_id, $warehouse_id, $contentType);
+        list($response) = $this->downloadShipmentReceptionTransferActWithHttpInfo($campaign_id, $warehouse_id, $signatory, $contentType);
         return $response;
     }
 
@@ -2432,17 +2488,18 @@ class ShipmentsApi
      *
      * Подтверждение ближайшей отгрузки и получение акта приема-передачи для нее
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
-     * @param  int $warehouse_id Идентификатор склада (optional)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
+     * @param  int $warehouse_id Идентификатор склада. (optional)
+     * @param  string $signatory Логин пользователя в Яндекс ID, от имени которого будет подписываться электронный акт приема-передачи.  Указывается без &#x60;@yandex.ru&#x60;.  {% note info \&quot;Электронная подпись\&quot; %}  Если вы указываете параметр &#x60;signatory&#x60;, акт приема-передачи подписывается электронной подписью и становится электронным документом. В этом случае печатать и подписывать акт вручную не требуется — он уже имеет юридическую силу в электронном виде.  Подробнее о работе с актами приема-передачи читайте [в Справке Маркета для продавцов](https://yandex.ru/support/marketplace/ru/orders/fbs/process#act).  {% endnote %}  Где найти логин:  * на странице [Яндекс ID](https://id.yandex.ru); * в [кабинете продавца на Маркете](https://partner.market.yandex.ru/):  * в правом верхнем углу под иконкой пользователя;   * на странице **Настройки** → **Сотрудники и доступы**. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadShipmentReceptionTransferAct'] to see the possible values for this operation
      *
      * @throws \YandexMarketApi\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \SplFileObject|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiNotFoundErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function downloadShipmentReceptionTransferActWithHttpInfo($campaign_id, $warehouse_id = null, string $contentType = self::contentTypes['downloadShipmentReceptionTransferAct'][0])
+    public function downloadShipmentReceptionTransferActWithHttpInfo($campaign_id, $warehouse_id = null, $signatory = null, string $contentType = self::contentTypes['downloadShipmentReceptionTransferAct'][0])
     {
-        $request = $this->downloadShipmentReceptionTransferActRequest($campaign_id, $warehouse_id, $contentType);
+        $request = $this->downloadShipmentReceptionTransferActRequest($campaign_id, $warehouse_id, $signatory, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2671,16 +2728,17 @@ class ShipmentsApi
      *
      * Подтверждение ближайшей отгрузки и получение акта приема-передачи для нее
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
-     * @param  int $warehouse_id Идентификатор склада (optional)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
+     * @param  int $warehouse_id Идентификатор склада. (optional)
+     * @param  string $signatory Логин пользователя в Яндекс ID, от имени которого будет подписываться электронный акт приема-передачи.  Указывается без &#x60;@yandex.ru&#x60;.  {% note info \&quot;Электронная подпись\&quot; %}  Если вы указываете параметр &#x60;signatory&#x60;, акт приема-передачи подписывается электронной подписью и становится электронным документом. В этом случае печатать и подписывать акт вручную не требуется — он уже имеет юридическую силу в электронном виде.  Подробнее о работе с актами приема-передачи читайте [в Справке Маркета для продавцов](https://yandex.ru/support/marketplace/ru/orders/fbs/process#act).  {% endnote %}  Где найти логин:  * на странице [Яндекс ID](https://id.yandex.ru); * в [кабинете продавца на Маркете](https://partner.market.yandex.ru/):  * в правом верхнем углу под иконкой пользователя;   * на странице **Настройки** → **Сотрудники и доступы**. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadShipmentReceptionTransferAct'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function downloadShipmentReceptionTransferActAsync($campaign_id, $warehouse_id = null, string $contentType = self::contentTypes['downloadShipmentReceptionTransferAct'][0])
+    public function downloadShipmentReceptionTransferActAsync($campaign_id, $warehouse_id = null, $signatory = null, string $contentType = self::contentTypes['downloadShipmentReceptionTransferAct'][0])
     {
-        return $this->downloadShipmentReceptionTransferActAsyncWithHttpInfo($campaign_id, $warehouse_id, $contentType)
+        return $this->downloadShipmentReceptionTransferActAsyncWithHttpInfo($campaign_id, $warehouse_id, $signatory, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2693,17 +2751,18 @@ class ShipmentsApi
      *
      * Подтверждение ближайшей отгрузки и получение акта приема-передачи для нее
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
-     * @param  int $warehouse_id Идентификатор склада (optional)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
+     * @param  int $warehouse_id Идентификатор склада. (optional)
+     * @param  string $signatory Логин пользователя в Яндекс ID, от имени которого будет подписываться электронный акт приема-передачи.  Указывается без &#x60;@yandex.ru&#x60;.  {% note info \&quot;Электронная подпись\&quot; %}  Если вы указываете параметр &#x60;signatory&#x60;, акт приема-передачи подписывается электронной подписью и становится электронным документом. В этом случае печатать и подписывать акт вручную не требуется — он уже имеет юридическую силу в электронном виде.  Подробнее о работе с актами приема-передачи читайте [в Справке Маркета для продавцов](https://yandex.ru/support/marketplace/ru/orders/fbs/process#act).  {% endnote %}  Где найти логин:  * на странице [Яндекс ID](https://id.yandex.ru); * в [кабинете продавца на Маркете](https://partner.market.yandex.ru/):  * в правом верхнем углу под иконкой пользователя;   * на странице **Настройки** → **Сотрудники и доступы**. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadShipmentReceptionTransferAct'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function downloadShipmentReceptionTransferActAsyncWithHttpInfo($campaign_id, $warehouse_id = null, string $contentType = self::contentTypes['downloadShipmentReceptionTransferAct'][0])
+    public function downloadShipmentReceptionTransferActAsyncWithHttpInfo($campaign_id, $warehouse_id = null, $signatory = null, string $contentType = self::contentTypes['downloadShipmentReceptionTransferAct'][0])
     {
         $returnType = '\SplFileObject';
-        $request = $this->downloadShipmentReceptionTransferActRequest($campaign_id, $warehouse_id, $contentType);
+        $request = $this->downloadShipmentReceptionTransferActRequest($campaign_id, $warehouse_id, $signatory, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2744,14 +2803,15 @@ class ShipmentsApi
     /**
      * Create request for operation 'downloadShipmentReceptionTransferAct'
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
-     * @param  int $warehouse_id Идентификатор склада (optional)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
+     * @param  int $warehouse_id Идентификатор склада. (optional)
+     * @param  string $signatory Логин пользователя в Яндекс ID, от имени которого будет подписываться электронный акт приема-передачи.  Указывается без &#x60;@yandex.ru&#x60;.  {% note info \&quot;Электронная подпись\&quot; %}  Если вы указываете параметр &#x60;signatory&#x60;, акт приема-передачи подписывается электронной подписью и становится электронным документом. В этом случае печатать и подписывать акт вручную не требуется — он уже имеет юридическую силу в электронном виде.  Подробнее о работе с актами приема-передачи читайте [в Справке Маркета для продавцов](https://yandex.ru/support/marketplace/ru/orders/fbs/process#act).  {% endnote %}  Где найти логин:  * на странице [Яндекс ID](https://id.yandex.ru); * в [кабинете продавца на Маркете](https://partner.market.yandex.ru/):  * в правом верхнем углу под иконкой пользователя;   * на странице **Настройки** → **Сотрудники и доступы**. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadShipmentReceptionTransferAct'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function downloadShipmentReceptionTransferActRequest($campaign_id, $warehouse_id = null, string $contentType = self::contentTypes['downloadShipmentReceptionTransferAct'][0])
+    public function downloadShipmentReceptionTransferActRequest($campaign_id, $warehouse_id = null, $signatory = null, string $contentType = self::contentTypes['downloadShipmentReceptionTransferAct'][0])
     {
 
         // verify the required parameter 'campaign_id' is set
@@ -2760,10 +2820,17 @@ class ShipmentsApi
                 'Missing the required parameter $campaign_id when calling downloadShipmentReceptionTransferAct'
             );
         }
+        if ($campaign_id < 1) {
+            throw new \InvalidArgumentException('invalid value for "$campaign_id" when calling ShipmentsApi.downloadShipmentReceptionTransferAct, must be bigger than or equal to 1.');
+        }
+        
+        if ($warehouse_id !== null && $warehouse_id < 1) {
+            throw new \InvalidArgumentException('invalid value for "$warehouse_id" when calling ShipmentsApi.downloadShipmentReceptionTransferAct, must be bigger than or equal to 1.');
+        }
+        
 
 
-
-        $resourcePath = '/campaigns/{campaignId}/shipments/reception-transfer-act';
+        $resourcePath = '/v2/campaigns/{campaignId}/shipments/reception-transfer-act';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2775,6 +2842,15 @@ class ShipmentsApi
             $warehouse_id,
             'warehouse_id', // param base name
             'integer', // openApiType
+            '', // style
+            false, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $signatory,
+            'signatory', // param base name
+            'string', // openApiType
             '', // style
             false, // explode
             false // required
@@ -2822,6 +2898,11 @@ class ShipmentsApi
             }
         }
 
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
@@ -2853,7 +2934,7 @@ class ShipmentsApi
      *
      * Получение транспортной накладной
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadShipmentTransportationWaybill'] to see the possible values for this operation
      *
@@ -2872,7 +2953,7 @@ class ShipmentsApi
      *
      * Получение транспортной накладной
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadShipmentTransportationWaybill'] to see the possible values for this operation
      *
@@ -3111,7 +3192,7 @@ class ShipmentsApi
      *
      * Получение транспортной накладной
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadShipmentTransportationWaybill'] to see the possible values for this operation
      *
@@ -3133,7 +3214,7 @@ class ShipmentsApi
      *
      * Получение транспортной накладной
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadShipmentTransportationWaybill'] to see the possible values for this operation
      *
@@ -3184,7 +3265,7 @@ class ShipmentsApi
     /**
      * Create request for operation 'downloadShipmentTransportationWaybill'
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadShipmentTransportationWaybill'] to see the possible values for this operation
      *
@@ -3200,16 +3281,22 @@ class ShipmentsApi
                 'Missing the required parameter $campaign_id when calling downloadShipmentTransportationWaybill'
             );
         }
-
+        if ($campaign_id < 1) {
+            throw new \InvalidArgumentException('invalid value for "$campaign_id" when calling ShipmentsApi.downloadShipmentTransportationWaybill, must be bigger than or equal to 1.');
+        }
+        
         // verify the required parameter 'shipment_id' is set
         if ($shipment_id === null || (is_array($shipment_id) && count($shipment_id) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $shipment_id when calling downloadShipmentTransportationWaybill'
             );
         }
+        if ($shipment_id < 1) {
+            throw new \InvalidArgumentException('invalid value for "$shipment_id" when calling ShipmentsApi.downloadShipmentTransportationWaybill, must be bigger than or equal to 1.');
+        }
+        
 
-
-        $resourcePath = '/campaigns/{campaignId}/first-mile/shipments/{shipmentId}/transportation-waybill';
+        $resourcePath = '/v2/campaigns/{campaignId}/first-mile/shipments/{shipmentId}/transportation-waybill';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -3267,6 +3354,11 @@ class ShipmentsApi
             }
         }
 
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
@@ -3296,38 +3388,40 @@ class ShipmentsApi
     /**
      * Operation getShipment
      *
-     * Получение информации об отгрузке
+     * Получение информации об одной отгрузке
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
+     * @param  bool $cancelled_orders Возвращать ли отмененные заказы.  Значение по умолчанию: &#x60;true&#x60;. Если возвращать отмененные заказы не нужно, передайте значение &#x60;false&#x60;. (optional, default to true)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getShipment'] to see the possible values for this operation
      *
      * @throws \YandexMarketApi\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \YandexMarketApi\Model\GetShipmentResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiNotFoundErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse
      */
-    public function getShipment($campaign_id, $shipment_id, string $contentType = self::contentTypes['getShipment'][0])
+    public function getShipment($campaign_id, $shipment_id, $cancelled_orders = true, string $contentType = self::contentTypes['getShipment'][0])
     {
-        list($response) = $this->getShipmentWithHttpInfo($campaign_id, $shipment_id, $contentType);
+        list($response) = $this->getShipmentWithHttpInfo($campaign_id, $shipment_id, $cancelled_orders, $contentType);
         return $response;
     }
 
     /**
      * Operation getShipmentWithHttpInfo
      *
-     * Получение информации об отгрузке
+     * Получение информации об одной отгрузке
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
+     * @param  bool $cancelled_orders Возвращать ли отмененные заказы.  Значение по умолчанию: &#x60;true&#x60;. Если возвращать отмененные заказы не нужно, передайте значение &#x60;false&#x60;. (optional, default to true)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getShipment'] to see the possible values for this operation
      *
      * @throws \YandexMarketApi\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \YandexMarketApi\Model\GetShipmentResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiNotFoundErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getShipmentWithHttpInfo($campaign_id, $shipment_id, string $contentType = self::contentTypes['getShipment'][0])
+    public function getShipmentWithHttpInfo($campaign_id, $shipment_id, $cancelled_orders = true, string $contentType = self::contentTypes['getShipment'][0])
     {
-        $request = $this->getShipmentRequest($campaign_id, $shipment_id, $contentType);
+        $request = $this->getShipmentRequest($campaign_id, $shipment_id, $cancelled_orders, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3554,18 +3648,19 @@ class ShipmentsApi
     /**
      * Operation getShipmentAsync
      *
-     * Получение информации об отгрузке
+     * Получение информации об одной отгрузке
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
+     * @param  bool $cancelled_orders Возвращать ли отмененные заказы.  Значение по умолчанию: &#x60;true&#x60;. Если возвращать отмененные заказы не нужно, передайте значение &#x60;false&#x60;. (optional, default to true)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getShipment'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getShipmentAsync($campaign_id, $shipment_id, string $contentType = self::contentTypes['getShipment'][0])
+    public function getShipmentAsync($campaign_id, $shipment_id, $cancelled_orders = true, string $contentType = self::contentTypes['getShipment'][0])
     {
-        return $this->getShipmentAsyncWithHttpInfo($campaign_id, $shipment_id, $contentType)
+        return $this->getShipmentAsyncWithHttpInfo($campaign_id, $shipment_id, $cancelled_orders, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3576,19 +3671,20 @@ class ShipmentsApi
     /**
      * Operation getShipmentAsyncWithHttpInfo
      *
-     * Получение информации об отгрузке
+     * Получение информации об одной отгрузке
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
+     * @param  bool $cancelled_orders Возвращать ли отмененные заказы.  Значение по умолчанию: &#x60;true&#x60;. Если возвращать отмененные заказы не нужно, передайте значение &#x60;false&#x60;. (optional, default to true)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getShipment'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getShipmentAsyncWithHttpInfo($campaign_id, $shipment_id, string $contentType = self::contentTypes['getShipment'][0])
+    public function getShipmentAsyncWithHttpInfo($campaign_id, $shipment_id, $cancelled_orders = true, string $contentType = self::contentTypes['getShipment'][0])
     {
         $returnType = '\YandexMarketApi\Model\GetShipmentResponse';
-        $request = $this->getShipmentRequest($campaign_id, $shipment_id, $contentType);
+        $request = $this->getShipmentRequest($campaign_id, $shipment_id, $cancelled_orders, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3629,14 +3725,15 @@ class ShipmentsApi
     /**
      * Create request for operation 'getShipment'
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
+     * @param  bool $cancelled_orders Возвращать ли отмененные заказы.  Значение по умолчанию: &#x60;true&#x60;. Если возвращать отмененные заказы не нужно, передайте значение &#x60;false&#x60;. (optional, default to true)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getShipment'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getShipmentRequest($campaign_id, $shipment_id, string $contentType = self::contentTypes['getShipment'][0])
+    public function getShipmentRequest($campaign_id, $shipment_id, $cancelled_orders = true, string $contentType = self::contentTypes['getShipment'][0])
     {
 
         // verify the required parameter 'campaign_id' is set
@@ -3645,22 +3742,38 @@ class ShipmentsApi
                 'Missing the required parameter $campaign_id when calling getShipment'
             );
         }
-
+        if ($campaign_id < 1) {
+            throw new \InvalidArgumentException('invalid value for "$campaign_id" when calling ShipmentsApi.getShipment, must be bigger than or equal to 1.');
+        }
+        
         // verify the required parameter 'shipment_id' is set
         if ($shipment_id === null || (is_array($shipment_id) && count($shipment_id) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $shipment_id when calling getShipment'
             );
         }
+        if ($shipment_id < 1) {
+            throw new \InvalidArgumentException('invalid value for "$shipment_id" when calling ShipmentsApi.getShipment, must be bigger than or equal to 1.');
+        }
+        
 
 
-        $resourcePath = '/campaigns/{campaignId}/first-mile/shipments/{shipmentId}';
+        $resourcePath = '/v2/campaigns/{campaignId}/first-mile/shipments/{shipmentId}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
         $multipart = false;
 
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $cancelled_orders,
+            'cancelledOrders', // param base name
+            'boolean', // openApiType
+            '', // style
+            false, // explode
+            false // required
+        ) ?? []);
 
 
         // path params
@@ -3712,6 +3825,11 @@ class ShipmentsApi
             }
         }
 
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
@@ -3741,9 +3859,9 @@ class ShipmentsApi
     /**
      * Operation getShipmentOrdersInfo
      *
-     * Получение информации о ярлыках
+     * Получение информации о возможности печати ярлыков
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getShipmentOrdersInfo'] to see the possible values for this operation
      *
@@ -3760,9 +3878,9 @@ class ShipmentsApi
     /**
      * Operation getShipmentOrdersInfoWithHttpInfo
      *
-     * Получение информации о ярлыках
+     * Получение информации о возможности печати ярлыков
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getShipmentOrdersInfo'] to see the possible values for this operation
      *
@@ -3999,9 +4117,9 @@ class ShipmentsApi
     /**
      * Operation getShipmentOrdersInfoAsync
      *
-     * Получение информации о ярлыках
+     * Получение информации о возможности печати ярлыков
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getShipmentOrdersInfo'] to see the possible values for this operation
      *
@@ -4021,9 +4139,9 @@ class ShipmentsApi
     /**
      * Operation getShipmentOrdersInfoAsyncWithHttpInfo
      *
-     * Получение информации о ярлыках
+     * Получение информации о возможности печати ярлыков
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getShipmentOrdersInfo'] to see the possible values for this operation
      *
@@ -4074,7 +4192,7 @@ class ShipmentsApi
     /**
      * Create request for operation 'getShipmentOrdersInfo'
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getShipmentOrdersInfo'] to see the possible values for this operation
      *
@@ -4090,16 +4208,22 @@ class ShipmentsApi
                 'Missing the required parameter $campaign_id when calling getShipmentOrdersInfo'
             );
         }
-
+        if ($campaign_id < 1) {
+            throw new \InvalidArgumentException('invalid value for "$campaign_id" when calling ShipmentsApi.getShipmentOrdersInfo, must be bigger than or equal to 1.');
+        }
+        
         // verify the required parameter 'shipment_id' is set
         if ($shipment_id === null || (is_array($shipment_id) && count($shipment_id) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $shipment_id when calling getShipmentOrdersInfo'
             );
         }
+        if ($shipment_id < 1) {
+            throw new \InvalidArgumentException('invalid value for "$shipment_id" when calling ShipmentsApi.getShipmentOrdersInfo, must be bigger than or equal to 1.');
+        }
+        
 
-
-        $resourcePath = '/campaigns/{campaignId}/first-mile/shipments/{shipmentId}/orders/info';
+        $resourcePath = '/v2/campaigns/{campaignId}/first-mile/shipments/{shipmentId}/orders/info';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -4157,6 +4281,11 @@ class ShipmentsApi
             }
         }
 
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
@@ -4186,12 +4315,12 @@ class ShipmentsApi
     /**
      * Operation searchShipments
      *
-     * Получение информации об отгрузках
+     * Получение информации о нескольких отгрузках
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  \YandexMarketApi\Model\SearchShipmentsRequest $search_shipments_request search_shipments_request (required)
-     * @param  string $page_token Идентификатор страницы c результатами.  Если параметр не указан, возвращается самая старая страница.  Рекомендуется передавать значение выходного параметра &#x60;nextPageToken&#x60;, полученное при последнем запросе.  Если задан &#x60;page_token&#x60;, параметры &#x60;offset&#x60;, &#x60;page_number&#x60; и &#x60;page_size&#x60; игнорируются. (optional)
-     * @param  int $limit Количество товаров на одной странице. (optional)
+     * @param  string $page_token Идентификатор страницы c результатами.  Если параметр не указан, возвращается первая страница.  Рекомендуем передавать значение выходного параметра &#x60;nextPageToken&#x60;, полученное при последнем запросе.  Если задан &#x60;page_token&#x60; и в запросе есть параметры &#x60;page&#x60; и &#x60;pageSize&#x60;, они игнорируются. (optional)
+     * @param  int $limit Количество значений на одной странице. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['searchShipments'] to see the possible values for this operation
      *
      * @throws \YandexMarketApi\ApiException on non-2xx response
@@ -4207,12 +4336,12 @@ class ShipmentsApi
     /**
      * Operation searchShipmentsWithHttpInfo
      *
-     * Получение информации об отгрузках
+     * Получение информации о нескольких отгрузках
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  \YandexMarketApi\Model\SearchShipmentsRequest $search_shipments_request (required)
-     * @param  string $page_token Идентификатор страницы c результатами.  Если параметр не указан, возвращается самая старая страница.  Рекомендуется передавать значение выходного параметра &#x60;nextPageToken&#x60;, полученное при последнем запросе.  Если задан &#x60;page_token&#x60;, параметры &#x60;offset&#x60;, &#x60;page_number&#x60; и &#x60;page_size&#x60; игнорируются. (optional)
-     * @param  int $limit Количество товаров на одной странице. (optional)
+     * @param  string $page_token Идентификатор страницы c результатами.  Если параметр не указан, возвращается первая страница.  Рекомендуем передавать значение выходного параметра &#x60;nextPageToken&#x60;, полученное при последнем запросе.  Если задан &#x60;page_token&#x60; и в запросе есть параметры &#x60;page&#x60; и &#x60;pageSize&#x60;, они игнорируются. (optional)
+     * @param  int $limit Количество значений на одной странице. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['searchShipments'] to see the possible values for this operation
      *
      * @throws \YandexMarketApi\ApiException on non-2xx response
@@ -4448,12 +4577,12 @@ class ShipmentsApi
     /**
      * Operation searchShipmentsAsync
      *
-     * Получение информации об отгрузках
+     * Получение информации о нескольких отгрузках
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  \YandexMarketApi\Model\SearchShipmentsRequest $search_shipments_request (required)
-     * @param  string $page_token Идентификатор страницы c результатами.  Если параметр не указан, возвращается самая старая страница.  Рекомендуется передавать значение выходного параметра &#x60;nextPageToken&#x60;, полученное при последнем запросе.  Если задан &#x60;page_token&#x60;, параметры &#x60;offset&#x60;, &#x60;page_number&#x60; и &#x60;page_size&#x60; игнорируются. (optional)
-     * @param  int $limit Количество товаров на одной странице. (optional)
+     * @param  string $page_token Идентификатор страницы c результатами.  Если параметр не указан, возвращается первая страница.  Рекомендуем передавать значение выходного параметра &#x60;nextPageToken&#x60;, полученное при последнем запросе.  Если задан &#x60;page_token&#x60; и в запросе есть параметры &#x60;page&#x60; и &#x60;pageSize&#x60;, они игнорируются. (optional)
+     * @param  int $limit Количество значений на одной странице. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['searchShipments'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -4472,12 +4601,12 @@ class ShipmentsApi
     /**
      * Operation searchShipmentsAsyncWithHttpInfo
      *
-     * Получение информации об отгрузках
+     * Получение информации о нескольких отгрузках
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  \YandexMarketApi\Model\SearchShipmentsRequest $search_shipments_request (required)
-     * @param  string $page_token Идентификатор страницы c результатами.  Если параметр не указан, возвращается самая старая страница.  Рекомендуется передавать значение выходного параметра &#x60;nextPageToken&#x60;, полученное при последнем запросе.  Если задан &#x60;page_token&#x60;, параметры &#x60;offset&#x60;, &#x60;page_number&#x60; и &#x60;page_size&#x60; игнорируются. (optional)
-     * @param  int $limit Количество товаров на одной странице. (optional)
+     * @param  string $page_token Идентификатор страницы c результатами.  Если параметр не указан, возвращается первая страница.  Рекомендуем передавать значение выходного параметра &#x60;nextPageToken&#x60;, полученное при последнем запросе.  Если задан &#x60;page_token&#x60; и в запросе есть параметры &#x60;page&#x60; и &#x60;pageSize&#x60;, они игнорируются. (optional)
+     * @param  int $limit Количество значений на одной странице. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['searchShipments'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -4527,10 +4656,10 @@ class ShipmentsApi
     /**
      * Create request for operation 'searchShipments'
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  \YandexMarketApi\Model\SearchShipmentsRequest $search_shipments_request (required)
-     * @param  string $page_token Идентификатор страницы c результатами.  Если параметр не указан, возвращается самая старая страница.  Рекомендуется передавать значение выходного параметра &#x60;nextPageToken&#x60;, полученное при последнем запросе.  Если задан &#x60;page_token&#x60;, параметры &#x60;offset&#x60;, &#x60;page_number&#x60; и &#x60;page_size&#x60; игнорируются. (optional)
-     * @param  int $limit Количество товаров на одной странице. (optional)
+     * @param  string $page_token Идентификатор страницы c результатами.  Если параметр не указан, возвращается первая страница.  Рекомендуем передавать значение выходного параметра &#x60;nextPageToken&#x60;, полученное при последнем запросе.  Если задан &#x60;page_token&#x60; и в запросе есть параметры &#x60;page&#x60; и &#x60;pageSize&#x60;, они игнорируются. (optional)
+     * @param  int $limit Количество значений на одной странице. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['searchShipments'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -4545,7 +4674,10 @@ class ShipmentsApi
                 'Missing the required parameter $campaign_id when calling searchShipments'
             );
         }
-
+        if ($campaign_id < 1) {
+            throw new \InvalidArgumentException('invalid value for "$campaign_id" when calling ShipmentsApi.searchShipments, must be bigger than or equal to 1.');
+        }
+        
         // verify the required parameter 'search_shipments_request' is set
         if ($search_shipments_request === null || (is_array($search_shipments_request) && count($search_shipments_request) === 0)) {
             throw new \InvalidArgumentException(
@@ -4554,9 +4686,12 @@ class ShipmentsApi
         }
 
 
+        if ($limit !== null && $limit < 1) {
+            throw new \InvalidArgumentException('invalid value for "$limit" when calling ShipmentsApi.searchShipments, must be bigger than or equal to 1.');
+        }
+        
 
-
-        $resourcePath = '/campaigns/{campaignId}/first-mile/shipments';
+        $resourcePath = '/v2/campaigns/{campaignId}/first-mile/shipments';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -4631,6 +4766,11 @@ class ShipmentsApi
             }
         }
 
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
@@ -4660,9 +4800,9 @@ class ShipmentsApi
     /**
      * Operation setShipmentPalletsCount
      *
-     * Передача количества упаковок в отгрузке
+     * Передача количества упаковок для доверительной приемки
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  \YandexMarketApi\Model\SetShipmentPalletsCountRequest $set_shipment_pallets_count_request set_shipment_pallets_count_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['setShipmentPalletsCount'] to see the possible values for this operation
@@ -4680,9 +4820,9 @@ class ShipmentsApi
     /**
      * Operation setShipmentPalletsCountWithHttpInfo
      *
-     * Передача количества упаковок в отгрузке
+     * Передача количества упаковок для доверительной приемки
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  \YandexMarketApi\Model\SetShipmentPalletsCountRequest $set_shipment_pallets_count_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['setShipmentPalletsCount'] to see the possible values for this operation
@@ -4920,9 +5060,9 @@ class ShipmentsApi
     /**
      * Operation setShipmentPalletsCountAsync
      *
-     * Передача количества упаковок в отгрузке
+     * Передача количества упаковок для доверительной приемки
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  \YandexMarketApi\Model\SetShipmentPalletsCountRequest $set_shipment_pallets_count_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['setShipmentPalletsCount'] to see the possible values for this operation
@@ -4943,9 +5083,9 @@ class ShipmentsApi
     /**
      * Operation setShipmentPalletsCountAsyncWithHttpInfo
      *
-     * Передача количества упаковок в отгрузке
+     * Передача количества упаковок для доверительной приемки
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  \YandexMarketApi\Model\SetShipmentPalletsCountRequest $set_shipment_pallets_count_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['setShipmentPalletsCount'] to see the possible values for this operation
@@ -4997,7 +5137,7 @@ class ShipmentsApi
     /**
      * Create request for operation 'setShipmentPalletsCount'
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  \YandexMarketApi\Model\SetShipmentPalletsCountRequest $set_shipment_pallets_count_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['setShipmentPalletsCount'] to see the possible values for this operation
@@ -5014,14 +5154,20 @@ class ShipmentsApi
                 'Missing the required parameter $campaign_id when calling setShipmentPalletsCount'
             );
         }
-
+        if ($campaign_id < 1) {
+            throw new \InvalidArgumentException('invalid value for "$campaign_id" when calling ShipmentsApi.setShipmentPalletsCount, must be bigger than or equal to 1.');
+        }
+        
         // verify the required parameter 'shipment_id' is set
         if ($shipment_id === null || (is_array($shipment_id) && count($shipment_id) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $shipment_id when calling setShipmentPalletsCount'
             );
         }
-
+        if ($shipment_id < 1) {
+            throw new \InvalidArgumentException('invalid value for "$shipment_id" when calling ShipmentsApi.setShipmentPalletsCount, must be bigger than or equal to 1.');
+        }
+        
         // verify the required parameter 'set_shipment_pallets_count_request' is set
         if ($set_shipment_pallets_count_request === null || (is_array($set_shipment_pallets_count_request) && count($set_shipment_pallets_count_request) === 0)) {
             throw new \InvalidArgumentException(
@@ -5030,7 +5176,7 @@ class ShipmentsApi
         }
 
 
-        $resourcePath = '/campaigns/{campaignId}/first-mile/shipments/{shipmentId}/pallets';
+        $resourcePath = '/v2/campaigns/{campaignId}/first-mile/shipments/{shipmentId}/pallets';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -5095,6 +5241,11 @@ class ShipmentsApi
             }
         }
 
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
@@ -5126,7 +5277,7 @@ class ShipmentsApi
      *
      * Перенос заказов в следующую отгрузку
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  \YandexMarketApi\Model\TransferOrdersFromShipmentRequest $transfer_orders_from_shipment_request transfer_orders_from_shipment_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['transferOrdersFromShipment'] to see the possible values for this operation
@@ -5146,7 +5297,7 @@ class ShipmentsApi
      *
      * Перенос заказов в следующую отгрузку
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  \YandexMarketApi\Model\TransferOrdersFromShipmentRequest $transfer_orders_from_shipment_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['transferOrdersFromShipment'] to see the possible values for this operation
@@ -5386,7 +5537,7 @@ class ShipmentsApi
      *
      * Перенос заказов в следующую отгрузку
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  \YandexMarketApi\Model\TransferOrdersFromShipmentRequest $transfer_orders_from_shipment_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['transferOrdersFromShipment'] to see the possible values for this operation
@@ -5409,7 +5560,7 @@ class ShipmentsApi
      *
      * Перенос заказов в следующую отгрузку
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  \YandexMarketApi\Model\TransferOrdersFromShipmentRequest $transfer_orders_from_shipment_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['transferOrdersFromShipment'] to see the possible values for this operation
@@ -5461,7 +5612,7 @@ class ShipmentsApi
     /**
      * Create request for operation 'transferOrdersFromShipment'
      *
-     * @param  int $campaign_id Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. (required)
      * @param  int $shipment_id Идентификатор отгрузки. (required)
      * @param  \YandexMarketApi\Model\TransferOrdersFromShipmentRequest $transfer_orders_from_shipment_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['transferOrdersFromShipment'] to see the possible values for this operation
@@ -5478,14 +5629,20 @@ class ShipmentsApi
                 'Missing the required parameter $campaign_id when calling transferOrdersFromShipment'
             );
         }
-
+        if ($campaign_id < 1) {
+            throw new \InvalidArgumentException('invalid value for "$campaign_id" when calling ShipmentsApi.transferOrdersFromShipment, must be bigger than or equal to 1.');
+        }
+        
         // verify the required parameter 'shipment_id' is set
         if ($shipment_id === null || (is_array($shipment_id) && count($shipment_id) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $shipment_id when calling transferOrdersFromShipment'
             );
         }
-
+        if ($shipment_id < 1) {
+            throw new \InvalidArgumentException('invalid value for "$shipment_id" when calling ShipmentsApi.transferOrdersFromShipment, must be bigger than or equal to 1.');
+        }
+        
         // verify the required parameter 'transfer_orders_from_shipment_request' is set
         if ($transfer_orders_from_shipment_request === null || (is_array($transfer_orders_from_shipment_request) && count($transfer_orders_from_shipment_request) === 0)) {
             throw new \InvalidArgumentException(
@@ -5494,7 +5651,7 @@ class ShipmentsApi
         }
 
 
-        $resourcePath = '/campaigns/{campaignId}/first-mile/shipments/{shipmentId}/orders/transfer';
+        $resourcePath = '/v2/campaigns/{campaignId}/first-mile/shipments/{shipmentId}/orders/transfer';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -5559,6 +5716,11 @@ class ShipmentsApi
             }
         }
 
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();

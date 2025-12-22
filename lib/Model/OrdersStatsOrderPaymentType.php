@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -33,7 +33,7 @@ use \YandexMarketApi\ObjectSerializer;
  * OrdersStatsOrderPaymentType Class Doc Comment
  *
  * @category Class
- * @description Тип оплаты заказа: - &#x60;CREDIT&#x60; — заказ оформлен в кредит. - &#x60;POSTPAID&#x60; — заказ оплачен после того, как был получен. - &#x60;PREPAID&#x60; — заказ оплачен до того, как был получен.
+ * @description Тип оплаты заказа: - &#x60;POSTPAID&#x60; — заказ оплачен после того, как был получен. - &#x60;PREPAID&#x60; — заказ оплачен до того, как был получен. - &#x60;UNKNOWN&#x60; — неизвестный тип оплаты. Скорее всего покупатель отменил или вернул заказ или не было его оплаты.
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -43,13 +43,11 @@ class OrdersStatsOrderPaymentType
     /**
      * Possible values of this enum
      */
-    public const CREDIT = 'CREDIT';
-
     public const POSTPAID = 'POSTPAID';
 
     public const PREPAID = 'PREPAID';
 
-    public const TINKOFF_CREDIT = 'TINKOFF_CREDIT';
+    public const UNKNOWN = 'UNKNOWN';
 
     /**
      * Gets allowable values of the enum
@@ -58,10 +56,9 @@ class OrdersStatsOrderPaymentType
     public static function getAllowableEnumValues()
     {
         return [
-            self::CREDIT,
             self::POSTPAID,
             self::PREPAID,
-            self::TINKOFF_CREDIT
+            self::UNKNOWN
         ];
     }
 }

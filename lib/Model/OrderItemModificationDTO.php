@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -84,7 +84,7 @@ class OrderItemModificationDTO implements ModelInterface, ArrayAccess, \JsonSeri
     protected static array $openAPINullables = [
         'id' => false,
 		'count' => false,
-		'instances' => false
+		'instances' => true
     ];
 
     /**
@@ -299,6 +299,10 @@ class OrderItemModificationDTO implements ModelInterface, ArrayAccess, \JsonSeri
             $invalidProperties[] = "invalid value for 'count', must be bigger than or equal to 0.";
         }
 
+        if (!is_null($this->container['instances']) && (count($this->container['instances']) < 1)) {
+            $invalidProperties[] = "invalid value for 'instances', number of items must be greater than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -327,7 +331,7 @@ class OrderItemModificationDTO implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets id
      *
-     * @param int $id Идентификатор товара в рамках заказа.  Получить идентификатор можно с помощью ресурсов [GET campaigns/{campaignId}/orders](../../reference/orders/getOrders.md) или [GET campaigns/{campaignId}/orders/{orderId}](../../reference/orders/getOrder.md).  Обязательный параметр.
+     * @param int $id Идентификатор товара в рамках заказа.  Получить идентификатор можно с помощью метода:  * [POST v1/businesses/{businessId}/orders](../../reference/orders/getBusinessOrders.md).  Обязательный параметр.
      *
      * @return self
      */
@@ -386,14 +390,26 @@ class OrderItemModificationDTO implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets instances
      *
-     * @param \YandexMarketApi\Model\BriefOrderItemInstanceDTO[]|null $instances Информация о маркировке единиц товара.  Передавайте в запросе все единицы товара, который подлежит маркировке.  Обязательный параметр, если в заказе есть товары, подлежащие маркировке [в системе «Честный ЗНАК»](https://честныйзнак.рф/).
+     * @param \YandexMarketApi\Model\BriefOrderItemInstanceDTO[]|null $instances Информация о маркировке единиц товара.  Передавайте в запросе все единицы товара, который подлежит маркировке.  Обязательный параметр, если в заказе от бизнеса есть товары, подлежащие маркировке в системе [:no-translate[«Честный ЗНАК»]](https://честныйзнак.рф/) или [:no-translate[«ASL BELGISI»]](https://aslbelgisi.uz) (для продавцов :no-translate[Market Yandex Go]).
      *
      * @return self
      */
     public function setInstances($instances)
     {
         if (is_null($instances)) {
-            throw new \InvalidArgumentException('non-nullable instances cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'instances');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('instances', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+
+        if (!is_null($instances) && (count($instances) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $instances when calling OrderItemModificationDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['instances'] = $instances;
 

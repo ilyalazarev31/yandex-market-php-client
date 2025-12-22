@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -331,7 +331,7 @@ class OrderCourierDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets full_name
      *
-     * @param string|null $full_name Полное имя курьера.
+     * @param string|null $full_name Полное имя.
      *
      * @return self
      */
@@ -358,7 +358,7 @@ class OrderCourierDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets phone
      *
-     * @param string|null $phone Номер телефона курьера.
+     * @param string|null $phone Номер телефона.
      *
      * @return self
      */
@@ -439,7 +439,7 @@ class OrderCourierDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets vehicle_description
      *
-     * @param string|null $vehicle_description Описание машины. Например, модель и цвет.
+     * @param string|null $vehicle_description Описание транспортного средства. Например, модель и цвет.
      *
      * @return self
      */

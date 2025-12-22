@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -83,15 +83,6 @@ class OfferMappingDTOTest extends TestCase
      * Test attribute "market_sku"
      */
     public function testPropertyMarketSku()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "model_id"
-     */
-    public function testPropertyModelId()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -34,7 +34,7 @@ use PHPUnit\Framework\TestCase;
  * OrderDeliveryAddressDTOTest Class Doc Comment
  *
  * @category    Class
- * @description Адрес доставки.  Указывается, если &#x60;type&#x3D;DELIVERY&#x60;, &#x60;type&#x3D;POST&#x60; или &#x60;type&#x3D;PICKUP&#x60; (адрес пункта выдачи).
+ * @description Адрес доставки.  Указывается, если параметр &#x60;type&#x60; принимает значение &#x60;DELIVERY&#x60;, &#x60;POST&#x60; или &#x60;PICKUP&#x60; (только для модели DBS). Если &#x60;type&#x3D;PICKUP&#x60;, возвращается адрес пункта выдачи.
  * @package     YandexMarketApi
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech
@@ -143,9 +143,27 @@ class OrderDeliveryAddressDTOTest extends TestCase
     }
 
     /**
+     * Test attribute "estate"
+     */
+    public function testPropertyEstate()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test attribute "block"
      */
     public function testPropertyBlock()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "building"
+     */
+    public function testPropertyBuilding()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

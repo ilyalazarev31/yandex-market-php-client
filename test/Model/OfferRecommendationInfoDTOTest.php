@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -34,7 +34,7 @@ use PHPUnit\Framework\TestCase;
  * OfferRecommendationInfoDTOTest Class Doc Comment
  *
  * @category    Class
- * @description Рекомендации, касающиеся цены товара.
+ * @description Рекомендации, касающиеся цены на товар.
  * @package     YandexMarketApi
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech
@@ -83,15 +83,6 @@ class OfferRecommendationInfoDTOTest extends TestCase
      * Test attribute "offer_id"
      */
     public function testPropertyOfferId()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "recommended_cofinance_price"
-     */
-    public function testPropertyRecommendedCofinancePrice()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

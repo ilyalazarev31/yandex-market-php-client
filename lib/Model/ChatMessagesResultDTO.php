@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -59,6 +59,7 @@ class ChatMessagesResultDTO implements ModelInterface, ArrayAccess, \JsonSeriali
       */
     protected static $openAPITypes = [
         'order_id' => 'int',
+        'context' => '\YandexMarketApi\Model\ChatFullContextDTO',
         'messages' => '\YandexMarketApi\Model\ChatMessageDTO[]',
         'paging' => '\YandexMarketApi\Model\ForwardScrollingPagerDTO'
     ];
@@ -72,6 +73,7 @@ class ChatMessagesResultDTO implements ModelInterface, ArrayAccess, \JsonSeriali
       */
     protected static $openAPIFormats = [
         'order_id' => 'int64',
+        'context' => null,
         'messages' => null,
         'paging' => null
     ];
@@ -83,6 +85,7 @@ class ChatMessagesResultDTO implements ModelInterface, ArrayAccess, \JsonSeriali
       */
     protected static array $openAPINullables = [
         'order_id' => false,
+		'context' => false,
 		'messages' => false,
 		'paging' => false
     ];
@@ -174,6 +177,7 @@ class ChatMessagesResultDTO implements ModelInterface, ArrayAccess, \JsonSeriali
      */
     protected static $attributeMap = [
         'order_id' => 'orderId',
+        'context' => 'context',
         'messages' => 'messages',
         'paging' => 'paging'
     ];
@@ -185,6 +189,7 @@ class ChatMessagesResultDTO implements ModelInterface, ArrayAccess, \JsonSeriali
      */
     protected static $setters = [
         'order_id' => 'setOrderId',
+        'context' => 'setContext',
         'messages' => 'setMessages',
         'paging' => 'setPaging'
     ];
@@ -196,6 +201,7 @@ class ChatMessagesResultDTO implements ModelInterface, ArrayAccess, \JsonSeriali
      */
     protected static $getters = [
         'order_id' => 'getOrderId',
+        'context' => 'getContext',
         'messages' => 'getMessages',
         'paging' => 'getPaging'
     ];
@@ -258,6 +264,7 @@ class ChatMessagesResultDTO implements ModelInterface, ArrayAccess, \JsonSeriali
     public function __construct(array $data = null)
     {
         $this->setIfExists('order_id', $data ?? [], null);
+        $this->setIfExists('context', $data ?? [], null);
         $this->setIfExists('messages', $data ?? [], null);
         $this->setIfExists('paging', $data ?? [], null);
     }
@@ -289,8 +296,8 @@ class ChatMessagesResultDTO implements ModelInterface, ArrayAccess, \JsonSeriali
     {
         $invalidProperties = [];
 
-        if ($this->container['order_id'] === null) {
-            $invalidProperties[] = "'order_id' can't be null";
+        if ($this->container['context'] === null) {
+            $invalidProperties[] = "'context' can't be null";
         }
         if ($this->container['messages'] === null) {
             $invalidProperties[] = "'messages' can't be null";
@@ -313,7 +320,8 @@ class ChatMessagesResultDTO implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Gets order_id
      *
-     * @return int
+     * @return int|null
+     * @deprecated
      */
     public function getOrderId()
     {
@@ -323,9 +331,10 @@ class ChatMessagesResultDTO implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Sets order_id
      *
-     * @param int $order_id Идентификатор заказа.
+     * @param int|null $order_id Идентификатор заказа.
      *
      * @return self
+     * @deprecated
      */
     public function setOrderId($order_id)
     {
@@ -333,6 +342,33 @@ class ChatMessagesResultDTO implements ModelInterface, ArrayAccess, \JsonSeriali
             throw new \InvalidArgumentException('non-nullable order_id cannot be null');
         }
         $this->container['order_id'] = $order_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets context
+     *
+     * @return \YandexMarketApi\Model\ChatFullContextDTO
+     */
+    public function getContext()
+    {
+        return $this->container['context'];
+    }
+
+    /**
+     * Sets context
+     *
+     * @param \YandexMarketApi\Model\ChatFullContextDTO $context context
+     *
+     * @return self
+     */
+    public function setContext($context)
+    {
+        if (is_null($context)) {
+            throw new \InvalidArgumentException('non-nullable context cannot be null');
+        }
+        $this->container['context'] = $context;
 
         return $this;
     }

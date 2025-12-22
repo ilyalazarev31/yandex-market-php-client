@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -295,6 +295,14 @@ class ChatMessagePayloadDTO implements ModelInterface, ArrayAccess, \JsonSeriali
         if ($this->container['url'] === null) {
             $invalidProperties[] = "'url' can't be null";
         }
+        if ((mb_strlen($this->container['url']) > 2000)) {
+            $invalidProperties[] = "invalid value for 'url', the character length must be smaller than or equal to 2000.";
+        }
+
+        if ((mb_strlen($this->container['url']) < 1)) {
+            $invalidProperties[] = "invalid value for 'url', the character length must be bigger than or equal to 1.";
+        }
+
         if ($this->container['size'] === null) {
             $invalidProperties[] = "'size' can't be null";
         }
@@ -326,7 +334,7 @@ class ChatMessagePayloadDTO implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Sets name
      *
-     * @param string $name Имя файла.
+     * @param string $name Название файла.
      *
      * @return self
      */
@@ -353,7 +361,7 @@ class ChatMessagePayloadDTO implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Sets url
      *
-     * @param string $url Ссылка для скачивания файла.
+     * @param string $url url
      *
      * @return self
      */
@@ -362,6 +370,13 @@ class ChatMessagePayloadDTO implements ModelInterface, ArrayAccess, \JsonSeriali
         if (is_null($url)) {
             throw new \InvalidArgumentException('non-nullable url cannot be null');
         }
+        if ((mb_strlen($url) > 2000)) {
+            throw new \InvalidArgumentException('invalid length for $url when calling ChatMessagePayloadDTO., must be smaller than or equal to 2000.');
+        }
+        if ((mb_strlen($url) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $url when calling ChatMessagePayloadDTO., must be bigger than or equal to 1.');
+        }
+
         $this->container['url'] = $url;
 
         return $this;

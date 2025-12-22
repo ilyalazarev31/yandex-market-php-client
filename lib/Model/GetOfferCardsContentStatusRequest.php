@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -59,7 +59,8 @@ class GetOfferCardsContentStatusRequest implements ModelInterface, ArrayAccess, 
     protected static $openAPITypes = [
         'offer_ids' => 'string[]',
         'card_statuses' => '\YandexMarketApi\Model\OfferCardStatusType[]',
-        'category_ids' => 'int[]'
+        'category_ids' => 'int[]',
+        'with_recommendations' => 'bool'
     ];
 
     /**
@@ -72,7 +73,8 @@ class GetOfferCardsContentStatusRequest implements ModelInterface, ArrayAccess, 
     protected static $openAPIFormats = [
         'offer_ids' => null,
         'card_statuses' => null,
-        'category_ids' => 'int32'
+        'category_ids' => 'int32',
+        'with_recommendations' => null
     ];
 
     /**
@@ -81,9 +83,10 @@ class GetOfferCardsContentStatusRequest implements ModelInterface, ArrayAccess, 
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'offer_ids' => false,
-		'card_statuses' => false,
-		'category_ids' => false
+        'offer_ids' => true,
+		'card_statuses' => true,
+		'category_ids' => true,
+		'with_recommendations' => false
     ];
 
     /**
@@ -174,7 +177,8 @@ class GetOfferCardsContentStatusRequest implements ModelInterface, ArrayAccess, 
     protected static $attributeMap = [
         'offer_ids' => 'offerIds',
         'card_statuses' => 'cardStatuses',
-        'category_ids' => 'categoryIds'
+        'category_ids' => 'categoryIds',
+        'with_recommendations' => 'withRecommendations'
     ];
 
     /**
@@ -185,7 +189,8 @@ class GetOfferCardsContentStatusRequest implements ModelInterface, ArrayAccess, 
     protected static $setters = [
         'offer_ids' => 'setOfferIds',
         'card_statuses' => 'setCardStatuses',
-        'category_ids' => 'setCategoryIds'
+        'category_ids' => 'setCategoryIds',
+        'with_recommendations' => 'setWithRecommendations'
     ];
 
     /**
@@ -196,7 +201,8 @@ class GetOfferCardsContentStatusRequest implements ModelInterface, ArrayAccess, 
     protected static $getters = [
         'offer_ids' => 'getOfferIds',
         'card_statuses' => 'getCardStatuses',
-        'category_ids' => 'getCategoryIds'
+        'category_ids' => 'getCategoryIds',
+        'with_recommendations' => 'getWithRecommendations'
     ];
 
     /**
@@ -259,6 +265,7 @@ class GetOfferCardsContentStatusRequest implements ModelInterface, ArrayAccess, 
         $this->setIfExists('offer_ids', $data ?? [], null);
         $this->setIfExists('card_statuses', $data ?? [], null);
         $this->setIfExists('category_ids', $data ?? [], null);
+        $this->setIfExists('with_recommendations', $data ?? [], false);
     }
 
     /**
@@ -292,8 +299,20 @@ class GetOfferCardsContentStatusRequest implements ModelInterface, ArrayAccess, 
             $invalidProperties[] = "invalid value for 'offer_ids', number of items must be less than or equal to 200.";
         }
 
+        if (!is_null($this->container['offer_ids']) && (count($this->container['offer_ids']) < 1)) {
+            $invalidProperties[] = "invalid value for 'offer_ids', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['card_statuses']) && (count($this->container['card_statuses']) < 1)) {
+            $invalidProperties[] = "invalid value for 'card_statuses', number of items must be greater than or equal to 1.";
+        }
+
         if (!is_null($this->container['category_ids']) && (count($this->container['category_ids']) > 200)) {
             $invalidProperties[] = "invalid value for 'category_ids', number of items must be less than or equal to 200.";
+        }
+
+        if (!is_null($this->container['category_ids']) && (count($this->container['category_ids']) < 1)) {
+            $invalidProperties[] = "invalid value for 'category_ids', number of items must be greater than or equal to 1.";
         }
 
         return $invalidProperties;
@@ -331,11 +350,21 @@ class GetOfferCardsContentStatusRequest implements ModelInterface, ArrayAccess, 
     public function setOfferIds($offer_ids)
     {
         if (is_null($offer_ids)) {
-            throw new \InvalidArgumentException('non-nullable offer_ids cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'offer_ids');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('offer_ids', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
         }
 
-        if ((count($offer_ids) > 200)) {
+        if (!is_null($offer_ids) && (count($offer_ids) > 200)) {
             throw new \InvalidArgumentException('invalid value for $offer_ids when calling GetOfferCardsContentStatusRequest., number of items must be less than or equal to 200.');
+        }
+        if (!is_null($offer_ids) && (count($offer_ids) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $offer_ids when calling GetOfferCardsContentStatusRequest., number of items must be greater than or equal to 1.');
         }
         $this->container['offer_ids'] = $offer_ids;
 
@@ -362,10 +391,20 @@ class GetOfferCardsContentStatusRequest implements ModelInterface, ArrayAccess, 
     public function setCardStatuses($card_statuses)
     {
         if (is_null($card_statuses)) {
-            throw new \InvalidArgumentException('non-nullable card_statuses cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'card_statuses');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('card_statuses', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
         }
 
 
+        if (!is_null($card_statuses) && (count($card_statuses) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $card_statuses when calling GetOfferCardsContentStatusRequest., number of items must be greater than or equal to 1.');
+        }
         $this->container['card_statuses'] = $card_statuses;
 
         return $this;
@@ -391,13 +430,50 @@ class GetOfferCardsContentStatusRequest implements ModelInterface, ArrayAccess, 
     public function setCategoryIds($category_ids)
     {
         if (is_null($category_ids)) {
-            throw new \InvalidArgumentException('non-nullable category_ids cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'category_ids');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('category_ids', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
         }
 
-        if ((count($category_ids) > 200)) {
+        if (!is_null($category_ids) && (count($category_ids) > 200)) {
             throw new \InvalidArgumentException('invalid value for $category_ids when calling GetOfferCardsContentStatusRequest., number of items must be less than or equal to 200.');
         }
+        if (!is_null($category_ids) && (count($category_ids) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $category_ids when calling GetOfferCardsContentStatusRequest., number of items must be greater than or equal to 1.');
+        }
         $this->container['category_ids'] = $category_ids;
+
+        return $this;
+    }
+
+    /**
+     * Gets with_recommendations
+     *
+     * @return bool|null
+     */
+    public function getWithRecommendations()
+    {
+        return $this->container['with_recommendations'];
+    }
+
+    /**
+     * Sets with_recommendations
+     *
+     * @param bool|null $with_recommendations Возвращать ли список рекомендаций к заполнению карточки и средний рейтинг карточки у товаров той категории, которая указана в `marketCategoryId`.  Значение по умолчанию: `false`. Если информация нужна, передайте значение `true`.
+     *
+     * @return self
+     */
+    public function setWithRecommendations($with_recommendations)
+    {
+        if (is_null($with_recommendations)) {
+            throw new \InvalidArgumentException('non-nullable with_recommendations cannot be null');
+        }
+        $this->container['with_recommendations'] = $with_recommendations;
 
         return $this;
     }

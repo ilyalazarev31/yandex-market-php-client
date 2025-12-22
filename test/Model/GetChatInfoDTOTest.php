@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -34,7 +34,7 @@ use PHPUnit\Framework\TestCase;
  * GetChatInfoDTOTest Class Doc Comment
  *
  * @category    Class
- * @description Информация о чатах.
+ * @description Информация о чате.
  * @package     YandexMarketApi
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech
@@ -92,6 +92,15 @@ class GetChatInfoDTOTest extends TestCase
      * Test attribute "order_id"
      */
     public function testPropertyOrderId()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "context"
+     */
+    public function testPropertyContext()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

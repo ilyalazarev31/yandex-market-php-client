@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -119,7 +119,7 @@ class FullOutletDTO implements ModelInterface, ArrayAccess, \JsonSerializable
 		'address' => false,
 		'phones' => false,
 		'working_schedule' => false,
-		'delivery_rules' => false,
+		'delivery_rules' => true,
 		'storage_period' => false,
 		'id' => false,
 		'status' => false,
@@ -406,6 +406,13 @@ class FullOutletDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['working_schedule'] === null) {
             $invalidProperties[] = "'working_schedule' can't be null";
         }
+        if (!is_null($this->container['delivery_rules']) && (count($this->container['delivery_rules']) < 1)) {
+            $invalidProperties[] = "invalid value for 'delivery_rules', number of items must be greater than or equal to 1.";
+        }
+
+        if ($this->container['id'] === null) {
+            $invalidProperties[] = "'id' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -515,7 +522,7 @@ class FullOutletDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets is_main
      *
-     * @param bool|null $is_main Признак основной точки продаж. Возможные значения: * `false` — неосновная точка продаж. * `true` — основная точка продаж.
+     * @param bool|null $is_main Признак основной точки продаж.  Возможные значения:  * `false` — неосновная точка продаж. * `true` — основная точка продаж.
      *
      * @return self
      */
@@ -623,7 +630,7 @@ class FullOutletDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets phones
      *
-     * @param string[] $phones Номера телефонов точки продаж. Передавайте в формате: `+7 (999) 999-99-99`.
+     * @param string[] $phones Номера телефонов точки продаж. Передавайте номер в формате: `+<код страны>(<код города>)<номер>[#<добавочный>]`.  Примеры: - `+7 (999) 999-99-99` - `+7 (999) 999-99-99#1234`
      *
      * @return self
      */
@@ -682,14 +689,26 @@ class FullOutletDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets delivery_rules
      *
-     * @param \YandexMarketApi\Model\OutletDeliveryRuleDTO[]|null $delivery_rules Информация об условиях доставки для данной точки продаж. Обязательный параметр, если параметр `type=DEPOT` или `type=MIXED`.
+     * @param \YandexMarketApi\Model\OutletDeliveryRuleDTO[]|null $delivery_rules Информация об условиях доставки для данной точки продаж.  Обязательный параметр, если параметр `type=DEPOT` или `type=MIXED`.
      *
      * @return self
      */
     public function setDeliveryRules($delivery_rules)
     {
         if (is_null($delivery_rules)) {
-            throw new \InvalidArgumentException('non-nullable delivery_rules cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'delivery_rules');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('delivery_rules', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+
+        if (!is_null($delivery_rules) && (count($delivery_rules) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $delivery_rules when calling FullOutletDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['delivery_rules'] = $delivery_rules;
 
@@ -726,7 +745,7 @@ class FullOutletDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets id
      *
-     * @return int|null
+     * @return int
      */
     public function getId()
     {
@@ -736,7 +755,7 @@ class FullOutletDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param int|null $id Идентификатор точки продаж, присвоенный Яндекс Маркетом.
+     * @param int $id Идентификатор точки продаж, присвоенный Маркетом.
      *
      * @return self
      */
@@ -808,6 +827,7 @@ class FullOutletDTO implements ModelInterface, ArrayAccess, \JsonSerializable
      * Gets shop_outlet_id
      *
      * @return string|null
+     * @deprecated
      */
     public function getShopOutletId()
     {
@@ -817,9 +837,10 @@ class FullOutletDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets shop_outlet_id
      *
-     * @param string|null $shop_outlet_id Идентификатор точки продаж, заданный магазином.
+     * @param string|null $shop_outlet_id {% note warning \"Вместо него используйте `shopOutletCode`.\" %}     {% endnote %}  Идентификатор точки продаж, заданный магазином.
      *
      * @return self
+     * @deprecated
      */
     public function setShopOutletId($shop_outlet_id)
     {
@@ -835,6 +856,7 @@ class FullOutletDTO implements ModelInterface, ArrayAccess, \JsonSerializable
      * Gets working_time
      *
      * @return string|null
+     * @deprecated
      */
     public function getWorkingTime()
     {
@@ -844,9 +866,10 @@ class FullOutletDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets working_time
      *
-     * @param string|null $working_time Рабочее время.
+     * @param string|null $working_time {% note warning \"Вместо него используйте `workingSchedule`.\" %}     {% endnote %}  Рабочее время.
      *
      * @return self
+     * @deprecated
      */
     public function setWorkingTime($working_time)
     {

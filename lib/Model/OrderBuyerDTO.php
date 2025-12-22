@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -303,6 +303,9 @@ class OrderBuyerDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if ($this->container['type'] === null) {
+            $invalidProperties[] = "'type' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -358,7 +361,7 @@ class OrderBuyerDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets last_name
      *
-     * @param string|null $last_name Фамилия покупателя.
+     * @param string|null $last_name Фамилия.
      *
      * @return self
      */
@@ -385,7 +388,7 @@ class OrderBuyerDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets first_name
      *
-     * @param string|null $first_name Имя покупателя.
+     * @param string|null $first_name Имя.
      *
      * @return self
      */
@@ -412,7 +415,7 @@ class OrderBuyerDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets middle_name
      *
-     * @param string|null $middle_name Отчество покупателя.
+     * @param string|null $middle_name Отчество.
      *
      * @return self
      */
@@ -429,7 +432,7 @@ class OrderBuyerDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets type
      *
-     * @return \YandexMarketApi\Model\OrderBuyerType|null
+     * @return \YandexMarketApi\Model\OrderBuyerType
      */
     public function getType()
     {
@@ -439,7 +442,7 @@ class OrderBuyerDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets type
      *
-     * @param \YandexMarketApi\Model\OrderBuyerType|null $type type
+     * @param \YandexMarketApi\Model\OrderBuyerType $type type
      *
      * @return self
      */

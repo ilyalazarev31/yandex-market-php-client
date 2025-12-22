@@ -10,7 +10,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -84,30 +84,6 @@ class CampaignsApiTest extends TestCase
     }
 
     /**
-     * Test case for getCampaignLogins
-     *
-     * Логины, связанные с магазином.
-     *
-     */
-    public function testGetCampaignLogins()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test case for getCampaignRegion
-     *
-     * Регион магазина.
-     *
-     */
-    public function testGetCampaignRegion()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
      * Test case for getCampaignSettings
      *
      * Настройки магазина.
@@ -122,22 +98,10 @@ class CampaignsApiTest extends TestCase
     /**
      * Test case for getCampaigns
      *
-     * Магазины пользователя.
+     * Список магазинов пользователя.
      *
      */
     public function testGetCampaigns()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test case for getCampaignsByLogin
-     *
-     * Магазины, доступные логину.
-     *
-     */
-    public function testGetCampaignsByLogin()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

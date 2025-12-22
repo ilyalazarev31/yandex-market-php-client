@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -289,6 +289,9 @@ class GoodsStatsWarehouseDTO implements ModelInterface, ArrayAccess, \JsonSerial
     {
         $invalidProperties = [];
 
+        if ($this->container['stocks'] === null) {
+            $invalidProperties[] = "'stocks' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -361,7 +364,7 @@ class GoodsStatsWarehouseDTO implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Gets stocks
      *
-     * @return \YandexMarketApi\Model\WarehouseStockDTO[]|null
+     * @return \YandexMarketApi\Model\WarehouseStockDTO[]
      */
     public function getStocks()
     {
@@ -371,7 +374,7 @@ class GoodsStatsWarehouseDTO implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets stocks
      *
-     * @param \YandexMarketApi\Model\WarehouseStockDTO[]|null $stocks Информация об остатках товаров на складе.
+     * @param \YandexMarketApi\Model\WarehouseStockDTO[] $stocks Информация об остатках товаров на складе.
      *
      * @return self
      */
