@@ -10,7 +10,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -69,6 +69,18 @@ class CategoriesApiTest extends TestCase
      */
     public static function tearDownAfterClass(): void
     {
+    }
+
+    /**
+     * Test case for getCategoriesMaxSaleQuantum
+     *
+     * Лимит на установку кванта продажи и минимального количества товаров в заказе.
+     *
+     */
+    public function testGetCategoriesMaxSaleQuantum()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
     }
 
     /**

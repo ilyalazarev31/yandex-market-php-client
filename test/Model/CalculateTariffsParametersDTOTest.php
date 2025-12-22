@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -34,7 +34,7 @@ use PHPUnit\Framework\TestCase;
  * CalculateTariffsParametersDTOTest Class Doc Comment
  *
  * @category    Class
- * @description Параметры для расчета стоимости услуг.
+ * @description Параметры для расчета стоимости услуг. Обязательно необходимо указать параметр &#x60;campaignId&#x60; либо &#x60;sellingProgram&#x60;. Совместное использование параметров приведет к ошибке.
  * @package     YandexMarketApi
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech
@@ -101,6 +101,15 @@ class CalculateTariffsParametersDTOTest extends TestCase
      * Test attribute "frequency"
      */
     public function testPropertyFrequency()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "currency"
+     */
+    public function testPropertyCurrency()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

@@ -10,7 +10,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -80,6 +80,9 @@ class BusinessOfferMappingsApi
         'deleteOffersFromArchive' => [
             'application/json',
         ],
+        'generateOfferBarcodes' => [
+            'application/json',
+        ],
         'getOfferMappings' => [
             'application/json',
         ],
@@ -142,7 +145,7 @@ class BusinessOfferMappingsApi
      *
      * Добавление товаров в архив
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
      * @param  \YandexMarketApi\Model\AddOffersToArchiveRequest $add_offers_to_archive_request add_offers_to_archive_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['addOffersToArchive'] to see the possible values for this operation
      *
@@ -161,7 +164,7 @@ class BusinessOfferMappingsApi
      *
      * Добавление товаров в архив
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
      * @param  \YandexMarketApi\Model\AddOffersToArchiveRequest $add_offers_to_archive_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['addOffersToArchive'] to see the possible values for this operation
      *
@@ -423,7 +426,7 @@ class BusinessOfferMappingsApi
      *
      * Добавление товаров в архив
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
      * @param  \YandexMarketApi\Model\AddOffersToArchiveRequest $add_offers_to_archive_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['addOffersToArchive'] to see the possible values for this operation
      *
@@ -445,7 +448,7 @@ class BusinessOfferMappingsApi
      *
      * Добавление товаров в архив
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
      * @param  \YandexMarketApi\Model\AddOffersToArchiveRequest $add_offers_to_archive_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['addOffersToArchive'] to see the possible values for this operation
      *
@@ -496,7 +499,7 @@ class BusinessOfferMappingsApi
     /**
      * Create request for operation 'addOffersToArchive'
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
      * @param  \YandexMarketApi\Model\AddOffersToArchiveRequest $add_offers_to_archive_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['addOffersToArchive'] to see the possible values for this operation
      *
@@ -512,7 +515,10 @@ class BusinessOfferMappingsApi
                 'Missing the required parameter $business_id when calling addOffersToArchive'
             );
         }
-
+        if ($business_id < 1) {
+            throw new \InvalidArgumentException('invalid value for "$business_id" when calling BusinessOfferMappingsApi.addOffersToArchive, must be bigger than or equal to 1.');
+        }
+        
         // verify the required parameter 'add_offers_to_archive_request' is set
         if ($add_offers_to_archive_request === null || (is_array($add_offers_to_archive_request) && count($add_offers_to_archive_request) === 0)) {
             throw new \InvalidArgumentException(
@@ -521,7 +527,7 @@ class BusinessOfferMappingsApi
         }
 
 
-        $resourcePath = '/businesses/{businessId}/offer-mappings/archive';
+        $resourcePath = '/v2/businesses/{businessId}/offer-mappings/archive';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -578,6 +584,11 @@ class BusinessOfferMappingsApi
             }
         }
 
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
@@ -609,7 +620,7 @@ class BusinessOfferMappingsApi
      *
      * Удаление товаров из каталога
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
      * @param  \YandexMarketApi\Model\DeleteOffersRequest $delete_offers_request delete_offers_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteOffers'] to see the possible values for this operation
      *
@@ -628,7 +639,7 @@ class BusinessOfferMappingsApi
      *
      * Удаление товаров из каталога
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
      * @param  \YandexMarketApi\Model\DeleteOffersRequest $delete_offers_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteOffers'] to see the possible values for this operation
      *
@@ -890,7 +901,7 @@ class BusinessOfferMappingsApi
      *
      * Удаление товаров из каталога
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
      * @param  \YandexMarketApi\Model\DeleteOffersRequest $delete_offers_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteOffers'] to see the possible values for this operation
      *
@@ -912,7 +923,7 @@ class BusinessOfferMappingsApi
      *
      * Удаление товаров из каталога
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
      * @param  \YandexMarketApi\Model\DeleteOffersRequest $delete_offers_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteOffers'] to see the possible values for this operation
      *
@@ -963,7 +974,7 @@ class BusinessOfferMappingsApi
     /**
      * Create request for operation 'deleteOffers'
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
      * @param  \YandexMarketApi\Model\DeleteOffersRequest $delete_offers_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteOffers'] to see the possible values for this operation
      *
@@ -979,7 +990,10 @@ class BusinessOfferMappingsApi
                 'Missing the required parameter $business_id when calling deleteOffers'
             );
         }
-
+        if ($business_id < 1) {
+            throw new \InvalidArgumentException('invalid value for "$business_id" when calling BusinessOfferMappingsApi.deleteOffers, must be bigger than or equal to 1.');
+        }
+        
         // verify the required parameter 'delete_offers_request' is set
         if ($delete_offers_request === null || (is_array($delete_offers_request) && count($delete_offers_request) === 0)) {
             throw new \InvalidArgumentException(
@@ -988,7 +1002,7 @@ class BusinessOfferMappingsApi
         }
 
 
-        $resourcePath = '/businesses/{businessId}/offer-mappings/delete';
+        $resourcePath = '/v2/businesses/{businessId}/offer-mappings/delete';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1045,6 +1059,11 @@ class BusinessOfferMappingsApi
             }
         }
 
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
@@ -1074,9 +1093,9 @@ class BusinessOfferMappingsApi
     /**
      * Operation deleteOffersFromArchive
      *
-     * Восстановление товаров из архива
+     * Удаление товаров из архива
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
      * @param  \YandexMarketApi\Model\DeleteOffersFromArchiveRequest $delete_offers_from_archive_request delete_offers_from_archive_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteOffersFromArchive'] to see the possible values for this operation
      *
@@ -1093,9 +1112,9 @@ class BusinessOfferMappingsApi
     /**
      * Operation deleteOffersFromArchiveWithHttpInfo
      *
-     * Восстановление товаров из архива
+     * Удаление товаров из архива
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
      * @param  \YandexMarketApi\Model\DeleteOffersFromArchiveRequest $delete_offers_from_archive_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteOffersFromArchive'] to see the possible values for this operation
      *
@@ -1355,9 +1374,9 @@ class BusinessOfferMappingsApi
     /**
      * Operation deleteOffersFromArchiveAsync
      *
-     * Восстановление товаров из архива
+     * Удаление товаров из архива
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
      * @param  \YandexMarketApi\Model\DeleteOffersFromArchiveRequest $delete_offers_from_archive_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteOffersFromArchive'] to see the possible values for this operation
      *
@@ -1377,9 +1396,9 @@ class BusinessOfferMappingsApi
     /**
      * Operation deleteOffersFromArchiveAsyncWithHttpInfo
      *
-     * Восстановление товаров из архива
+     * Удаление товаров из архива
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
      * @param  \YandexMarketApi\Model\DeleteOffersFromArchiveRequest $delete_offers_from_archive_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteOffersFromArchive'] to see the possible values for this operation
      *
@@ -1430,7 +1449,7 @@ class BusinessOfferMappingsApi
     /**
      * Create request for operation 'deleteOffersFromArchive'
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
      * @param  \YandexMarketApi\Model\DeleteOffersFromArchiveRequest $delete_offers_from_archive_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteOffersFromArchive'] to see the possible values for this operation
      *
@@ -1446,7 +1465,10 @@ class BusinessOfferMappingsApi
                 'Missing the required parameter $business_id when calling deleteOffersFromArchive'
             );
         }
-
+        if ($business_id < 1) {
+            throw new \InvalidArgumentException('invalid value for "$business_id" when calling BusinessOfferMappingsApi.deleteOffersFromArchive, must be bigger than or equal to 1.');
+        }
+        
         // verify the required parameter 'delete_offers_from_archive_request' is set
         if ($delete_offers_from_archive_request === null || (is_array($delete_offers_from_archive_request) && count($delete_offers_from_archive_request) === 0)) {
             throw new \InvalidArgumentException(
@@ -1455,7 +1477,7 @@ class BusinessOfferMappingsApi
         }
 
 
-        $resourcePath = '/businesses/{businessId}/offer-mappings/unarchive';
+        $resourcePath = '/v2/businesses/{businessId}/offer-mappings/unarchive';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1512,6 +1534,463 @@ class BusinessOfferMappingsApi
             }
         }
 
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation generateOfferBarcodes
+     *
+     * Генерация штрихкодов
+     *
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  \YandexMarketApi\Model\GenerateOfferBarcodesRequest $generate_offer_barcodes_request generate_offer_barcodes_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateOfferBarcodes'] to see the possible values for this operation
+     *
+     * @throws \YandexMarketApi\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \YandexMarketApi\Model\GenerateOfferBarcodesResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiLockedErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse
+     */
+    public function generateOfferBarcodes($business_id, $generate_offer_barcodes_request, string $contentType = self::contentTypes['generateOfferBarcodes'][0])
+    {
+        list($response) = $this->generateOfferBarcodesWithHttpInfo($business_id, $generate_offer_barcodes_request, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation generateOfferBarcodesWithHttpInfo
+     *
+     * Генерация штрихкодов
+     *
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  \YandexMarketApi\Model\GenerateOfferBarcodesRequest $generate_offer_barcodes_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateOfferBarcodes'] to see the possible values for this operation
+     *
+     * @throws \YandexMarketApi\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \YandexMarketApi\Model\GenerateOfferBarcodesResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiLockedErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function generateOfferBarcodesWithHttpInfo($business_id, $generate_offer_barcodes_request, string $contentType = self::contentTypes['generateOfferBarcodes'][0])
+    {
+        $request = $this->generateOfferBarcodesRequest($business_id, $generate_offer_barcodes_request, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\YandexMarketApi\Model\GenerateOfferBarcodesResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\GenerateOfferBarcodesResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\GenerateOfferBarcodesResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 400:
+                    if ('\YandexMarketApi\Model\ApiClientDataErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiClientDataErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiClientDataErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 401:
+                    if ('\YandexMarketApi\Model\ApiUnauthorizedErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiUnauthorizedErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiUnauthorizedErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
+                    if ('\YandexMarketApi\Model\ApiForbiddenErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiForbiddenErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiForbiddenErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 420:
+                    if ('\YandexMarketApi\Model\ApiLimitErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiLimitErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiLimitErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 423:
+                    if ('\YandexMarketApi\Model\ApiLockedErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiLockedErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiLockedErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 500:
+                    if ('\YandexMarketApi\Model\ApiServerErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiServerErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiServerErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\YandexMarketApi\Model\GenerateOfferBarcodesResponse';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+                if ($returnType !== 'string') {
+                    $content = json_decode($content);
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\GenerateOfferBarcodesResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiClientDataErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiUnauthorizedErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiForbiddenErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 420:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiLimitErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 423:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiLockedErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiServerErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation generateOfferBarcodesAsync
+     *
+     * Генерация штрихкодов
+     *
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  \YandexMarketApi\Model\GenerateOfferBarcodesRequest $generate_offer_barcodes_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateOfferBarcodes'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function generateOfferBarcodesAsync($business_id, $generate_offer_barcodes_request, string $contentType = self::contentTypes['generateOfferBarcodes'][0])
+    {
+        return $this->generateOfferBarcodesAsyncWithHttpInfo($business_id, $generate_offer_barcodes_request, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation generateOfferBarcodesAsyncWithHttpInfo
+     *
+     * Генерация штрихкодов
+     *
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  \YandexMarketApi\Model\GenerateOfferBarcodesRequest $generate_offer_barcodes_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateOfferBarcodes'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function generateOfferBarcodesAsyncWithHttpInfo($business_id, $generate_offer_barcodes_request, string $contentType = self::contentTypes['generateOfferBarcodes'][0])
+    {
+        $returnType = '\YandexMarketApi\Model\GenerateOfferBarcodesResponse';
+        $request = $this->generateOfferBarcodesRequest($business_id, $generate_offer_barcodes_request, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'generateOfferBarcodes'
+     *
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  \YandexMarketApi\Model\GenerateOfferBarcodesRequest $generate_offer_barcodes_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateOfferBarcodes'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function generateOfferBarcodesRequest($business_id, $generate_offer_barcodes_request, string $contentType = self::contentTypes['generateOfferBarcodes'][0])
+    {
+
+        // verify the required parameter 'business_id' is set
+        if ($business_id === null || (is_array($business_id) && count($business_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $business_id when calling generateOfferBarcodes'
+            );
+        }
+        if ($business_id < 1) {
+            throw new \InvalidArgumentException('invalid value for "$business_id" when calling BusinessOfferMappingsApi.generateOfferBarcodes, must be bigger than or equal to 1.');
+        }
+        
+        // verify the required parameter 'generate_offer_barcodes_request' is set
+        if ($generate_offer_barcodes_request === null || (is_array($generate_offer_barcodes_request) && count($generate_offer_barcodes_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $generate_offer_barcodes_request when calling generateOfferBarcodes'
+            );
+        }
+
+
+        $resourcePath = '/v1/businesses/{businessId}/offer-mappings/barcodes/generate';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($business_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'businessId' . '}',
+                ObjectSerializer::toPathValue($business_id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($generate_offer_barcodes_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($generate_offer_barcodes_request));
+            } else {
+                $httpBody = $generate_offer_barcodes_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
@@ -1543,9 +2022,10 @@ class BusinessOfferMappingsApi
      *
      * Информация о товарах в каталоге
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
-     * @param  string $page_token Идентификатор страницы c результатами.  Если параметр не указан, возвращается самая старая страница.  Рекомендуется передавать значение выходного параметра &#x60;nextPageToken&#x60;, полученное при последнем запросе.  Если задан &#x60;page_token&#x60;, параметры &#x60;offset&#x60;, &#x60;page_number&#x60; и &#x60;page_size&#x60; игнорируются. (optional)
-     * @param  int $limit Количество товаров на одной странице. (optional)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  string $page_token Идентификатор страницы c результатами.  Если параметр не указан, возвращается первая страница.  Рекомендуем передавать значение выходного параметра &#x60;nextPageToken&#x60;, полученное при последнем запросе.  Если задан &#x60;page_token&#x60; и в запросе есть параметры &#x60;page&#x60; и &#x60;pageSize&#x60;, они игнорируются. (optional)
+     * @param  int $limit Количество значений на одной странице. (optional)
+     * @param  CatalogLanguageType $language Язык, на котором принимаются и возвращаются значения в параметрах &#x60;name&#x60; и &#x60;description&#x60;.  Значение по умолчанию: &#x60;RU&#x60;. (optional)
      * @param  \YandexMarketApi\Model\GetOfferMappingsRequest $get_offer_mappings_request get_offer_mappings_request (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOfferMappings'] to see the possible values for this operation
      *
@@ -1553,9 +2033,9 @@ class BusinessOfferMappingsApi
      * @throws \InvalidArgumentException
      * @return \YandexMarketApi\Model\GetOfferMappingsResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiNotFoundErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse
      */
-    public function getOfferMappings($business_id, $page_token = null, $limit = null, $get_offer_mappings_request = null, string $contentType = self::contentTypes['getOfferMappings'][0])
+    public function getOfferMappings($business_id, $page_token = null, $limit = null, $language = null, $get_offer_mappings_request = null, string $contentType = self::contentTypes['getOfferMappings'][0])
     {
-        list($response) = $this->getOfferMappingsWithHttpInfo($business_id, $page_token, $limit, $get_offer_mappings_request, $contentType);
+        list($response) = $this->getOfferMappingsWithHttpInfo($business_id, $page_token, $limit, $language, $get_offer_mappings_request, $contentType);
         return $response;
     }
 
@@ -1564,9 +2044,10 @@ class BusinessOfferMappingsApi
      *
      * Информация о товарах в каталоге
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
-     * @param  string $page_token Идентификатор страницы c результатами.  Если параметр не указан, возвращается самая старая страница.  Рекомендуется передавать значение выходного параметра &#x60;nextPageToken&#x60;, полученное при последнем запросе.  Если задан &#x60;page_token&#x60;, параметры &#x60;offset&#x60;, &#x60;page_number&#x60; и &#x60;page_size&#x60; игнорируются. (optional)
-     * @param  int $limit Количество товаров на одной странице. (optional)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  string $page_token Идентификатор страницы c результатами.  Если параметр не указан, возвращается первая страница.  Рекомендуем передавать значение выходного параметра &#x60;nextPageToken&#x60;, полученное при последнем запросе.  Если задан &#x60;page_token&#x60; и в запросе есть параметры &#x60;page&#x60; и &#x60;pageSize&#x60;, они игнорируются. (optional)
+     * @param  int $limit Количество значений на одной странице. (optional)
+     * @param  CatalogLanguageType $language Язык, на котором принимаются и возвращаются значения в параметрах &#x60;name&#x60; и &#x60;description&#x60;.  Значение по умолчанию: &#x60;RU&#x60;. (optional)
      * @param  \YandexMarketApi\Model\GetOfferMappingsRequest $get_offer_mappings_request (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOfferMappings'] to see the possible values for this operation
      *
@@ -1574,9 +2055,9 @@ class BusinessOfferMappingsApi
      * @throws \InvalidArgumentException
      * @return array of \YandexMarketApi\Model\GetOfferMappingsResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiNotFoundErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getOfferMappingsWithHttpInfo($business_id, $page_token = null, $limit = null, $get_offer_mappings_request = null, string $contentType = self::contentTypes['getOfferMappings'][0])
+    public function getOfferMappingsWithHttpInfo($business_id, $page_token = null, $limit = null, $language = null, $get_offer_mappings_request = null, string $contentType = self::contentTypes['getOfferMappings'][0])
     {
-        $request = $this->getOfferMappingsRequest($business_id, $page_token, $limit, $get_offer_mappings_request, $contentType);
+        $request = $this->getOfferMappingsRequest($business_id, $page_token, $limit, $language, $get_offer_mappings_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1805,18 +2286,19 @@ class BusinessOfferMappingsApi
      *
      * Информация о товарах в каталоге
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
-     * @param  string $page_token Идентификатор страницы c результатами.  Если параметр не указан, возвращается самая старая страница.  Рекомендуется передавать значение выходного параметра &#x60;nextPageToken&#x60;, полученное при последнем запросе.  Если задан &#x60;page_token&#x60;, параметры &#x60;offset&#x60;, &#x60;page_number&#x60; и &#x60;page_size&#x60; игнорируются. (optional)
-     * @param  int $limit Количество товаров на одной странице. (optional)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  string $page_token Идентификатор страницы c результатами.  Если параметр не указан, возвращается первая страница.  Рекомендуем передавать значение выходного параметра &#x60;nextPageToken&#x60;, полученное при последнем запросе.  Если задан &#x60;page_token&#x60; и в запросе есть параметры &#x60;page&#x60; и &#x60;pageSize&#x60;, они игнорируются. (optional)
+     * @param  int $limit Количество значений на одной странице. (optional)
+     * @param  CatalogLanguageType $language Язык, на котором принимаются и возвращаются значения в параметрах &#x60;name&#x60; и &#x60;description&#x60;.  Значение по умолчанию: &#x60;RU&#x60;. (optional)
      * @param  \YandexMarketApi\Model\GetOfferMappingsRequest $get_offer_mappings_request (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOfferMappings'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOfferMappingsAsync($business_id, $page_token = null, $limit = null, $get_offer_mappings_request = null, string $contentType = self::contentTypes['getOfferMappings'][0])
+    public function getOfferMappingsAsync($business_id, $page_token = null, $limit = null, $language = null, $get_offer_mappings_request = null, string $contentType = self::contentTypes['getOfferMappings'][0])
     {
-        return $this->getOfferMappingsAsyncWithHttpInfo($business_id, $page_token, $limit, $get_offer_mappings_request, $contentType)
+        return $this->getOfferMappingsAsyncWithHttpInfo($business_id, $page_token, $limit, $language, $get_offer_mappings_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1829,19 +2311,20 @@ class BusinessOfferMappingsApi
      *
      * Информация о товарах в каталоге
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
-     * @param  string $page_token Идентификатор страницы c результатами.  Если параметр не указан, возвращается самая старая страница.  Рекомендуется передавать значение выходного параметра &#x60;nextPageToken&#x60;, полученное при последнем запросе.  Если задан &#x60;page_token&#x60;, параметры &#x60;offset&#x60;, &#x60;page_number&#x60; и &#x60;page_size&#x60; игнорируются. (optional)
-     * @param  int $limit Количество товаров на одной странице. (optional)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  string $page_token Идентификатор страницы c результатами.  Если параметр не указан, возвращается первая страница.  Рекомендуем передавать значение выходного параметра &#x60;nextPageToken&#x60;, полученное при последнем запросе.  Если задан &#x60;page_token&#x60; и в запросе есть параметры &#x60;page&#x60; и &#x60;pageSize&#x60;, они игнорируются. (optional)
+     * @param  int $limit Количество значений на одной странице. (optional)
+     * @param  CatalogLanguageType $language Язык, на котором принимаются и возвращаются значения в параметрах &#x60;name&#x60; и &#x60;description&#x60;.  Значение по умолчанию: &#x60;RU&#x60;. (optional)
      * @param  \YandexMarketApi\Model\GetOfferMappingsRequest $get_offer_mappings_request (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOfferMappings'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOfferMappingsAsyncWithHttpInfo($business_id, $page_token = null, $limit = null, $get_offer_mappings_request = null, string $contentType = self::contentTypes['getOfferMappings'][0])
+    public function getOfferMappingsAsyncWithHttpInfo($business_id, $page_token = null, $limit = null, $language = null, $get_offer_mappings_request = null, string $contentType = self::contentTypes['getOfferMappings'][0])
     {
         $returnType = '\YandexMarketApi\Model\GetOfferMappingsResponse';
-        $request = $this->getOfferMappingsRequest($business_id, $page_token, $limit, $get_offer_mappings_request, $contentType);
+        $request = $this->getOfferMappingsRequest($business_id, $page_token, $limit, $language, $get_offer_mappings_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1882,16 +2365,17 @@ class BusinessOfferMappingsApi
     /**
      * Create request for operation 'getOfferMappings'
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
-     * @param  string $page_token Идентификатор страницы c результатами.  Если параметр не указан, возвращается самая старая страница.  Рекомендуется передавать значение выходного параметра &#x60;nextPageToken&#x60;, полученное при последнем запросе.  Если задан &#x60;page_token&#x60;, параметры &#x60;offset&#x60;, &#x60;page_number&#x60; и &#x60;page_size&#x60; игнорируются. (optional)
-     * @param  int $limit Количество товаров на одной странице. (optional)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  string $page_token Идентификатор страницы c результатами.  Если параметр не указан, возвращается первая страница.  Рекомендуем передавать значение выходного параметра &#x60;nextPageToken&#x60;, полученное при последнем запросе.  Если задан &#x60;page_token&#x60; и в запросе есть параметры &#x60;page&#x60; и &#x60;pageSize&#x60;, они игнорируются. (optional)
+     * @param  int $limit Количество значений на одной странице. (optional)
+     * @param  CatalogLanguageType $language Язык, на котором принимаются и возвращаются значения в параметрах &#x60;name&#x60; и &#x60;description&#x60;.  Значение по умолчанию: &#x60;RU&#x60;. (optional)
      * @param  \YandexMarketApi\Model\GetOfferMappingsRequest $get_offer_mappings_request (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOfferMappings'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getOfferMappingsRequest($business_id, $page_token = null, $limit = null, $get_offer_mappings_request = null, string $contentType = self::contentTypes['getOfferMappings'][0])
+    public function getOfferMappingsRequest($business_id, $page_token = null, $limit = null, $language = null, $get_offer_mappings_request = null, string $contentType = self::contentTypes['getOfferMappings'][0])
     {
 
         // verify the required parameter 'business_id' is set
@@ -1900,12 +2384,19 @@ class BusinessOfferMappingsApi
                 'Missing the required parameter $business_id when calling getOfferMappings'
             );
         }
+        if ($business_id < 1) {
+            throw new \InvalidArgumentException('invalid value for "$business_id" when calling BusinessOfferMappingsApi.getOfferMappings, must be bigger than or equal to 1.');
+        }
+        
+
+        if ($limit !== null && $limit < 1) {
+            throw new \InvalidArgumentException('invalid value for "$limit" when calling BusinessOfferMappingsApi.getOfferMappings, must be bigger than or equal to 1.');
+        }
+        
 
 
 
-
-
-        $resourcePath = '/businesses/{businessId}/offer-mappings';
+        $resourcePath = '/v2/businesses/{businessId}/offer-mappings';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1926,6 +2417,15 @@ class BusinessOfferMappingsApi
             $limit,
             'limit', // param base name
             'integer', // openApiType
+            '', // style
+            false, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $language,
+            'language', // param base name
+            'CatalogLanguageType', // openApiType
             '', // style
             false, // explode
             false // required
@@ -1980,6 +2480,11 @@ class BusinessOfferMappingsApi
             }
         }
 
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
@@ -2009,17 +2514,18 @@ class BusinessOfferMappingsApi
     /**
      * Operation getSuggestedOfferMappings
      *
-     * Предварительный просмотр карточек на Маркете, соответствующих вашим товарам
+     * Просмотр карточек на Маркете, которые подходят вашим товарам
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
-     * @param  \YandexMarketApi\Model\GetSuggestedOfferMappingsRequest $get_suggested_offer_mappings_request get_suggested_offer_mappings_request (required)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  \YandexMarketApi\Model\GetSuggestedOfferMappingsRequest $get_suggested_offer_mappings_request get_suggested_offer_mappings_request (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSuggestedOfferMappings'] to see the possible values for this operation
      *
      * @throws \YandexMarketApi\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \YandexMarketApi\Model\GetSuggestedOfferMappingsResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiNotFoundErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse
+     * @deprecated
      */
-    public function getSuggestedOfferMappings($business_id, $get_suggested_offer_mappings_request, string $contentType = self::contentTypes['getSuggestedOfferMappings'][0])
+    public function getSuggestedOfferMappings($business_id, $get_suggested_offer_mappings_request = null, string $contentType = self::contentTypes['getSuggestedOfferMappings'][0])
     {
         list($response) = $this->getSuggestedOfferMappingsWithHttpInfo($business_id, $get_suggested_offer_mappings_request, $contentType);
         return $response;
@@ -2028,17 +2534,18 @@ class BusinessOfferMappingsApi
     /**
      * Operation getSuggestedOfferMappingsWithHttpInfo
      *
-     * Предварительный просмотр карточек на Маркете, соответствующих вашим товарам
+     * Просмотр карточек на Маркете, которые подходят вашим товарам
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
-     * @param  \YandexMarketApi\Model\GetSuggestedOfferMappingsRequest $get_suggested_offer_mappings_request (required)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  \YandexMarketApi\Model\GetSuggestedOfferMappingsRequest $get_suggested_offer_mappings_request (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSuggestedOfferMappings'] to see the possible values for this operation
      *
      * @throws \YandexMarketApi\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \YandexMarketApi\Model\GetSuggestedOfferMappingsResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiNotFoundErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     * @deprecated
      */
-    public function getSuggestedOfferMappingsWithHttpInfo($business_id, $get_suggested_offer_mappings_request, string $contentType = self::contentTypes['getSuggestedOfferMappings'][0])
+    public function getSuggestedOfferMappingsWithHttpInfo($business_id, $get_suggested_offer_mappings_request = null, string $contentType = self::contentTypes['getSuggestedOfferMappings'][0])
     {
         $request = $this->getSuggestedOfferMappingsRequest($business_id, $get_suggested_offer_mappings_request, $contentType);
 
@@ -2267,16 +2774,17 @@ class BusinessOfferMappingsApi
     /**
      * Operation getSuggestedOfferMappingsAsync
      *
-     * Предварительный просмотр карточек на Маркете, соответствующих вашим товарам
+     * Просмотр карточек на Маркете, которые подходят вашим товарам
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
-     * @param  \YandexMarketApi\Model\GetSuggestedOfferMappingsRequest $get_suggested_offer_mappings_request (required)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  \YandexMarketApi\Model\GetSuggestedOfferMappingsRequest $get_suggested_offer_mappings_request (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSuggestedOfferMappings'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
+     * @deprecated
      */
-    public function getSuggestedOfferMappingsAsync($business_id, $get_suggested_offer_mappings_request, string $contentType = self::contentTypes['getSuggestedOfferMappings'][0])
+    public function getSuggestedOfferMappingsAsync($business_id, $get_suggested_offer_mappings_request = null, string $contentType = self::contentTypes['getSuggestedOfferMappings'][0])
     {
         return $this->getSuggestedOfferMappingsAsyncWithHttpInfo($business_id, $get_suggested_offer_mappings_request, $contentType)
             ->then(
@@ -2289,16 +2797,17 @@ class BusinessOfferMappingsApi
     /**
      * Operation getSuggestedOfferMappingsAsyncWithHttpInfo
      *
-     * Предварительный просмотр карточек на Маркете, соответствующих вашим товарам
+     * Просмотр карточек на Маркете, которые подходят вашим товарам
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
-     * @param  \YandexMarketApi\Model\GetSuggestedOfferMappingsRequest $get_suggested_offer_mappings_request (required)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  \YandexMarketApi\Model\GetSuggestedOfferMappingsRequest $get_suggested_offer_mappings_request (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSuggestedOfferMappings'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
+     * @deprecated
      */
-    public function getSuggestedOfferMappingsAsyncWithHttpInfo($business_id, $get_suggested_offer_mappings_request, string $contentType = self::contentTypes['getSuggestedOfferMappings'][0])
+    public function getSuggestedOfferMappingsAsyncWithHttpInfo($business_id, $get_suggested_offer_mappings_request = null, string $contentType = self::contentTypes['getSuggestedOfferMappings'][0])
     {
         $returnType = '\YandexMarketApi\Model\GetSuggestedOfferMappingsResponse';
         $request = $this->getSuggestedOfferMappingsRequest($business_id, $get_suggested_offer_mappings_request, $contentType);
@@ -2342,14 +2851,15 @@ class BusinessOfferMappingsApi
     /**
      * Create request for operation 'getSuggestedOfferMappings'
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
-     * @param  \YandexMarketApi\Model\GetSuggestedOfferMappingsRequest $get_suggested_offer_mappings_request (required)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  \YandexMarketApi\Model\GetSuggestedOfferMappingsRequest $get_suggested_offer_mappings_request (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSuggestedOfferMappings'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
+     * @deprecated
      */
-    public function getSuggestedOfferMappingsRequest($business_id, $get_suggested_offer_mappings_request, string $contentType = self::contentTypes['getSuggestedOfferMappings'][0])
+    public function getSuggestedOfferMappingsRequest($business_id, $get_suggested_offer_mappings_request = null, string $contentType = self::contentTypes['getSuggestedOfferMappings'][0])
     {
 
         // verify the required parameter 'business_id' is set
@@ -2358,16 +2868,13 @@ class BusinessOfferMappingsApi
                 'Missing the required parameter $business_id when calling getSuggestedOfferMappings'
             );
         }
-
-        // verify the required parameter 'get_suggested_offer_mappings_request' is set
-        if ($get_suggested_offer_mappings_request === null || (is_array($get_suggested_offer_mappings_request) && count($get_suggested_offer_mappings_request) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $get_suggested_offer_mappings_request when calling getSuggestedOfferMappings'
-            );
+        if ($business_id < 1) {
+            throw new \InvalidArgumentException('invalid value for "$business_id" when calling BusinessOfferMappingsApi.getSuggestedOfferMappings, must be bigger than or equal to 1.');
         }
+        
 
 
-        $resourcePath = '/businesses/{businessId}/offer-mappings/suggestions';
+        $resourcePath = '/v2/businesses/{businessId}/offer-mappings/suggestions';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2424,6 +2931,11 @@ class BusinessOfferMappingsApi
             }
         }
 
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
@@ -2453,38 +2965,40 @@ class BusinessOfferMappingsApi
     /**
      * Operation updateOfferMappings
      *
-     * Добавление товаров в каталог и редактирование информации о них
+     * Добавление товаров в каталог и изменение информации о них
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
      * @param  \YandexMarketApi\Model\UpdateOfferMappingsRequest $update_offer_mappings_request update_offer_mappings_request (required)
+     * @param  CatalogLanguageType $language Язык, на котором принимаются и возвращаются значения в параметрах &#x60;name&#x60; и &#x60;description&#x60;.  Значение по умолчанию: &#x60;RU&#x60;. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateOfferMappings'] to see the possible values for this operation
      *
      * @throws \YandexMarketApi\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \YandexMarketApi\Model\EmptyApiResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiNotFoundErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiLockedErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse
+     * @return \YandexMarketApi\Model\UpdateOfferMappingsResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiNotFoundErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiLockedErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse
      */
-    public function updateOfferMappings($business_id, $update_offer_mappings_request, string $contentType = self::contentTypes['updateOfferMappings'][0])
+    public function updateOfferMappings($business_id, $update_offer_mappings_request, $language = null, string $contentType = self::contentTypes['updateOfferMappings'][0])
     {
-        list($response) = $this->updateOfferMappingsWithHttpInfo($business_id, $update_offer_mappings_request, $contentType);
+        list($response) = $this->updateOfferMappingsWithHttpInfo($business_id, $update_offer_mappings_request, $language, $contentType);
         return $response;
     }
 
     /**
      * Operation updateOfferMappingsWithHttpInfo
      *
-     * Добавление товаров в каталог и редактирование информации о них
+     * Добавление товаров в каталог и изменение информации о них
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
      * @param  \YandexMarketApi\Model\UpdateOfferMappingsRequest $update_offer_mappings_request (required)
+     * @param  CatalogLanguageType $language Язык, на котором принимаются и возвращаются значения в параметрах &#x60;name&#x60; и &#x60;description&#x60;.  Значение по умолчанию: &#x60;RU&#x60;. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateOfferMappings'] to see the possible values for this operation
      *
      * @throws \YandexMarketApi\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \YandexMarketApi\Model\EmptyApiResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiNotFoundErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiLockedErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \YandexMarketApi\Model\UpdateOfferMappingsResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiNotFoundErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiLockedErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function updateOfferMappingsWithHttpInfo($business_id, $update_offer_mappings_request, string $contentType = self::contentTypes['updateOfferMappings'][0])
+    public function updateOfferMappingsWithHttpInfo($business_id, $update_offer_mappings_request, $language = null, string $contentType = self::contentTypes['updateOfferMappings'][0])
     {
-        $request = $this->updateOfferMappingsRequest($business_id, $update_offer_mappings_request, $contentType);
+        $request = $this->updateOfferMappingsRequest($business_id, $update_offer_mappings_request, $language, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2523,17 +3037,17 @@ class BusinessOfferMappingsApi
 
             switch($statusCode) {
                 case 200:
-                    if ('\YandexMarketApi\Model\EmptyApiResponse' === '\SplFileObject') {
+                    if ('\YandexMarketApi\Model\UpdateOfferMappingsResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
-                        if ('\YandexMarketApi\Model\EmptyApiResponse' !== 'string') {
+                        if ('\YandexMarketApi\Model\UpdateOfferMappingsResponse' !== 'string') {
                             $content = json_decode($content);
                         }
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\EmptyApiResponse', []),
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\UpdateOfferMappingsResponse', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -2644,7 +3158,7 @@ class BusinessOfferMappingsApi
                     ];
             }
 
-            $returnType = '\YandexMarketApi\Model\EmptyApiResponse';
+            $returnType = '\YandexMarketApi\Model\UpdateOfferMappingsResponse';
             if ($returnType === '\SplFileObject') {
                 $content = $response->getBody(); //stream goes to serializer
             } else {
@@ -2665,7 +3179,7 @@ class BusinessOfferMappingsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\YandexMarketApi\Model\EmptyApiResponse',
+                        '\YandexMarketApi\Model\UpdateOfferMappingsResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2734,18 +3248,19 @@ class BusinessOfferMappingsApi
     /**
      * Operation updateOfferMappingsAsync
      *
-     * Добавление товаров в каталог и редактирование информации о них
+     * Добавление товаров в каталог и изменение информации о них
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
      * @param  \YandexMarketApi\Model\UpdateOfferMappingsRequest $update_offer_mappings_request (required)
+     * @param  CatalogLanguageType $language Язык, на котором принимаются и возвращаются значения в параметрах &#x60;name&#x60; и &#x60;description&#x60;.  Значение по умолчанию: &#x60;RU&#x60;. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateOfferMappings'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateOfferMappingsAsync($business_id, $update_offer_mappings_request, string $contentType = self::contentTypes['updateOfferMappings'][0])
+    public function updateOfferMappingsAsync($business_id, $update_offer_mappings_request, $language = null, string $contentType = self::contentTypes['updateOfferMappings'][0])
     {
-        return $this->updateOfferMappingsAsyncWithHttpInfo($business_id, $update_offer_mappings_request, $contentType)
+        return $this->updateOfferMappingsAsyncWithHttpInfo($business_id, $update_offer_mappings_request, $language, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2756,19 +3271,20 @@ class BusinessOfferMappingsApi
     /**
      * Operation updateOfferMappingsAsyncWithHttpInfo
      *
-     * Добавление товаров в каталог и редактирование информации о них
+     * Добавление товаров в каталог и изменение информации о них
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
      * @param  \YandexMarketApi\Model\UpdateOfferMappingsRequest $update_offer_mappings_request (required)
+     * @param  CatalogLanguageType $language Язык, на котором принимаются и возвращаются значения в параметрах &#x60;name&#x60; и &#x60;description&#x60;.  Значение по умолчанию: &#x60;RU&#x60;. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateOfferMappings'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateOfferMappingsAsyncWithHttpInfo($business_id, $update_offer_mappings_request, string $contentType = self::contentTypes['updateOfferMappings'][0])
+    public function updateOfferMappingsAsyncWithHttpInfo($business_id, $update_offer_mappings_request, $language = null, string $contentType = self::contentTypes['updateOfferMappings'][0])
     {
-        $returnType = '\YandexMarketApi\Model\EmptyApiResponse';
-        $request = $this->updateOfferMappingsRequest($business_id, $update_offer_mappings_request, $contentType);
+        $returnType = '\YandexMarketApi\Model\UpdateOfferMappingsResponse';
+        $request = $this->updateOfferMappingsRequest($business_id, $update_offer_mappings_request, $language, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2809,14 +3325,15 @@ class BusinessOfferMappingsApi
     /**
      * Create request for operation 'updateOfferMappings'
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
      * @param  \YandexMarketApi\Model\UpdateOfferMappingsRequest $update_offer_mappings_request (required)
+     * @param  CatalogLanguageType $language Язык, на котором принимаются и возвращаются значения в параметрах &#x60;name&#x60; и &#x60;description&#x60;.  Значение по умолчанию: &#x60;RU&#x60;. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateOfferMappings'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function updateOfferMappingsRequest($business_id, $update_offer_mappings_request, string $contentType = self::contentTypes['updateOfferMappings'][0])
+    public function updateOfferMappingsRequest($business_id, $update_offer_mappings_request, $language = null, string $contentType = self::contentTypes['updateOfferMappings'][0])
     {
 
         // verify the required parameter 'business_id' is set
@@ -2825,7 +3342,10 @@ class BusinessOfferMappingsApi
                 'Missing the required parameter $business_id when calling updateOfferMappings'
             );
         }
-
+        if ($business_id < 1) {
+            throw new \InvalidArgumentException('invalid value for "$business_id" when calling BusinessOfferMappingsApi.updateOfferMappings, must be bigger than or equal to 1.');
+        }
+        
         // verify the required parameter 'update_offer_mappings_request' is set
         if ($update_offer_mappings_request === null || (is_array($update_offer_mappings_request) && count($update_offer_mappings_request) === 0)) {
             throw new \InvalidArgumentException(
@@ -2834,13 +3354,23 @@ class BusinessOfferMappingsApi
         }
 
 
-        $resourcePath = '/businesses/{businessId}/offer-mappings/update';
+
+        $resourcePath = '/v2/businesses/{businessId}/offer-mappings/update';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
         $multipart = false;
 
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $language,
+            'language', // param base name
+            'CatalogLanguageType', // openApiType
+            '', // style
+            false, // explode
+            false // required
+        ) ?? []);
 
 
         // path params
@@ -2891,6 +3421,11 @@ class BusinessOfferMappingsApi
             }
         }
 
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();

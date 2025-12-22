@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -96,7 +96,7 @@ class BriefOrderItemDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
 		'price' => false,
 		'offer_name' => false,
 		'offer_id' => false,
-		'instances' => false
+		'instances' => true
     ];
 
     /**
@@ -317,16 +317,20 @@ class BriefOrderItemDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['offer_id']) && (mb_strlen($this->container['offer_id']) > 80)) {
-            $invalidProperties[] = "invalid value for 'offer_id', the character length must be smaller than or equal to 80.";
+        if (!is_null($this->container['offer_id']) && (mb_strlen($this->container['offer_id']) > 255)) {
+            $invalidProperties[] = "invalid value for 'offer_id', the character length must be smaller than or equal to 255.";
         }
 
         if (!is_null($this->container['offer_id']) && (mb_strlen($this->container['offer_id']) < 1)) {
             $invalidProperties[] = "invalid value for 'offer_id', the character length must be bigger than or equal to 1.";
         }
 
-        if (!is_null($this->container['offer_id']) && !preg_match("/^[0-9a-zа-яА-ЯA-ZёËëЁ.,\\\\\/()\\[\\]\\-=_]{1,80}$/", $this->container['offer_id'])) {
-            $invalidProperties[] = "invalid value for 'offer_id', must be conform to the pattern /^[0-9a-zа-яА-ЯA-ZёËëЁ.,\\\\\/()\\[\\]\\-=_]{1,80}$/.";
+        if (!is_null($this->container['offer_id']) && !preg_match("/^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/", $this->container['offer_id'])) {
+            $invalidProperties[] = "invalid value for 'offer_id', must be conform to the pattern /^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/.";
+        }
+
+        if (!is_null($this->container['instances']) && (count($this->container['instances']) < 1)) {
+            $invalidProperties[] = "invalid value for 'instances', number of items must be greater than or equal to 1.";
         }
 
         return $invalidProperties;
@@ -357,7 +361,7 @@ class BriefOrderItemDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets id
      *
-     * @param int|null $id Идентификатор товара в заказе.  Позволяет идентифицировать товар в рамках данного заказа.
+     * @param int|null $id Идентификатор товара в заказе.  Позволяет идентифицировать товар в рамках заказа.
      *
      * @return self
      */
@@ -438,7 +442,7 @@ class BriefOrderItemDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets price
      *
-     * @param float|null $price Цена на товар. Указана в той валюте, которая была задана в каталоге. Разделитель целой и дробной части — точка.
+     * @param float|null $price Цена товара. Указана в той валюте, которая была задана в каталоге. Разделитель целой и дробной части — точка.
      *
      * @return self
      */
@@ -492,7 +496,7 @@ class BriefOrderItemDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets offer_id
      *
-     * @param string|null $offer_id Ваш SKU — идентификатор товара в вашей системе.  Разрешена любая последовательность длиной до 80 знаков. В нее могут входить английские и русские буквы, цифры и символы `. , / \\ ( ) [ ] - = _`  Правила использования SKU:  * У каждого товара SKU должен быть свой.  * SKU товара нельзя менять — можно только удалить товар и добавить заново с новым SKU.  * Уже заданный SKU нельзя освободить и использовать заново для другого товара. Каждый товар должен получать новый идентификатор, до того никогда не использовавшийся в вашем каталоге.  [Что такое SKU и как его назначать](https://yandex.ru/support/marketplace/assortment/add/index.html#fields)
+     * @param string|null $offer_id Ваш SKU — идентификатор товара в вашей системе.  Правила использования SKU:  * У каждого товара SKU должен быть свой.  * Уже заданный SKU нельзя освободить и использовать заново для другого товара. Каждый товар должен получать новый идентификатор, до того никогда не использовавшийся в вашем каталоге.  SKU товара можно изменить в кабинете продавца на Маркете. О том, как это сделать, читайте [в Справке Маркета для продавцов](https://yandex.ru/support2/marketplace/ru/assortment/operations/edit-sku).  {% note warning %}  Пробельные символы в начале и конце значения автоматически удаляются. Например, `\"  SKU123  \"` и `\"SKU123\"` будут обработаны как одинаковые значения.  {% endnote %}  [Что такое SKU и как его назначать](https://yandex.ru/support/marketplace/assortment/add/index.html#fields)
      *
      * @return self
      */
@@ -501,14 +505,14 @@ class BriefOrderItemDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
         if (is_null($offer_id)) {
             throw new \InvalidArgumentException('non-nullable offer_id cannot be null');
         }
-        if ((mb_strlen($offer_id) > 80)) {
-            throw new \InvalidArgumentException('invalid length for $offer_id when calling BriefOrderItemDTO., must be smaller than or equal to 80.');
+        if ((mb_strlen($offer_id) > 255)) {
+            throw new \InvalidArgumentException('invalid length for $offer_id when calling BriefOrderItemDTO., must be smaller than or equal to 255.');
         }
         if ((mb_strlen($offer_id) < 1)) {
             throw new \InvalidArgumentException('invalid length for $offer_id when calling BriefOrderItemDTO., must be bigger than or equal to 1.');
         }
-        if ((!preg_match("/^[0-9a-zа-яА-ЯA-ZёËëЁ.,\\\\\/()\\[\\]\\-=_]{1,80}$/", $offer_id))) {
-            throw new \InvalidArgumentException("invalid value for \$offer_id when calling BriefOrderItemDTO., must conform to the pattern /^[0-9a-zа-яА-ЯA-ZёËëЁ.,\\\\\/()\\[\\]\\-=_]{1,80}$/.");
+        if ((!preg_match("/^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/", $offer_id))) {
+            throw new \InvalidArgumentException("invalid value for \$offer_id when calling BriefOrderItemDTO., must conform to the pattern /^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/.");
         }
 
         $this->container['offer_id'] = $offer_id;
@@ -529,14 +533,26 @@ class BriefOrderItemDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets instances
      *
-     * @param \YandexMarketApi\Model\OrderItemInstanceDTO[]|null $instances Переданные вами коды маркировки.
+     * @param \YandexMarketApi\Model\OrderItemInstanceDTO[]|null $instances Переданные коды маркировки.
      *
      * @return self
      */
     public function setInstances($instances)
     {
         if (is_null($instances)) {
-            throw new \InvalidArgumentException('non-nullable instances cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'instances');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('instances', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+
+        if (!is_null($instances) && (count($instances) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $instances when calling BriefOrderItemDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['instances'] = $instances;
 

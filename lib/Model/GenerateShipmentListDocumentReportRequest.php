@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -84,7 +84,7 @@ class GenerateShipmentListDocumentReportRequest implements ModelInterface, Array
     protected static array $openAPINullables = [
         'campaign_id' => false,
 		'shipment_id' => false,
-		'order_ids' => false
+		'order_ids' => true
     ];
 
     /**
@@ -292,6 +292,14 @@ class GenerateShipmentListDocumentReportRequest implements ModelInterface, Array
         if ($this->container['campaign_id'] === null) {
             $invalidProperties[] = "'campaign_id' can't be null";
         }
+        if (($this->container['campaign_id'] < 1)) {
+            $invalidProperties[] = "invalid value for 'campaign_id', must be bigger than or equal to 1.";
+        }
+
+        if (!is_null($this->container['order_ids']) && (count($this->container['order_ids']) < 1)) {
+            $invalidProperties[] = "invalid value for 'order_ids', number of items must be greater than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -320,7 +328,7 @@ class GenerateShipmentListDocumentReportRequest implements ModelInterface, Array
     /**
      * Sets campaign_id
      *
-     * @param int $campaign_id Идентификатор кампании.
+     * @param int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями.
      *
      * @return self
      */
@@ -329,6 +337,11 @@ class GenerateShipmentListDocumentReportRequest implements ModelInterface, Array
         if (is_null($campaign_id)) {
             throw new \InvalidArgumentException('non-nullable campaign_id cannot be null');
         }
+
+        if (($campaign_id < 1)) {
+            throw new \InvalidArgumentException('invalid value for $campaign_id when calling GenerateShipmentListDocumentReportRequest., must be bigger than or equal to 1.');
+        }
+
         $this->container['campaign_id'] = $campaign_id;
 
         return $this;
@@ -347,7 +360,7 @@ class GenerateShipmentListDocumentReportRequest implements ModelInterface, Array
     /**
      * Sets shipment_id
      *
-     * @param int|null $shipment_id Идентификатор отгрузки.
+     * @param int|null $shipment_id Идентификатор отгрузки.  В запросе обязательно передавайте `shipmentId` или `orderIds`.
      *
      * @return self
      */
@@ -374,14 +387,26 @@ class GenerateShipmentListDocumentReportRequest implements ModelInterface, Array
     /**
      * Sets order_ids
      *
-     * @param int[]|null $order_ids Фильтр по идентификаторам заказа в отгрузке.
+     * @param int[]|null $order_ids Фильтр по идентификаторам заказа в отгрузке.  В запросе обязательно передавайте `shipmentId` или `orderIds`.
      *
      * @return self
      */
     public function setOrderIds($order_ids)
     {
         if (is_null($order_ids)) {
-            throw new \InvalidArgumentException('non-nullable order_ids cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'order_ids');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('order_ids', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+
+        if (!is_null($order_ids) && (count($order_ids) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $order_ids when calling GenerateShipmentListDocumentReportRequest., number of items must be greater than or equal to 1.');
         }
         $this->container['order_ids'] = $order_ids;
 

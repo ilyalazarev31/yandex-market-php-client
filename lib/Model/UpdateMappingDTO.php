@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -275,6 +275,10 @@ class UpdateMappingDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if (!is_null($this->container['market_sku']) && ($this->container['market_sku'] < 1)) {
+            $invalidProperties[] = "invalid value for 'market_sku', must be bigger than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -303,7 +307,7 @@ class UpdateMappingDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets market_sku
      *
-     * @param int|null $market_sku SKU на Маркете.
+     * @param int|null $market_sku Идентификатор карточки товара на Маркете.
      *
      * @return self
      */
@@ -312,6 +316,11 @@ class UpdateMappingDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         if (is_null($market_sku)) {
             throw new \InvalidArgumentException('non-nullable market_sku cannot be null');
         }
+
+        if (($market_sku < 1)) {
+            throw new \InvalidArgumentException('invalid value for $market_sku when calling UpdateMappingDTO., must be bigger than or equal to 1.');
+        }
+
         $this->container['market_sku'] = $market_sku;
 
         return $this;

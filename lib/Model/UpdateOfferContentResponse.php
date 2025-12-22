@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -35,7 +35,7 @@ use \YandexMarketApi\ObjectSerializer;
  * UpdateOfferContentResponse Class Doc Comment
  *
  * @category Class
- * @description Описывает проблемы, возникшие при сохранении товара.
+ * @description Описывает проблемы, которые появились при сохранении товара.
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -81,7 +81,7 @@ class UpdateOfferContentResponse implements ModelInterface, ArrayAccess, \JsonSe
       */
     protected static array $openAPINullables = [
         'status' => false,
-		'results' => false
+		'results' => true
     ];
 
     /**
@@ -282,6 +282,13 @@ class UpdateOfferContentResponse implements ModelInterface, ArrayAccess, \JsonSe
     {
         $invalidProperties = [];
 
+        if ($this->container['status'] === null) {
+            $invalidProperties[] = "'status' can't be null";
+        }
+        if (!is_null($this->container['results']) && (count($this->container['results']) < 1)) {
+            $invalidProperties[] = "invalid value for 'results', number of items must be greater than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -300,7 +307,7 @@ class UpdateOfferContentResponse implements ModelInterface, ArrayAccess, \JsonSe
     /**
      * Gets status
      *
-     * @return \YandexMarketApi\Model\ApiResponseStatusType|null
+     * @return \YandexMarketApi\Model\ApiResponseStatusType
      */
     public function getStatus()
     {
@@ -310,7 +317,7 @@ class UpdateOfferContentResponse implements ModelInterface, ArrayAccess, \JsonSe
     /**
      * Sets status
      *
-     * @param \YandexMarketApi\Model\ApiResponseStatusType|null $status status
+     * @param \YandexMarketApi\Model\ApiResponseStatusType $status status
      *
      * @return self
      */
@@ -337,14 +344,26 @@ class UpdateOfferContentResponse implements ModelInterface, ArrayAccess, \JsonSe
     /**
      * Sets results
      *
-     * @param \YandexMarketApi\Model\UpdateOfferContentResultDTO[]|null $results Ошибки и предупреждения, возникшие при обработке переданных значений. Каждый элемент списка соответствует одному товару.  Поле не передается, если все в порядке.
+     * @param \YandexMarketApi\Model\UpdateOfferContentResultDTO[]|null $results Ошибки и предупреждения, которые появились при обработке переданных значений. Каждый элемент списка соответствует одному товару.  Если ошибок и предупреждений нет, поле не передается.
      *
      * @return self
      */
     public function setResults($results)
     {
         if (is_null($results)) {
-            throw new \InvalidArgumentException('non-nullable results cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'results');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('results', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+
+        if (!is_null($results) && (count($results) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $results when calling UpdateOfferContentResponse., number of items must be greater than or equal to 1.');
         }
         $this->container['results'] = $results;
 

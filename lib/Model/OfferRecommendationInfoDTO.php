@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -35,7 +35,7 @@ use \YandexMarketApi\ObjectSerializer;
  * OfferRecommendationInfoDTO Class Doc Comment
  *
  * @category Class
- * @description Рекомендации, касающиеся цены товара.
+ * @description Рекомендации, касающиеся цены на товар.
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -59,7 +59,6 @@ class OfferRecommendationInfoDTO implements ModelInterface, ArrayAccess, \JsonSe
       */
     protected static $openAPITypes = [
         'offer_id' => 'string',
-        'recommended_cofinance_price' => '\YandexMarketApi\Model\BasePriceDTO',
         'competitiveness_thresholds' => '\YandexMarketApi\Model\PriceCompetitivenessThresholdsDTO'
     ];
 
@@ -72,7 +71,6 @@ class OfferRecommendationInfoDTO implements ModelInterface, ArrayAccess, \JsonSe
       */
     protected static $openAPIFormats = [
         'offer_id' => null,
-        'recommended_cofinance_price' => null,
         'competitiveness_thresholds' => null
     ];
 
@@ -83,7 +81,6 @@ class OfferRecommendationInfoDTO implements ModelInterface, ArrayAccess, \JsonSe
       */
     protected static array $openAPINullables = [
         'offer_id' => false,
-		'recommended_cofinance_price' => false,
 		'competitiveness_thresholds' => false
     ];
 
@@ -174,7 +171,6 @@ class OfferRecommendationInfoDTO implements ModelInterface, ArrayAccess, \JsonSe
      */
     protected static $attributeMap = [
         'offer_id' => 'offerId',
-        'recommended_cofinance_price' => 'recommendedCofinancePrice',
         'competitiveness_thresholds' => 'competitivenessThresholds'
     ];
 
@@ -185,7 +181,6 @@ class OfferRecommendationInfoDTO implements ModelInterface, ArrayAccess, \JsonSe
      */
     protected static $setters = [
         'offer_id' => 'setOfferId',
-        'recommended_cofinance_price' => 'setRecommendedCofinancePrice',
         'competitiveness_thresholds' => 'setCompetitivenessThresholds'
     ];
 
@@ -196,7 +191,6 @@ class OfferRecommendationInfoDTO implements ModelInterface, ArrayAccess, \JsonSe
      */
     protected static $getters = [
         'offer_id' => 'getOfferId',
-        'recommended_cofinance_price' => 'getRecommendedCofinancePrice',
         'competitiveness_thresholds' => 'getCompetitivenessThresholds'
     ];
 
@@ -258,7 +252,6 @@ class OfferRecommendationInfoDTO implements ModelInterface, ArrayAccess, \JsonSe
     public function __construct(array $data = null)
     {
         $this->setIfExists('offer_id', $data ?? [], null);
-        $this->setIfExists('recommended_cofinance_price', $data ?? [], null);
         $this->setIfExists('competitiveness_thresholds', $data ?? [], null);
     }
 
@@ -289,16 +282,16 @@ class OfferRecommendationInfoDTO implements ModelInterface, ArrayAccess, \JsonSe
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['offer_id']) && (mb_strlen($this->container['offer_id']) > 80)) {
-            $invalidProperties[] = "invalid value for 'offer_id', the character length must be smaller than or equal to 80.";
+        if (!is_null($this->container['offer_id']) && (mb_strlen($this->container['offer_id']) > 255)) {
+            $invalidProperties[] = "invalid value for 'offer_id', the character length must be smaller than or equal to 255.";
         }
 
         if (!is_null($this->container['offer_id']) && (mb_strlen($this->container['offer_id']) < 1)) {
             $invalidProperties[] = "invalid value for 'offer_id', the character length must be bigger than or equal to 1.";
         }
 
-        if (!is_null($this->container['offer_id']) && !preg_match("/^[0-9a-zа-яА-ЯA-ZёËëЁ.,\\\\\/()\\[\\]\\-=_]{1,80}$/", $this->container['offer_id'])) {
-            $invalidProperties[] = "invalid value for 'offer_id', must be conform to the pattern /^[0-9a-zа-яА-ЯA-ZёËëЁ.,\\\\\/()\\[\\]\\-=_]{1,80}$/.";
+        if (!is_null($this->container['offer_id']) && !preg_match("/^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/", $this->container['offer_id'])) {
+            $invalidProperties[] = "invalid value for 'offer_id', must be conform to the pattern /^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/.";
         }
 
         return $invalidProperties;
@@ -329,7 +322,7 @@ class OfferRecommendationInfoDTO implements ModelInterface, ArrayAccess, \JsonSe
     /**
      * Sets offer_id
      *
-     * @param string|null $offer_id Ваш SKU — идентификатор товара в вашей системе.  Разрешена любая последовательность длиной до 80 знаков. В нее могут входить английские и русские буквы, цифры и символы `. , / \\ ( ) [ ] - = _`  Правила использования SKU:  * У каждого товара SKU должен быть свой.  * SKU товара нельзя менять — можно только удалить товар и добавить заново с новым SKU.  * Уже заданный SKU нельзя освободить и использовать заново для другого товара. Каждый товар должен получать новый идентификатор, до того никогда не использовавшийся в вашем каталоге.  [Что такое SKU и как его назначать](https://yandex.ru/support/marketplace/assortment/add/index.html#fields)
+     * @param string|null $offer_id Ваш SKU — идентификатор товара в вашей системе.  Правила использования SKU:  * У каждого товара SKU должен быть свой.  * Уже заданный SKU нельзя освободить и использовать заново для другого товара. Каждый товар должен получать новый идентификатор, до того никогда не использовавшийся в вашем каталоге.  SKU товара можно изменить в кабинете продавца на Маркете. О том, как это сделать, читайте [в Справке Маркета для продавцов](https://yandex.ru/support2/marketplace/ru/assortment/operations/edit-sku).  {% note warning %}  Пробельные символы в начале и конце значения автоматически удаляются. Например, `\"  SKU123  \"` и `\"SKU123\"` будут обработаны как одинаковые значения.  {% endnote %}  [Что такое SKU и как его назначать](https://yandex.ru/support/marketplace/assortment/add/index.html#fields)
      *
      * @return self
      */
@@ -338,44 +331,17 @@ class OfferRecommendationInfoDTO implements ModelInterface, ArrayAccess, \JsonSe
         if (is_null($offer_id)) {
             throw new \InvalidArgumentException('non-nullable offer_id cannot be null');
         }
-        if ((mb_strlen($offer_id) > 80)) {
-            throw new \InvalidArgumentException('invalid length for $offer_id when calling OfferRecommendationInfoDTO., must be smaller than or equal to 80.');
+        if ((mb_strlen($offer_id) > 255)) {
+            throw new \InvalidArgumentException('invalid length for $offer_id when calling OfferRecommendationInfoDTO., must be smaller than or equal to 255.');
         }
         if ((mb_strlen($offer_id) < 1)) {
             throw new \InvalidArgumentException('invalid length for $offer_id when calling OfferRecommendationInfoDTO., must be bigger than or equal to 1.');
         }
-        if ((!preg_match("/^[0-9a-zа-яА-ЯA-ZёËëЁ.,\\\\\/()\\[\\]\\-=_]{1,80}$/", $offer_id))) {
-            throw new \InvalidArgumentException("invalid value for \$offer_id when calling OfferRecommendationInfoDTO., must conform to the pattern /^[0-9a-zа-яА-ЯA-ZёËëЁ.,\\\\\/()\\[\\]\\-=_]{1,80}$/.");
+        if ((!preg_match("/^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/", $offer_id))) {
+            throw new \InvalidArgumentException("invalid value for \$offer_id when calling OfferRecommendationInfoDTO., must conform to the pattern /^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/.");
         }
 
         $this->container['offer_id'] = $offer_id;
-
-        return $this;
-    }
-
-    /**
-     * Gets recommended_cofinance_price
-     *
-     * @return \YandexMarketApi\Model\BasePriceDTO|null
-     */
-    public function getRecommendedCofinancePrice()
-    {
-        return $this->container['recommended_cofinance_price'];
-    }
-
-    /**
-     * Sets recommended_cofinance_price
-     *
-     * @param \YandexMarketApi\Model\BasePriceDTO|null $recommended_cofinance_price recommended_cofinance_price
-     *
-     * @return self
-     */
-    public function setRecommendedCofinancePrice($recommended_cofinance_price)
-    {
-        if (is_null($recommended_cofinance_price)) {
-            throw new \InvalidArgumentException('non-nullable recommended_cofinance_price cannot be null');
-        }
-        $this->container['recommended_cofinance_price'] = $recommended_cofinance_price;
 
         return $this;
     }

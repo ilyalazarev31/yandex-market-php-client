@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -285,6 +285,10 @@ class UpdateOrderItemRequest implements ModelInterface, ArrayAccess, \JsonSerial
         if ($this->container['items'] === null) {
             $invalidProperties[] = "'items' can't be null";
         }
+        if ((count($this->container['items']) < 1)) {
+            $invalidProperties[] = "invalid value for 'items', number of items must be greater than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -321,6 +325,11 @@ class UpdateOrderItemRequest implements ModelInterface, ArrayAccess, \JsonSerial
     {
         if (is_null($items)) {
             throw new \InvalidArgumentException('non-nullable items cannot be null');
+        }
+
+
+        if ((count($items) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $items when calling UpdateOrderItemRequest., number of items must be greater than or equal to 1.');
         }
         $this->container['items'] = $items;
 

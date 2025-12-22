@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -34,7 +34,7 @@ use PHPUnit\Framework\TestCase;
  * GenerateUnitedNettingReportRequestTest Class Doc Comment
  *
  * @category    Class
- * @description Данные, необходимые для генерации отчета: идентификатор магазина, период, за который нужен отчет, а также фильтры.
+ * @description Данные, необходимые для генерации отчета: идентификатор кампании, период, за который нужен отчет, а также фильтры.
  * @package     YandexMarketApi
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech
@@ -137,6 +137,15 @@ class GenerateUnitedNettingReportRequestTest extends TestCase
      * Test attribute "bank_order_date_time"
      */
     public function testPropertyBankOrderDateTime()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "month_of_year"
+     */
+    public function testPropertyMonthOfYear()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

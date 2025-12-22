@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -33,7 +33,7 @@ use \YandexMarketApi\ObjectSerializer;
  * OrderItemsModificationRequestReasonType Class Doc Comment
  *
  * @category Class
- * @description Причина обновления состава заказа.
+ * @description Причина, почему обновился состав заказа:  * &#x60;PARTNER_REQUESTED_REMOVE&#x60; — магазин удалил товар. * &#x60;USER_REQUESTED_REMOVE&#x60; — покупатель попросил удалить товар.
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech

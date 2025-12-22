@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -35,7 +35,7 @@ use \YandexMarketApi\ObjectSerializer;
  * BriefOrderItemInstanceDTO Class Doc Comment
  *
  * @category Class
- * @description Идентификатор единицы товара.  Заполните только одно поле в зависимости от того, в какой системе маркирован товар.  Подробно о работе с маркируемыми товарами рассказано [в Справке](https://yandex.ru/support/marketplace/orders/cz.html).
+ * @description Идентификатор единицы товара.  Заполните только одно поле в зависимости от того, в какой системе маркирован товар.  Подробно о работе с маркируемыми товарами читайте [в Справке Маркета для продавцов](https://yandex.ru/support/marketplace/orders/cz.html).
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -61,7 +61,8 @@ class BriefOrderItemInstanceDTO implements ModelInterface, ArrayAccess, \JsonSer
         'cis' => 'string',
         'uin' => 'string',
         'rnpt' => 'string',
-        'gtd' => 'string'
+        'gtd' => 'string',
+        'country_code' => 'string'
     ];
 
     /**
@@ -75,7 +76,8 @@ class BriefOrderItemInstanceDTO implements ModelInterface, ArrayAccess, \JsonSer
         'cis' => null,
         'uin' => null,
         'rnpt' => null,
-        'gtd' => null
+        'gtd' => null,
+        'country_code' => null
     ];
 
     /**
@@ -87,7 +89,8 @@ class BriefOrderItemInstanceDTO implements ModelInterface, ArrayAccess, \JsonSer
         'cis' => false,
 		'uin' => false,
 		'rnpt' => false,
-		'gtd' => false
+		'gtd' => false,
+		'country_code' => false
     ];
 
     /**
@@ -179,7 +182,8 @@ class BriefOrderItemInstanceDTO implements ModelInterface, ArrayAccess, \JsonSer
         'cis' => 'cis',
         'uin' => 'uin',
         'rnpt' => 'rnpt',
-        'gtd' => 'gtd'
+        'gtd' => 'gtd',
+        'country_code' => 'countryCode'
     ];
 
     /**
@@ -191,7 +195,8 @@ class BriefOrderItemInstanceDTO implements ModelInterface, ArrayAccess, \JsonSer
         'cis' => 'setCis',
         'uin' => 'setUin',
         'rnpt' => 'setRnpt',
-        'gtd' => 'setGtd'
+        'gtd' => 'setGtd',
+        'country_code' => 'setCountryCode'
     ];
 
     /**
@@ -203,7 +208,8 @@ class BriefOrderItemInstanceDTO implements ModelInterface, ArrayAccess, \JsonSer
         'cis' => 'getCis',
         'uin' => 'getUin',
         'rnpt' => 'getRnpt',
-        'gtd' => 'getGtd'
+        'gtd' => 'getGtd',
+        'country_code' => 'getCountryCode'
     ];
 
     /**
@@ -267,6 +273,7 @@ class BriefOrderItemInstanceDTO implements ModelInterface, ArrayAccess, \JsonSer
         $this->setIfExists('uin', $data ?? [], null);
         $this->setIfExists('rnpt', $data ?? [], null);
         $this->setIfExists('gtd', $data ?? [], null);
+        $this->setIfExists('country_code', $data ?? [], null);
     }
 
     /**
@@ -296,6 +303,18 @@ class BriefOrderItemInstanceDTO implements ModelInterface, ArrayAccess, \JsonSer
     {
         $invalidProperties = [];
 
+        if (!is_null($this->container['country_code']) && (mb_strlen($this->container['country_code']) > 2)) {
+            $invalidProperties[] = "invalid value for 'country_code', the character length must be smaller than or equal to 2.";
+        }
+
+        if (!is_null($this->container['country_code']) && (mb_strlen($this->container['country_code']) < 2)) {
+            $invalidProperties[] = "invalid value for 'country_code', the character length must be bigger than or equal to 2.";
+        }
+
+        if (!is_null($this->container['country_code']) && !preg_match("/^[A-Z]{2}$/", $this->container['country_code'])) {
+            $invalidProperties[] = "invalid value for 'country_code', must be conform to the pattern /^[A-Z]{2}$/.";
+        }
+
         return $invalidProperties;
     }
 
@@ -324,7 +343,7 @@ class BriefOrderItemInstanceDTO implements ModelInterface, ArrayAccess, \JsonSer
     /**
      * Sets cis
      *
-     * @param string|null $cis Код идентификации единицы товара [в системе «Честный ЗНАК»](https://честныйзнак.рф/).  {% note warning %}  Не экранируйте косую черту в коде символа-разделителя `\\u001d`!  ✅ `01030410947874432155Qbag!\\u001d93Zjqw`  ❌ `01030410947874432155Qbag!\\\\u001d93Zjqw`  Косые черты и кавычки в других местах экранируйте по правилам JSON: `\\\\` и `\\\"`  {% endnote %}
+     * @param string|null $cis [Код идентификации](*cis-regular-value) единицы товара в системе [«Честный ЗНАК»](https://честныйзнак.рф/) или [«ASL BELGISI»](https://aslbelgisi.uz) (для продавцов Market Yandex Go).  {% note warning \"Не экранируйте косую черту в коде символа-разделителя `\\u001d`\" %}  ✅ `01030410947874432155Qbag!\\u001d93Zjqw`  ❌ `01030410947874432155Qbag!\\\\u001d93Zjqw`  Косые черты и кавычки в других местах экранируйте по правилам JSON: `\\\\` и `\\\"`  {% endnote %}
      *
      * @return self
      */
@@ -415,6 +434,43 @@ class BriefOrderItemInstanceDTO implements ModelInterface, ArrayAccess, \JsonSer
             throw new \InvalidArgumentException('non-nullable gtd cannot be null');
         }
         $this->container['gtd'] = $gtd;
+
+        return $this;
+    }
+
+    /**
+     * Gets country_code
+     *
+     * @return string|null
+     */
+    public function getCountryCode()
+    {
+        return $this->container['country_code'];
+    }
+
+    /**
+     * Sets country_code
+     *
+     * @param string|null $country_code Страна производства в формате ISO 3166-1 alpha-2. [Как получить](../../reference/regions/getRegionsCodes.md)
+     *
+     * @return self
+     */
+    public function setCountryCode($country_code)
+    {
+        if (is_null($country_code)) {
+            throw new \InvalidArgumentException('non-nullable country_code cannot be null');
+        }
+        if ((mb_strlen($country_code) > 2)) {
+            throw new \InvalidArgumentException('invalid length for $country_code when calling BriefOrderItemInstanceDTO., must be smaller than or equal to 2.');
+        }
+        if ((mb_strlen($country_code) < 2)) {
+            throw new \InvalidArgumentException('invalid length for $country_code when calling BriefOrderItemInstanceDTO., must be bigger than or equal to 2.');
+        }
+        if ((!preg_match("/^[A-Z]{2}$/", $country_code))) {
+            throw new \InvalidArgumentException("invalid value for \$country_code when calling BriefOrderItemInstanceDTO., must conform to the pattern /^[A-Z]{2}$/.");
+        }
+
+        $this->container['country_code'] = $country_code;
 
         return $this;
     }

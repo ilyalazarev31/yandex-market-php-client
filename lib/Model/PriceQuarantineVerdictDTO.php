@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -282,6 +282,9 @@ class PriceQuarantineVerdictDTO implements ModelInterface, ArrayAccess, \JsonSer
     {
         $invalidProperties = [];
 
+        if ($this->container['params'] === null) {
+            $invalidProperties[] = "'params' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -327,7 +330,7 @@ class PriceQuarantineVerdictDTO implements ModelInterface, ArrayAccess, \JsonSer
     /**
      * Gets params
      *
-     * @return \YandexMarketApi\Model\PriceQuarantineVerdictParameterDTO[]|null
+     * @return \YandexMarketApi\Model\PriceQuarantineVerdictParameterDTO[]
      */
     public function getParams()
     {
@@ -337,7 +340,7 @@ class PriceQuarantineVerdictDTO implements ModelInterface, ArrayAccess, \JsonSer
     /**
      * Sets params
      *
-     * @param \YandexMarketApi\Model\PriceQuarantineVerdictParameterDTO[]|null $params Цена, из-за которой товар попал в карантин, и значения для сравнения. Конкретный набор параметров зависит от типа карантина.
+     * @param \YandexMarketApi\Model\PriceQuarantineVerdictParameterDTO[] $params Цена, из-за которой товар попал в карантин, и значения для сравнения. Конкретный набор параметров зависит от типа карантина.
      *
      * @return self
      */

@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -299,15 +299,31 @@ class OfferWeightDimensionsDTO implements ModelInterface, ArrayAccess, \JsonSeri
         if ($this->container['length'] === null) {
             $invalidProperties[] = "'length' can't be null";
         }
+        if (($this->container['length'] < 0)) {
+            $invalidProperties[] = "invalid value for 'length', must be bigger than or equal to 0.";
+        }
+
         if ($this->container['width'] === null) {
             $invalidProperties[] = "'width' can't be null";
         }
+        if (($this->container['width'] < 0)) {
+            $invalidProperties[] = "invalid value for 'width', must be bigger than or equal to 0.";
+        }
+
         if ($this->container['height'] === null) {
             $invalidProperties[] = "'height' can't be null";
         }
+        if (($this->container['height'] < 0)) {
+            $invalidProperties[] = "invalid value for 'height', must be bigger than or equal to 0.";
+        }
+
         if ($this->container['weight'] === null) {
             $invalidProperties[] = "'weight' can't be null";
         }
+        if (($this->container['weight'] < 0)) {
+            $invalidProperties[] = "invalid value for 'weight', must be bigger than or equal to 0.";
+        }
+
         return $invalidProperties;
     }
 
@@ -345,6 +361,11 @@ class OfferWeightDimensionsDTO implements ModelInterface, ArrayAccess, \JsonSeri
         if (is_null($length)) {
             throw new \InvalidArgumentException('non-nullable length cannot be null');
         }
+
+        if (($length < 0)) {
+            throw new \InvalidArgumentException('invalid value for $length when calling OfferWeightDimensionsDTO., must be bigger than or equal to 0.');
+        }
+
         $this->container['length'] = $length;
 
         return $this;
@@ -372,6 +393,11 @@ class OfferWeightDimensionsDTO implements ModelInterface, ArrayAccess, \JsonSeri
         if (is_null($width)) {
             throw new \InvalidArgumentException('non-nullable width cannot be null');
         }
+
+        if (($width < 0)) {
+            throw new \InvalidArgumentException('invalid value for $width when calling OfferWeightDimensionsDTO., must be bigger than or equal to 0.');
+        }
+
         $this->container['width'] = $width;
 
         return $this;
@@ -399,6 +425,11 @@ class OfferWeightDimensionsDTO implements ModelInterface, ArrayAccess, \JsonSeri
         if (is_null($height)) {
             throw new \InvalidArgumentException('non-nullable height cannot be null');
         }
+
+        if (($height < 0)) {
+            throw new \InvalidArgumentException('invalid value for $height when calling OfferWeightDimensionsDTO., must be bigger than or equal to 0.');
+        }
+
         $this->container['height'] = $height;
 
         return $this;
@@ -426,6 +457,11 @@ class OfferWeightDimensionsDTO implements ModelInterface, ArrayAccess, \JsonSeri
         if (is_null($weight)) {
             throw new \InvalidArgumentException('non-nullable weight cannot be null');
         }
+
+        if (($weight < 0)) {
+            throw new \InvalidArgumentException('invalid value for $weight when calling OfferWeightDimensionsDTO., must be bigger than or equal to 0.');
+        }
+
         $this->container['weight'] = $weight;
 
         return $this;

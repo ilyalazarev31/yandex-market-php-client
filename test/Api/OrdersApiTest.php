@@ -10,7 +10,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -74,7 +74,7 @@ class OrdersApiTest extends TestCase
     /**
      * Test case for acceptOrderCancellation
      *
-     * Отмена заказа покупателем (DBS).
+     * Отмена заказа покупателем.
      *
      */
     public function testAcceptOrderCancellation()
@@ -84,9 +84,21 @@ class OrdersApiTest extends TestCase
     }
 
     /**
+     * Test case for getBusinessOrders
+     *
+     * Информация о заказах в кабинете.
+     *
+     */
+    public function testGetBusinessOrders()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test case for getOrder
      *
-     * Информация о заказе.
+     * Информация об одном заказе в магазине.
      *
      */
     public function testGetOrder()
@@ -96,9 +108,21 @@ class OrdersApiTest extends TestCase
     }
 
     /**
+     * Test case for getOrderIdentifiersStatus
+     *
+     * Статусы проверки кодов маркировки.
+     *
+     */
+    public function testGetOrderIdentifiersStatus()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test case for getOrders
      *
-     * Информация о заказах.
+     * Информация о заказах в магазине.
      *
      */
     public function testGetOrders()
@@ -122,7 +146,7 @@ class OrdersApiTest extends TestCase
     /**
      * Test case for provideOrderItemIdentifiers
      *
-     * Передача уникальных кодов маркировки единиц товара (DBS).
+     * Передача кодов маркировки единиц товара.
      *
      */
     public function testProvideOrderItemIdentifiers()
@@ -134,7 +158,7 @@ class OrdersApiTest extends TestCase
     /**
      * Test case for setOrderBoxLayout
      *
-     * Подготовка заказа (FBS).
+     * Подготовка заказа.
      *
      */
     public function testSetOrderBoxLayout()
@@ -146,7 +170,7 @@ class OrdersApiTest extends TestCase
     /**
      * Test case for setOrderShipmentBoxes
      *
-     * Передача количества грузовых мест в заказе (DBS).
+     * Передача количества грузовых мест в заказе.
      *
      */
     public function testSetOrderShipmentBoxes()
@@ -156,9 +180,21 @@ class OrdersApiTest extends TestCase
     }
 
     /**
+     * Test case for updateExternalOrderId
+     *
+     * Передача внешнего идентификатора заказа.
+     *
+     */
+    public function testUpdateExternalOrderId()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test case for updateOrderItems
      *
-     * Удаление товара из заказа или уменьшение числа единиц (DBS).
+     * Удаление товаров из заказа или уменьшение их числа.
      *
      */
     public function testUpdateOrderItems()
@@ -170,7 +206,7 @@ class OrdersApiTest extends TestCase
     /**
      * Test case for updateOrderStatus
      *
-     * Изменение статуса заказа.
+     * Изменение статуса одного заказа.
      *
      */
     public function testUpdateOrderStatus()
@@ -182,7 +218,7 @@ class OrdersApiTest extends TestCase
     /**
      * Test case for updateOrderStatuses
      *
-     * Изменение статусов заказа.
+     * Изменение статусов нескольких заказов.
      *
      */
     public function testUpdateOrderStatuses()

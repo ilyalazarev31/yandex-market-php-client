@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -303,6 +303,9 @@ class OrderDeliveryDatesDTO implements ModelInterface, ArrayAccess, \JsonSeriali
     {
         $invalidProperties = [];
 
+        if ($this->container['from_date'] === null) {
+            $invalidProperties[] = "'from_date' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -321,7 +324,7 @@ class OrderDeliveryDatesDTO implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Gets from_date
      *
-     * @return string|null
+     * @return string
      */
     public function getFromDate()
     {
@@ -331,7 +334,7 @@ class OrderDeliveryDatesDTO implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Sets from_date
      *
-     * @param string|null $from_date Формат даты: `ДД-ММ-ГГГГ`.
+     * @param string $from_date Формат даты: `ДД-ММ-ГГГГ`.
      *
      * @return self
      */
@@ -385,7 +388,7 @@ class OrderDeliveryDatesDTO implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Sets from_time
      *
-     * @param string|null $from_time Начало интервала времени доставки.  Передается только совместно с параметром `type=DELIVERY`.  Формат времени: 24-часовой, `ЧЧ:ММ`. В качестве минут всегда должно быть указано `00` (исключение — `23:59`).  Минимальное значение: `00:00`.
+     * @param string|null $from_time Начало интервала времени доставки.  Передается только вместе с параметром `type=DELIVERY`.  Формат времени: 24-часовой, `ЧЧ:ММ`. Вместо `ММ` всегда указывайте `00` (исключение — `23:59`).  Минимальное значение: `00:00`.
      *
      * @return self
      */
@@ -412,7 +415,7 @@ class OrderDeliveryDatesDTO implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Sets to_time
      *
-     * @param string|null $to_time Конец интервала времени доставки.  Передается только совместно с параметром `type=DELIVERY`.  Формат времени: 24-часовой, `ЧЧ:ММ`. В качестве минут всегда должно быть указано `00` (исключение — `23:59`).  Максимальное значение: `23:59`.
+     * @param string|null $to_time Конец интервала времени доставки.  Передается только вместе с параметром `type=DELIVERY`.   Формат времени: 24-часовой, `ЧЧ:ММ`. Вместо `ММ` всегда указывайте `00` (исключение — `23:59`).  Максимальное значение: `23:59`.
      *
      * @return self
      */

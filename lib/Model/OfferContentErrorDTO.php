@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -35,7 +35,7 @@ use \YandexMarketApi\ObjectSerializer;
  * OfferContentErrorDTO Class Doc Comment
  *
  * @category Class
- * @description Сообщение об ошибке.
+ * @description Текст ошибки или предупреждения.
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -350,7 +350,7 @@ class OfferContentErrorDTO implements ModelInterface, ArrayAccess, \JsonSerializ
     /**
      * Sets parameter_id
      *
-     * @param int|null $parameter_id Идентификатор характеристики, с которой связана ошибка.
+     * @param int|null $parameter_id Идентификатор характеристики, с которой связана ошибка или предупреждение.
      *
      * @return self
      */
@@ -377,7 +377,7 @@ class OfferContentErrorDTO implements ModelInterface, ArrayAccess, \JsonSerializ
     /**
      * Sets message
      *
-     * @param string $message Сообщение об ошибке.
+     * @param string $message Текст ошибки или предупреждения.
      *
      * @return self
      */

@@ -4,12 +4,12 @@ All URIs are relative to https://api.partner.market.yandex.ru, except if the ope
 
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
-| [**getReturn()**](ReturnsApi.md#getReturn) | **GET** /campaigns/{campaignId}/orders/{orderId}/returns/{returnId} | Информация о возврате или невыкупе |
-| [**getReturnApplication()**](ReturnsApi.md#getReturnApplication) | **GET** /campaigns/{campaignId}/orders/{orderId}/returns/{returnId}/application | Получение заявления на возврат |
-| [**getReturnPhoto()**](ReturnsApi.md#getReturnPhoto) | **GET** /campaigns/{campaignId}/orders/{orderId}/returns/{returnId}/decision/{itemId}/image/{imageHash} | Получение фотографии возврата |
-| [**getReturns()**](ReturnsApi.md#getReturns) | **GET** /campaigns/{campaignId}/returns | Список возвратов и невыкупов |
-| [**setReturnDecision()**](ReturnsApi.md#setReturnDecision) | **POST** /campaigns/{campaignId}/orders/{orderId}/returns/{returnId}/decision | Принятие/изменение решения по позиции в возврате |
-| [**submitReturnDecision()**](ReturnsApi.md#submitReturnDecision) | **POST** /campaigns/{campaignId}/orders/{orderId}/returns/{returnId}/decision/submit | Подтверждение решения по возвратным позициям |
+| [**getReturn()**](ReturnsApi.md#getReturn) | **GET** /v2/campaigns/{campaignId}/orders/{orderId}/returns/{returnId} | Информация о невыкупе или возврате |
+| [**getReturnApplication()**](ReturnsApi.md#getReturnApplication) | **GET** /v2/campaigns/{campaignId}/orders/{orderId}/returns/{returnId}/application | Получение заявления на возврат |
+| [**getReturnPhoto()**](ReturnsApi.md#getReturnPhoto) | **GET** /v2/campaigns/{campaignId}/orders/{orderId}/returns/{returnId}/decision/{itemId}/image/{imageHash} | Получение фотографий товаров в возврате |
+| [**getReturns()**](ReturnsApi.md#getReturns) | **GET** /v2/campaigns/{campaignId}/returns | Список невыкупов и возвратов |
+| [**setReturnDecision()**](ReturnsApi.md#setReturnDecision) | **POST** /v2/campaigns/{campaignId}/orders/{orderId}/returns/{returnId}/decision | Принятие или изменение решения по возврату |
+| [**submitReturnDecision()**](ReturnsApi.md#submitReturnDecision) | **POST** /v2/campaigns/{campaignId}/orders/{orderId}/returns/{returnId}/decision/submit | Передача и подтверждение решения по возврату |
 
 
 ## `getReturn()`
@@ -18,9 +18,9 @@ All URIs are relative to https://api.partner.market.yandex.ru, except if the ope
 getReturn($campaign_id, $order_id, $return_id): \YandexMarketApi\Model\GetReturnResponse
 ```
 
-Информация о возврате или невыкупе
+Информация о невыкупе или возврате
 
-Получает информацию по одному возврату или невыкупу.  |**⚙️ Лимит:** 10 000 запросов в час| |-|
+{% include notitle [:no-translate[access]](../../_auto/method_scopes/getReturn.md) %}  Получает информацию по одному невыкупу или возврату.  {% note tip \"Подключите API-уведомления\" %}  Маркет отправит вам запрос [POST notification](../../push-notifications/reference/sendNotification.md), когда появится новый невыкуп или возврат.  [{#T}](../../push-notifications/index.md)  {% endnote %}  |**⚙️ Лимит:** 10 000 запросов в час| |-|
 
 ### Example
 
@@ -28,6 +28,11 @@ getReturn($campaign_id, $order_id, $return_id): \YandexMarketApi\Model\GetReturn
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+
+// Configure API key authorization: ApiKey
+$config = YandexMarketApi\Configuration::getDefaultConfiguration()->setApiKey('Api-Key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = YandexMarketApi\Configuration::getDefaultConfiguration()->setApiKeyPrefix('Api-Key', 'Bearer');
 
 // Configure OAuth2 access token for authorization: OAuth
 $config = YandexMarketApi\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
@@ -39,9 +44,9 @@ $apiInstance = new YandexMarketApi\Api\ReturnsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$campaign_id = 56; // int | Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html)
+$campaign_id = 56; // int | Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями.
 $order_id = 56; // int | Идентификатор заказа.
-$return_id = 56; // int | Идентификатор возврата
+$return_id = 56; // int | Идентификатор невыкупа или возврата.
 
 try {
     $result = $apiInstance->getReturn($campaign_id, $order_id, $return_id);
@@ -55,9 +60,9 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **campaign_id** | **int**| Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) | |
+| **campaign_id** | **int**| Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. | |
 | **order_id** | **int**| Идентификатор заказа. | |
-| **return_id** | **int**| Идентификатор возврата | |
+| **return_id** | **int**| Идентификатор невыкупа или возврата. | |
 
 ### Return type
 
@@ -65,7 +70,7 @@ try {
 
 ### Authorization
 
-[OAuth](../../README.md#OAuth)
+[ApiKey](../../README.md#ApiKey), [OAuth](../../README.md#OAuth)
 
 ### HTTP request headers
 
@@ -84,7 +89,7 @@ getReturnApplication($campaign_id, $order_id, $return_id): \SplFileObject
 
 Получение заявления на возврат
 
-Загружает заявление покупателя на возврат товара.  |**⚙️ Лимит:** 10 000 запросов в час| |-|
+{% include notitle [:no-translate[access]](../../_auto/method_scopes/getReturnApplication.md) %}  Загружает заявление покупателя на возврат товара.  |**⚙️ Лимит:** 10 000 запросов в час| |-|
 
 ### Example
 
@@ -92,6 +97,11 @@ getReturnApplication($campaign_id, $order_id, $return_id): \SplFileObject
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+
+// Configure API key authorization: ApiKey
+$config = YandexMarketApi\Configuration::getDefaultConfiguration()->setApiKey('Api-Key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = YandexMarketApi\Configuration::getDefaultConfiguration()->setApiKeyPrefix('Api-Key', 'Bearer');
 
 // Configure OAuth2 access token for authorization: OAuth
 $config = YandexMarketApi\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
@@ -103,9 +113,9 @@ $apiInstance = new YandexMarketApi\Api\ReturnsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$campaign_id = 56; // int | Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html)
+$campaign_id = 56; // int | Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями.
 $order_id = 56; // int | Идентификатор заказа.
-$return_id = 56; // int | Идентификатор возврата
+$return_id = 56; // int | Идентификатор невыкупа или возврата.
 
 try {
     $result = $apiInstance->getReturnApplication($campaign_id, $order_id, $return_id);
@@ -119,9 +129,9 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **campaign_id** | **int**| Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) | |
+| **campaign_id** | **int**| Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. | |
 | **order_id** | **int**| Идентификатор заказа. | |
-| **return_id** | **int**| Идентификатор возврата | |
+| **return_id** | **int**| Идентификатор невыкупа или возврата. | |
 
 ### Return type
 
@@ -129,7 +139,7 @@ try {
 
 ### Authorization
 
-[OAuth](../../README.md#OAuth)
+[ApiKey](../../README.md#ApiKey), [OAuth](../../README.md#OAuth)
 
 ### HTTP request headers
 
@@ -146,9 +156,9 @@ try {
 getReturnPhoto($campaign_id, $order_id, $return_id, $item_id, $image_hash): \SplFileObject
 ```
 
-Получение фотографии возврата
+Получение фотографий товаров в возврате
 
-Получает фотографии, которые покупатель приложил к заявлению на возврат товара.  |**⚙️ Лимит:** 10 000 запросов в час| |-|
+{% include notitle [:no-translate[access]](../../_auto/method_scopes/getReturnPhoto.md) %}  Получает фотографии товаров, которые покупатель приложил к заявлению на возврат.  |**⚙️ Лимит:** 10 000 запросов в час| |-|
 
 ### Example
 
@@ -156,6 +166,11 @@ getReturnPhoto($campaign_id, $order_id, $return_id, $item_id, $image_hash): \Spl
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+
+// Configure API key authorization: ApiKey
+$config = YandexMarketApi\Configuration::getDefaultConfiguration()->setApiKey('Api-Key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = YandexMarketApi\Configuration::getDefaultConfiguration()->setApiKeyPrefix('Api-Key', 'Bearer');
 
 // Configure OAuth2 access token for authorization: OAuth
 $config = YandexMarketApi\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
@@ -167,11 +182,11 @@ $apiInstance = new YandexMarketApi\Api\ReturnsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$campaign_id = 56; // int | Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html)
+$campaign_id = 56; // int | Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями.
 $order_id = 56; // int | Идентификатор заказа.
-$return_id = 56; // int | Идентификатор возврата
-$item_id = 56; // int | Идентификатор товара в возврате
-$image_hash = 'image_hash_example'; // string | Хеш ссылки изображения для загрузки
+$return_id = 56; // int | Идентификатор невыкупа или возврата.
+$item_id = 56; // int | Идентификатор товара в возврате.
+$image_hash = 'image_hash_example'; // string | Хеш ссылки изображения для загрузки.
 
 try {
     $result = $apiInstance->getReturnPhoto($campaign_id, $order_id, $return_id, $item_id, $image_hash);
@@ -185,11 +200,11 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **campaign_id** | **int**| Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) | |
+| **campaign_id** | **int**| Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. | |
 | **order_id** | **int**| Идентификатор заказа. | |
-| **return_id** | **int**| Идентификатор возврата | |
-| **item_id** | **int**| Идентификатор товара в возврате | |
-| **image_hash** | **string**| Хеш ссылки изображения для загрузки | |
+| **return_id** | **int**| Идентификатор невыкупа или возврата. | |
+| **item_id** | **int**| Идентификатор товара в возврате. | |
+| **image_hash** | **string**| Хеш ссылки изображения для загрузки. | |
 
 ### Return type
 
@@ -197,7 +212,7 @@ try {
 
 ### Authorization
 
-[OAuth](../../README.md#OAuth)
+[ApiKey](../../README.md#ApiKey), [OAuth](../../README.md#OAuth)
 
 ### HTTP request headers
 
@@ -211,12 +226,12 @@ try {
 ## `getReturns()`
 
 ```php
-getReturns($campaign_id, $page_token, $limit, $order_ids, $statuses, $type, $from_date, $to_date, $from_date2, $to_date2): \YandexMarketApi\Model\GetReturnsResponse
+getReturns($campaign_id, $page_token, $limit, $order_ids, $statuses, $shipment_statuses, $type, $from_date, $to_date, $from_date2, $to_date2): \YandexMarketApi\Model\GetReturnsResponse
 ```
 
-Список возвратов и невыкупов
+Список невыкупов и возвратов
 
-Получает список возвратов и невыкупов.  Чтобы получить информацию по одному возврату или невыкупу, выполните запрос [GET campaigns/{campaignId}/orders/{orderId}/returns/{returnId}](../../reference/orders/getReturn.md).  |**⚙️ Лимит:** 10 000 запросов в час| |-|
+{% include notitle [:no-translate[access]](../../_auto/method_scopes/getReturns.md) %}  Получает список невыкупов и возвратов.  Чтобы получить информацию по одному невыкупу или возврату, выполните запрос [GET v2/campaigns/{campaignId}/orders/{orderId}/returns/{returnId}](../../reference/orders/getReturn.md).  {% note tip \"Подключите API-уведомления\" %}  Маркет отправит вам запрос [POST notification](../../push-notifications/reference/sendNotification.md), когда появится новый невыкуп или возврат.  [{#T}](../../push-notifications/index.md)  {% endnote %}  {% note warning \"Ограничение для параметра `limit`\" %}  Не передавайте значение больше 100.  {% endnote %}  |**⚙️ Лимит:** 10 000 запросов в час| |-|
 
 ### Example
 
@@ -224,6 +239,11 @@ getReturns($campaign_id, $page_token, $limit, $order_ids, $statuses, $type, $fro
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+
+// Configure API key authorization: ApiKey
+$config = YandexMarketApi\Configuration::getDefaultConfiguration()->setApiKey('Api-Key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = YandexMarketApi\Configuration::getDefaultConfiguration()->setApiKeyPrefix('Api-Key', 'Bearer');
 
 // Configure OAuth2 access token for authorization: OAuth
 $config = YandexMarketApi\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
@@ -235,19 +255,20 @@ $apiInstance = new YandexMarketApi\Api\ReturnsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$campaign_id = 56; // int | Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html)
-$page_token = eyBuZXh0SWQ6IDIzNDIgfQ==; // string | Идентификатор страницы c результатами.  Если параметр не указан, возвращается самая старая страница.  Рекомендуется передавать значение выходного параметра `nextPageToken`, полученное при последнем запросе.  Если задан `page_token`, параметры `offset`, `page_number` и `page_size` игнорируются.
-$limit = 20; // int | Количество товаров на одной странице.
-$order_ids = array(56); // int[] | Идентификаторы заказов — для фильтрации результатов.  Несколько идентификаторов перечисляются через запятую без пробела. Максимальное количество идентификаторов — 50.
-$statuses = STARTED_BY_USER,WAITING_FOR_DECISION; // \YandexMarketApi\Model\RefundStatusType[] | Статусы возвратов или невыкупов — для фильтрации результатов.  Несколько статусов перечисляются через запятую.
-$type = new \YandexMarketApi\Model\ReturnType(); // ReturnType | Тип заказа для фильтрации:  * `RETURN` — возврат.  * `UNREDEEMED` — невыкуп.  Если не указывать, в ответе будут и возвраты, и невыкупы.
-$from_date = 2022-10-31; // \DateTime | Начальные дата и время для фильтрации возвратов или невыкупов по дате оформления.  Формат: `ГГГГ-ММ-ДД`.
-$to_date = 2022-11-30; // \DateTime | Конечные дата и время для фильтрации возвратов или невыкупов по дате оформления.  Формат: `ГГГГ-ММ-ДД`.
-$from_date2 = 2022-10-31; // \DateTime | Дата, с которой интересуют возвраты (устаревшее, будет удалено).
-$to_date2 = 2022-11-30; // \DateTime | Дата, до которой интересуют возвраты (устаревшее, будет удалено).
+$campaign_id = 56; // int | Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями.
+$page_token = eyBuZXh0SWQ6IDIzNDIgfQ==; // string | Идентификатор страницы c результатами.  Если параметр не указан, возвращается первая страница.  Рекомендуем передавать значение выходного параметра `nextPageToken`, полученное при последнем запросе.  Если задан `page_token` и в запросе есть параметры `page` и `pageSize`, они игнорируются.
+$limit = 20; // int | Количество значений на одной странице.
+$order_ids = array(56); // int[] | Идентификаторы заказов — для фильтрации результатов.  Несколько идентификаторов перечисляются через запятую без пробела.
+$statuses = [STARTED_BY_USER, WAITING_FOR_DECISION]; // \YandexMarketApi\Model\RefundStatusType[] | Фильтр по статусам возврата денег за возвраты.  Несколько статусов перечисляются через запятую.
+$shipment_statuses = [READY_FOR_PICKUP, IN_TRANSIT]; // \YandexMarketApi\Model\ReturnShipmentStatusType[] | Фильтр по логистическим статусам невыкупов и возвратов.  Несколько статусов перечисляются через запятую.
+$type = new \YandexMarketApi\Model\ReturnType(); // ReturnType | Тип заказа для фильтрации:  * `UNREDEEMED` — невыкуп.  * `RETURN` — возврат.  Если не указать, в ответе будут и невыкупы, и возвраты.
+$from_date = 2022-10-31; // \DateTime | Начальная дата для фильтрации невыкупов или возвратов по дате обновления.  Формат: `ГГГГ-ММ-ДД`.
+$to_date = 2022-11-30; // \DateTime | Конечная дата для фильтрации невыкупов или возвратов по дате обновления.  Формат: `ГГГГ-ММ-ДД`.
+$from_date2 = 2022-10-31; // \DateTime | {% note warning \"Вместо него используйте `fromDate`.\" %}     {% endnote %}  Начальная дата для фильтрации невыкупов или возвратов по дате обновления.
+$to_date2 = 2022-11-30; // \DateTime | {% note warning \"Вместо него используйте `toDate`.\" %}     {% endnote %}  Конечная дата для фильтрации невыкупов или возвратов по дате обновления.
 
 try {
-    $result = $apiInstance->getReturns($campaign_id, $page_token, $limit, $order_ids, $statuses, $type, $from_date, $to_date, $from_date2, $to_date2);
+    $result = $apiInstance->getReturns($campaign_id, $page_token, $limit, $order_ids, $statuses, $shipment_statuses, $type, $from_date, $to_date, $from_date2, $to_date2);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling ReturnsApi->getReturns: ', $e->getMessage(), PHP_EOL;
@@ -258,16 +279,17 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **campaign_id** | **int**| Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) | |
-| **page_token** | **string**| Идентификатор страницы c результатами.  Если параметр не указан, возвращается самая старая страница.  Рекомендуется передавать значение выходного параметра &#x60;nextPageToken&#x60;, полученное при последнем запросе.  Если задан &#x60;page_token&#x60;, параметры &#x60;offset&#x60;, &#x60;page_number&#x60; и &#x60;page_size&#x60; игнорируются. | [optional] |
-| **limit** | **int**| Количество товаров на одной странице. | [optional] |
-| **order_ids** | [**int[]**](../Model/int.md)| Идентификаторы заказов — для фильтрации результатов.  Несколько идентификаторов перечисляются через запятую без пробела. Максимальное количество идентификаторов — 50. | [optional] |
-| **statuses** | [**\YandexMarketApi\Model\RefundStatusType[]**](../Model/\YandexMarketApi\Model\RefundStatusType.md)| Статусы возвратов или невыкупов — для фильтрации результатов.  Несколько статусов перечисляются через запятую. | [optional] |
-| **type** | [**ReturnType**](../Model/.md)| Тип заказа для фильтрации:  * &#x60;RETURN&#x60; — возврат.  * &#x60;UNREDEEMED&#x60; — невыкуп.  Если не указывать, в ответе будут и возвраты, и невыкупы. | [optional] |
-| **from_date** | **\DateTime**| Начальные дата и время для фильтрации возвратов или невыкупов по дате оформления.  Формат: &#x60;ГГГГ-ММ-ДД&#x60;. | [optional] |
-| **to_date** | **\DateTime**| Конечные дата и время для фильтрации возвратов или невыкупов по дате оформления.  Формат: &#x60;ГГГГ-ММ-ДД&#x60;. | [optional] |
-| **from_date2** | **\DateTime**| Дата, с которой интересуют возвраты (устаревшее, будет удалено). | [optional] |
-| **to_date2** | **\DateTime**| Дата, до которой интересуют возвраты (устаревшее, будет удалено). | [optional] |
+| **campaign_id** | **int**| Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. | |
+| **page_token** | **string**| Идентификатор страницы c результатами.  Если параметр не указан, возвращается первая страница.  Рекомендуем передавать значение выходного параметра &#x60;nextPageToken&#x60;, полученное при последнем запросе.  Если задан &#x60;page_token&#x60; и в запросе есть параметры &#x60;page&#x60; и &#x60;pageSize&#x60;, они игнорируются. | [optional] |
+| **limit** | **int**| Количество значений на одной странице. | [optional] |
+| **order_ids** | [**int[]**](../Model/int.md)| Идентификаторы заказов — для фильтрации результатов.  Несколько идентификаторов перечисляются через запятую без пробела. | [optional] |
+| **statuses** | [**\YandexMarketApi\Model\RefundStatusType[]**](../Model/\YandexMarketApi\Model\RefundStatusType.md)| Фильтр по статусам возврата денег за возвраты.  Несколько статусов перечисляются через запятую. | [optional] |
+| **shipment_statuses** | [**\YandexMarketApi\Model\ReturnShipmentStatusType[]**](../Model/\YandexMarketApi\Model\ReturnShipmentStatusType.md)| Фильтр по логистическим статусам невыкупов и возвратов.  Несколько статусов перечисляются через запятую. | [optional] |
+| **type** | [**ReturnType**](../Model/.md)| Тип заказа для фильтрации:  * &#x60;UNREDEEMED&#x60; — невыкуп.  * &#x60;RETURN&#x60; — возврат.  Если не указать, в ответе будут и невыкупы, и возвраты. | [optional] |
+| **from_date** | **\DateTime**| Начальная дата для фильтрации невыкупов или возвратов по дате обновления.  Формат: &#x60;ГГГГ-ММ-ДД&#x60;. | [optional] |
+| **to_date** | **\DateTime**| Конечная дата для фильтрации невыкупов или возвратов по дате обновления.  Формат: &#x60;ГГГГ-ММ-ДД&#x60;. | [optional] |
+| **from_date2** | **\DateTime**| {% note warning \&quot;Вместо него используйте &#x60;fromDate&#x60;.\&quot; %}     {% endnote %}  Начальная дата для фильтрации невыкупов или возвратов по дате обновления. | [optional] |
+| **to_date2** | **\DateTime**| {% note warning \&quot;Вместо него используйте &#x60;toDate&#x60;.\&quot; %}     {% endnote %}  Конечная дата для фильтрации невыкупов или возвратов по дате обновления. | [optional] |
 
 ### Return type
 
@@ -275,7 +297,7 @@ try {
 
 ### Authorization
 
-[OAuth](../../README.md#OAuth)
+[ApiKey](../../README.md#ApiKey), [OAuth](../../README.md#OAuth)
 
 ### HTTP request headers
 
@@ -292,9 +314,9 @@ try {
 setReturnDecision($campaign_id, $order_id, $return_id, $set_return_decision_request): \YandexMarketApi\Model\EmptyApiResponse
 ```
 
-Принятие/изменение решения по позиции в возврате
+Принятие или изменение решения по возврату
 
-Выбирает решение по возврату от покупателя. После этого для подтверждения решения нужно выполнить запрос [POST campaigns/{campaignId}/orders/{orderId}/returns/{returnId}/decision/submit](../../reference/orders/submitReturnDecision.md).  |**⚙️ Лимит:** 10 000 запросов в час| |-|
+{% include notitle [:no-translate[access]](../../_auto/method_scopes/setReturnDecision.md) %}  {% note warning \"Какой метод использовать вместо устаревшего\" %}  [POST v2/campaigns/{campaignId}/orders/{orderId}/returns/{returnId}/decision/submit](../../reference/orders/submitReturnDecision.md)  {% endnote %}   Выбирает решение по возврату от покупателя. После этого для подтверждения решения нужно выполнить запрос [POST v2/campaigns/{campaignId}/orders/{orderId}/returns/{returnId}/decision/submit](../../reference/orders/submitReturnDecision.md).  |**⚙️ Лимит:** 10 000 запросов в час| |-|
 
 ### Example
 
@@ -302,6 +324,11 @@ setReturnDecision($campaign_id, $order_id, $return_id, $set_return_decision_requ
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+
+// Configure API key authorization: ApiKey
+$config = YandexMarketApi\Configuration::getDefaultConfiguration()->setApiKey('Api-Key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = YandexMarketApi\Configuration::getDefaultConfiguration()->setApiKeyPrefix('Api-Key', 'Bearer');
 
 // Configure OAuth2 access token for authorization: OAuth
 $config = YandexMarketApi\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
@@ -313,9 +340,9 @@ $apiInstance = new YandexMarketApi\Api\ReturnsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$campaign_id = 56; // int | Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html)
+$campaign_id = 56; // int | Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями.
 $order_id = 56; // int | Идентификатор заказа.
-$return_id = 56; // int | Идентификатор возврата
+$return_id = 56; // int | Идентификатор невыкупа или возврата.
 $set_return_decision_request = new \YandexMarketApi\Model\SetReturnDecisionRequest(); // \YandexMarketApi\Model\SetReturnDecisionRequest
 
 try {
@@ -330,9 +357,9 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **campaign_id** | **int**| Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) | |
+| **campaign_id** | **int**| Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. | |
 | **order_id** | **int**| Идентификатор заказа. | |
-| **return_id** | **int**| Идентификатор возврата | |
+| **return_id** | **int**| Идентификатор невыкупа или возврата. | |
 | **set_return_decision_request** | [**\YandexMarketApi\Model\SetReturnDecisionRequest**](../Model/SetReturnDecisionRequest.md)|  | |
 
 ### Return type
@@ -341,7 +368,7 @@ try {
 
 ### Authorization
 
-[OAuth](../../README.md#OAuth)
+[ApiKey](../../README.md#ApiKey), [OAuth](../../README.md#OAuth)
 
 ### HTTP request headers
 
@@ -355,12 +382,12 @@ try {
 ## `submitReturnDecision()`
 
 ```php
-submitReturnDecision($campaign_id, $order_id, $return_id): \YandexMarketApi\Model\EmptyApiResponse
+submitReturnDecision($campaign_id, $order_id, $return_id, $submit_return_decision_request): \YandexMarketApi\Model\EmptyApiResponse
 ```
 
-Подтверждение решения по возвратным позициям
+Передача и подтверждение решения по возврату
 
-Подтверждает выбранное решение по возврату, отправленное в запросе [POST campaigns/{campaignId}/orders/{orderId}/returns/{returnId}/decision](../../reference/orders/setReturnDecision.md).  |**⚙️ Лимит:** 10 000 запросов в час| |-|
+{% include notitle [:no-translate[access]](../../_auto/method_scopes/submitReturnDecision.md) %}  Позволяет выполнить одну из операций:  * **Для всех моделей:** передать список решений по возврату и подтвердить их.  * **Для модели DBS:** подтвердить решение, переданное в [POST v2/campaigns/{campaignId}/orders/{orderId}/returns/{returnId}/decision](../../reference/orders/setReturnDecision.md). Для этого используйте запрос без тела.  |**⚙️ Лимит:** 10 000 запросов в час| |-|
 
 ### Example
 
@@ -368,6 +395,11 @@ submitReturnDecision($campaign_id, $order_id, $return_id): \YandexMarketApi\Mode
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+
+// Configure API key authorization: ApiKey
+$config = YandexMarketApi\Configuration::getDefaultConfiguration()->setApiKey('Api-Key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = YandexMarketApi\Configuration::getDefaultConfiguration()->setApiKeyPrefix('Api-Key', 'Bearer');
 
 // Configure OAuth2 access token for authorization: OAuth
 $config = YandexMarketApi\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
@@ -379,12 +411,13 @@ $apiInstance = new YandexMarketApi\Api\ReturnsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$campaign_id = 56; // int | Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html)
+$campaign_id = 56; // int | Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями.
 $order_id = 56; // int | Идентификатор заказа.
-$return_id = 56; // int | Идентификатор возврата
+$return_id = 56; // int | Идентификатор невыкупа или возврата.
+$submit_return_decision_request = new \YandexMarketApi\Model\SubmitReturnDecisionRequest(); // \YandexMarketApi\Model\SubmitReturnDecisionRequest | description
 
 try {
-    $result = $apiInstance->submitReturnDecision($campaign_id, $order_id, $return_id);
+    $result = $apiInstance->submitReturnDecision($campaign_id, $order_id, $return_id, $submit_return_decision_request);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling ReturnsApi->submitReturnDecision: ', $e->getMessage(), PHP_EOL;
@@ -395,9 +428,10 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **campaign_id** | **int**| Идентификатор кампании в API и магазина в кабинете. Каждая кампания в API соответствует магазину в кабинете.  Чтобы узнать идентификаторы своих магазинов, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) | |
+| **campaign_id** | **int**| Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями. | |
 | **order_id** | **int**| Идентификатор заказа. | |
-| **return_id** | **int**| Идентификатор возврата | |
+| **return_id** | **int**| Идентификатор невыкупа или возврата. | |
+| **submit_return_decision_request** | [**\YandexMarketApi\Model\SubmitReturnDecisionRequest**](../Model/SubmitReturnDecisionRequest.md)| description | [optional] |
 
 ### Return type
 
@@ -405,11 +439,11 @@ try {
 
 ### Authorization
 
-[OAuth](../../README.md#OAuth)
+[ApiKey](../../README.md#ApiKey), [OAuth](../../README.md#OAuth)
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: `application/json`
 - **Accept**: `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)

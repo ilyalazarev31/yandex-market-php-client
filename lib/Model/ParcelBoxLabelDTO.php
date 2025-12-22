@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -362,6 +362,14 @@ class ParcelBoxLabelDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
         if ($this->container['url'] === null) {
             $invalidProperties[] = "'url' can't be null";
         }
+        if ((mb_strlen($this->container['url']) > 2000)) {
+            $invalidProperties[] = "invalid value for 'url', the character length must be smaller than or equal to 2000.";
+        }
+
+        if ((mb_strlen($this->container['url']) < 1)) {
+            $invalidProperties[] = "invalid value for 'url', the character length must be bigger than or equal to 1.";
+        }
+
         if ($this->container['supplier_name'] === null) {
             $invalidProperties[] = "'supplier_name' can't be null";
         }
@@ -420,7 +428,7 @@ class ParcelBoxLabelDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets url
      *
-     * @param string $url Соответствует URL, по которому выполняется запрос [GET campaigns/{campaignId}/orders/{orderId}/delivery/shipments/{shipmentId}/boxes/{boxId}/label](../../reference/orders/generateOrderLabel.md).
+     * @param string $url url
      *
      * @return self
      */
@@ -429,6 +437,13 @@ class ParcelBoxLabelDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
         if (is_null($url)) {
             throw new \InvalidArgumentException('non-nullable url cannot be null');
         }
+        if ((mb_strlen($url) > 2000)) {
+            throw new \InvalidArgumentException('invalid length for $url when calling ParcelBoxLabelDTO., must be smaller than or equal to 2000.');
+        }
+        if ((mb_strlen($url) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $url when calling ParcelBoxLabelDTO., must be bigger than or equal to 1.');
+        }
+
         $this->container['url'] = $url;
 
         return $this;
@@ -654,6 +669,7 @@ class ParcelBoxLabelDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
      * Gets weight
      *
      * @return string
+     * @deprecated
      */
     public function getWeight()
     {
@@ -663,9 +679,10 @@ class ParcelBoxLabelDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets weight
      *
-     * @param string $weight Устаревший параметр.  Общая масса всех товаров в заказе. Возвращается в формате: `weight кг`.
+     * @param string $weight Общая масса всех товаров в заказе.  Возвращается в формате `weight кг`.
      *
      * @return self
+     * @deprecated
      */
     public function setWeight($weight)
     {
@@ -690,7 +707,7 @@ class ParcelBoxLabelDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets delivery_service_id
      *
-     * @param string $delivery_service_id Идентификатор службы доставки. Информацию о службе доставки можно получить с помощью запроса [GET delivery/services](../../reference/orders/getDeliveryServices.md).
+     * @param string $delivery_service_id Идентификатор службы доставки. Информацию о службе доставки можно получить с помощью запроса [GET delivery/services](../../reference/orders/getDeliveryServices.md).
      *
      * @return self
      */

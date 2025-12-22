@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -35,7 +35,7 @@ use \YandexMarketApi\ObjectSerializer;
  * ParcelBoxDTO Class Doc Comment
  *
  * @category Class
- * @description Элемент отображает одно грузовое место. Вложенные поля больше не используются, передавайте элемент пустым в запросах и не обращайте внимание на содержимое в ответах.
+ * @description Параметр отображает одно грузовое место.
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -282,8 +282,8 @@ class ParcelBoxDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['fulfilment_id']) && !preg_match("/^[\\p{Alnum}- ]*$/", $this->container['fulfilment_id'])) {
-            $invalidProperties[] = "invalid value for 'fulfilment_id', must be conform to the pattern /^[\\p{Alnum}- ]*$/.";
+        if (!is_null($this->container['fulfilment_id']) && !preg_match("/^[[a-zA-Z0-9]- ]*$/", $this->container['fulfilment_id'])) {
+            $invalidProperties[] = "invalid value for 'fulfilment_id', must be conform to the pattern /^[[a-zA-Z0-9]- ]*$/.";
         }
 
         return $invalidProperties;
@@ -314,7 +314,7 @@ class ParcelBoxDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param int|null $id Поле больше не используется. Не передавайте его в запросах и не обращайте на него внимания в ответах.
+     * @param int|null $id Идентификатор коробки в составе заказа.
      *
      * @return self
      */
@@ -332,6 +332,7 @@ class ParcelBoxDTO implements ModelInterface, ArrayAccess, \JsonSerializable
      * Gets fulfilment_id
      *
      * @return string|null
+     * @deprecated
      */
     public function getFulfilmentId()
     {
@@ -341,9 +342,10 @@ class ParcelBoxDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets fulfilment_id
      *
-     * @param string|null $fulfilment_id Поле больше не используется. Не передавайте его в запросах и не обращайте на него внимания в ответах.
+     * @param string|null $fulfilment_id {% note warning \"Не используйте этот параметр.\" %}     {% endnote %}
      *
      * @return self
+     * @deprecated
      */
     public function setFulfilmentId($fulfilment_id)
     {
@@ -351,8 +353,8 @@ class ParcelBoxDTO implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable fulfilment_id cannot be null');
         }
 
-        if ((!preg_match("/^[\\p{Alnum}- ]*$/", $fulfilment_id))) {
-            throw new \InvalidArgumentException("invalid value for \$fulfilment_id when calling ParcelBoxDTO., must conform to the pattern /^[\\p{Alnum}- ]*$/.");
+        if ((!preg_match("/^[[a-zA-Z0-9]- ]*$/", $fulfilment_id))) {
+            throw new \InvalidArgumentException("invalid value for \$fulfilment_id when calling ParcelBoxDTO., must conform to the pattern /^[[a-zA-Z0-9]- ]*$/.");
         }
 
         $this->container['fulfilment_id'] = $fulfilment_id;

@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -60,7 +60,6 @@ class GetMappingDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPITypes = [
         'market_sku' => 'int',
         'market_sku_name' => 'string',
-        'market_model_id' => 'int',
         'market_model_name' => 'string',
         'market_category_id' => 'int',
         'market_category_name' => 'string'
@@ -76,7 +75,6 @@ class GetMappingDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'market_sku' => 'int64',
         'market_sku_name' => null,
-        'market_model_id' => 'int64',
         'market_model_name' => null,
         'market_category_id' => 'int64',
         'market_category_name' => null
@@ -90,7 +88,6 @@ class GetMappingDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static array $openAPINullables = [
         'market_sku' => false,
 		'market_sku_name' => false,
-		'market_model_id' => false,
 		'market_model_name' => false,
 		'market_category_id' => false,
 		'market_category_name' => false
@@ -184,7 +181,6 @@ class GetMappingDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $attributeMap = [
         'market_sku' => 'marketSku',
         'market_sku_name' => 'marketSkuName',
-        'market_model_id' => 'marketModelId',
         'market_model_name' => 'marketModelName',
         'market_category_id' => 'marketCategoryId',
         'market_category_name' => 'marketCategoryName'
@@ -198,7 +194,6 @@ class GetMappingDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $setters = [
         'market_sku' => 'setMarketSku',
         'market_sku_name' => 'setMarketSkuName',
-        'market_model_id' => 'setMarketModelId',
         'market_model_name' => 'setMarketModelName',
         'market_category_id' => 'setMarketCategoryId',
         'market_category_name' => 'setMarketCategoryName'
@@ -212,7 +207,6 @@ class GetMappingDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $getters = [
         'market_sku' => 'getMarketSku',
         'market_sku_name' => 'getMarketSkuName',
-        'market_model_id' => 'getMarketModelId',
         'market_model_name' => 'getMarketModelName',
         'market_category_id' => 'getMarketCategoryId',
         'market_category_name' => 'getMarketCategoryName'
@@ -277,7 +271,6 @@ class GetMappingDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $this->setIfExists('market_sku', $data ?? [], null);
         $this->setIfExists('market_sku_name', $data ?? [], null);
-        $this->setIfExists('market_model_id', $data ?? [], null);
         $this->setIfExists('market_model_name', $data ?? [], null);
         $this->setIfExists('market_category_id', $data ?? [], null);
         $this->setIfExists('market_category_name', $data ?? [], null);
@@ -310,6 +303,10 @@ class GetMappingDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if (!is_null($this->container['market_sku']) && ($this->container['market_sku'] < 1)) {
+            $invalidProperties[] = "invalid value for 'market_sku', must be bigger than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -338,7 +335,7 @@ class GetMappingDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets market_sku
      *
-     * @param int|null $market_sku SKU на Маркете.
+     * @param int|null $market_sku Идентификатор карточки товара на Маркете.
      *
      * @return self
      */
@@ -347,6 +344,11 @@ class GetMappingDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         if (is_null($market_sku)) {
             throw new \InvalidArgumentException('non-nullable market_sku cannot be null');
         }
+
+        if (($market_sku < 1)) {
+            throw new \InvalidArgumentException('invalid value for $market_sku when calling GetMappingDTO., must be bigger than or equal to 1.');
+        }
+
         $this->container['market_sku'] = $market_sku;
 
         return $this;
@@ -380,36 +382,10 @@ class GetMappingDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets market_model_id
-     *
-     * @return int|null
-     */
-    public function getMarketModelId()
-    {
-        return $this->container['market_model_id'];
-    }
-
-    /**
-     * Sets market_model_id
-     *
-     * @param int|null $market_model_id Идентификатор модели на Маркете.  Может отсутствовать в ответе, если товар еще не привязан к карточке.
-     *
-     * @return self
-     */
-    public function setMarketModelId($market_model_id)
-    {
-        if (is_null($market_model_id)) {
-            throw new \InvalidArgumentException('non-nullable market_model_id cannot be null');
-        }
-        $this->container['market_model_id'] = $market_model_id;
-
-        return $this;
-    }
-
-    /**
      * Gets market_model_name
      *
      * @return string|null
+     * @deprecated
      */
     public function getMarketModelName()
     {
@@ -422,6 +398,7 @@ class GetMappingDTO implements ModelInterface, ArrayAccess, \JsonSerializable
      * @param string|null $market_model_name Название модели на Маркете.  Может отсутствовать в ответе, если товар еще не привязан к карточке.
      *
      * @return self
+     * @deprecated
      */
     public function setMarketModelName($market_model_name)
     {
@@ -446,7 +423,7 @@ class GetMappingDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets market_category_id
      *
-     * @param int|null $market_category_id Идентификатор категории карточки на Маркете.  Может отсутствовать в ответе, если Маркет еще не определил категорию товара.
+     * @param int|null $market_category_id Идентификатор категории на Маркете, в которую попал товар.  Может отсутствовать в ответе, если Маркет еще не определил категорию товара.
      *
      * @return self
      */

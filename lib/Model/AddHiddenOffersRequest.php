@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -314,7 +314,7 @@ class AddHiddenOffersRequest implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets hidden_offers
      *
-     * @param \YandexMarketApi\Model\HiddenOfferDTO[] $hidden_offers Список скрытых товаров.
+     * @param \YandexMarketApi\Model\HiddenOfferDTO[] $hidden_offers Список скрытых товаров.  В рамках одного запроса все значения `offerId` должны быть уникальными. Не допускается передача двух объектов с одинаковым `offerId`.
      *
      * @return self
      */

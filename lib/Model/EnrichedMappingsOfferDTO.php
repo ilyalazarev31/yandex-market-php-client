@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -91,7 +91,6 @@ class EnrichedMappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSeri
         'price' => 'float',
         'market_category_id' => 'int',
         'market_category_name' => 'string',
-        'market_model_id' => 'int',
         'market_model_name' => 'string',
         'market_sku' => 'int',
         'market_sku_name' => 'string'
@@ -138,7 +137,6 @@ class EnrichedMappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSeri
         'price' => null,
         'market_category_id' => 'int64',
         'market_category_name' => null,
-        'market_model_id' => 'int64',
         'market_model_name' => null,
         'market_sku' => 'int64',
         'market_sku_name' => null
@@ -158,19 +156,19 @@ class EnrichedMappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSeri
 		'description' => false,
 		'id' => false,
 		'feed_id' => false,
-		'barcodes' => false,
-		'urls' => false,
-		'pictures' => false,
+		'barcodes' => true,
+		'urls' => true,
+		'pictures' => true,
 		'manufacturer' => false,
-		'manufacturer_countries' => false,
+		'manufacturer_countries' => true,
 		'min_shipment' => false,
 		'transport_unit_size' => false,
 		'quantum_of_supply' => false,
 		'delivery_duration_days' => false,
 		'box_count' => false,
-		'customs_commodity_codes' => false,
+		'customs_commodity_codes' => true,
 		'weight_dimensions' => false,
-		'supply_schedule_days' => false,
+		'supply_schedule_days' => true,
 		'shelf_life_days' => false,
 		'life_time_days' => false,
 		'guarantee_period_days' => false,
@@ -183,7 +181,6 @@ class EnrichedMappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSeri
 		'price' => false,
 		'market_category_id' => false,
 		'market_category_name' => false,
-		'market_model_id' => false,
 		'market_model_name' => false,
 		'market_sku' => false,
 		'market_sku_name' => false
@@ -308,7 +305,6 @@ class EnrichedMappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSeri
         'price' => 'price',
         'market_category_id' => 'marketCategoryId',
         'market_category_name' => 'marketCategoryName',
-        'market_model_id' => 'marketModelId',
         'market_model_name' => 'marketModelName',
         'market_sku' => 'marketSku',
         'market_sku_name' => 'marketSkuName'
@@ -353,7 +349,6 @@ class EnrichedMappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSeri
         'price' => 'setPrice',
         'market_category_id' => 'setMarketCategoryId',
         'market_category_name' => 'setMarketCategoryName',
-        'market_model_id' => 'setMarketModelId',
         'market_model_name' => 'setMarketModelName',
         'market_sku' => 'setMarketSku',
         'market_sku_name' => 'setMarketSkuName'
@@ -398,7 +393,6 @@ class EnrichedMappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSeri
         'price' => 'getPrice',
         'market_category_id' => 'getMarketCategoryId',
         'market_category_name' => 'getMarketCategoryName',
-        'market_model_id' => 'getMarketModelId',
         'market_model_name' => 'getMarketModelName',
         'market_sku' => 'getMarketSku',
         'market_sku_name' => 'getMarketSkuName'
@@ -494,7 +488,6 @@ class EnrichedMappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSeri
         $this->setIfExists('price', $data ?? [], null);
         $this->setIfExists('market_category_id', $data ?? [], null);
         $this->setIfExists('market_category_name', $data ?? [], null);
-        $this->setIfExists('market_model_id', $data ?? [], null);
         $this->setIfExists('market_model_name', $data ?? [], null);
         $this->setIfExists('market_sku', $data ?? [], null);
         $this->setIfExists('market_sku_name', $data ?? [], null);
@@ -531,32 +524,68 @@ class EnrichedMappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSeri
             $invalidProperties[] = "invalid value for 'name', the character length must be smaller than or equal to 256.";
         }
 
-        if (!is_null($this->container['shop_sku']) && (mb_strlen($this->container['shop_sku']) > 80)) {
-            $invalidProperties[] = "invalid value for 'shop_sku', the character length must be smaller than or equal to 80.";
+        if (!is_null($this->container['shop_sku']) && (mb_strlen($this->container['shop_sku']) > 255)) {
+            $invalidProperties[] = "invalid value for 'shop_sku', the character length must be smaller than or equal to 255.";
         }
 
         if (!is_null($this->container['shop_sku']) && (mb_strlen($this->container['shop_sku']) < 1)) {
             $invalidProperties[] = "invalid value for 'shop_sku', the character length must be bigger than or equal to 1.";
         }
 
-        if (!is_null($this->container['shop_sku']) && !preg_match("/^[0-9a-zа-яА-ЯA-ZёËëЁ.,\\\\\/()\\[\\]\\-=_]{1,80}$/", $this->container['shop_sku'])) {
-            $invalidProperties[] = "invalid value for 'shop_sku', must be conform to the pattern /^[0-9a-zа-яА-ЯA-ZёËëЁ.,\\\\\/()\\[\\]\\-=_]{1,80}$/.";
+        if (!is_null($this->container['shop_sku']) && !preg_match("/^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/", $this->container['shop_sku'])) {
+            $invalidProperties[] = "invalid value for 'shop_sku', must be conform to the pattern /^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/.";
         }
 
         if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 6000)) {
             $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 6000.";
         }
 
-        if (!is_null($this->container['id']) && (mb_strlen($this->container['id']) > 80)) {
-            $invalidProperties[] = "invalid value for 'id', the character length must be smaller than or equal to 80.";
+        if (!is_null($this->container['id']) && (mb_strlen($this->container['id']) > 255)) {
+            $invalidProperties[] = "invalid value for 'id', the character length must be smaller than or equal to 255.";
         }
 
         if (!is_null($this->container['id']) && (mb_strlen($this->container['id']) < 1)) {
             $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 1.";
         }
 
-        if (!is_null($this->container['id']) && !preg_match("/^[0-9a-zа-яА-ЯA-ZёËëЁ.,\\\\\/()\\[\\]\\-=_]{1,80}$/", $this->container['id'])) {
-            $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^[0-9a-zа-яА-ЯA-ZёËëЁ.,\\\\\/()\\[\\]\\-=_]{1,80}$/.";
+        if (!is_null($this->container['id']) && !preg_match("/^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/", $this->container['id'])) {
+            $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/.";
+        }
+
+        if (!is_null($this->container['barcodes']) && (count($this->container['barcodes']) < 1)) {
+            $invalidProperties[] = "invalid value for 'barcodes', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['urls']) && (count($this->container['urls']) < 1)) {
+            $invalidProperties[] = "invalid value for 'urls', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['pictures']) && (count($this->container['pictures']) > 30)) {
+            $invalidProperties[] = "invalid value for 'pictures', number of items must be less than or equal to 30.";
+        }
+
+        if (!is_null($this->container['pictures']) && (count($this->container['pictures']) < 1)) {
+            $invalidProperties[] = "invalid value for 'pictures', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['manufacturer_countries']) && (count($this->container['manufacturer_countries']) > 5)) {
+            $invalidProperties[] = "invalid value for 'manufacturer_countries', number of items must be less than or equal to 5.";
+        }
+
+        if (!is_null($this->container['manufacturer_countries']) && (count($this->container['manufacturer_countries']) < 1)) {
+            $invalidProperties[] = "invalid value for 'manufacturer_countries', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['customs_commodity_codes']) && (count($this->container['customs_commodity_codes']) < 1)) {
+            $invalidProperties[] = "invalid value for 'customs_commodity_codes', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['supply_schedule_days']) && (count($this->container['supply_schedule_days']) < 1)) {
+            $invalidProperties[] = "invalid value for 'supply_schedule_days', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['market_sku']) && ($this->container['market_sku'] < 1)) {
+            $invalidProperties[] = "invalid value for 'market_sku', must be bigger than or equal to 1.";
         }
 
         return $invalidProperties;
@@ -587,7 +616,7 @@ class EnrichedMappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets name
      *
-     * @param string|null $name Составляйте название по схеме: тип + бренд или производитель + модель + особенности, если есть (например, цвет, размер или вес) и количество в упаковке.  Не включайте в название условия продажи (например, «скидка», «бесплатная доставка» и т. д.), эмоциональные характеристики («хит», «супер» и т. д.). Не пишите слова большими буквами — кроме устоявшихся названий брендов и моделей.  Оптимальная длина — 50–60 символов, максимальная — 256.  [Рекомендации и правила](https://yandex.ru/support/marketplace/assortment/fields/title.html)
+     * @param string|null $name Составляйте название по схеме: тип + бренд или производитель + модель + особенности, если есть (например, цвет, размер или вес) и количество в упаковке.  Не включайте в название условия продажи (например, «скидка», «бесплатная доставка» и т. д.), эмоциональные характеристики («хит», «супер» и т. д.). Не пишите слова большими буквами — кроме устоявшихся названий брендов и моделей.  Оптимальная длина — 50–60 символов.  [Рекомендации и правила](https://yandex.ru/support/marketplace/assortment/fields/title.html)
      *
      * @return self
      */
@@ -618,7 +647,7 @@ class EnrichedMappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets shop_sku
      *
-     * @param string|null $shop_sku Ваш SKU — идентификатор товара в вашей системе.  Разрешена любая последовательность длиной до 80 знаков. В нее могут входить английские и русские буквы, цифры и символы `. , / \\ ( ) [ ] - = _`  Правила использования SKU:  * У каждого товара SKU должен быть свой.  * SKU товара нельзя менять — можно только удалить товар и добавить заново с новым SKU.  * Уже заданный SKU нельзя освободить и использовать заново для другого товара. Каждый товар должен получать новый идентификатор, до того никогда не использовавшийся в вашем каталоге.  [Что такое SKU и как его назначать](https://yandex.ru/support/marketplace/assortment/add/index.html#fields)
+     * @param string|null $shop_sku Ваш SKU — идентификатор товара в вашей системе.  Правила использования SKU:  * У каждого товара SKU должен быть свой.  * Уже заданный SKU нельзя освободить и использовать заново для другого товара. Каждый товар должен получать новый идентификатор, до того никогда не использовавшийся в вашем каталоге.  SKU товара можно изменить в кабинете продавца на Маркете. О том, как это сделать, читайте [в Справке Маркета для продавцов](https://yandex.ru/support2/marketplace/ru/assortment/operations/edit-sku).  {% note warning %}  Пробельные символы в начале и конце значения автоматически удаляются. Например, `\"  SKU123  \"` и `\"SKU123\"` будут обработаны как одинаковые значения.  {% endnote %}  [Что такое SKU и как его назначать](https://yandex.ru/support/marketplace/assortment/add/index.html#fields)
      *
      * @return self
      */
@@ -627,14 +656,14 @@ class EnrichedMappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSeri
         if (is_null($shop_sku)) {
             throw new \InvalidArgumentException('non-nullable shop_sku cannot be null');
         }
-        if ((mb_strlen($shop_sku) > 80)) {
-            throw new \InvalidArgumentException('invalid length for $shop_sku when calling EnrichedMappingsOfferDTO., must be smaller than or equal to 80.');
+        if ((mb_strlen($shop_sku) > 255)) {
+            throw new \InvalidArgumentException('invalid length for $shop_sku when calling EnrichedMappingsOfferDTO., must be smaller than or equal to 255.');
         }
         if ((mb_strlen($shop_sku) < 1)) {
             throw new \InvalidArgumentException('invalid length for $shop_sku when calling EnrichedMappingsOfferDTO., must be bigger than or equal to 1.');
         }
-        if ((!preg_match("/^[0-9a-zа-яА-ЯA-ZёËëЁ.,\\\\\/()\\[\\]\\-=_]{1,80}$/", $shop_sku))) {
-            throw new \InvalidArgumentException("invalid value for \$shop_sku when calling EnrichedMappingsOfferDTO., must conform to the pattern /^[0-9a-zа-яА-ЯA-ZёËëЁ.,\\\\\/()\\[\\]\\-=_]{1,80}$/.");
+        if ((!preg_match("/^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/", $shop_sku))) {
+            throw new \InvalidArgumentException("invalid value for \$shop_sku when calling EnrichedMappingsOfferDTO., must conform to the pattern /^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/.");
         }
 
         $this->container['shop_sku'] = $shop_sku;
@@ -646,6 +675,7 @@ class EnrichedMappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSeri
      * Gets category
      *
      * @return string|null
+     * @deprecated
      */
     public function getCategory()
     {
@@ -655,9 +685,10 @@ class EnrichedMappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets category
      *
-     * @param string|null $category Категория товара в вашем магазине. Значение будет использовано для определения категории товара на Маркете в случае, если вы не передали категорию в параметре  marketCategoryId.  Указывайте конкретные категории — например, набор ножей лучше отнести к категории **Столовые приборы**, а не просто **Посуда**.  Выбирайте категории, которые описывают товар, а не абстрактный признак — например, **Духи**, а не **Подарки**.  Значение будет использовано для определения категории товара на Маркете в случае, если вы не передали категорию в параметре `marketCategoryId`.
+     * @param string|null $category {% note warning \"Вместо него используйте `marketCategoryId`.\" %}     {% endnote %}  Категория товара в вашем магазине.
      *
      * @return self
+     * @deprecated
      */
     public function setCategory($category)
     {
@@ -736,7 +767,7 @@ class EnrichedMappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets description
      *
-     * @param string|null $description Подробное описание товара: например, его преимущества и особенности.  Не давайте в описании инструкций по установке и сборке. Не используйте слова «скидка», «распродажа», «дешевый», «подарок» (кроме подарочных категорий), «бесплатно», «акция», «специальная цена», «новинка», «new», «аналог», «заказ», «хит». Не указывайте никакой контактной информации и не давайте ссылок.  Можно использовать теги:  * \\<h>, \\<h1>, \\<h2> и так далее — для заголовков; * \\<br> и \\<p> — для переноса строки; * \\<ol> — для нумерованного списка; * \\<ul> — для маркированного списка; * \\<li> — для создания элементов списка (должен находиться внутри \\<ol> или \\<ul>); * \\<div> — поддерживается, но не влияет на отображение текста.  Оптимальная длина — 400–600 символов, максимальная — 6000.  [Рекомендации и правила](https://yandex.ru/support/marketplace/assortment/fields/description.html)
+     * @param string|null $description Подробное описание товара: например, его преимущества и особенности.  Не давайте в описании инструкций по установке и сборке. Не используйте слова «скидка», «распродажа», «дешевый», «подарок» (кроме подарочных категорий), «бесплатно», «акция», «специальная цена», «новинка», «new», «аналог», «заказ», «хит». Не указывайте никакой контактной информации и не давайте ссылок.  Для форматирования текста можно использовать теги HTML:  * \\<h>, \\<h1>, \\<h2> и так далее — для заголовков; * \\<br> и \\<p> — для переноса строки; * \\<ol> — для нумерованного списка; * \\<ul> — для маркированного списка; * \\<li> — для создания элементов списка (должен находиться внутри \\<ol> или \\<ul>); * \\<div> — поддерживается, но не влияет на отображение текста.  Оптимальная длина — 400–600 символов.  [Рекомендации и правила](https://yandex.ru/support/marketplace/assortment/fields/description.html)
      *
      * @return self
      */
@@ -767,7 +798,7 @@ class EnrichedMappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets id
      *
-     * @param string|null $id Ваш SKU — идентификатор товара в вашей системе.  Разрешена любая последовательность длиной до 80 знаков. В нее могут входить английские и русские буквы, цифры и символы `. , / \\ ( ) [ ] - = _`  Правила использования SKU:  * У каждого товара SKU должен быть свой.  * SKU товара нельзя менять — можно только удалить товар и добавить заново с новым SKU.  * Уже заданный SKU нельзя освободить и использовать заново для другого товара. Каждый товар должен получать новый идентификатор, до того никогда не использовавшийся в вашем каталоге.  [Что такое SKU и как его назначать](https://yandex.ru/support/marketplace/assortment/add/index.html#fields)
+     * @param string|null $id Ваш SKU — идентификатор товара в вашей системе.  Правила использования SKU:  * У каждого товара SKU должен быть свой.  * Уже заданный SKU нельзя освободить и использовать заново для другого товара. Каждый товар должен получать новый идентификатор, до того никогда не использовавшийся в вашем каталоге.  SKU товара можно изменить в кабинете продавца на Маркете. О том, как это сделать, читайте [в Справке Маркета для продавцов](https://yandex.ru/support2/marketplace/ru/assortment/operations/edit-sku).  {% note warning %}  Пробельные символы в начале и конце значения автоматически удаляются. Например, `\"  SKU123  \"` и `\"SKU123\"` будут обработаны как одинаковые значения.  {% endnote %}  [Что такое SKU и как его назначать](https://yandex.ru/support/marketplace/assortment/add/index.html#fields)
      *
      * @return self
      */
@@ -776,14 +807,14 @@ class EnrichedMappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSeri
         if (is_null($id)) {
             throw new \InvalidArgumentException('non-nullable id cannot be null');
         }
-        if ((mb_strlen($id) > 80)) {
-            throw new \InvalidArgumentException('invalid length for $id when calling EnrichedMappingsOfferDTO., must be smaller than or equal to 80.');
+        if ((mb_strlen($id) > 255)) {
+            throw new \InvalidArgumentException('invalid length for $id when calling EnrichedMappingsOfferDTO., must be smaller than or equal to 255.');
         }
         if ((mb_strlen($id) < 1)) {
             throw new \InvalidArgumentException('invalid length for $id when calling EnrichedMappingsOfferDTO., must be bigger than or equal to 1.');
         }
-        if ((!preg_match("/^[0-9a-zа-яА-ЯA-ZёËëЁ.,\\\\\/()\\[\\]\\-=_]{1,80}$/", $id))) {
-            throw new \InvalidArgumentException("invalid value for \$id when calling EnrichedMappingsOfferDTO., must conform to the pattern /^[0-9a-zа-яА-ЯA-ZёËëЁ.,\\\\\/()\\[\\]\\-=_]{1,80}$/.");
+        if ((!preg_match("/^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/", $id))) {
+            throw new \InvalidArgumentException("invalid value for \$id when calling EnrichedMappingsOfferDTO., must conform to the pattern /^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/.");
         }
 
         $this->container['id'] = $id;
@@ -831,14 +862,26 @@ class EnrichedMappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets barcodes
      *
-     * @param string[]|null $barcodes Указывайте в виде последовательности цифр. Подойдут коды EAN-13, EAN-8, UPC-A, UPC-E или Code 128.  Для книг указывайте ISBN.  Для товаров [определенных категорий и торговых марок](https://yastatic.net/s3/doc-binary/src/support/market/ru/yandex-market-list-for-gtin.xlsx) штрихкод должен быть действительным кодом GTIN. Обратите внимание: внутренние штрихкоды, начинающиеся на 2 или 02, и коды формата Code 128 не являются GTIN.  [Что такое GTIN](*gtin)
+     * @param string[]|null $barcodes Штрихкод.  Указывайте в виде последовательности цифр. Подойдут коды :no-translate[EAN-13, EAN-8, UPC-A, UPC-E] или :no-translate[Code 128]. Для книг — :no-translate[ISBN].  Для товаров [определенных категорий и торговых марок](https://yastatic.net/s3/doc-binary/src/support/market/ru/yandex-market-list-for-gtin.xlsx) штрихкод должен быть действительным кодом :no-translate[GTIN]. Обратите внимание: внутренние штрихкоды, начинающиеся на 2 или 02, и коды формата :no-translate[Code 128] не являются :no-translate[GTIN].  [Что такое :no-translate[GTIN]](*gtin)
      *
      * @return self
      */
     public function setBarcodes($barcodes)
     {
         if (is_null($barcodes)) {
-            throw new \InvalidArgumentException('non-nullable barcodes cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'barcodes');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('barcodes', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+
+        if (!is_null($barcodes) && (count($barcodes) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $barcodes when calling EnrichedMappingsOfferDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['barcodes'] = $barcodes;
 
@@ -858,14 +901,26 @@ class EnrichedMappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets urls
      *
-     * @param string[]|null $urls URL фотографии товара или страницы с описанием на вашем сайте.  Переданные данные не будут отображаться на витрине, но они помогут специалистам Маркета найти карточку для вашего товара.  Должен содержать один вложенный параметр url.
+     * @param string[]|null $urls URL фотографии товара или страницы с описанием на вашем сайте.  Переданные данные не будут отображаться на витрине, но они помогут специалистам Маркета найти карточку для вашего товара.  Должен содержать один вложенный параметр `url`.
      *
      * @return self
      */
     public function setUrls($urls)
     {
         if (is_null($urls)) {
-            throw new \InvalidArgumentException('non-nullable urls cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'urls');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('urls', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+
+        if (!is_null($urls) && (count($urls) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $urls when calling EnrichedMappingsOfferDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['urls'] = $urls;
 
@@ -885,14 +940,28 @@ class EnrichedMappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets pictures
      *
-     * @param string[]|null $pictures Ссылки (URL) изображений товара в хорошем качестве.  Можно указать до 10 ссылок. При этом изображение по первой ссылке будет основным. Оно используется в качестве изображения товара в поиске Маркета и на карточке товара. Другие изображения товара доступны в режиме просмотра увеличенных изображений.  Обязательный параметр.  Должен содержать хотя бы один вложенный параметр `picture`.
+     * @param string[]|null $pictures Ссылки (URL) изображений товара в хорошем качестве.  Можно указать до 30 ссылок. При этом изображение по первой ссылке будет основным. Оно используется в качестве изображения товара в поиске Маркета и на карточке товара. Другие изображения товара доступны в режиме просмотра увеличенных изображений.
      *
      * @return self
      */
     public function setPictures($pictures)
     {
         if (is_null($pictures)) {
-            throw new \InvalidArgumentException('non-nullable pictures cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'pictures');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('pictures', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+        if (!is_null($pictures) && (count($pictures) > 30)) {
+            throw new \InvalidArgumentException('invalid value for $pictures when calling EnrichedMappingsOfferDTO., number of items must be less than or equal to 30.');
+        }
+        if (!is_null($pictures) && (count($pictures) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $pictures when calling EnrichedMappingsOfferDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['pictures'] = $pictures;
 
@@ -946,7 +1015,21 @@ class EnrichedMappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSeri
     public function setManufacturerCountries($manufacturer_countries)
     {
         if (is_null($manufacturer_countries)) {
-            throw new \InvalidArgumentException('non-nullable manufacturer_countries cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'manufacturer_countries');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('manufacturer_countries', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+        if (!is_null($manufacturer_countries) && (count($manufacturer_countries) > 5)) {
+            throw new \InvalidArgumentException('invalid value for $manufacturer_countries when calling EnrichedMappingsOfferDTO., number of items must be less than or equal to 5.');
+        }
+        if (!is_null($manufacturer_countries) && (count($manufacturer_countries) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $manufacturer_countries when calling EnrichedMappingsOfferDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['manufacturer_countries'] = $manufacturer_countries;
 
@@ -1011,6 +1094,7 @@ class EnrichedMappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSeri
      * Gets quantum_of_supply
      *
      * @return int|null
+     * @deprecated
      */
     public function getQuantumOfSupply()
     {
@@ -1020,9 +1104,10 @@ class EnrichedMappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets quantum_of_supply
      *
-     * @param int|null $quantum_of_supply Добавочная партия: по сколько единиц товара можно добавлять к минимальному количеству minShipment.  Например, если вы поставляете детское питание партиями минимум по 10 коробок и хотите добавлять к минимальной партии по 2 коробки, а в каждой коробке по 6 баночек, укажите значение 12.
+     * @param int|null $quantum_of_supply Добавочная партия: по сколько единиц товара можно добавлять к минимальному количеству `minShipment`.  Например, если вы поставляете детское питание партиями минимум по 10 коробок и хотите добавлять к минимальной партии по 2 коробки, а в каждой коробке по 6 баночек, укажите значение 12.
      *
      * @return self
+     * @deprecated
      */
     public function setQuantumOfSupply($quantum_of_supply)
     {
@@ -1108,7 +1193,19 @@ class EnrichedMappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSeri
     public function setCustomsCommodityCodes($customs_commodity_codes)
     {
         if (is_null($customs_commodity_codes)) {
-            throw new \InvalidArgumentException('non-nullable customs_commodity_codes cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'customs_commodity_codes');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('customs_commodity_codes', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+
+        if (!is_null($customs_commodity_codes) && (count($customs_commodity_codes) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $customs_commodity_codes when calling EnrichedMappingsOfferDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['customs_commodity_codes'] = $customs_commodity_codes;
 
@@ -1162,7 +1259,19 @@ class EnrichedMappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSeri
     public function setSupplyScheduleDays($supply_schedule_days)
     {
         if (is_null($supply_schedule_days)) {
-            throw new \InvalidArgumentException('non-nullable supply_schedule_days cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'supply_schedule_days');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('supply_schedule_days', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+
+        if (!is_null($supply_schedule_days) && (count($supply_schedule_days) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $supply_schedule_days when calling EnrichedMappingsOfferDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['supply_schedule_days'] = $supply_schedule_days;
 
@@ -1173,6 +1282,7 @@ class EnrichedMappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSeri
      * Gets shelf_life_days
      *
      * @return int|null
+     * @deprecated
      */
     public function getShelfLifeDays()
     {
@@ -1182,9 +1292,10 @@ class EnrichedMappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets shelf_life_days
      *
-     * @param int|null $shelf_life_days {% note alert %}  Параметр устарел и не рекомендуется к использованию. Вместо него используйте параметр `shelfLife`. Совместное использование обоих параметров приведет к ошибке.  {% endnote %}  Срок годности: через сколько дней товар станет непригоден для использования.
+     * @param int|null $shelf_life_days {% note warning \"Вместо него используйте `shelfLife`. Совместное использование обоих параметров приведет к ошибке.\" %}     {% endnote %}  Срок годности: через сколько дней товар станет непригоден для использования.
      *
      * @return self
+     * @deprecated
      */
     public function setShelfLifeDays($shelf_life_days)
     {
@@ -1200,6 +1311,7 @@ class EnrichedMappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSeri
      * Gets life_time_days
      *
      * @return int|null
+     * @deprecated
      */
     public function getLifeTimeDays()
     {
@@ -1209,9 +1321,10 @@ class EnrichedMappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets life_time_days
      *
-     * @param int|null $life_time_days {% note alert %}  Параметр устарел и не рекомендуется к использованию. Вместо него используйте параметр `lifeTime`. Совместное использование обоих параметров приведет к ошибке.  {% endnote %}  Срок службы: сколько дней товар будет исправно выполнять свою функцию, а изготовитель — нести ответственность за его существенные недостатки.
+     * @param int|null $life_time_days {% note warning \"Вместо него используйте `lifeTime`. Совместное использование обоих параметров приведет к ошибке.\" %}     {% endnote %}  Срок службы: сколько дней товар будет исправно выполнять свою функцию, а изготовитель — нести ответственность за его существенные недостатки.
      *
      * @return self
+     * @deprecated
      */
     public function setLifeTimeDays($life_time_days)
     {
@@ -1425,7 +1538,7 @@ class EnrichedMappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets price
      *
-     * @param float|null $price Цена товара в рублях.
+     * @param float|null $price Цена товара.
      *
      * @return self
      */
@@ -1452,7 +1565,7 @@ class EnrichedMappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets market_category_id
      *
-     * @param int|null $market_category_id Идентификатор категории для рекомендованной карточки товара на Маркете.  Возвращается только вместе с параметром ##marketSku##.
+     * @param int|null $market_category_id Идентификатор категории для рекомендованной карточки товара на Маркете.  Возвращается только вместе с параметром `marketSku`.
      *
      * @return self
      */
@@ -1494,36 +1607,10 @@ class EnrichedMappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSeri
     }
 
     /**
-     * Gets market_model_id
-     *
-     * @return int|null
-     */
-    public function getMarketModelId()
-    {
-        return $this->container['market_model_id'];
-    }
-
-    /**
-     * Sets market_model_id
-     *
-     * @param int|null $market_model_id Идентификатор модели для рекомендованной карточки товара на Маркете.  Может отсутствовать в ответе.
-     *
-     * @return self
-     */
-    public function setMarketModelId($market_model_id)
-    {
-        if (is_null($market_model_id)) {
-            throw new \InvalidArgumentException('non-nullable market_model_id cannot be null');
-        }
-        $this->container['market_model_id'] = $market_model_id;
-
-        return $this;
-    }
-
-    /**
      * Gets market_model_name
      *
      * @return string|null
+     * @deprecated
      */
     public function getMarketModelName()
     {
@@ -1536,6 +1623,7 @@ class EnrichedMappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSeri
      * @param string|null $market_model_name Название модели для рекомендованной карточки товара на Маркете.  Возвращается только вместе с параметром ##marketSku##.
      *
      * @return self
+     * @deprecated
      */
     public function setMarketModelName($market_model_name)
     {
@@ -1560,7 +1648,7 @@ class EnrichedMappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets market_sku
      *
-     * @param int|null $market_sku SKU на Маркете.
+     * @param int|null $market_sku Идентификатор карточки товара на Маркете.
      *
      * @return self
      */
@@ -1569,6 +1657,11 @@ class EnrichedMappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSeri
         if (is_null($market_sku)) {
             throw new \InvalidArgumentException('non-nullable market_sku cannot be null');
         }
+
+        if (($market_sku < 1)) {
+            throw new \InvalidArgumentException('invalid value for $market_sku when calling EnrichedMappingsOfferDTO., must be bigger than or equal to 1.');
+        }
+
         $this->container['market_sku'] = $market_sku;
 
         return $this;

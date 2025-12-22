@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -299,22 +299,26 @@ class GenerateGoodsMovementReportRequest implements ModelInterface, ArrayAccess,
         if ($this->container['campaign_id'] === null) {
             $invalidProperties[] = "'campaign_id' can't be null";
         }
+        if (($this->container['campaign_id'] < 1)) {
+            $invalidProperties[] = "invalid value for 'campaign_id', must be bigger than or equal to 1.";
+        }
+
         if ($this->container['date_from'] === null) {
             $invalidProperties[] = "'date_from' can't be null";
         }
         if ($this->container['date_to'] === null) {
             $invalidProperties[] = "'date_to' can't be null";
         }
-        if (!is_null($this->container['shop_sku']) && (mb_strlen($this->container['shop_sku']) > 80)) {
-            $invalidProperties[] = "invalid value for 'shop_sku', the character length must be smaller than or equal to 80.";
+        if (!is_null($this->container['shop_sku']) && (mb_strlen($this->container['shop_sku']) > 255)) {
+            $invalidProperties[] = "invalid value for 'shop_sku', the character length must be smaller than or equal to 255.";
         }
 
         if (!is_null($this->container['shop_sku']) && (mb_strlen($this->container['shop_sku']) < 1)) {
             $invalidProperties[] = "invalid value for 'shop_sku', the character length must be bigger than or equal to 1.";
         }
 
-        if (!is_null($this->container['shop_sku']) && !preg_match("/^[0-9a-zа-яА-ЯA-ZёËëЁ.,\\\\\/()\\[\\]\\-=_]{1,80}$/", $this->container['shop_sku'])) {
-            $invalidProperties[] = "invalid value for 'shop_sku', must be conform to the pattern /^[0-9a-zа-яА-ЯA-ZёËëЁ.,\\\\\/()\\[\\]\\-=_]{1,80}$/.";
+        if (!is_null($this->container['shop_sku']) && !preg_match("/^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/", $this->container['shop_sku'])) {
+            $invalidProperties[] = "invalid value for 'shop_sku', must be conform to the pattern /^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/.";
         }
 
         return $invalidProperties;
@@ -345,7 +349,7 @@ class GenerateGoodsMovementReportRequest implements ModelInterface, ArrayAccess,
     /**
      * Sets campaign_id
      *
-     * @param int $campaign_id Идентификатор кампании.
+     * @param int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями.
      *
      * @return self
      */
@@ -354,6 +358,11 @@ class GenerateGoodsMovementReportRequest implements ModelInterface, ArrayAccess,
         if (is_null($campaign_id)) {
             throw new \InvalidArgumentException('non-nullable campaign_id cannot be null');
         }
+
+        if (($campaign_id < 1)) {
+            throw new \InvalidArgumentException('invalid value for $campaign_id when calling GenerateGoodsMovementReportRequest., must be bigger than or equal to 1.');
+        }
+
         $this->container['campaign_id'] = $campaign_id;
 
         return $this;
@@ -372,7 +381,7 @@ class GenerateGoodsMovementReportRequest implements ModelInterface, ArrayAccess,
     /**
      * Sets date_from
      *
-     * @param \DateTime $date_from Начало периода, включительно.
+     * @param \DateTime $date_from Начало периода, включительно.  Формат даты: `ГГГГ-ММ-ДД`.
      *
      * @return self
      */
@@ -399,7 +408,7 @@ class GenerateGoodsMovementReportRequest implements ModelInterface, ArrayAccess,
     /**
      * Sets date_to
      *
-     * @param \DateTime $date_to Конец периода, включительно.
+     * @param \DateTime $date_to Конец периода, включительно.  Формат даты: `ГГГГ-ММ-ДД`.
      *
      * @return self
      */
@@ -426,7 +435,7 @@ class GenerateGoodsMovementReportRequest implements ModelInterface, ArrayAccess,
     /**
      * Sets shop_sku
      *
-     * @param string|null $shop_sku Ваш SKU — идентификатор товара в вашей системе.  Разрешена любая последовательность длиной до 80 знаков. В нее могут входить английские и русские буквы, цифры и символы `. , / \\ ( ) [ ] - = _`  Правила использования SKU:  * У каждого товара SKU должен быть свой.  * SKU товара нельзя менять — можно только удалить товар и добавить заново с новым SKU.  * Уже заданный SKU нельзя освободить и использовать заново для другого товара. Каждый товар должен получать новый идентификатор, до того никогда не использовавшийся в вашем каталоге.  [Что такое SKU и как его назначать](https://yandex.ru/support/marketplace/assortment/add/index.html#fields)
+     * @param string|null $shop_sku Ваш SKU — идентификатор товара в вашей системе.  Правила использования SKU:  * У каждого товара SKU должен быть свой.  * Уже заданный SKU нельзя освободить и использовать заново для другого товара. Каждый товар должен получать новый идентификатор, до того никогда не использовавшийся в вашем каталоге.  SKU товара можно изменить в кабинете продавца на Маркете. О том, как это сделать, читайте [в Справке Маркета для продавцов](https://yandex.ru/support2/marketplace/ru/assortment/operations/edit-sku).  {% note warning %}  Пробельные символы в начале и конце значения автоматически удаляются. Например, `\"  SKU123  \"` и `\"SKU123\"` будут обработаны как одинаковые значения.  {% endnote %}  [Что такое SKU и как его назначать](https://yandex.ru/support/marketplace/assortment/add/index.html#fields)
      *
      * @return self
      */
@@ -435,14 +444,14 @@ class GenerateGoodsMovementReportRequest implements ModelInterface, ArrayAccess,
         if (is_null($shop_sku)) {
             throw new \InvalidArgumentException('non-nullable shop_sku cannot be null');
         }
-        if ((mb_strlen($shop_sku) > 80)) {
-            throw new \InvalidArgumentException('invalid length for $shop_sku when calling GenerateGoodsMovementReportRequest., must be smaller than or equal to 80.');
+        if ((mb_strlen($shop_sku) > 255)) {
+            throw new \InvalidArgumentException('invalid length for $shop_sku when calling GenerateGoodsMovementReportRequest., must be smaller than or equal to 255.');
         }
         if ((mb_strlen($shop_sku) < 1)) {
             throw new \InvalidArgumentException('invalid length for $shop_sku when calling GenerateGoodsMovementReportRequest., must be bigger than or equal to 1.');
         }
-        if ((!preg_match("/^[0-9a-zа-яА-ЯA-ZёËëЁ.,\\\\\/()\\[\\]\\-=_]{1,80}$/", $shop_sku))) {
-            throw new \InvalidArgumentException("invalid value for \$shop_sku when calling GenerateGoodsMovementReportRequest., must conform to the pattern /^[0-9a-zа-яА-ЯA-ZёËëЁ.,\\\\\/()\\[\\]\\-=_]{1,80}$/.");
+        if ((!preg_match("/^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/", $shop_sku))) {
+            throw new \InvalidArgumentException("invalid value for \$shop_sku when calling GenerateGoodsMovementReportRequest., must conform to the pattern /^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/.");
         }
 
         $this->container['shop_sku'] = $shop_sku;

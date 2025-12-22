@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -33,7 +33,7 @@ use \YandexMarketApi\ObjectSerializer;
  * PlacementType Class Doc Comment
  *
  * @category Class
- * @description Модель, по которой работает магазин:  * &#x60;FBS&#x60; — FBS или Экспресс; * &#x60;FBY&#x60; — FBY; * &#x60;DBS&#x60; — DBS.
+ * @description Модель, по которой работает магазин:  * &#x60;FBS&#x60; — FBS или Экспресс. * &#x60;FBY&#x60; — FBY. * &#x60;DBS&#x60; — DBS.
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -49,6 +49,8 @@ class PlacementType
 
     public const DBS = 'DBS';
 
+    public const LAAS = 'LAAS';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -58,7 +60,8 @@ class PlacementType
         return [
             self::FBS,
             self::FBY,
-            self::DBS
+            self::DBS,
+            self::LAAS
         ];
     }
 }

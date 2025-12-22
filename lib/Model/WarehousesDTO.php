@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -282,6 +282,12 @@ class WarehousesDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if ($this->container['warehouses'] === null) {
+            $invalidProperties[] = "'warehouses' can't be null";
+        }
+        if ($this->container['warehouse_groups'] === null) {
+            $invalidProperties[] = "'warehouse_groups' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -300,7 +306,7 @@ class WarehousesDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets warehouses
      *
-     * @return \YandexMarketApi\Model\WarehouseDTO[]|null
+     * @return \YandexMarketApi\Model\WarehouseDTO[]
      */
     public function getWarehouses()
     {
@@ -310,7 +316,7 @@ class WarehousesDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets warehouses
      *
-     * @param \YandexMarketApi\Model\WarehouseDTO[]|null $warehouses Список складов, не входящих в группы.
+     * @param \YandexMarketApi\Model\WarehouseDTO[] $warehouses Список складов, не входящих в группы.
      *
      * @return self
      */
@@ -327,7 +333,7 @@ class WarehousesDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets warehouse_groups
      *
-     * @return \YandexMarketApi\Model\WarehouseGroupDTO[]|null
+     * @return \YandexMarketApi\Model\WarehouseGroupDTO[]
      */
     public function getWarehouseGroups()
     {
@@ -337,7 +343,7 @@ class WarehousesDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets warehouse_groups
      *
-     * @param \YandexMarketApi\Model\WarehouseGroupDTO[]|null $warehouse_groups Список групп складов.
+     * @param \YandexMarketApi\Model\WarehouseGroupDTO[] $warehouse_groups Список групп складов.
      *
      * @return self
      */

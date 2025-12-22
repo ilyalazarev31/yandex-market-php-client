@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**market_sku** | **int** | SKU на Маркете. | [optional]
+**market_sku** | **int** | Идентификатор карточки товара на Маркете. | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

@@ -10,7 +10,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -72,6 +72,18 @@ class RegionsApiTest extends TestCase
     }
 
     /**
+     * Test case for getRegionsCodes
+     *
+     * Список допустимых кодов стран.
+     *
+     */
+    public function testGetRegionsCodes()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test case for searchRegionChildren
      *
      * Информация о дочерних регионах.
@@ -98,7 +110,7 @@ class RegionsApiTest extends TestCase
     /**
      * Test case for searchRegionsByName
      *
-     * Метод для поиска регионов по их имени.
+     * Поиск регионов по их имени.
      *
      */
     public function testSearchRegionsByName()

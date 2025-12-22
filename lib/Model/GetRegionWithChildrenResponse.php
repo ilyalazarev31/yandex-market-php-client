@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -58,7 +58,7 @@ class GetRegionWithChildrenResponse implements ModelInterface, ArrayAccess, \Jso
       */
     protected static $openAPITypes = [
         'pager' => '\YandexMarketApi\Model\FlippingPagerDTO',
-        'regions' => '\YandexMarketApi\Model\RegionDTO'
+        'regions' => '\YandexMarketApi\Model\RegionWithChildrenDTO'
     ];
 
     /**
@@ -326,7 +326,7 @@ class GetRegionWithChildrenResponse implements ModelInterface, ArrayAccess, \Jso
     /**
      * Gets regions
      *
-     * @return \YandexMarketApi\Model\RegionDTO|null
+     * @return \YandexMarketApi\Model\RegionWithChildrenDTO|null
      */
     public function getRegions()
     {
@@ -336,7 +336,7 @@ class GetRegionWithChildrenResponse implements ModelInterface, ArrayAccess, \Jso
     /**
      * Sets regions
      *
-     * @param \YandexMarketApi\Model\RegionDTO|null $regions regions
+     * @param \YandexMarketApi\Model\RegionWithChildrenDTO|null $regions regions
      *
      * @return self
      */

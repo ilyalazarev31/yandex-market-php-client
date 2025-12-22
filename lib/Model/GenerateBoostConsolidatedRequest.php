@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -292,6 +292,10 @@ class GenerateBoostConsolidatedRequest implements ModelInterface, ArrayAccess, \
         if ($this->container['business_id'] === null) {
             $invalidProperties[] = "'business_id' can't be null";
         }
+        if (($this->container['business_id'] < 1)) {
+            $invalidProperties[] = "invalid value for 'business_id', must be bigger than or equal to 1.";
+        }
+
         if ($this->container['date_from'] === null) {
             $invalidProperties[] = "'date_from' can't be null";
         }
@@ -326,7 +330,7 @@ class GenerateBoostConsolidatedRequest implements ModelInterface, ArrayAccess, \
     /**
      * Sets business_id
      *
-     * @param int $business_id Идентификатор бизнеса.
+     * @param int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html)
      *
      * @return self
      */
@@ -335,6 +339,11 @@ class GenerateBoostConsolidatedRequest implements ModelInterface, ArrayAccess, \
         if (is_null($business_id)) {
             throw new \InvalidArgumentException('non-nullable business_id cannot be null');
         }
+
+        if (($business_id < 1)) {
+            throw new \InvalidArgumentException('invalid value for $business_id when calling GenerateBoostConsolidatedRequest., must be bigger than or equal to 1.');
+        }
+
         $this->container['business_id'] = $business_id;
 
         return $this;
@@ -353,7 +362,7 @@ class GenerateBoostConsolidatedRequest implements ModelInterface, ArrayAccess, \
     /**
      * Sets date_from
      *
-     * @param \DateTime $date_from Начало периода, включительно.
+     * @param \DateTime $date_from Начало периода, включительно.  Формат даты: `ГГГГ-ММ-ДД`.
      *
      * @return self
      */
@@ -380,7 +389,7 @@ class GenerateBoostConsolidatedRequest implements ModelInterface, ArrayAccess, \
     /**
      * Sets date_to
      *
-     * @param \DateTime $date_to Конец периода, включительно.
+     * @param \DateTime $date_to Конец периода, включительно.  Формат даты: `ГГГГ-ММ-ДД`.
      *
      * @return self
      */

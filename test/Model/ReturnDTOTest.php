@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -34,7 +34,7 @@ use PHPUnit\Framework\TestCase;
  * ReturnDTOTest Class Doc Comment
  *
  * @category    Class
- * @description Возврат заказа.
+ * @description Невыкуп или возврат в заказе.  Параметров &#x60;logisticPickupPoint&#x60;, &#x60;shipmentRecipientType&#x60; и &#x60;shipmentStatus&#x60; может не быть в случае возврата:   * С опцией **Быстрый возврат денег за дешевый брак**, когда товар остается у покупателя (&#x60;fastReturn&#x3D;true&#x60;).   * По заказу от бизнеса, если:     * статус возврата &#x60;STARTED_BY_USER&#x60; или &#x60;WAITING_FOR_DECISION&#x60;;     * возврат отменен до передачи товара.  Статус возврата денег &#x60;refundStatus&#x60; актуален только для &#x60;returnType&#x3D;RETURN&#x60;.
  * @package     YandexMarketApi
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech
@@ -134,6 +134,15 @@ class ReturnDTOTest extends TestCase
     }
 
     /**
+     * Test attribute "pickup_till_date"
+     */
+    public function testPropertyPickupTillDate()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test attribute "shipment_recipient_type"
      */
     public function testPropertyShipmentRecipientType()
@@ -161,6 +170,15 @@ class ReturnDTOTest extends TestCase
     }
 
     /**
+     * Test attribute "amount"
+     */
+    public function testPropertyAmount()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test attribute "items"
      */
     public function testPropertyItems()
@@ -173,6 +191,15 @@ class ReturnDTOTest extends TestCase
      * Test attribute "return_type"
      */
     public function testPropertyReturnType()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "fast_return"
+     */
+    public function testPropertyFastReturn()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

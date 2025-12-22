@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**value** | **float** | Значение. |
+**value** | **float** | Цена товара. |
 **currency_id** | [**\YandexMarketApi\Model\CurrencyType**](CurrencyType.md) |  |
 **updated_at** | **\DateTime** | Время последнего обновления. |
 

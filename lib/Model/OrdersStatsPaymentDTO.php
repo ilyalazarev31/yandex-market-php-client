@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -365,7 +365,7 @@ class OrdersStatsPaymentDTO implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Sets date
      *
-     * @param \DateTime|null $date Дата денежного перевода. Формат даты: `ГГГГ-ММ-ДД`.
+     * @param \DateTime|null $date Дата денежного перевода.  Формат даты: `ГГГГ-ММ-ДД`.
      *
      * @return self
      */
@@ -446,7 +446,7 @@ class OrdersStatsPaymentDTO implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Sets total
      *
-     * @param float|null $total Сумма денежного перевода. Значение указывается в рублях независимо от способа денежного перевода. Точность — два знака после запятой.
+     * @param float|null $total Сумма денежного перевода.  Точность — два знака после запятой.
      *
      * @return self
      */

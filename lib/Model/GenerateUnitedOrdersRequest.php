@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -61,7 +61,8 @@ class GenerateUnitedOrdersRequest implements ModelInterface, ArrayAccess, \JsonS
         'business_id' => 'int',
         'date_from' => '\DateTime',
         'date_to' => '\DateTime',
-        'campaign_ids' => 'int[]'
+        'campaign_ids' => 'int[]',
+        'promo_id' => 'string'
     ];
 
     /**
@@ -75,7 +76,8 @@ class GenerateUnitedOrdersRequest implements ModelInterface, ArrayAccess, \JsonS
         'business_id' => 'int64',
         'date_from' => 'date',
         'date_to' => 'date',
-        'campaign_ids' => 'int64'
+        'campaign_ids' => 'int64',
+        'promo_id' => null
     ];
 
     /**
@@ -87,7 +89,8 @@ class GenerateUnitedOrdersRequest implements ModelInterface, ArrayAccess, \JsonS
         'business_id' => false,
 		'date_from' => false,
 		'date_to' => false,
-		'campaign_ids' => false
+		'campaign_ids' => true,
+		'promo_id' => false
     ];
 
     /**
@@ -179,7 +182,8 @@ class GenerateUnitedOrdersRequest implements ModelInterface, ArrayAccess, \JsonS
         'business_id' => 'businessId',
         'date_from' => 'dateFrom',
         'date_to' => 'dateTo',
-        'campaign_ids' => 'campaignIds'
+        'campaign_ids' => 'campaignIds',
+        'promo_id' => 'promoId'
     ];
 
     /**
@@ -191,7 +195,8 @@ class GenerateUnitedOrdersRequest implements ModelInterface, ArrayAccess, \JsonS
         'business_id' => 'setBusinessId',
         'date_from' => 'setDateFrom',
         'date_to' => 'setDateTo',
-        'campaign_ids' => 'setCampaignIds'
+        'campaign_ids' => 'setCampaignIds',
+        'promo_id' => 'setPromoId'
     ];
 
     /**
@@ -203,7 +208,8 @@ class GenerateUnitedOrdersRequest implements ModelInterface, ArrayAccess, \JsonS
         'business_id' => 'getBusinessId',
         'date_from' => 'getDateFrom',
         'date_to' => 'getDateTo',
-        'campaign_ids' => 'getCampaignIds'
+        'campaign_ids' => 'getCampaignIds',
+        'promo_id' => 'getPromoId'
     ];
 
     /**
@@ -267,6 +273,7 @@ class GenerateUnitedOrdersRequest implements ModelInterface, ArrayAccess, \JsonS
         $this->setIfExists('date_from', $data ?? [], null);
         $this->setIfExists('date_to', $data ?? [], null);
         $this->setIfExists('campaign_ids', $data ?? [], null);
+        $this->setIfExists('promo_id', $data ?? [], null);
     }
 
     /**
@@ -299,12 +306,20 @@ class GenerateUnitedOrdersRequest implements ModelInterface, ArrayAccess, \JsonS
         if ($this->container['business_id'] === null) {
             $invalidProperties[] = "'business_id' can't be null";
         }
+        if (($this->container['business_id'] < 1)) {
+            $invalidProperties[] = "invalid value for 'business_id', must be bigger than or equal to 1.";
+        }
+
         if ($this->container['date_from'] === null) {
             $invalidProperties[] = "'date_from' can't be null";
         }
         if ($this->container['date_to'] === null) {
             $invalidProperties[] = "'date_to' can't be null";
         }
+        if (!is_null($this->container['campaign_ids']) && (count($this->container['campaign_ids']) < 1)) {
+            $invalidProperties[] = "invalid value for 'campaign_ids', number of items must be greater than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -333,7 +348,7 @@ class GenerateUnitedOrdersRequest implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Sets business_id
      *
-     * @param int $business_id Идентификатор бизнеса.
+     * @param int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html)
      *
      * @return self
      */
@@ -342,6 +357,11 @@ class GenerateUnitedOrdersRequest implements ModelInterface, ArrayAccess, \JsonS
         if (is_null($business_id)) {
             throw new \InvalidArgumentException('non-nullable business_id cannot be null');
         }
+
+        if (($business_id < 1)) {
+            throw new \InvalidArgumentException('invalid value for $business_id when calling GenerateUnitedOrdersRequest., must be bigger than or equal to 1.');
+        }
+
         $this->container['business_id'] = $business_id;
 
         return $this;
@@ -360,7 +380,7 @@ class GenerateUnitedOrdersRequest implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Sets date_from
      *
-     * @param \DateTime $date_from Начало периода, включительно.
+     * @param \DateTime $date_from Начало периода, включительно.  Формат даты: `ГГГГ-ММ-ДД`.
      *
      * @return self
      */
@@ -387,7 +407,7 @@ class GenerateUnitedOrdersRequest implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Sets date_to
      *
-     * @param \DateTime $date_to Конец периода, включительно. Максимальный период — 1 год.
+     * @param \DateTime $date_to Конец периода, включительно. Максимальный период — 1 год.  Формат даты: `ГГГГ-ММ-ДД`.
      *
      * @return self
      */
@@ -414,16 +434,55 @@ class GenerateUnitedOrdersRequest implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Sets campaign_ids
      *
-     * @param int[]|null $campaign_ids Список магазинов, которые нужны в отчете.
+     * @param int[]|null $campaign_ids Список идентификаторов кампании тех магазинов, которые нужны в отчете.
      *
      * @return self
      */
     public function setCampaignIds($campaign_ids)
     {
         if (is_null($campaign_ids)) {
-            throw new \InvalidArgumentException('non-nullable campaign_ids cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'campaign_ids');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('campaign_ids', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+
+        if (!is_null($campaign_ids) && (count($campaign_ids) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $campaign_ids when calling GenerateUnitedOrdersRequest., number of items must be greater than or equal to 1.');
         }
         $this->container['campaign_ids'] = $campaign_ids;
+
+        return $this;
+    }
+
+    /**
+     * Gets promo_id
+     *
+     * @return string|null
+     */
+    public function getPromoId()
+    {
+        return $this->container['promo_id'];
+    }
+
+    /**
+     * Sets promo_id
+     *
+     * @param string|null $promo_id Идентификатор акции, товары из которой нужны в отчете.
+     *
+     * @return self
+     */
+    public function setPromoId($promo_id)
+    {
+        if (is_null($promo_id)) {
+            throw new \InvalidArgumentException('non-nullable promo_id cannot be null');
+        }
+        $this->container['promo_id'] = $promo_id;
 
         return $this;
     }

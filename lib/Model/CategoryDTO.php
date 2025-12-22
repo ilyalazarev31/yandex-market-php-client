@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -84,7 +84,7 @@ class CategoryDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static array $openAPINullables = [
         'id' => false,
 		'name' => false,
-		'children' => false
+		'children' => true
     ];
 
     /**
@@ -295,6 +295,10 @@ class CategoryDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['name'] === null) {
             $invalidProperties[] = "'name' can't be null";
         }
+        if (!is_null($this->container['children']) && (count($this->container['children']) < 1)) {
+            $invalidProperties[] = "invalid value for 'children', number of items must be greater than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -323,7 +327,7 @@ class CategoryDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param int $id ID категории.
+     * @param int $id Идентификатор категории.
      *
      * @return self
      */
@@ -384,7 +388,19 @@ class CategoryDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setChildren($children)
     {
         if (is_null($children)) {
-            throw new \InvalidArgumentException('non-nullable children cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'children');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('children', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+
+        if (!is_null($children) && (count($children) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $children when calling CategoryDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['children'] = $children;
 

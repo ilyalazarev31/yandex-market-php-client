@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -78,7 +78,7 @@ class DeleteOffersFromArchiveDTO implements ModelInterface, ArrayAccess, \JsonSe
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'not_unarchived_offer_ids' => false
+        'not_unarchived_offer_ids' => true
     ];
 
     /**
@@ -275,6 +275,10 @@ class DeleteOffersFromArchiveDTO implements ModelInterface, ArrayAccess, \JsonSe
     {
         $invalidProperties = [];
 
+        if (!is_null($this->container['not_unarchived_offer_ids']) && (count($this->container['not_unarchived_offer_ids']) < 1)) {
+            $invalidProperties[] = "invalid value for 'not_unarchived_offer_ids', number of items must be greater than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -310,7 +314,19 @@ class DeleteOffersFromArchiveDTO implements ModelInterface, ArrayAccess, \JsonSe
     public function setNotUnarchivedOfferIds($not_unarchived_offer_ids)
     {
         if (is_null($not_unarchived_offer_ids)) {
-            throw new \InvalidArgumentException('non-nullable not_unarchived_offer_ids cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'not_unarchived_offer_ids');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('not_unarchived_offer_ids', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+
+        if (!is_null($not_unarchived_offer_ids) && (count($not_unarchived_offer_ids) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $not_unarchived_offer_ids when calling DeleteOffersFromArchiveDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['not_unarchived_offer_ids'] = $not_unarchived_offer_ids;
 

@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -62,7 +62,8 @@ class CampaignDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'id' => 'int',
         'client_id' => 'int',
         'business' => '\YandexMarketApi\Model\BusinessDTO',
-        'placement_type' => '\YandexMarketApi\Model\PlacementType'
+        'placement_type' => '\YandexMarketApi\Model\PlacementType',
+        'api_availability' => '\YandexMarketApi\Model\ApiAvailabilityStatusType'
     ];
 
     /**
@@ -77,7 +78,8 @@ class CampaignDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'id' => 'int64',
         'client_id' => 'int64',
         'business' => null,
-        'placement_type' => null
+        'placement_type' => null,
+        'api_availability' => null
     ];
 
     /**
@@ -90,7 +92,8 @@ class CampaignDTO implements ModelInterface, ArrayAccess, \JsonSerializable
 		'id' => false,
 		'client_id' => false,
 		'business' => false,
-		'placement_type' => false
+		'placement_type' => false,
+		'api_availability' => false
     ];
 
     /**
@@ -183,7 +186,8 @@ class CampaignDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'id' => 'id',
         'client_id' => 'clientId',
         'business' => 'business',
-        'placement_type' => 'placementType'
+        'placement_type' => 'placementType',
+        'api_availability' => 'apiAvailability'
     ];
 
     /**
@@ -196,7 +200,8 @@ class CampaignDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'id' => 'setId',
         'client_id' => 'setClientId',
         'business' => 'setBusiness',
-        'placement_type' => 'setPlacementType'
+        'placement_type' => 'setPlacementType',
+        'api_availability' => 'setApiAvailability'
     ];
 
     /**
@@ -209,7 +214,8 @@ class CampaignDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'id' => 'getId',
         'client_id' => 'getClientId',
         'business' => 'getBusiness',
-        'placement_type' => 'getPlacementType'
+        'placement_type' => 'getPlacementType',
+        'api_availability' => 'getApiAvailability'
     ];
 
     /**
@@ -274,6 +280,7 @@ class CampaignDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('client_id', $data ?? [], null);
         $this->setIfExists('business', $data ?? [], null);
         $this->setIfExists('placement_type', $data ?? [], null);
+        $this->setIfExists('api_availability', $data ?? [], null);
     }
 
     /**
@@ -303,6 +310,10 @@ class CampaignDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if (!is_null($this->container['id']) && ($this->container['id'] < 1)) {
+            $invalidProperties[] = "invalid value for 'id', must be bigger than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -331,7 +342,7 @@ class CampaignDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets domain
      *
-     * @param string|null $domain URL магазина.
+     * @param string|null $domain Название магазина.
      *
      * @return self
      */
@@ -358,7 +369,7 @@ class CampaignDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param int|null $id Идентификатор кампании.
+     * @param int|null $id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями.
      *
      * @return self
      */
@@ -367,6 +378,11 @@ class CampaignDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         if (is_null($id)) {
             throw new \InvalidArgumentException('non-nullable id cannot be null');
         }
+
+        if (($id < 1)) {
+            throw new \InvalidArgumentException('invalid value for $id when calling CampaignDTO., must be bigger than or equal to 1.');
+        }
+
         $this->container['id'] = $id;
 
         return $this;
@@ -376,6 +392,7 @@ class CampaignDTO implements ModelInterface, ArrayAccess, \JsonSerializable
      * Gets client_id
      *
      * @return int|null
+     * @deprecated
      */
     public function getClientId()
     {
@@ -388,6 +405,7 @@ class CampaignDTO implements ModelInterface, ArrayAccess, \JsonSerializable
      * @param int|null $client_id Идентификатор плательщика в Яндекс Балансе.
      *
      * @return self
+     * @deprecated
      */
     public function setClientId($client_id)
     {
@@ -449,6 +467,33 @@ class CampaignDTO implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable placement_type cannot be null');
         }
         $this->container['placement_type'] = $placement_type;
+
+        return $this;
+    }
+
+    /**
+     * Gets api_availability
+     *
+     * @return \YandexMarketApi\Model\ApiAvailabilityStatusType|null
+     */
+    public function getApiAvailability()
+    {
+        return $this->container['api_availability'];
+    }
+
+    /**
+     * Sets api_availability
+     *
+     * @param \YandexMarketApi\Model\ApiAvailabilityStatusType|null $api_availability api_availability
+     *
+     * @return self
+     */
+    public function setApiAvailability($api_availability)
+    {
+        if (is_null($api_availability)) {
+            throw new \InvalidArgumentException('non-nullable api_availability cannot be null');
+        }
+        $this->container['api_availability'] = $api_availability;
 
         return $this;
     }

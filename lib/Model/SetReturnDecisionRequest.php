@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -35,7 +35,7 @@ use \YandexMarketApi\ObjectSerializer;
  * SetReturnDecisionRequest Class Doc Comment
  *
  * @category Class
- * @description Решения по позиции в возврате.
+ * @description Решения по товару в возврате.
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -377,7 +377,7 @@ class SetReturnDecisionRequest implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets comment
      *
-     * @param string|null $comment Комментарий к решению.  Для решения `REFUND_MONEY_INCLUDING_SHIPMENT` укажите стоимость обратной пересылки,  для `REPAIR` — когда вы устраните недостатки товара,  для `DECLINE_REFUND` — причину отказа,  для `OTHER_DECISION` следует передать, какое решение вы предлагаете.
+     * @param string|null $comment Комментарий к решению. Укажите:  * для `REFUND_MONEY_INCLUDING_SHIPMENT`— стоимость обратной пересылки.  * для `REPAIR` — когда вы устраните недостатки товара.  * для `DECLINE_REFUND` — причину отказа.  * для `OTHER_DECISION` — какое решение вы предлагаете.
      *
      * @return self
      */

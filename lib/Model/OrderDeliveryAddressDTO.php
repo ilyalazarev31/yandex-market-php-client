@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -35,7 +35,7 @@ use \YandexMarketApi\ObjectSerializer;
  * OrderDeliveryAddressDTO Class Doc Comment
  *
  * @category Class
- * @description Адрес доставки.  Указывается, если &#x60;type&#x3D;DELIVERY&#x60;, &#x60;type&#x3D;POST&#x60; или &#x60;type&#x3D;PICKUP&#x60; (адрес пункта выдачи).
+ * @description Адрес доставки.  Указывается, если параметр &#x60;type&#x60; принимает значение &#x60;DELIVERY&#x60;, &#x60;POST&#x60; или &#x60;PICKUP&#x60; (только для модели DBS). Если &#x60;type&#x3D;PICKUP&#x60;, возвращается адрес пункта выдачи.
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -65,7 +65,9 @@ class OrderDeliveryAddressDTO implements ModelInterface, ArrayAccess, \JsonSeria
         'subway' => 'string',
         'street' => 'string',
         'house' => 'string',
+        'estate' => 'string',
         'block' => 'string',
+        'building' => 'string',
         'entrance' => 'string',
         'entryphone' => 'string',
         'floor' => 'string',
@@ -90,7 +92,9 @@ class OrderDeliveryAddressDTO implements ModelInterface, ArrayAccess, \JsonSeria
         'subway' => null,
         'street' => null,
         'house' => null,
+        'estate' => null,
         'block' => null,
+        'building' => null,
         'entrance' => null,
         'entryphone' => null,
         'floor' => null,
@@ -113,7 +117,9 @@ class OrderDeliveryAddressDTO implements ModelInterface, ArrayAccess, \JsonSeria
 		'subway' => false,
 		'street' => false,
 		'house' => false,
+		'estate' => false,
 		'block' => false,
+		'building' => false,
 		'entrance' => false,
 		'entryphone' => false,
 		'floor' => false,
@@ -216,7 +222,9 @@ class OrderDeliveryAddressDTO implements ModelInterface, ArrayAccess, \JsonSeria
         'subway' => 'subway',
         'street' => 'street',
         'house' => 'house',
+        'estate' => 'estate',
         'block' => 'block',
+        'building' => 'building',
         'entrance' => 'entrance',
         'entryphone' => 'entryphone',
         'floor' => 'floor',
@@ -239,7 +247,9 @@ class OrderDeliveryAddressDTO implements ModelInterface, ArrayAccess, \JsonSeria
         'subway' => 'setSubway',
         'street' => 'setStreet',
         'house' => 'setHouse',
+        'estate' => 'setEstate',
         'block' => 'setBlock',
+        'building' => 'setBuilding',
         'entrance' => 'setEntrance',
         'entryphone' => 'setEntryphone',
         'floor' => 'setFloor',
@@ -262,7 +272,9 @@ class OrderDeliveryAddressDTO implements ModelInterface, ArrayAccess, \JsonSeria
         'subway' => 'getSubway',
         'street' => 'getStreet',
         'house' => 'getHouse',
+        'estate' => 'getEstate',
         'block' => 'getBlock',
+        'building' => 'getBuilding',
         'entrance' => 'getEntrance',
         'entryphone' => 'getEntryphone',
         'floor' => 'getFloor',
@@ -336,7 +348,9 @@ class OrderDeliveryAddressDTO implements ModelInterface, ArrayAccess, \JsonSeria
         $this->setIfExists('subway', $data ?? [], null);
         $this->setIfExists('street', $data ?? [], null);
         $this->setIfExists('house', $data ?? [], null);
+        $this->setIfExists('estate', $data ?? [], null);
         $this->setIfExists('block', $data ?? [], null);
+        $this->setIfExists('building', $data ?? [], null);
         $this->setIfExists('entrance', $data ?? [], null);
         $this->setIfExists('entryphone', $data ?? [], null);
         $this->setIfExists('floor', $data ?? [], null);
@@ -401,7 +415,7 @@ class OrderDeliveryAddressDTO implements ModelInterface, ArrayAccess, \JsonSeria
     /**
      * Sets country
      *
-     * @param string|null $country Страна.  Обязательный параметр.
+     * @param string|null $country Страна.
      *
      * @return self
      */
@@ -455,7 +469,7 @@ class OrderDeliveryAddressDTO implements ModelInterface, ArrayAccess, \JsonSeria
     /**
      * Sets city
      *
-     * @param string|null $city Город или населенный пункт.  Обязательный параметр.
+     * @param string|null $city Город или населенный пункт.
      *
      * @return self
      */
@@ -536,7 +550,7 @@ class OrderDeliveryAddressDTO implements ModelInterface, ArrayAccess, \JsonSeria
     /**
      * Sets street
      *
-     * @param string|null $street Улица.  Обязательный параметр.
+     * @param string|null $street Улица.
      *
      * @return self
      */
@@ -563,7 +577,7 @@ class OrderDeliveryAddressDTO implements ModelInterface, ArrayAccess, \JsonSeria
     /**
      * Sets house
      *
-     * @param string|null $house Дом или владение.  Обязательный параметр.
+     * @param string|null $house Номер дома.
      *
      * @return self
      */
@@ -573,6 +587,33 @@ class OrderDeliveryAddressDTO implements ModelInterface, ArrayAccess, \JsonSeria
             throw new \InvalidArgumentException('non-nullable house cannot be null');
         }
         $this->container['house'] = $house;
+
+        return $this;
+    }
+
+    /**
+     * Gets estate
+     *
+     * @return string|null
+     */
+    public function getEstate()
+    {
+        return $this->container['estate'];
+    }
+
+    /**
+     * Sets estate
+     *
+     * @param string|null $estate Номер владения.
+     *
+     * @return self
+     */
+    public function setEstate($estate)
+    {
+        if (is_null($estate)) {
+            throw new \InvalidArgumentException('non-nullable estate cannot be null');
+        }
+        $this->container['estate'] = $estate;
 
         return $this;
     }
@@ -590,7 +631,7 @@ class OrderDeliveryAddressDTO implements ModelInterface, ArrayAccess, \JsonSeria
     /**
      * Sets block
      *
-     * @param string|null $block Корпус или строение.
+     * @param string|null $block Корпус.
      *
      * @return self
      */
@@ -600,6 +641,33 @@ class OrderDeliveryAddressDTO implements ModelInterface, ArrayAccess, \JsonSeria
             throw new \InvalidArgumentException('non-nullable block cannot be null');
         }
         $this->container['block'] = $block;
+
+        return $this;
+    }
+
+    /**
+     * Gets building
+     *
+     * @return string|null
+     */
+    public function getBuilding()
+    {
+        return $this->container['building'];
+    }
+
+    /**
+     * Sets building
+     *
+     * @param string|null $building Строение.
+     *
+     * @return self
+     */
+    public function setBuilding($building)
+    {
+        if (is_null($building)) {
+            throw new \InvalidArgumentException('non-nullable building cannot be null');
+        }
+        $this->container['building'] = $building;
 
         return $this;
     }
@@ -617,7 +685,7 @@ class OrderDeliveryAddressDTO implements ModelInterface, ArrayAccess, \JsonSeria
     /**
      * Sets entrance
      *
-     * @param string|null $entrance Подъезд.
+     * @param string|null $entrance Номер подъезда.
      *
      * @return self
      */
@@ -698,7 +766,7 @@ class OrderDeliveryAddressDTO implements ModelInterface, ArrayAccess, \JsonSeria
     /**
      * Sets apartment
      *
-     * @param string|null $apartment Квартира или офис.
+     * @param string|null $apartment Номер квартиры или офиса.
      *
      * @return self
      */
@@ -725,7 +793,7 @@ class OrderDeliveryAddressDTO implements ModelInterface, ArrayAccess, \JsonSeria
     /**
      * Sets phone
      *
-     * @param string|null $phone Телефон получателя заказа.  Обязательный параметр.
+     * @param string|null $phone Телефон получателя заказа.
      *
      * @return self
      */
@@ -752,7 +820,7 @@ class OrderDeliveryAddressDTO implements ModelInterface, ArrayAccess, \JsonSeria
     /**
      * Sets recipient
      *
-     * @param string|null $recipient Фамилия, имя и отчество получателя заказа.  Обязательный параметр.
+     * @param string|null $recipient Фамилия, имя и отчество получателя заказа.
      *
      * @return self
      */

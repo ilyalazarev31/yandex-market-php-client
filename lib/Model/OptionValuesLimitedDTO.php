@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -352,6 +352,8 @@ class OptionValuesLimitedDTO implements ModelInterface, ArrayAccess, \JsonSerial
         if (is_null($option_value_ids)) {
             throw new \InvalidArgumentException('non-nullable option_value_ids cannot be null');
         }
+
+
         $this->container['option_value_ids'] = $option_value_ids;
 
         return $this;

@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -34,7 +34,7 @@ use PHPUnit\Framework\TestCase;
  * TurnoverDTOTest Class Doc Comment
  *
  * @category    Class
- * @description Информация об оборачиваемости товара.
+ * @description Информация об оборачиваемости товара.  Подробнее о хранении и оборачиваемости товаров читайте в [Справке Маркета для продавцов](https://yandex.ru/support/marketplace/ru/storage/logistics#turnover).
  * @package     YandexMarketApi
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech

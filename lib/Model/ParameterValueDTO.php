@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -35,7 +35,7 @@ use \YandexMarketApi\ObjectSerializer;
  * ParameterValueDTO Class Doc Comment
  *
  * @category Class
- * @description Значение характеристики.  Вы можете указывать несколько значений одной характеристики при условии, что:  * Тип характеристики — &#x60;ENUM&#x60;. * В ответе на запрос [POST category/{categoryId}/parameters](../../reference/content/getCategoryContentParameters.md) у данной характеристики поле &#x60;multivalue&#x60; имеет значение &#x60;true&#x60;.  Для этого в &#x60;parameterValues&#x60; передавайте каждое значение отдельно — несколько объектов с параметрами &#x60;parameterId&#x60;, &#x60;valueId&#x60; и &#x60;value&#x60;. Параметр &#x60;parameterId&#x60; должен быть одинаковым.
+ * @description Значение характеристики.
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -299,9 +299,10 @@ class ParameterValueDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
         if ($this->container['parameter_id'] === null) {
             $invalidProperties[] = "'parameter_id' can't be null";
         }
-        if ($this->container['value'] === null) {
-            $invalidProperties[] = "'value' can't be null";
+        if (($this->container['parameter_id'] < 1)) {
+            $invalidProperties[] = "invalid value for 'parameter_id', must be bigger than or equal to 1.";
         }
+
         return $invalidProperties;
     }
 
@@ -339,6 +340,11 @@ class ParameterValueDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
         if (is_null($parameter_id)) {
             throw new \InvalidArgumentException('non-nullable parameter_id cannot be null');
         }
+
+        if (($parameter_id < 1)) {
+            throw new \InvalidArgumentException('invalid value for $parameter_id when calling ParameterValueDTO., must be bigger than or equal to 1.');
+        }
+
         $this->container['parameter_id'] = $parameter_id;
 
         return $this;
@@ -384,7 +390,7 @@ class ParameterValueDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets value_id
      *
-     * @param int|null $value_id Идентификатор значения.  Обязательно передавайте идентификатор, если передаете значение из перечня допустимых значений, полученного от Маркета.  Только для характеристик типа `ENUM`.
+     * @param int|null $value_id Идентификатор значения.  - Обязательно указывайте идентификатор, если передаете значение из перечня допустимых значений, полученного от Маркета. - Не указывайте для собственных значений. - Только для характеристик типа `ENUM`.
      *
      * @return self
      */
@@ -401,7 +407,7 @@ class ParameterValueDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Gets value
      *
-     * @return string
+     * @return string|null
      */
     public function getValue()
     {
@@ -411,7 +417,7 @@ class ParameterValueDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets value
      *
-     * @param string $value Значение.
+     * @param string|null $value Значение.  Для характеристик типа `ENUM` передавайте: - вместе с `valueId`, если значение берете из справочника; - без `valueId`, если значение собственное.
      *
      * @return self
      */

@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -35,7 +35,7 @@ use \YandexMarketApi\ObjectSerializer;
  * GenerateUnitedNettingReportRequest Class Doc Comment
  *
  * @category Class
- * @description Данные, необходимые для генерации отчета: идентификатор магазина, период, за который нужен отчет, а также фильтры.
+ * @description Данные, необходимые для генерации отчета: идентификатор кампании, период, за который нужен отчет, а также фильтры.
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -65,6 +65,7 @@ class GenerateUnitedNettingReportRequest implements ModelInterface, ArrayAccess,
         'date_to' => '\DateTime',
         'bank_order_id' => 'int',
         'bank_order_date_time' => '\DateTime',
+        'month_of_year' => '\YandexMarketApi\Model\MonthOfYearDTO',
         'placement_programs' => '\YandexMarketApi\Model\PlacementType[]',
         'inns' => 'string[]',
         'campaign_ids' => 'int[]'
@@ -85,6 +86,7 @@ class GenerateUnitedNettingReportRequest implements ModelInterface, ArrayAccess,
         'date_to' => 'date',
         'bank_order_id' => 'int64',
         'bank_order_date_time' => 'date-time',
+        'month_of_year' => null,
         'placement_programs' => null,
         'inns' => null,
         'campaign_ids' => 'int64'
@@ -103,9 +105,10 @@ class GenerateUnitedNettingReportRequest implements ModelInterface, ArrayAccess,
 		'date_to' => false,
 		'bank_order_id' => false,
 		'bank_order_date_time' => false,
-		'placement_programs' => false,
-		'inns' => false,
-		'campaign_ids' => false
+		'month_of_year' => false,
+		'placement_programs' => true,
+		'inns' => true,
+		'campaign_ids' => true
     ];
 
     /**
@@ -201,6 +204,7 @@ class GenerateUnitedNettingReportRequest implements ModelInterface, ArrayAccess,
         'date_to' => 'dateTo',
         'bank_order_id' => 'bankOrderId',
         'bank_order_date_time' => 'bankOrderDateTime',
+        'month_of_year' => 'monthOfYear',
         'placement_programs' => 'placementPrograms',
         'inns' => 'inns',
         'campaign_ids' => 'campaignIds'
@@ -219,6 +223,7 @@ class GenerateUnitedNettingReportRequest implements ModelInterface, ArrayAccess,
         'date_to' => 'setDateTo',
         'bank_order_id' => 'setBankOrderId',
         'bank_order_date_time' => 'setBankOrderDateTime',
+        'month_of_year' => 'setMonthOfYear',
         'placement_programs' => 'setPlacementPrograms',
         'inns' => 'setInns',
         'campaign_ids' => 'setCampaignIds'
@@ -237,6 +242,7 @@ class GenerateUnitedNettingReportRequest implements ModelInterface, ArrayAccess,
         'date_to' => 'getDateTo',
         'bank_order_id' => 'getBankOrderId',
         'bank_order_date_time' => 'getBankOrderDateTime',
+        'month_of_year' => 'getMonthOfYear',
         'placement_programs' => 'getPlacementPrograms',
         'inns' => 'getInns',
         'campaign_ids' => 'getCampaignIds'
@@ -306,6 +312,7 @@ class GenerateUnitedNettingReportRequest implements ModelInterface, ArrayAccess,
         $this->setIfExists('date_to', $data ?? [], null);
         $this->setIfExists('bank_order_id', $data ?? [], null);
         $this->setIfExists('bank_order_date_time', $data ?? [], null);
+        $this->setIfExists('month_of_year', $data ?? [], null);
         $this->setIfExists('placement_programs', $data ?? [], null);
         $this->setIfExists('inns', $data ?? [], null);
         $this->setIfExists('campaign_ids', $data ?? [], null);
@@ -341,6 +348,22 @@ class GenerateUnitedNettingReportRequest implements ModelInterface, ArrayAccess,
         if ($this->container['business_id'] === null) {
             $invalidProperties[] = "'business_id' can't be null";
         }
+        if (($this->container['business_id'] < 1)) {
+            $invalidProperties[] = "invalid value for 'business_id', must be bigger than or equal to 1.";
+        }
+
+        if (!is_null($this->container['placement_programs']) && (count($this->container['placement_programs']) < 1)) {
+            $invalidProperties[] = "invalid value for 'placement_programs', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['inns']) && (count($this->container['inns']) < 1)) {
+            $invalidProperties[] = "invalid value for 'inns', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['campaign_ids']) && (count($this->container['campaign_ids']) < 1)) {
+            $invalidProperties[] = "invalid value for 'campaign_ids', number of items must be greater than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -369,7 +392,7 @@ class GenerateUnitedNettingReportRequest implements ModelInterface, ArrayAccess,
     /**
      * Sets business_id
      *
-     * @param int $business_id Идентификатор бизнеса.
+     * @param int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html)
      *
      * @return self
      */
@@ -378,6 +401,11 @@ class GenerateUnitedNettingReportRequest implements ModelInterface, ArrayAccess,
         if (is_null($business_id)) {
             throw new \InvalidArgumentException('non-nullable business_id cannot be null');
         }
+
+        if (($business_id < 1)) {
+            throw new \InvalidArgumentException('invalid value for $business_id when calling GenerateUnitedNettingReportRequest., must be bigger than or equal to 1.');
+        }
+
         $this->container['business_id'] = $business_id;
 
         return $this;
@@ -387,6 +415,7 @@ class GenerateUnitedNettingReportRequest implements ModelInterface, ArrayAccess,
      * Gets date_time_from
      *
      * @return \DateTime|null
+     * @deprecated
      */
     public function getDateTimeFrom()
     {
@@ -396,9 +425,10 @@ class GenerateUnitedNettingReportRequest implements ModelInterface, ArrayAccess,
     /**
      * Sets date_time_from
      *
-     * @param \DateTime|null $date_time_from {% note alert \"Это поле устарело\" %}  Не используйте его — это может привести к ошибкам.  {% endnote %}  Начало периода, включительно.
+     * @param \DateTime|null $date_time_from Начало периода, включительно.
      *
      * @return self
+     * @deprecated
      */
     public function setDateTimeFrom($date_time_from)
     {
@@ -414,6 +444,7 @@ class GenerateUnitedNettingReportRequest implements ModelInterface, ArrayAccess,
      * Gets date_time_to
      *
      * @return \DateTime|null
+     * @deprecated
      */
     public function getDateTimeTo()
     {
@@ -423,9 +454,10 @@ class GenerateUnitedNettingReportRequest implements ModelInterface, ArrayAccess,
     /**
      * Sets date_time_to
      *
-     * @param \DateTime|null $date_time_to {% note alert \"Это поле устарело\" %}  Не используйте его — это может привести к ошибкам.  {% endnote %}  Конец периода, включительно. Максимальный период — 1 год.
+     * @param \DateTime|null $date_time_to Конец периода, включительно. Максимальный период — 3 месяца.
      *
      * @return self
+     * @deprecated
      */
     public function setDateTimeTo($date_time_to)
     {
@@ -450,7 +482,7 @@ class GenerateUnitedNettingReportRequest implements ModelInterface, ArrayAccess,
     /**
      * Sets date_from
      *
-     * @param \DateTime|null $date_from Начало периода, включительно.
+     * @param \DateTime|null $date_from Начало периода, включительно.  Формат даты: `ГГГГ-ММ-ДД`.
      *
      * @return self
      */
@@ -477,7 +509,7 @@ class GenerateUnitedNettingReportRequest implements ModelInterface, ArrayAccess,
     /**
      * Sets date_to
      *
-     * @param \DateTime|null $date_to Конец периода, включительно. Максимальный период — 1 год.
+     * @param \DateTime|null $date_to Конец периода, включительно. Максимальный период — 3 месяца.  Формат даты: `ГГГГ-ММ-ДД`.
      *
      * @return self
      */
@@ -546,6 +578,33 @@ class GenerateUnitedNettingReportRequest implements ModelInterface, ArrayAccess,
     }
 
     /**
+     * Gets month_of_year
+     *
+     * @return \YandexMarketApi\Model\MonthOfYearDTO|null
+     */
+    public function getMonthOfYear()
+    {
+        return $this->container['month_of_year'];
+    }
+
+    /**
+     * Sets month_of_year
+     *
+     * @param \YandexMarketApi\Model\MonthOfYearDTO|null $month_of_year month_of_year
+     *
+     * @return self
+     */
+    public function setMonthOfYear($month_of_year)
+    {
+        if (is_null($month_of_year)) {
+            throw new \InvalidArgumentException('non-nullable month_of_year cannot be null');
+        }
+        $this->container['month_of_year'] = $month_of_year;
+
+        return $this;
+    }
+
+    /**
      * Gets placement_programs
      *
      * @return \YandexMarketApi\Model\PlacementType[]|null
@@ -565,7 +624,19 @@ class GenerateUnitedNettingReportRequest implements ModelInterface, ArrayAccess,
     public function setPlacementPrograms($placement_programs)
     {
         if (is_null($placement_programs)) {
-            throw new \InvalidArgumentException('non-nullable placement_programs cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'placement_programs');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('placement_programs', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+
+        if (!is_null($placement_programs) && (count($placement_programs) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $placement_programs when calling GenerateUnitedNettingReportRequest., number of items must be greater than or equal to 1.');
         }
         $this->container['placement_programs'] = $placement_programs;
 
@@ -592,7 +663,19 @@ class GenerateUnitedNettingReportRequest implements ModelInterface, ArrayAccess,
     public function setInns($inns)
     {
         if (is_null($inns)) {
-            throw new \InvalidArgumentException('non-nullable inns cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'inns');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('inns', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+
+        if (!is_null($inns) && (count($inns) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $inns when calling GenerateUnitedNettingReportRequest., number of items must be greater than or equal to 1.');
         }
         $this->container['inns'] = $inns;
 
@@ -612,14 +695,26 @@ class GenerateUnitedNettingReportRequest implements ModelInterface, ArrayAccess,
     /**
      * Sets campaign_ids
      *
-     * @param int[]|null $campaign_ids Список магазинов, которые нужны в отчете.
+     * @param int[]|null $campaign_ids Список идентификаторов кампании тех магазинов, которые нужны в отчете.
      *
      * @return self
      */
     public function setCampaignIds($campaign_ids)
     {
         if (is_null($campaign_ids)) {
-            throw new \InvalidArgumentException('non-nullable campaign_ids cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'campaign_ids');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('campaign_ids', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+
+        if (!is_null($campaign_ids) && (count($campaign_ids) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $campaign_ids when calling GenerateUnitedNettingReportRequest., number of items must be greater than or equal to 1.');
         }
         $this->container['campaign_ids'] = $campaign_ids;
 

@@ -10,7 +10,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -71,10 +71,31 @@ class ReportsApi
 
     /** @var string[] $contentTypes **/
     public const contentTypes = [
+        'generateBannersStatisticsReport' => [
+            'application/json',
+        ],
+        'generateBarcodesReport' => [
+            'application/json',
+        ],
         'generateBoostConsolidatedReport' => [
             'application/json',
         ],
+        'generateClosureDocumentsDetalizationReport' => [
+            'application/json',
+        ],
+        'generateClosureDocumentsReport' => [
+            'application/json',
+        ],
+        'generateCompetitorsPositionReport' => [
+            'application/json',
+        ],
+        'generateGoodsFeedbackReport' => [
+            'application/json',
+        ],
         'generateGoodsMovementReport' => [
+            'application/json',
+        ],
+        'generateGoodsPricesReport' => [
             'application/json',
         ],
         'generateGoodsRealizationReport' => [
@@ -83,10 +104,28 @@ class ReportsApi
         'generateGoodsTurnoverReport' => [
             'application/json',
         ],
+        'generateJewelryFiscalReport' => [
+            'application/json',
+        ],
+        'generateKeyIndicatorsReport' => [
+            'application/json',
+        ],
+        'generateMassOrderLabelsReport' => [
+            'application/json',
+        ],
         'generatePricesReport' => [
             'application/json',
         ],
+        'generateSalesGeographyReport' => [
+            'application/json',
+        ],
+        'generateShelfsStatisticsReport' => [
+            'application/json',
+        ],
         'generateShipmentListDocumentReport' => [
+            'application/json',
+        ],
+        'generateShowsBoostReport' => [
             'application/json',
         ],
         'generateShowsSalesReport' => [
@@ -102,6 +141,9 @@ class ReportsApi
             'application/json',
         ],
         'generateUnitedOrdersReport' => [
+            'application/json',
+        ],
+        'generateUnitedReturnsReport' => [
             'application/json',
         ],
         'getReportInfo' => [
@@ -156,12 +198,839 @@ class ReportsApi
     }
 
     /**
+     * Operation generateBannersStatisticsReport
+     *
+     * Отчет по охватному продвижению
+     *
+     * @param  \YandexMarketApi\Model\GenerateBannersStatisticsRequest $generate_banners_statistics_request generate_banners_statistics_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateBannersStatisticsReport'] to see the possible values for this operation
+     *
+     * @throws \YandexMarketApi\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \YandexMarketApi\Model\GenerateReportResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse
+     */
+    public function generateBannersStatisticsReport($generate_banners_statistics_request, $format = null, string $contentType = self::contentTypes['generateBannersStatisticsReport'][0])
+    {
+        list($response) = $this->generateBannersStatisticsReportWithHttpInfo($generate_banners_statistics_request, $format, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation generateBannersStatisticsReportWithHttpInfo
+     *
+     * Отчет по охватному продвижению
+     *
+     * @param  \YandexMarketApi\Model\GenerateBannersStatisticsRequest $generate_banners_statistics_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateBannersStatisticsReport'] to see the possible values for this operation
+     *
+     * @throws \YandexMarketApi\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \YandexMarketApi\Model\GenerateReportResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function generateBannersStatisticsReportWithHttpInfo($generate_banners_statistics_request, $format = null, string $contentType = self::contentTypes['generateBannersStatisticsReport'][0])
+    {
+        $request = $this->generateBannersStatisticsReportRequest($generate_banners_statistics_request, $format, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\YandexMarketApi\Model\GenerateReportResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\GenerateReportResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\GenerateReportResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 400:
+                    if ('\YandexMarketApi\Model\ApiClientDataErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiClientDataErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiClientDataErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 401:
+                    if ('\YandexMarketApi\Model\ApiUnauthorizedErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiUnauthorizedErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiUnauthorizedErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
+                    if ('\YandexMarketApi\Model\ApiForbiddenErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiForbiddenErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiForbiddenErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 420:
+                    if ('\YandexMarketApi\Model\ApiLimitErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiLimitErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiLimitErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 500:
+                    if ('\YandexMarketApi\Model\ApiServerErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiServerErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiServerErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\YandexMarketApi\Model\GenerateReportResponse';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+                if ($returnType !== 'string') {
+                    $content = json_decode($content);
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\GenerateReportResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiClientDataErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiUnauthorizedErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiForbiddenErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 420:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiLimitErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiServerErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation generateBannersStatisticsReportAsync
+     *
+     * Отчет по охватному продвижению
+     *
+     * @param  \YandexMarketApi\Model\GenerateBannersStatisticsRequest $generate_banners_statistics_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateBannersStatisticsReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function generateBannersStatisticsReportAsync($generate_banners_statistics_request, $format = null, string $contentType = self::contentTypes['generateBannersStatisticsReport'][0])
+    {
+        return $this->generateBannersStatisticsReportAsyncWithHttpInfo($generate_banners_statistics_request, $format, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation generateBannersStatisticsReportAsyncWithHttpInfo
+     *
+     * Отчет по охватному продвижению
+     *
+     * @param  \YandexMarketApi\Model\GenerateBannersStatisticsRequest $generate_banners_statistics_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateBannersStatisticsReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function generateBannersStatisticsReportAsyncWithHttpInfo($generate_banners_statistics_request, $format = null, string $contentType = self::contentTypes['generateBannersStatisticsReport'][0])
+    {
+        $returnType = '\YandexMarketApi\Model\GenerateReportResponse';
+        $request = $this->generateBannersStatisticsReportRequest($generate_banners_statistics_request, $format, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'generateBannersStatisticsReport'
+     *
+     * @param  \YandexMarketApi\Model\GenerateBannersStatisticsRequest $generate_banners_statistics_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateBannersStatisticsReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function generateBannersStatisticsReportRequest($generate_banners_statistics_request, $format = null, string $contentType = self::contentTypes['generateBannersStatisticsReport'][0])
+    {
+
+        // verify the required parameter 'generate_banners_statistics_request' is set
+        if ($generate_banners_statistics_request === null || (is_array($generate_banners_statistics_request) && count($generate_banners_statistics_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $generate_banners_statistics_request when calling generateBannersStatisticsReport'
+            );
+        }
+
+
+
+        $resourcePath = '/v2/reports/banners-statistics/generate';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $format,
+            'format', // param base name
+            'ReportFormatType', // openApiType
+            '', // style
+            false, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($generate_banners_statistics_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($generate_banners_statistics_request));
+            } else {
+                $httpBody = $generate_banners_statistics_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation generateBarcodesReport
+     *
+     * Получение файла со штрихкодами
+     *
+     * @param  \YandexMarketApi\Model\GenerateBarcodesReportRequest $generate_barcodes_report_request generate_barcodes_report_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateBarcodesReport'] to see the possible values for this operation
+     *
+     * @throws \YandexMarketApi\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \YandexMarketApi\Model\GenerateReportResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse
+     */
+    public function generateBarcodesReport($generate_barcodes_report_request, string $contentType = self::contentTypes['generateBarcodesReport'][0])
+    {
+        list($response) = $this->generateBarcodesReportWithHttpInfo($generate_barcodes_report_request, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation generateBarcodesReportWithHttpInfo
+     *
+     * Получение файла со штрихкодами
+     *
+     * @param  \YandexMarketApi\Model\GenerateBarcodesReportRequest $generate_barcodes_report_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateBarcodesReport'] to see the possible values for this operation
+     *
+     * @throws \YandexMarketApi\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \YandexMarketApi\Model\GenerateReportResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function generateBarcodesReportWithHttpInfo($generate_barcodes_report_request, string $contentType = self::contentTypes['generateBarcodesReport'][0])
+    {
+        $request = $this->generateBarcodesReportRequest($generate_barcodes_report_request, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\YandexMarketApi\Model\GenerateReportResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\GenerateReportResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\GenerateReportResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 400:
+                    if ('\YandexMarketApi\Model\ApiClientDataErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiClientDataErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiClientDataErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 401:
+                    if ('\YandexMarketApi\Model\ApiUnauthorizedErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiUnauthorizedErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiUnauthorizedErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
+                    if ('\YandexMarketApi\Model\ApiForbiddenErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiForbiddenErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiForbiddenErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 420:
+                    if ('\YandexMarketApi\Model\ApiLimitErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiLimitErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiLimitErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 500:
+                    if ('\YandexMarketApi\Model\ApiServerErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiServerErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiServerErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\YandexMarketApi\Model\GenerateReportResponse';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+                if ($returnType !== 'string') {
+                    $content = json_decode($content);
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\GenerateReportResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiClientDataErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiUnauthorizedErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiForbiddenErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 420:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiLimitErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiServerErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation generateBarcodesReportAsync
+     *
+     * Получение файла со штрихкодами
+     *
+     * @param  \YandexMarketApi\Model\GenerateBarcodesReportRequest $generate_barcodes_report_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateBarcodesReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function generateBarcodesReportAsync($generate_barcodes_report_request, string $contentType = self::contentTypes['generateBarcodesReport'][0])
+    {
+        return $this->generateBarcodesReportAsyncWithHttpInfo($generate_barcodes_report_request, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation generateBarcodesReportAsyncWithHttpInfo
+     *
+     * Получение файла со штрихкодами
+     *
+     * @param  \YandexMarketApi\Model\GenerateBarcodesReportRequest $generate_barcodes_report_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateBarcodesReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function generateBarcodesReportAsyncWithHttpInfo($generate_barcodes_report_request, string $contentType = self::contentTypes['generateBarcodesReport'][0])
+    {
+        $returnType = '\YandexMarketApi\Model\GenerateReportResponse';
+        $request = $this->generateBarcodesReportRequest($generate_barcodes_report_request, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'generateBarcodesReport'
+     *
+     * @param  \YandexMarketApi\Model\GenerateBarcodesReportRequest $generate_barcodes_report_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateBarcodesReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function generateBarcodesReportRequest($generate_barcodes_report_request, string $contentType = self::contentTypes['generateBarcodesReport'][0])
+    {
+
+        // verify the required parameter 'generate_barcodes_report_request' is set
+        if ($generate_barcodes_report_request === null || (is_array($generate_barcodes_report_request) && count($generate_barcodes_report_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $generate_barcodes_report_request when calling generateBarcodesReport'
+            );
+        }
+
+
+        $resourcePath = '/v1/reports/documents/barcodes/generate';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($generate_barcodes_report_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($generate_barcodes_report_request));
+            } else {
+                $httpBody = $generate_barcodes_report_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation generateBoostConsolidatedReport
      *
      * Отчет по бусту продаж
      *
      * @param  \YandexMarketApi\Model\GenerateBoostConsolidatedRequest $generate_boost_consolidated_request generate_boost_consolidated_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateBoostConsolidatedReport'] to see the possible values for this operation
      *
      * @throws \YandexMarketApi\ApiException on non-2xx response
@@ -180,7 +1049,7 @@ class ReportsApi
      * Отчет по бусту продаж
      *
      * @param  \YandexMarketApi\Model\GenerateBoostConsolidatedRequest $generate_boost_consolidated_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateBoostConsolidatedReport'] to see the possible values for this operation
      *
      * @throws \YandexMarketApi\ApiException on non-2xx response
@@ -396,7 +1265,7 @@ class ReportsApi
      * Отчет по бусту продаж
      *
      * @param  \YandexMarketApi\Model\GenerateBoostConsolidatedRequest $generate_boost_consolidated_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateBoostConsolidatedReport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -418,7 +1287,7 @@ class ReportsApi
      * Отчет по бусту продаж
      *
      * @param  \YandexMarketApi\Model\GenerateBoostConsolidatedRequest $generate_boost_consolidated_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateBoostConsolidatedReport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -469,7 +1338,7 @@ class ReportsApi
      * Create request for operation 'generateBoostConsolidatedReport'
      *
      * @param  \YandexMarketApi\Model\GenerateBoostConsolidatedRequest $generate_boost_consolidated_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateBoostConsolidatedReport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -487,7 +1356,7 @@ class ReportsApi
 
 
 
-        $resourcePath = '/reports/boost-consolidated/generate';
+        $resourcePath = '/v2/reports/boost-consolidated/generate';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -545,6 +1414,1680 @@ class ReportsApi
             }
         }
 
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation generateClosureDocumentsDetalizationReport
+     *
+     * Отчет по схождению с закрывающими документами
+     *
+     * @param  \YandexMarketApi\Model\GenerateClosureDocumentsDetalizationRequest $generate_closure_documents_detalization_request generate_closure_documents_detalization_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateClosureDocumentsDetalizationReport'] to see the possible values for this operation
+     *
+     * @throws \YandexMarketApi\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \YandexMarketApi\Model\GenerateReportResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse
+     */
+    public function generateClosureDocumentsDetalizationReport($generate_closure_documents_detalization_request, $format = null, string $contentType = self::contentTypes['generateClosureDocumentsDetalizationReport'][0])
+    {
+        list($response) = $this->generateClosureDocumentsDetalizationReportWithHttpInfo($generate_closure_documents_detalization_request, $format, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation generateClosureDocumentsDetalizationReportWithHttpInfo
+     *
+     * Отчет по схождению с закрывающими документами
+     *
+     * @param  \YandexMarketApi\Model\GenerateClosureDocumentsDetalizationRequest $generate_closure_documents_detalization_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateClosureDocumentsDetalizationReport'] to see the possible values for this operation
+     *
+     * @throws \YandexMarketApi\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \YandexMarketApi\Model\GenerateReportResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function generateClosureDocumentsDetalizationReportWithHttpInfo($generate_closure_documents_detalization_request, $format = null, string $contentType = self::contentTypes['generateClosureDocumentsDetalizationReport'][0])
+    {
+        $request = $this->generateClosureDocumentsDetalizationReportRequest($generate_closure_documents_detalization_request, $format, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\YandexMarketApi\Model\GenerateReportResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\GenerateReportResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\GenerateReportResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 400:
+                    if ('\YandexMarketApi\Model\ApiClientDataErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiClientDataErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiClientDataErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 401:
+                    if ('\YandexMarketApi\Model\ApiUnauthorizedErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiUnauthorizedErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiUnauthorizedErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
+                    if ('\YandexMarketApi\Model\ApiForbiddenErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiForbiddenErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiForbiddenErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 420:
+                    if ('\YandexMarketApi\Model\ApiLimitErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiLimitErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiLimitErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 500:
+                    if ('\YandexMarketApi\Model\ApiServerErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiServerErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiServerErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\YandexMarketApi\Model\GenerateReportResponse';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+                if ($returnType !== 'string') {
+                    $content = json_decode($content);
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\GenerateReportResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiClientDataErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiUnauthorizedErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiForbiddenErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 420:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiLimitErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiServerErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation generateClosureDocumentsDetalizationReportAsync
+     *
+     * Отчет по схождению с закрывающими документами
+     *
+     * @param  \YandexMarketApi\Model\GenerateClosureDocumentsDetalizationRequest $generate_closure_documents_detalization_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateClosureDocumentsDetalizationReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function generateClosureDocumentsDetalizationReportAsync($generate_closure_documents_detalization_request, $format = null, string $contentType = self::contentTypes['generateClosureDocumentsDetalizationReport'][0])
+    {
+        return $this->generateClosureDocumentsDetalizationReportAsyncWithHttpInfo($generate_closure_documents_detalization_request, $format, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation generateClosureDocumentsDetalizationReportAsyncWithHttpInfo
+     *
+     * Отчет по схождению с закрывающими документами
+     *
+     * @param  \YandexMarketApi\Model\GenerateClosureDocumentsDetalizationRequest $generate_closure_documents_detalization_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateClosureDocumentsDetalizationReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function generateClosureDocumentsDetalizationReportAsyncWithHttpInfo($generate_closure_documents_detalization_request, $format = null, string $contentType = self::contentTypes['generateClosureDocumentsDetalizationReport'][0])
+    {
+        $returnType = '\YandexMarketApi\Model\GenerateReportResponse';
+        $request = $this->generateClosureDocumentsDetalizationReportRequest($generate_closure_documents_detalization_request, $format, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'generateClosureDocumentsDetalizationReport'
+     *
+     * @param  \YandexMarketApi\Model\GenerateClosureDocumentsDetalizationRequest $generate_closure_documents_detalization_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateClosureDocumentsDetalizationReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function generateClosureDocumentsDetalizationReportRequest($generate_closure_documents_detalization_request, $format = null, string $contentType = self::contentTypes['generateClosureDocumentsDetalizationReport'][0])
+    {
+
+        // verify the required parameter 'generate_closure_documents_detalization_request' is set
+        if ($generate_closure_documents_detalization_request === null || (is_array($generate_closure_documents_detalization_request) && count($generate_closure_documents_detalization_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $generate_closure_documents_detalization_request when calling generateClosureDocumentsDetalizationReport'
+            );
+        }
+
+
+
+        $resourcePath = '/v2/reports/closure-documents/detalization/generate';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $format,
+            'format', // param base name
+            'ReportFormatType', // openApiType
+            '', // style
+            false, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($generate_closure_documents_detalization_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($generate_closure_documents_detalization_request));
+            } else {
+                $httpBody = $generate_closure_documents_detalization_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation generateClosureDocumentsReport
+     *
+     * Закрывающие документы
+     *
+     * @param  \YandexMarketApi\Model\GenerateClosureDocumentsRequest $generate_closure_documents_request generate_closure_documents_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateClosureDocumentsReport'] to see the possible values for this operation
+     *
+     * @throws \YandexMarketApi\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \YandexMarketApi\Model\GenerateReportResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse
+     */
+    public function generateClosureDocumentsReport($generate_closure_documents_request, string $contentType = self::contentTypes['generateClosureDocumentsReport'][0])
+    {
+        list($response) = $this->generateClosureDocumentsReportWithHttpInfo($generate_closure_documents_request, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation generateClosureDocumentsReportWithHttpInfo
+     *
+     * Закрывающие документы
+     *
+     * @param  \YandexMarketApi\Model\GenerateClosureDocumentsRequest $generate_closure_documents_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateClosureDocumentsReport'] to see the possible values for this operation
+     *
+     * @throws \YandexMarketApi\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \YandexMarketApi\Model\GenerateReportResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function generateClosureDocumentsReportWithHttpInfo($generate_closure_documents_request, string $contentType = self::contentTypes['generateClosureDocumentsReport'][0])
+    {
+        $request = $this->generateClosureDocumentsReportRequest($generate_closure_documents_request, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\YandexMarketApi\Model\GenerateReportResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\GenerateReportResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\GenerateReportResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 400:
+                    if ('\YandexMarketApi\Model\ApiClientDataErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiClientDataErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiClientDataErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 401:
+                    if ('\YandexMarketApi\Model\ApiUnauthorizedErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiUnauthorizedErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiUnauthorizedErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
+                    if ('\YandexMarketApi\Model\ApiForbiddenErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiForbiddenErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiForbiddenErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 420:
+                    if ('\YandexMarketApi\Model\ApiLimitErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiLimitErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiLimitErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 500:
+                    if ('\YandexMarketApi\Model\ApiServerErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiServerErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiServerErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\YandexMarketApi\Model\GenerateReportResponse';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+                if ($returnType !== 'string') {
+                    $content = json_decode($content);
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\GenerateReportResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiClientDataErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiUnauthorizedErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiForbiddenErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 420:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiLimitErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiServerErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation generateClosureDocumentsReportAsync
+     *
+     * Закрывающие документы
+     *
+     * @param  \YandexMarketApi\Model\GenerateClosureDocumentsRequest $generate_closure_documents_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateClosureDocumentsReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function generateClosureDocumentsReportAsync($generate_closure_documents_request, string $contentType = self::contentTypes['generateClosureDocumentsReport'][0])
+    {
+        return $this->generateClosureDocumentsReportAsyncWithHttpInfo($generate_closure_documents_request, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation generateClosureDocumentsReportAsyncWithHttpInfo
+     *
+     * Закрывающие документы
+     *
+     * @param  \YandexMarketApi\Model\GenerateClosureDocumentsRequest $generate_closure_documents_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateClosureDocumentsReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function generateClosureDocumentsReportAsyncWithHttpInfo($generate_closure_documents_request, string $contentType = self::contentTypes['generateClosureDocumentsReport'][0])
+    {
+        $returnType = '\YandexMarketApi\Model\GenerateReportResponse';
+        $request = $this->generateClosureDocumentsReportRequest($generate_closure_documents_request, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'generateClosureDocumentsReport'
+     *
+     * @param  \YandexMarketApi\Model\GenerateClosureDocumentsRequest $generate_closure_documents_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateClosureDocumentsReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function generateClosureDocumentsReportRequest($generate_closure_documents_request, string $contentType = self::contentTypes['generateClosureDocumentsReport'][0])
+    {
+
+        // verify the required parameter 'generate_closure_documents_request' is set
+        if ($generate_closure_documents_request === null || (is_array($generate_closure_documents_request) && count($generate_closure_documents_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $generate_closure_documents_request when calling generateClosureDocumentsReport'
+            );
+        }
+
+
+        $resourcePath = '/v2/reports/closure-documents/generate';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($generate_closure_documents_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($generate_closure_documents_request));
+            } else {
+                $httpBody = $generate_closure_documents_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation generateCompetitorsPositionReport
+     *
+     * Отчет «Конкурентная позиция»
+     *
+     * @param  \YandexMarketApi\Model\GenerateCompetitorsPositionReportRequest $generate_competitors_position_report_request generate_competitors_position_report_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateCompetitorsPositionReport'] to see the possible values for this operation
+     *
+     * @throws \YandexMarketApi\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \YandexMarketApi\Model\GenerateReportResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse
+     */
+    public function generateCompetitorsPositionReport($generate_competitors_position_report_request, $format = null, string $contentType = self::contentTypes['generateCompetitorsPositionReport'][0])
+    {
+        list($response) = $this->generateCompetitorsPositionReportWithHttpInfo($generate_competitors_position_report_request, $format, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation generateCompetitorsPositionReportWithHttpInfo
+     *
+     * Отчет «Конкурентная позиция»
+     *
+     * @param  \YandexMarketApi\Model\GenerateCompetitorsPositionReportRequest $generate_competitors_position_report_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateCompetitorsPositionReport'] to see the possible values for this operation
+     *
+     * @throws \YandexMarketApi\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \YandexMarketApi\Model\GenerateReportResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function generateCompetitorsPositionReportWithHttpInfo($generate_competitors_position_report_request, $format = null, string $contentType = self::contentTypes['generateCompetitorsPositionReport'][0])
+    {
+        $request = $this->generateCompetitorsPositionReportRequest($generate_competitors_position_report_request, $format, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\YandexMarketApi\Model\GenerateReportResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\GenerateReportResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\GenerateReportResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 400:
+                    if ('\YandexMarketApi\Model\ApiClientDataErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiClientDataErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiClientDataErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 401:
+                    if ('\YandexMarketApi\Model\ApiUnauthorizedErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiUnauthorizedErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiUnauthorizedErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
+                    if ('\YandexMarketApi\Model\ApiForbiddenErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiForbiddenErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiForbiddenErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 420:
+                    if ('\YandexMarketApi\Model\ApiLimitErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiLimitErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiLimitErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 500:
+                    if ('\YandexMarketApi\Model\ApiServerErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiServerErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiServerErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\YandexMarketApi\Model\GenerateReportResponse';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+                if ($returnType !== 'string') {
+                    $content = json_decode($content);
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\GenerateReportResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiClientDataErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiUnauthorizedErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiForbiddenErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 420:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiLimitErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiServerErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation generateCompetitorsPositionReportAsync
+     *
+     * Отчет «Конкурентная позиция»
+     *
+     * @param  \YandexMarketApi\Model\GenerateCompetitorsPositionReportRequest $generate_competitors_position_report_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateCompetitorsPositionReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function generateCompetitorsPositionReportAsync($generate_competitors_position_report_request, $format = null, string $contentType = self::contentTypes['generateCompetitorsPositionReport'][0])
+    {
+        return $this->generateCompetitorsPositionReportAsyncWithHttpInfo($generate_competitors_position_report_request, $format, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation generateCompetitorsPositionReportAsyncWithHttpInfo
+     *
+     * Отчет «Конкурентная позиция»
+     *
+     * @param  \YandexMarketApi\Model\GenerateCompetitorsPositionReportRequest $generate_competitors_position_report_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateCompetitorsPositionReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function generateCompetitorsPositionReportAsyncWithHttpInfo($generate_competitors_position_report_request, $format = null, string $contentType = self::contentTypes['generateCompetitorsPositionReport'][0])
+    {
+        $returnType = '\YandexMarketApi\Model\GenerateReportResponse';
+        $request = $this->generateCompetitorsPositionReportRequest($generate_competitors_position_report_request, $format, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'generateCompetitorsPositionReport'
+     *
+     * @param  \YandexMarketApi\Model\GenerateCompetitorsPositionReportRequest $generate_competitors_position_report_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateCompetitorsPositionReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function generateCompetitorsPositionReportRequest($generate_competitors_position_report_request, $format = null, string $contentType = self::contentTypes['generateCompetitorsPositionReport'][0])
+    {
+
+        // verify the required parameter 'generate_competitors_position_report_request' is set
+        if ($generate_competitors_position_report_request === null || (is_array($generate_competitors_position_report_request) && count($generate_competitors_position_report_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $generate_competitors_position_report_request when calling generateCompetitorsPositionReport'
+            );
+        }
+
+
+
+        $resourcePath = '/v2/reports/competitors-position/generate';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $format,
+            'format', // param base name
+            'ReportFormatType', // openApiType
+            '', // style
+            false, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($generate_competitors_position_report_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($generate_competitors_position_report_request));
+            } else {
+                $httpBody = $generate_competitors_position_report_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation generateGoodsFeedbackReport
+     *
+     * Отчет по отзывам о товарах
+     *
+     * @param  \YandexMarketApi\Model\GenerateGoodsFeedbackRequest $generate_goods_feedback_request generate_goods_feedback_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateGoodsFeedbackReport'] to see the possible values for this operation
+     *
+     * @throws \YandexMarketApi\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \YandexMarketApi\Model\GenerateReportResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse
+     */
+    public function generateGoodsFeedbackReport($generate_goods_feedback_request, $format = null, string $contentType = self::contentTypes['generateGoodsFeedbackReport'][0])
+    {
+        list($response) = $this->generateGoodsFeedbackReportWithHttpInfo($generate_goods_feedback_request, $format, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation generateGoodsFeedbackReportWithHttpInfo
+     *
+     * Отчет по отзывам о товарах
+     *
+     * @param  \YandexMarketApi\Model\GenerateGoodsFeedbackRequest $generate_goods_feedback_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateGoodsFeedbackReport'] to see the possible values for this operation
+     *
+     * @throws \YandexMarketApi\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \YandexMarketApi\Model\GenerateReportResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function generateGoodsFeedbackReportWithHttpInfo($generate_goods_feedback_request, $format = null, string $contentType = self::contentTypes['generateGoodsFeedbackReport'][0])
+    {
+        $request = $this->generateGoodsFeedbackReportRequest($generate_goods_feedback_request, $format, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\YandexMarketApi\Model\GenerateReportResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\GenerateReportResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\GenerateReportResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 400:
+                    if ('\YandexMarketApi\Model\ApiClientDataErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiClientDataErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiClientDataErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 401:
+                    if ('\YandexMarketApi\Model\ApiUnauthorizedErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiUnauthorizedErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiUnauthorizedErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
+                    if ('\YandexMarketApi\Model\ApiForbiddenErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiForbiddenErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiForbiddenErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 420:
+                    if ('\YandexMarketApi\Model\ApiLimitErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiLimitErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiLimitErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 500:
+                    if ('\YandexMarketApi\Model\ApiServerErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiServerErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiServerErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\YandexMarketApi\Model\GenerateReportResponse';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+                if ($returnType !== 'string') {
+                    $content = json_decode($content);
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\GenerateReportResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiClientDataErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiUnauthorizedErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiForbiddenErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 420:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiLimitErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiServerErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation generateGoodsFeedbackReportAsync
+     *
+     * Отчет по отзывам о товарах
+     *
+     * @param  \YandexMarketApi\Model\GenerateGoodsFeedbackRequest $generate_goods_feedback_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateGoodsFeedbackReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function generateGoodsFeedbackReportAsync($generate_goods_feedback_request, $format = null, string $contentType = self::contentTypes['generateGoodsFeedbackReport'][0])
+    {
+        return $this->generateGoodsFeedbackReportAsyncWithHttpInfo($generate_goods_feedback_request, $format, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation generateGoodsFeedbackReportAsyncWithHttpInfo
+     *
+     * Отчет по отзывам о товарах
+     *
+     * @param  \YandexMarketApi\Model\GenerateGoodsFeedbackRequest $generate_goods_feedback_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateGoodsFeedbackReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function generateGoodsFeedbackReportAsyncWithHttpInfo($generate_goods_feedback_request, $format = null, string $contentType = self::contentTypes['generateGoodsFeedbackReport'][0])
+    {
+        $returnType = '\YandexMarketApi\Model\GenerateReportResponse';
+        $request = $this->generateGoodsFeedbackReportRequest($generate_goods_feedback_request, $format, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'generateGoodsFeedbackReport'
+     *
+     * @param  \YandexMarketApi\Model\GenerateGoodsFeedbackRequest $generate_goods_feedback_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateGoodsFeedbackReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function generateGoodsFeedbackReportRequest($generate_goods_feedback_request, $format = null, string $contentType = self::contentTypes['generateGoodsFeedbackReport'][0])
+    {
+
+        // verify the required parameter 'generate_goods_feedback_request' is set
+        if ($generate_goods_feedback_request === null || (is_array($generate_goods_feedback_request) && count($generate_goods_feedback_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $generate_goods_feedback_request when calling generateGoodsFeedbackReport'
+            );
+        }
+
+
+
+        $resourcePath = '/v2/reports/goods-feedback/generate';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $format,
+            'format', // param base name
+            'ReportFormatType', // openApiType
+            '', // style
+            false, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($generate_goods_feedback_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($generate_goods_feedback_request));
+            } else {
+                $httpBody = $generate_goods_feedback_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
@@ -577,7 +3120,7 @@ class ReportsApi
      * Отчет по движению товаров
      *
      * @param  \YandexMarketApi\Model\GenerateGoodsMovementReportRequest $generate_goods_movement_report_request generate_goods_movement_report_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateGoodsMovementReport'] to see the possible values for this operation
      *
      * @throws \YandexMarketApi\ApiException on non-2xx response
@@ -596,7 +3139,7 @@ class ReportsApi
      * Отчет по движению товаров
      *
      * @param  \YandexMarketApi\Model\GenerateGoodsMovementReportRequest $generate_goods_movement_report_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateGoodsMovementReport'] to see the possible values for this operation
      *
      * @throws \YandexMarketApi\ApiException on non-2xx response
@@ -812,7 +3355,7 @@ class ReportsApi
      * Отчет по движению товаров
      *
      * @param  \YandexMarketApi\Model\GenerateGoodsMovementReportRequest $generate_goods_movement_report_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateGoodsMovementReport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -834,7 +3377,7 @@ class ReportsApi
      * Отчет по движению товаров
      *
      * @param  \YandexMarketApi\Model\GenerateGoodsMovementReportRequest $generate_goods_movement_report_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateGoodsMovementReport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -885,7 +3428,7 @@ class ReportsApi
      * Create request for operation 'generateGoodsMovementReport'
      *
      * @param  \YandexMarketApi\Model\GenerateGoodsMovementReportRequest $generate_goods_movement_report_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateGoodsMovementReport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -903,7 +3446,7 @@ class ReportsApi
 
 
 
-        $resourcePath = '/reports/goods-movement/generate';
+        $resourcePath = '/v2/reports/goods-movement/generate';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -961,6 +3504,432 @@ class ReportsApi
             }
         }
 
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation generateGoodsPricesReport
+     *
+     * Отчет «Цены»
+     *
+     * @param  \YandexMarketApi\Model\GenerateGoodsPricesReportRequest $generate_goods_prices_report_request generate_goods_prices_report_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateGoodsPricesReport'] to see the possible values for this operation
+     *
+     * @throws \YandexMarketApi\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \YandexMarketApi\Model\GenerateReportResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse
+     */
+    public function generateGoodsPricesReport($generate_goods_prices_report_request, $format = null, string $contentType = self::contentTypes['generateGoodsPricesReport'][0])
+    {
+        list($response) = $this->generateGoodsPricesReportWithHttpInfo($generate_goods_prices_report_request, $format, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation generateGoodsPricesReportWithHttpInfo
+     *
+     * Отчет «Цены»
+     *
+     * @param  \YandexMarketApi\Model\GenerateGoodsPricesReportRequest $generate_goods_prices_report_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateGoodsPricesReport'] to see the possible values for this operation
+     *
+     * @throws \YandexMarketApi\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \YandexMarketApi\Model\GenerateReportResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function generateGoodsPricesReportWithHttpInfo($generate_goods_prices_report_request, $format = null, string $contentType = self::contentTypes['generateGoodsPricesReport'][0])
+    {
+        $request = $this->generateGoodsPricesReportRequest($generate_goods_prices_report_request, $format, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\YandexMarketApi\Model\GenerateReportResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\GenerateReportResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\GenerateReportResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 400:
+                    if ('\YandexMarketApi\Model\ApiClientDataErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiClientDataErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiClientDataErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 401:
+                    if ('\YandexMarketApi\Model\ApiUnauthorizedErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiUnauthorizedErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiUnauthorizedErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
+                    if ('\YandexMarketApi\Model\ApiForbiddenErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiForbiddenErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiForbiddenErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 420:
+                    if ('\YandexMarketApi\Model\ApiLimitErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiLimitErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiLimitErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 500:
+                    if ('\YandexMarketApi\Model\ApiServerErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiServerErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiServerErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\YandexMarketApi\Model\GenerateReportResponse';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+                if ($returnType !== 'string') {
+                    $content = json_decode($content);
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\GenerateReportResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiClientDataErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiUnauthorizedErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiForbiddenErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 420:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiLimitErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiServerErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation generateGoodsPricesReportAsync
+     *
+     * Отчет «Цены»
+     *
+     * @param  \YandexMarketApi\Model\GenerateGoodsPricesReportRequest $generate_goods_prices_report_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateGoodsPricesReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function generateGoodsPricesReportAsync($generate_goods_prices_report_request, $format = null, string $contentType = self::contentTypes['generateGoodsPricesReport'][0])
+    {
+        return $this->generateGoodsPricesReportAsyncWithHttpInfo($generate_goods_prices_report_request, $format, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation generateGoodsPricesReportAsyncWithHttpInfo
+     *
+     * Отчет «Цены»
+     *
+     * @param  \YandexMarketApi\Model\GenerateGoodsPricesReportRequest $generate_goods_prices_report_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateGoodsPricesReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function generateGoodsPricesReportAsyncWithHttpInfo($generate_goods_prices_report_request, $format = null, string $contentType = self::contentTypes['generateGoodsPricesReport'][0])
+    {
+        $returnType = '\YandexMarketApi\Model\GenerateReportResponse';
+        $request = $this->generateGoodsPricesReportRequest($generate_goods_prices_report_request, $format, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'generateGoodsPricesReport'
+     *
+     * @param  \YandexMarketApi\Model\GenerateGoodsPricesReportRequest $generate_goods_prices_report_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateGoodsPricesReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function generateGoodsPricesReportRequest($generate_goods_prices_report_request, $format = null, string $contentType = self::contentTypes['generateGoodsPricesReport'][0])
+    {
+
+        // verify the required parameter 'generate_goods_prices_report_request' is set
+        if ($generate_goods_prices_report_request === null || (is_array($generate_goods_prices_report_request) && count($generate_goods_prices_report_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $generate_goods_prices_report_request when calling generateGoodsPricesReport'
+            );
+        }
+
+
+
+        $resourcePath = '/v2/reports/goods-prices/generate';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $format,
+            'format', // param base name
+            'ReportFormatType', // openApiType
+            '', // style
+            false, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($generate_goods_prices_report_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($generate_goods_prices_report_request));
+            } else {
+                $httpBody = $generate_goods_prices_report_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
@@ -993,7 +3962,7 @@ class ReportsApi
      * Отчет по реализации
      *
      * @param  \YandexMarketApi\Model\GenerateGoodsRealizationReportRequest $generate_goods_realization_report_request generate_goods_realization_report_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateGoodsRealizationReport'] to see the possible values for this operation
      *
      * @throws \YandexMarketApi\ApiException on non-2xx response
@@ -1012,7 +3981,7 @@ class ReportsApi
      * Отчет по реализации
      *
      * @param  \YandexMarketApi\Model\GenerateGoodsRealizationReportRequest $generate_goods_realization_report_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateGoodsRealizationReport'] to see the possible values for this operation
      *
      * @throws \YandexMarketApi\ApiException on non-2xx response
@@ -1228,7 +4197,7 @@ class ReportsApi
      * Отчет по реализации
      *
      * @param  \YandexMarketApi\Model\GenerateGoodsRealizationReportRequest $generate_goods_realization_report_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateGoodsRealizationReport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1250,7 +4219,7 @@ class ReportsApi
      * Отчет по реализации
      *
      * @param  \YandexMarketApi\Model\GenerateGoodsRealizationReportRequest $generate_goods_realization_report_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateGoodsRealizationReport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1301,7 +4270,7 @@ class ReportsApi
      * Create request for operation 'generateGoodsRealizationReport'
      *
      * @param  \YandexMarketApi\Model\GenerateGoodsRealizationReportRequest $generate_goods_realization_report_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateGoodsRealizationReport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1319,7 +4288,7 @@ class ReportsApi
 
 
 
-        $resourcePath = '/reports/goods-realization/generate';
+        $resourcePath = '/v2/reports/goods-realization/generate';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1377,6 +4346,11 @@ class ReportsApi
             }
         }
 
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
@@ -1409,7 +4383,7 @@ class ReportsApi
      * Отчет по оборачиваемости
      *
      * @param  \YandexMarketApi\Model\GenerateGoodsTurnoverRequest $generate_goods_turnover_request generate_goods_turnover_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateGoodsTurnoverReport'] to see the possible values for this operation
      *
      * @throws \YandexMarketApi\ApiException on non-2xx response
@@ -1428,7 +4402,7 @@ class ReportsApi
      * Отчет по оборачиваемости
      *
      * @param  \YandexMarketApi\Model\GenerateGoodsTurnoverRequest $generate_goods_turnover_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateGoodsTurnoverReport'] to see the possible values for this operation
      *
      * @throws \YandexMarketApi\ApiException on non-2xx response
@@ -1644,7 +4618,7 @@ class ReportsApi
      * Отчет по оборачиваемости
      *
      * @param  \YandexMarketApi\Model\GenerateGoodsTurnoverRequest $generate_goods_turnover_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateGoodsTurnoverReport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1666,7 +4640,7 @@ class ReportsApi
      * Отчет по оборачиваемости
      *
      * @param  \YandexMarketApi\Model\GenerateGoodsTurnoverRequest $generate_goods_turnover_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateGoodsTurnoverReport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1717,7 +4691,7 @@ class ReportsApi
      * Create request for operation 'generateGoodsTurnoverReport'
      *
      * @param  \YandexMarketApi\Model\GenerateGoodsTurnoverRequest $generate_goods_turnover_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateGoodsTurnoverReport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1735,7 +4709,7 @@ class ReportsApi
 
 
 
-        $resourcePath = '/reports/goods-turnover/generate';
+        $resourcePath = '/v2/reports/goods-turnover/generate';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1793,6 +4767,1274 @@ class ReportsApi
             }
         }
 
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation generateJewelryFiscalReport
+     *
+     * Отчет по заказам с ювелирными изделиями
+     *
+     * @param  \YandexMarketApi\Model\GenerateJewelryFiscalReportRequest $generate_jewelry_fiscal_report_request generate_jewelry_fiscal_report_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateJewelryFiscalReport'] to see the possible values for this operation
+     *
+     * @throws \YandexMarketApi\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \YandexMarketApi\Model\GenerateReportResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse
+     */
+    public function generateJewelryFiscalReport($generate_jewelry_fiscal_report_request, $format = null, string $contentType = self::contentTypes['generateJewelryFiscalReport'][0])
+    {
+        list($response) = $this->generateJewelryFiscalReportWithHttpInfo($generate_jewelry_fiscal_report_request, $format, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation generateJewelryFiscalReportWithHttpInfo
+     *
+     * Отчет по заказам с ювелирными изделиями
+     *
+     * @param  \YandexMarketApi\Model\GenerateJewelryFiscalReportRequest $generate_jewelry_fiscal_report_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateJewelryFiscalReport'] to see the possible values for this operation
+     *
+     * @throws \YandexMarketApi\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \YandexMarketApi\Model\GenerateReportResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function generateJewelryFiscalReportWithHttpInfo($generate_jewelry_fiscal_report_request, $format = null, string $contentType = self::contentTypes['generateJewelryFiscalReport'][0])
+    {
+        $request = $this->generateJewelryFiscalReportRequest($generate_jewelry_fiscal_report_request, $format, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\YandexMarketApi\Model\GenerateReportResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\GenerateReportResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\GenerateReportResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 400:
+                    if ('\YandexMarketApi\Model\ApiClientDataErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiClientDataErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiClientDataErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 401:
+                    if ('\YandexMarketApi\Model\ApiUnauthorizedErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiUnauthorizedErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiUnauthorizedErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
+                    if ('\YandexMarketApi\Model\ApiForbiddenErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiForbiddenErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiForbiddenErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 420:
+                    if ('\YandexMarketApi\Model\ApiLimitErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiLimitErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiLimitErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 500:
+                    if ('\YandexMarketApi\Model\ApiServerErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiServerErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiServerErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\YandexMarketApi\Model\GenerateReportResponse';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+                if ($returnType !== 'string') {
+                    $content = json_decode($content);
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\GenerateReportResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiClientDataErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiUnauthorizedErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiForbiddenErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 420:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiLimitErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiServerErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation generateJewelryFiscalReportAsync
+     *
+     * Отчет по заказам с ювелирными изделиями
+     *
+     * @param  \YandexMarketApi\Model\GenerateJewelryFiscalReportRequest $generate_jewelry_fiscal_report_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateJewelryFiscalReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function generateJewelryFiscalReportAsync($generate_jewelry_fiscal_report_request, $format = null, string $contentType = self::contentTypes['generateJewelryFiscalReport'][0])
+    {
+        return $this->generateJewelryFiscalReportAsyncWithHttpInfo($generate_jewelry_fiscal_report_request, $format, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation generateJewelryFiscalReportAsyncWithHttpInfo
+     *
+     * Отчет по заказам с ювелирными изделиями
+     *
+     * @param  \YandexMarketApi\Model\GenerateJewelryFiscalReportRequest $generate_jewelry_fiscal_report_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateJewelryFiscalReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function generateJewelryFiscalReportAsyncWithHttpInfo($generate_jewelry_fiscal_report_request, $format = null, string $contentType = self::contentTypes['generateJewelryFiscalReport'][0])
+    {
+        $returnType = '\YandexMarketApi\Model\GenerateReportResponse';
+        $request = $this->generateJewelryFiscalReportRequest($generate_jewelry_fiscal_report_request, $format, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'generateJewelryFiscalReport'
+     *
+     * @param  \YandexMarketApi\Model\GenerateJewelryFiscalReportRequest $generate_jewelry_fiscal_report_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateJewelryFiscalReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function generateJewelryFiscalReportRequest($generate_jewelry_fiscal_report_request, $format = null, string $contentType = self::contentTypes['generateJewelryFiscalReport'][0])
+    {
+
+        // verify the required parameter 'generate_jewelry_fiscal_report_request' is set
+        if ($generate_jewelry_fiscal_report_request === null || (is_array($generate_jewelry_fiscal_report_request) && count($generate_jewelry_fiscal_report_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $generate_jewelry_fiscal_report_request when calling generateJewelryFiscalReport'
+            );
+        }
+
+
+
+        $resourcePath = '/v2/reports/jewelry-fiscal/generate';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $format,
+            'format', // param base name
+            'ReportFormatType', // openApiType
+            '', // style
+            false, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($generate_jewelry_fiscal_report_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($generate_jewelry_fiscal_report_request));
+            } else {
+                $httpBody = $generate_jewelry_fiscal_report_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation generateKeyIndicatorsReport
+     *
+     * Отчет по ключевым показателям
+     *
+     * @param  \YandexMarketApi\Model\GenerateKeyIndicatorsRequest $generate_key_indicators_request generate_key_indicators_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateKeyIndicatorsReport'] to see the possible values for this operation
+     *
+     * @throws \YandexMarketApi\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \YandexMarketApi\Model\GenerateReportResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse
+     */
+    public function generateKeyIndicatorsReport($generate_key_indicators_request, $format = null, string $contentType = self::contentTypes['generateKeyIndicatorsReport'][0])
+    {
+        list($response) = $this->generateKeyIndicatorsReportWithHttpInfo($generate_key_indicators_request, $format, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation generateKeyIndicatorsReportWithHttpInfo
+     *
+     * Отчет по ключевым показателям
+     *
+     * @param  \YandexMarketApi\Model\GenerateKeyIndicatorsRequest $generate_key_indicators_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateKeyIndicatorsReport'] to see the possible values for this operation
+     *
+     * @throws \YandexMarketApi\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \YandexMarketApi\Model\GenerateReportResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function generateKeyIndicatorsReportWithHttpInfo($generate_key_indicators_request, $format = null, string $contentType = self::contentTypes['generateKeyIndicatorsReport'][0])
+    {
+        $request = $this->generateKeyIndicatorsReportRequest($generate_key_indicators_request, $format, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\YandexMarketApi\Model\GenerateReportResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\GenerateReportResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\GenerateReportResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 400:
+                    if ('\YandexMarketApi\Model\ApiClientDataErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiClientDataErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiClientDataErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 401:
+                    if ('\YandexMarketApi\Model\ApiUnauthorizedErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiUnauthorizedErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiUnauthorizedErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
+                    if ('\YandexMarketApi\Model\ApiForbiddenErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiForbiddenErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiForbiddenErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 420:
+                    if ('\YandexMarketApi\Model\ApiLimitErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiLimitErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiLimitErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 500:
+                    if ('\YandexMarketApi\Model\ApiServerErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiServerErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiServerErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\YandexMarketApi\Model\GenerateReportResponse';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+                if ($returnType !== 'string') {
+                    $content = json_decode($content);
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\GenerateReportResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiClientDataErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiUnauthorizedErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiForbiddenErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 420:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiLimitErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiServerErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation generateKeyIndicatorsReportAsync
+     *
+     * Отчет по ключевым показателям
+     *
+     * @param  \YandexMarketApi\Model\GenerateKeyIndicatorsRequest $generate_key_indicators_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateKeyIndicatorsReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function generateKeyIndicatorsReportAsync($generate_key_indicators_request, $format = null, string $contentType = self::contentTypes['generateKeyIndicatorsReport'][0])
+    {
+        return $this->generateKeyIndicatorsReportAsyncWithHttpInfo($generate_key_indicators_request, $format, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation generateKeyIndicatorsReportAsyncWithHttpInfo
+     *
+     * Отчет по ключевым показателям
+     *
+     * @param  \YandexMarketApi\Model\GenerateKeyIndicatorsRequest $generate_key_indicators_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateKeyIndicatorsReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function generateKeyIndicatorsReportAsyncWithHttpInfo($generate_key_indicators_request, $format = null, string $contentType = self::contentTypes['generateKeyIndicatorsReport'][0])
+    {
+        $returnType = '\YandexMarketApi\Model\GenerateReportResponse';
+        $request = $this->generateKeyIndicatorsReportRequest($generate_key_indicators_request, $format, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'generateKeyIndicatorsReport'
+     *
+     * @param  \YandexMarketApi\Model\GenerateKeyIndicatorsRequest $generate_key_indicators_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateKeyIndicatorsReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function generateKeyIndicatorsReportRequest($generate_key_indicators_request, $format = null, string $contentType = self::contentTypes['generateKeyIndicatorsReport'][0])
+    {
+
+        // verify the required parameter 'generate_key_indicators_request' is set
+        if ($generate_key_indicators_request === null || (is_array($generate_key_indicators_request) && count($generate_key_indicators_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $generate_key_indicators_request when calling generateKeyIndicatorsReport'
+            );
+        }
+
+
+
+        $resourcePath = '/v2/reports/key-indicators/generate';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $format,
+            'format', // param base name
+            'ReportFormatType', // openApiType
+            '', // style
+            false, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($generate_key_indicators_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($generate_key_indicators_request));
+            } else {
+                $httpBody = $generate_key_indicators_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation generateMassOrderLabelsReport
+     *
+     * Готовые ярлыки‑наклейки на все коробки в нескольких заказах
+     *
+     * @param  \YandexMarketApi\Model\GenerateMassOrderLabelsRequest $generate_mass_order_labels_request generate_mass_order_labels_request (required)
+     * @param  PageFormatType $format Настройка размещения ярлыков на странице. Если параметра нет, возвращается PDF с ярлыками формата :no-translate[A7]. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateMassOrderLabelsReport'] to see the possible values for this operation
+     *
+     * @throws \YandexMarketApi\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \YandexMarketApi\Model\GenerateReportResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse
+     */
+    public function generateMassOrderLabelsReport($generate_mass_order_labels_request, $format = null, string $contentType = self::contentTypes['generateMassOrderLabelsReport'][0])
+    {
+        list($response) = $this->generateMassOrderLabelsReportWithHttpInfo($generate_mass_order_labels_request, $format, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation generateMassOrderLabelsReportWithHttpInfo
+     *
+     * Готовые ярлыки‑наклейки на все коробки в нескольких заказах
+     *
+     * @param  \YandexMarketApi\Model\GenerateMassOrderLabelsRequest $generate_mass_order_labels_request (required)
+     * @param  PageFormatType $format Настройка размещения ярлыков на странице. Если параметра нет, возвращается PDF с ярлыками формата :no-translate[A7]. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateMassOrderLabelsReport'] to see the possible values for this operation
+     *
+     * @throws \YandexMarketApi\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \YandexMarketApi\Model\GenerateReportResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function generateMassOrderLabelsReportWithHttpInfo($generate_mass_order_labels_request, $format = null, string $contentType = self::contentTypes['generateMassOrderLabelsReport'][0])
+    {
+        $request = $this->generateMassOrderLabelsReportRequest($generate_mass_order_labels_request, $format, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\YandexMarketApi\Model\GenerateReportResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\GenerateReportResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\GenerateReportResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 400:
+                    if ('\YandexMarketApi\Model\ApiClientDataErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiClientDataErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiClientDataErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 401:
+                    if ('\YandexMarketApi\Model\ApiUnauthorizedErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiUnauthorizedErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiUnauthorizedErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
+                    if ('\YandexMarketApi\Model\ApiForbiddenErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiForbiddenErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiForbiddenErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 420:
+                    if ('\YandexMarketApi\Model\ApiLimitErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiLimitErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiLimitErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 500:
+                    if ('\YandexMarketApi\Model\ApiServerErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiServerErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiServerErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\YandexMarketApi\Model\GenerateReportResponse';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+                if ($returnType !== 'string') {
+                    $content = json_decode($content);
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\GenerateReportResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiClientDataErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiUnauthorizedErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiForbiddenErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 420:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiLimitErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiServerErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation generateMassOrderLabelsReportAsync
+     *
+     * Готовые ярлыки‑наклейки на все коробки в нескольких заказах
+     *
+     * @param  \YandexMarketApi\Model\GenerateMassOrderLabelsRequest $generate_mass_order_labels_request (required)
+     * @param  PageFormatType $format Настройка размещения ярлыков на странице. Если параметра нет, возвращается PDF с ярлыками формата :no-translate[A7]. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateMassOrderLabelsReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function generateMassOrderLabelsReportAsync($generate_mass_order_labels_request, $format = null, string $contentType = self::contentTypes['generateMassOrderLabelsReport'][0])
+    {
+        return $this->generateMassOrderLabelsReportAsyncWithHttpInfo($generate_mass_order_labels_request, $format, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation generateMassOrderLabelsReportAsyncWithHttpInfo
+     *
+     * Готовые ярлыки‑наклейки на все коробки в нескольких заказах
+     *
+     * @param  \YandexMarketApi\Model\GenerateMassOrderLabelsRequest $generate_mass_order_labels_request (required)
+     * @param  PageFormatType $format Настройка размещения ярлыков на странице. Если параметра нет, возвращается PDF с ярлыками формата :no-translate[A7]. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateMassOrderLabelsReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function generateMassOrderLabelsReportAsyncWithHttpInfo($generate_mass_order_labels_request, $format = null, string $contentType = self::contentTypes['generateMassOrderLabelsReport'][0])
+    {
+        $returnType = '\YandexMarketApi\Model\GenerateReportResponse';
+        $request = $this->generateMassOrderLabelsReportRequest($generate_mass_order_labels_request, $format, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'generateMassOrderLabelsReport'
+     *
+     * @param  \YandexMarketApi\Model\GenerateMassOrderLabelsRequest $generate_mass_order_labels_request (required)
+     * @param  PageFormatType $format Настройка размещения ярлыков на странице. Если параметра нет, возвращается PDF с ярлыками формата :no-translate[A7]. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateMassOrderLabelsReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function generateMassOrderLabelsReportRequest($generate_mass_order_labels_request, $format = null, string $contentType = self::contentTypes['generateMassOrderLabelsReport'][0])
+    {
+
+        // verify the required parameter 'generate_mass_order_labels_request' is set
+        if ($generate_mass_order_labels_request === null || (is_array($generate_mass_order_labels_request) && count($generate_mass_order_labels_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $generate_mass_order_labels_request when calling generateMassOrderLabelsReport'
+            );
+        }
+
+
+
+        $resourcePath = '/v2/reports/documents/labels/generate';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $format,
+            'format', // param base name
+            'PageFormatType', // openApiType
+            '', // style
+            false, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($generate_mass_order_labels_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($generate_mass_order_labels_request));
+            } else {
+                $httpBody = $generate_mass_order_labels_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
@@ -1825,12 +6067,13 @@ class ReportsApi
      * Отчет «Цены на рынке»
      *
      * @param  \YandexMarketApi\Model\GeneratePricesReportRequest $generate_prices_report_request generate_prices_report_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generatePricesReport'] to see the possible values for this operation
      *
      * @throws \YandexMarketApi\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \YandexMarketApi\Model\GenerateReportResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse
+     * @deprecated
      */
     public function generatePricesReport($generate_prices_report_request, $format = null, string $contentType = self::contentTypes['generatePricesReport'][0])
     {
@@ -1844,12 +6087,13 @@ class ReportsApi
      * Отчет «Цены на рынке»
      *
      * @param  \YandexMarketApi\Model\GeneratePricesReportRequest $generate_prices_report_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generatePricesReport'] to see the possible values for this operation
      *
      * @throws \YandexMarketApi\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \YandexMarketApi\Model\GenerateReportResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     * @deprecated
      */
     public function generatePricesReportWithHttpInfo($generate_prices_report_request, $format = null, string $contentType = self::contentTypes['generatePricesReport'][0])
     {
@@ -2060,11 +6304,12 @@ class ReportsApi
      * Отчет «Цены на рынке»
      *
      * @param  \YandexMarketApi\Model\GeneratePricesReportRequest $generate_prices_report_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generatePricesReport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
+     * @deprecated
      */
     public function generatePricesReportAsync($generate_prices_report_request, $format = null, string $contentType = self::contentTypes['generatePricesReport'][0])
     {
@@ -2082,11 +6327,12 @@ class ReportsApi
      * Отчет «Цены на рынке»
      *
      * @param  \YandexMarketApi\Model\GeneratePricesReportRequest $generate_prices_report_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generatePricesReport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
+     * @deprecated
      */
     public function generatePricesReportAsyncWithHttpInfo($generate_prices_report_request, $format = null, string $contentType = self::contentTypes['generatePricesReport'][0])
     {
@@ -2133,11 +6379,12 @@ class ReportsApi
      * Create request for operation 'generatePricesReport'
      *
      * @param  \YandexMarketApi\Model\GeneratePricesReportRequest $generate_prices_report_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generatePricesReport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
+     * @deprecated
      */
     public function generatePricesReportRequest($generate_prices_report_request, $format = null, string $contentType = self::contentTypes['generatePricesReport'][0])
     {
@@ -2151,7 +6398,7 @@ class ReportsApi
 
 
 
-        $resourcePath = '/reports/prices/generate';
+        $resourcePath = '/v2/reports/prices/generate';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2209,6 +6456,853 @@ class ReportsApi
             }
         }
 
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation generateSalesGeographyReport
+     *
+     * Отчет по географии продаж
+     *
+     * @param  \YandexMarketApi\Model\GenerateSalesGeographyRequest $generate_sales_geography_request generate_sales_geography_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateSalesGeographyReport'] to see the possible values for this operation
+     *
+     * @throws \YandexMarketApi\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \YandexMarketApi\Model\GenerateReportResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse
+     */
+    public function generateSalesGeographyReport($generate_sales_geography_request, $format = null, string $contentType = self::contentTypes['generateSalesGeographyReport'][0])
+    {
+        list($response) = $this->generateSalesGeographyReportWithHttpInfo($generate_sales_geography_request, $format, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation generateSalesGeographyReportWithHttpInfo
+     *
+     * Отчет по географии продаж
+     *
+     * @param  \YandexMarketApi\Model\GenerateSalesGeographyRequest $generate_sales_geography_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateSalesGeographyReport'] to see the possible values for this operation
+     *
+     * @throws \YandexMarketApi\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \YandexMarketApi\Model\GenerateReportResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function generateSalesGeographyReportWithHttpInfo($generate_sales_geography_request, $format = null, string $contentType = self::contentTypes['generateSalesGeographyReport'][0])
+    {
+        $request = $this->generateSalesGeographyReportRequest($generate_sales_geography_request, $format, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\YandexMarketApi\Model\GenerateReportResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\GenerateReportResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\GenerateReportResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 400:
+                    if ('\YandexMarketApi\Model\ApiClientDataErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiClientDataErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiClientDataErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 401:
+                    if ('\YandexMarketApi\Model\ApiUnauthorizedErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiUnauthorizedErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiUnauthorizedErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
+                    if ('\YandexMarketApi\Model\ApiForbiddenErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiForbiddenErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiForbiddenErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 420:
+                    if ('\YandexMarketApi\Model\ApiLimitErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiLimitErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiLimitErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 500:
+                    if ('\YandexMarketApi\Model\ApiServerErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiServerErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiServerErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\YandexMarketApi\Model\GenerateReportResponse';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+                if ($returnType !== 'string') {
+                    $content = json_decode($content);
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\GenerateReportResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiClientDataErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiUnauthorizedErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiForbiddenErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 420:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiLimitErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiServerErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation generateSalesGeographyReportAsync
+     *
+     * Отчет по географии продаж
+     *
+     * @param  \YandexMarketApi\Model\GenerateSalesGeographyRequest $generate_sales_geography_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateSalesGeographyReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function generateSalesGeographyReportAsync($generate_sales_geography_request, $format = null, string $contentType = self::contentTypes['generateSalesGeographyReport'][0])
+    {
+        return $this->generateSalesGeographyReportAsyncWithHttpInfo($generate_sales_geography_request, $format, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation generateSalesGeographyReportAsyncWithHttpInfo
+     *
+     * Отчет по географии продаж
+     *
+     * @param  \YandexMarketApi\Model\GenerateSalesGeographyRequest $generate_sales_geography_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateSalesGeographyReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function generateSalesGeographyReportAsyncWithHttpInfo($generate_sales_geography_request, $format = null, string $contentType = self::contentTypes['generateSalesGeographyReport'][0])
+    {
+        $returnType = '\YandexMarketApi\Model\GenerateReportResponse';
+        $request = $this->generateSalesGeographyReportRequest($generate_sales_geography_request, $format, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'generateSalesGeographyReport'
+     *
+     * @param  \YandexMarketApi\Model\GenerateSalesGeographyRequest $generate_sales_geography_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateSalesGeographyReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function generateSalesGeographyReportRequest($generate_sales_geography_request, $format = null, string $contentType = self::contentTypes['generateSalesGeographyReport'][0])
+    {
+
+        // verify the required parameter 'generate_sales_geography_request' is set
+        if ($generate_sales_geography_request === null || (is_array($generate_sales_geography_request) && count($generate_sales_geography_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $generate_sales_geography_request when calling generateSalesGeographyReport'
+            );
+        }
+
+
+
+        $resourcePath = '/v2/reports/sales-geography/generate';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $format,
+            'format', // param base name
+            'ReportFormatType', // openApiType
+            '', // style
+            false, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($generate_sales_geography_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($generate_sales_geography_request));
+            } else {
+                $httpBody = $generate_sales_geography_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation generateShelfsStatisticsReport
+     *
+     * Отчет по полкам
+     *
+     * @param  \YandexMarketApi\Model\GenerateShelfsStatisticsRequest $generate_shelfs_statistics_request generate_shelfs_statistics_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateShelfsStatisticsReport'] to see the possible values for this operation
+     *
+     * @throws \YandexMarketApi\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \YandexMarketApi\Model\GenerateReportResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse
+     */
+    public function generateShelfsStatisticsReport($generate_shelfs_statistics_request, $format = null, string $contentType = self::contentTypes['generateShelfsStatisticsReport'][0])
+    {
+        list($response) = $this->generateShelfsStatisticsReportWithHttpInfo($generate_shelfs_statistics_request, $format, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation generateShelfsStatisticsReportWithHttpInfo
+     *
+     * Отчет по полкам
+     *
+     * @param  \YandexMarketApi\Model\GenerateShelfsStatisticsRequest $generate_shelfs_statistics_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateShelfsStatisticsReport'] to see the possible values for this operation
+     *
+     * @throws \YandexMarketApi\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \YandexMarketApi\Model\GenerateReportResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function generateShelfsStatisticsReportWithHttpInfo($generate_shelfs_statistics_request, $format = null, string $contentType = self::contentTypes['generateShelfsStatisticsReport'][0])
+    {
+        $request = $this->generateShelfsStatisticsReportRequest($generate_shelfs_statistics_request, $format, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\YandexMarketApi\Model\GenerateReportResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\GenerateReportResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\GenerateReportResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 400:
+                    if ('\YandexMarketApi\Model\ApiClientDataErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiClientDataErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiClientDataErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 401:
+                    if ('\YandexMarketApi\Model\ApiUnauthorizedErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiUnauthorizedErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiUnauthorizedErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
+                    if ('\YandexMarketApi\Model\ApiForbiddenErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiForbiddenErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiForbiddenErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 420:
+                    if ('\YandexMarketApi\Model\ApiLimitErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiLimitErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiLimitErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 500:
+                    if ('\YandexMarketApi\Model\ApiServerErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiServerErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiServerErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\YandexMarketApi\Model\GenerateReportResponse';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+                if ($returnType !== 'string') {
+                    $content = json_decode($content);
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\GenerateReportResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiClientDataErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiUnauthorizedErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiForbiddenErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 420:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiLimitErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiServerErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation generateShelfsStatisticsReportAsync
+     *
+     * Отчет по полкам
+     *
+     * @param  \YandexMarketApi\Model\GenerateShelfsStatisticsRequest $generate_shelfs_statistics_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateShelfsStatisticsReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function generateShelfsStatisticsReportAsync($generate_shelfs_statistics_request, $format = null, string $contentType = self::contentTypes['generateShelfsStatisticsReport'][0])
+    {
+        return $this->generateShelfsStatisticsReportAsyncWithHttpInfo($generate_shelfs_statistics_request, $format, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation generateShelfsStatisticsReportAsyncWithHttpInfo
+     *
+     * Отчет по полкам
+     *
+     * @param  \YandexMarketApi\Model\GenerateShelfsStatisticsRequest $generate_shelfs_statistics_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateShelfsStatisticsReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function generateShelfsStatisticsReportAsyncWithHttpInfo($generate_shelfs_statistics_request, $format = null, string $contentType = self::contentTypes['generateShelfsStatisticsReport'][0])
+    {
+        $returnType = '\YandexMarketApi\Model\GenerateReportResponse';
+        $request = $this->generateShelfsStatisticsReportRequest($generate_shelfs_statistics_request, $format, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'generateShelfsStatisticsReport'
+     *
+     * @param  \YandexMarketApi\Model\GenerateShelfsStatisticsRequest $generate_shelfs_statistics_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateShelfsStatisticsReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function generateShelfsStatisticsReportRequest($generate_shelfs_statistics_request, $format = null, string $contentType = self::contentTypes['generateShelfsStatisticsReport'][0])
+    {
+
+        // verify the required parameter 'generate_shelfs_statistics_request' is set
+        if ($generate_shelfs_statistics_request === null || (is_array($generate_shelfs_statistics_request) && count($generate_shelfs_statistics_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $generate_shelfs_statistics_request when calling generateShelfsStatisticsReport'
+            );
+        }
+
+
+
+        $resourcePath = '/v2/reports/shelf-statistics/generate';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $format,
+            'format', // param base name
+            'ReportFormatType', // openApiType
+            '', // style
+            false, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($generate_shelfs_statistics_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($generate_shelfs_statistics_request));
+            } else {
+                $httpBody = $generate_shelfs_statistics_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
@@ -2238,7 +7332,7 @@ class ReportsApi
     /**
      * Operation generateShipmentListDocumentReport
      *
-     * Лист сборки
+     * Получение листа сборки
      *
      * @param  \YandexMarketApi\Model\GenerateShipmentListDocumentReportRequest $generate_shipment_list_document_report_request generate_shipment_list_document_report_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateShipmentListDocumentReport'] to see the possible values for this operation
@@ -2256,7 +7350,7 @@ class ReportsApi
     /**
      * Operation generateShipmentListDocumentReportWithHttpInfo
      *
-     * Лист сборки
+     * Получение листа сборки
      *
      * @param  \YandexMarketApi\Model\GenerateShipmentListDocumentReportRequest $generate_shipment_list_document_report_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateShipmentListDocumentReport'] to see the possible values for this operation
@@ -2471,7 +7565,7 @@ class ReportsApi
     /**
      * Operation generateShipmentListDocumentReportAsync
      *
-     * Лист сборки
+     * Получение листа сборки
      *
      * @param  \YandexMarketApi\Model\GenerateShipmentListDocumentReportRequest $generate_shipment_list_document_report_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateShipmentListDocumentReport'] to see the possible values for this operation
@@ -2492,7 +7586,7 @@ class ReportsApi
     /**
      * Operation generateShipmentListDocumentReportAsyncWithHttpInfo
      *
-     * Лист сборки
+     * Получение листа сборки
      *
      * @param  \YandexMarketApi\Model\GenerateShipmentListDocumentReportRequest $generate_shipment_list_document_report_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateShipmentListDocumentReport'] to see the possible values for this operation
@@ -2561,7 +7655,7 @@ class ReportsApi
         }
 
 
-        $resourcePath = '/reports/documents/shipment-list/generate';
+        $resourcePath = '/v2/reports/documents/shipment-list/generate';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2610,6 +7704,432 @@ class ReportsApi
             }
         }
 
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation generateShowsBoostReport
+     *
+     * Отчет по бусту показов
+     *
+     * @param  \YandexMarketApi\Model\GenerateShowsBoostRequest $generate_shows_boost_request generate_shows_boost_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateShowsBoostReport'] to see the possible values for this operation
+     *
+     * @throws \YandexMarketApi\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \YandexMarketApi\Model\GenerateReportResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse
+     */
+    public function generateShowsBoostReport($generate_shows_boost_request, $format = null, string $contentType = self::contentTypes['generateShowsBoostReport'][0])
+    {
+        list($response) = $this->generateShowsBoostReportWithHttpInfo($generate_shows_boost_request, $format, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation generateShowsBoostReportWithHttpInfo
+     *
+     * Отчет по бусту показов
+     *
+     * @param  \YandexMarketApi\Model\GenerateShowsBoostRequest $generate_shows_boost_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateShowsBoostReport'] to see the possible values for this operation
+     *
+     * @throws \YandexMarketApi\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \YandexMarketApi\Model\GenerateReportResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function generateShowsBoostReportWithHttpInfo($generate_shows_boost_request, $format = null, string $contentType = self::contentTypes['generateShowsBoostReport'][0])
+    {
+        $request = $this->generateShowsBoostReportRequest($generate_shows_boost_request, $format, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\YandexMarketApi\Model\GenerateReportResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\GenerateReportResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\GenerateReportResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 400:
+                    if ('\YandexMarketApi\Model\ApiClientDataErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiClientDataErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiClientDataErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 401:
+                    if ('\YandexMarketApi\Model\ApiUnauthorizedErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiUnauthorizedErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiUnauthorizedErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
+                    if ('\YandexMarketApi\Model\ApiForbiddenErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiForbiddenErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiForbiddenErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 420:
+                    if ('\YandexMarketApi\Model\ApiLimitErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiLimitErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiLimitErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 500:
+                    if ('\YandexMarketApi\Model\ApiServerErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiServerErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiServerErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\YandexMarketApi\Model\GenerateReportResponse';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+                if ($returnType !== 'string') {
+                    $content = json_decode($content);
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\GenerateReportResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiClientDataErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiUnauthorizedErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiForbiddenErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 420:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiLimitErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiServerErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation generateShowsBoostReportAsync
+     *
+     * Отчет по бусту показов
+     *
+     * @param  \YandexMarketApi\Model\GenerateShowsBoostRequest $generate_shows_boost_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateShowsBoostReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function generateShowsBoostReportAsync($generate_shows_boost_request, $format = null, string $contentType = self::contentTypes['generateShowsBoostReport'][0])
+    {
+        return $this->generateShowsBoostReportAsyncWithHttpInfo($generate_shows_boost_request, $format, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation generateShowsBoostReportAsyncWithHttpInfo
+     *
+     * Отчет по бусту показов
+     *
+     * @param  \YandexMarketApi\Model\GenerateShowsBoostRequest $generate_shows_boost_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateShowsBoostReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function generateShowsBoostReportAsyncWithHttpInfo($generate_shows_boost_request, $format = null, string $contentType = self::contentTypes['generateShowsBoostReport'][0])
+    {
+        $returnType = '\YandexMarketApi\Model\GenerateReportResponse';
+        $request = $this->generateShowsBoostReportRequest($generate_shows_boost_request, $format, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'generateShowsBoostReport'
+     *
+     * @param  \YandexMarketApi\Model\GenerateShowsBoostRequest $generate_shows_boost_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateShowsBoostReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function generateShowsBoostReportRequest($generate_shows_boost_request, $format = null, string $contentType = self::contentTypes['generateShowsBoostReport'][0])
+    {
+
+        // verify the required parameter 'generate_shows_boost_request' is set
+        if ($generate_shows_boost_request === null || (is_array($generate_shows_boost_request) && count($generate_shows_boost_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $generate_shows_boost_request when calling generateShowsBoostReport'
+            );
+        }
+
+
+
+        $resourcePath = '/v2/reports/shows-boost/generate';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $format,
+            'format', // param base name
+            'ReportFormatType', // openApiType
+            '', // style
+            false, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($generate_shows_boost_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($generate_shows_boost_request));
+            } else {
+                $httpBody = $generate_shows_boost_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
@@ -2642,7 +8162,7 @@ class ReportsApi
      * Отчет «Аналитика продаж»
      *
      * @param  \YandexMarketApi\Model\GenerateShowsSalesReportRequest $generate_shows_sales_report_request generate_shows_sales_report_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateShowsSalesReport'] to see the possible values for this operation
      *
      * @throws \YandexMarketApi\ApiException on non-2xx response
@@ -2661,7 +8181,7 @@ class ReportsApi
      * Отчет «Аналитика продаж»
      *
      * @param  \YandexMarketApi\Model\GenerateShowsSalesReportRequest $generate_shows_sales_report_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateShowsSalesReport'] to see the possible values for this operation
      *
      * @throws \YandexMarketApi\ApiException on non-2xx response
@@ -2877,7 +8397,7 @@ class ReportsApi
      * Отчет «Аналитика продаж»
      *
      * @param  \YandexMarketApi\Model\GenerateShowsSalesReportRequest $generate_shows_sales_report_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateShowsSalesReport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -2899,7 +8419,7 @@ class ReportsApi
      * Отчет «Аналитика продаж»
      *
      * @param  \YandexMarketApi\Model\GenerateShowsSalesReportRequest $generate_shows_sales_report_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateShowsSalesReport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -2950,7 +8470,7 @@ class ReportsApi
      * Create request for operation 'generateShowsSalesReport'
      *
      * @param  \YandexMarketApi\Model\GenerateShowsSalesReportRequest $generate_shows_sales_report_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateShowsSalesReport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -2968,7 +8488,7 @@ class ReportsApi
 
 
 
-        $resourcePath = '/reports/shows-sales/generate';
+        $resourcePath = '/v2/reports/shows-sales/generate';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -3026,6 +8546,11 @@ class ReportsApi
             }
         }
 
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
@@ -3058,7 +8583,7 @@ class ReportsApi
      * Отчет по остаткам на складах
      *
      * @param  \YandexMarketApi\Model\GenerateStocksOnWarehousesReportRequest $generate_stocks_on_warehouses_report_request generate_stocks_on_warehouses_report_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateStocksOnWarehousesReport'] to see the possible values for this operation
      *
      * @throws \YandexMarketApi\ApiException on non-2xx response
@@ -3077,7 +8602,7 @@ class ReportsApi
      * Отчет по остаткам на складах
      *
      * @param  \YandexMarketApi\Model\GenerateStocksOnWarehousesReportRequest $generate_stocks_on_warehouses_report_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateStocksOnWarehousesReport'] to see the possible values for this operation
      *
      * @throws \YandexMarketApi\ApiException on non-2xx response
@@ -3293,7 +8818,7 @@ class ReportsApi
      * Отчет по остаткам на складах
      *
      * @param  \YandexMarketApi\Model\GenerateStocksOnWarehousesReportRequest $generate_stocks_on_warehouses_report_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateStocksOnWarehousesReport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -3315,7 +8840,7 @@ class ReportsApi
      * Отчет по остаткам на складах
      *
      * @param  \YandexMarketApi\Model\GenerateStocksOnWarehousesReportRequest $generate_stocks_on_warehouses_report_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateStocksOnWarehousesReport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -3366,7 +8891,7 @@ class ReportsApi
      * Create request for operation 'generateStocksOnWarehousesReport'
      *
      * @param  \YandexMarketApi\Model\GenerateStocksOnWarehousesReportRequest $generate_stocks_on_warehouses_report_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateStocksOnWarehousesReport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -3384,7 +8909,7 @@ class ReportsApi
 
 
 
-        $resourcePath = '/reports/stocks-on-warehouses/generate';
+        $resourcePath = '/v2/reports/stocks-on-warehouses/generate';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -3442,6 +8967,11 @@ class ReportsApi
             }
         }
 
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
@@ -3474,16 +9004,17 @@ class ReportsApi
      * Отчет по стоимости услуг
      *
      * @param  \YandexMarketApi\Model\GenerateUnitedMarketplaceServicesReportRequest $generate_united_marketplace_services_report_request generate_united_marketplace_services_report_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  ReportLanguageType $language Язык отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateUnitedMarketplaceServicesReport'] to see the possible values for this operation
      *
      * @throws \YandexMarketApi\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \YandexMarketApi\Model\GenerateReportResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse
      */
-    public function generateUnitedMarketplaceServicesReport($generate_united_marketplace_services_report_request, $format = null, string $contentType = self::contentTypes['generateUnitedMarketplaceServicesReport'][0])
+    public function generateUnitedMarketplaceServicesReport($generate_united_marketplace_services_report_request, $format = null, $language = null, string $contentType = self::contentTypes['generateUnitedMarketplaceServicesReport'][0])
     {
-        list($response) = $this->generateUnitedMarketplaceServicesReportWithHttpInfo($generate_united_marketplace_services_report_request, $format, $contentType);
+        list($response) = $this->generateUnitedMarketplaceServicesReportWithHttpInfo($generate_united_marketplace_services_report_request, $format, $language, $contentType);
         return $response;
     }
 
@@ -3493,16 +9024,17 @@ class ReportsApi
      * Отчет по стоимости услуг
      *
      * @param  \YandexMarketApi\Model\GenerateUnitedMarketplaceServicesReportRequest $generate_united_marketplace_services_report_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  ReportLanguageType $language Язык отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateUnitedMarketplaceServicesReport'] to see the possible values for this operation
      *
      * @throws \YandexMarketApi\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \YandexMarketApi\Model\GenerateReportResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function generateUnitedMarketplaceServicesReportWithHttpInfo($generate_united_marketplace_services_report_request, $format = null, string $contentType = self::contentTypes['generateUnitedMarketplaceServicesReport'][0])
+    public function generateUnitedMarketplaceServicesReportWithHttpInfo($generate_united_marketplace_services_report_request, $format = null, $language = null, string $contentType = self::contentTypes['generateUnitedMarketplaceServicesReport'][0])
     {
-        $request = $this->generateUnitedMarketplaceServicesReportRequest($generate_united_marketplace_services_report_request, $format, $contentType);
+        $request = $this->generateUnitedMarketplaceServicesReportRequest($generate_united_marketplace_services_report_request, $format, $language, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3709,15 +9241,16 @@ class ReportsApi
      * Отчет по стоимости услуг
      *
      * @param  \YandexMarketApi\Model\GenerateUnitedMarketplaceServicesReportRequest $generate_united_marketplace_services_report_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  ReportLanguageType $language Язык отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateUnitedMarketplaceServicesReport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function generateUnitedMarketplaceServicesReportAsync($generate_united_marketplace_services_report_request, $format = null, string $contentType = self::contentTypes['generateUnitedMarketplaceServicesReport'][0])
+    public function generateUnitedMarketplaceServicesReportAsync($generate_united_marketplace_services_report_request, $format = null, $language = null, string $contentType = self::contentTypes['generateUnitedMarketplaceServicesReport'][0])
     {
-        return $this->generateUnitedMarketplaceServicesReportAsyncWithHttpInfo($generate_united_marketplace_services_report_request, $format, $contentType)
+        return $this->generateUnitedMarketplaceServicesReportAsyncWithHttpInfo($generate_united_marketplace_services_report_request, $format, $language, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3731,16 +9264,17 @@ class ReportsApi
      * Отчет по стоимости услуг
      *
      * @param  \YandexMarketApi\Model\GenerateUnitedMarketplaceServicesReportRequest $generate_united_marketplace_services_report_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  ReportLanguageType $language Язык отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateUnitedMarketplaceServicesReport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function generateUnitedMarketplaceServicesReportAsyncWithHttpInfo($generate_united_marketplace_services_report_request, $format = null, string $contentType = self::contentTypes['generateUnitedMarketplaceServicesReport'][0])
+    public function generateUnitedMarketplaceServicesReportAsyncWithHttpInfo($generate_united_marketplace_services_report_request, $format = null, $language = null, string $contentType = self::contentTypes['generateUnitedMarketplaceServicesReport'][0])
     {
         $returnType = '\YandexMarketApi\Model\GenerateReportResponse';
-        $request = $this->generateUnitedMarketplaceServicesReportRequest($generate_united_marketplace_services_report_request, $format, $contentType);
+        $request = $this->generateUnitedMarketplaceServicesReportRequest($generate_united_marketplace_services_report_request, $format, $language, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3782,13 +9316,14 @@ class ReportsApi
      * Create request for operation 'generateUnitedMarketplaceServicesReport'
      *
      * @param  \YandexMarketApi\Model\GenerateUnitedMarketplaceServicesReportRequest $generate_united_marketplace_services_report_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  ReportLanguageType $language Язык отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateUnitedMarketplaceServicesReport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function generateUnitedMarketplaceServicesReportRequest($generate_united_marketplace_services_report_request, $format = null, string $contentType = self::contentTypes['generateUnitedMarketplaceServicesReport'][0])
+    public function generateUnitedMarketplaceServicesReportRequest($generate_united_marketplace_services_report_request, $format = null, $language = null, string $contentType = self::contentTypes['generateUnitedMarketplaceServicesReport'][0])
     {
 
         // verify the required parameter 'generate_united_marketplace_services_report_request' is set
@@ -3800,7 +9335,8 @@ class ReportsApi
 
 
 
-        $resourcePath = '/reports/united-marketplace-services/generate';
+
+        $resourcePath = '/v2/reports/united-marketplace-services/generate';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -3812,6 +9348,15 @@ class ReportsApi
             $format,
             'format', // param base name
             'ReportFormatType', // openApiType
+            '', // style
+            false, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $language,
+            'language', // param base name
+            'ReportLanguageType', // openApiType
             '', // style
             false, // explode
             false // required
@@ -3858,6 +9403,11 @@ class ReportsApi
             }
         }
 
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
@@ -3890,16 +9440,17 @@ class ReportsApi
      * Отчет по платежам
      *
      * @param  \YandexMarketApi\Model\GenerateUnitedNettingReportRequest $generate_united_netting_report_request generate_united_netting_report_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  ReportLanguageType $language Язык отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateUnitedNettingReport'] to see the possible values for this operation
      *
      * @throws \YandexMarketApi\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \YandexMarketApi\Model\GenerateReportResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse
      */
-    public function generateUnitedNettingReport($generate_united_netting_report_request, $format = null, string $contentType = self::contentTypes['generateUnitedNettingReport'][0])
+    public function generateUnitedNettingReport($generate_united_netting_report_request, $format = null, $language = null, string $contentType = self::contentTypes['generateUnitedNettingReport'][0])
     {
-        list($response) = $this->generateUnitedNettingReportWithHttpInfo($generate_united_netting_report_request, $format, $contentType);
+        list($response) = $this->generateUnitedNettingReportWithHttpInfo($generate_united_netting_report_request, $format, $language, $contentType);
         return $response;
     }
 
@@ -3909,16 +9460,17 @@ class ReportsApi
      * Отчет по платежам
      *
      * @param  \YandexMarketApi\Model\GenerateUnitedNettingReportRequest $generate_united_netting_report_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  ReportLanguageType $language Язык отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateUnitedNettingReport'] to see the possible values for this operation
      *
      * @throws \YandexMarketApi\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \YandexMarketApi\Model\GenerateReportResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function generateUnitedNettingReportWithHttpInfo($generate_united_netting_report_request, $format = null, string $contentType = self::contentTypes['generateUnitedNettingReport'][0])
+    public function generateUnitedNettingReportWithHttpInfo($generate_united_netting_report_request, $format = null, $language = null, string $contentType = self::contentTypes['generateUnitedNettingReport'][0])
     {
-        $request = $this->generateUnitedNettingReportRequest($generate_united_netting_report_request, $format, $contentType);
+        $request = $this->generateUnitedNettingReportRequest($generate_united_netting_report_request, $format, $language, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4125,15 +9677,16 @@ class ReportsApi
      * Отчет по платежам
      *
      * @param  \YandexMarketApi\Model\GenerateUnitedNettingReportRequest $generate_united_netting_report_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  ReportLanguageType $language Язык отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateUnitedNettingReport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function generateUnitedNettingReportAsync($generate_united_netting_report_request, $format = null, string $contentType = self::contentTypes['generateUnitedNettingReport'][0])
+    public function generateUnitedNettingReportAsync($generate_united_netting_report_request, $format = null, $language = null, string $contentType = self::contentTypes['generateUnitedNettingReport'][0])
     {
-        return $this->generateUnitedNettingReportAsyncWithHttpInfo($generate_united_netting_report_request, $format, $contentType)
+        return $this->generateUnitedNettingReportAsyncWithHttpInfo($generate_united_netting_report_request, $format, $language, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4147,16 +9700,17 @@ class ReportsApi
      * Отчет по платежам
      *
      * @param  \YandexMarketApi\Model\GenerateUnitedNettingReportRequest $generate_united_netting_report_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  ReportLanguageType $language Язык отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateUnitedNettingReport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function generateUnitedNettingReportAsyncWithHttpInfo($generate_united_netting_report_request, $format = null, string $contentType = self::contentTypes['generateUnitedNettingReport'][0])
+    public function generateUnitedNettingReportAsyncWithHttpInfo($generate_united_netting_report_request, $format = null, $language = null, string $contentType = self::contentTypes['generateUnitedNettingReport'][0])
     {
         $returnType = '\YandexMarketApi\Model\GenerateReportResponse';
-        $request = $this->generateUnitedNettingReportRequest($generate_united_netting_report_request, $format, $contentType);
+        $request = $this->generateUnitedNettingReportRequest($generate_united_netting_report_request, $format, $language, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4198,13 +9752,14 @@ class ReportsApi
      * Create request for operation 'generateUnitedNettingReport'
      *
      * @param  \YandexMarketApi\Model\GenerateUnitedNettingReportRequest $generate_united_netting_report_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  ReportLanguageType $language Язык отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateUnitedNettingReport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function generateUnitedNettingReportRequest($generate_united_netting_report_request, $format = null, string $contentType = self::contentTypes['generateUnitedNettingReport'][0])
+    public function generateUnitedNettingReportRequest($generate_united_netting_report_request, $format = null, $language = null, string $contentType = self::contentTypes['generateUnitedNettingReport'][0])
     {
 
         // verify the required parameter 'generate_united_netting_report_request' is set
@@ -4216,7 +9771,8 @@ class ReportsApi
 
 
 
-        $resourcePath = '/reports/united-netting/generate';
+
+        $resourcePath = '/v2/reports/united-netting/generate';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -4228,6 +9784,15 @@ class ReportsApi
             $format,
             'format', // param base name
             'ReportFormatType', // openApiType
+            '', // style
+            false, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $language,
+            'language', // param base name
+            'ReportLanguageType', // openApiType
             '', // style
             false, // explode
             false // required
@@ -4274,6 +9839,11 @@ class ReportsApi
             }
         }
 
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
@@ -4306,16 +9876,17 @@ class ReportsApi
      * Отчет по заказам
      *
      * @param  \YandexMarketApi\Model\GenerateUnitedOrdersRequest $generate_united_orders_request generate_united_orders_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  ReportLanguageType $language Язык отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateUnitedOrdersReport'] to see the possible values for this operation
      *
      * @throws \YandexMarketApi\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \YandexMarketApi\Model\GenerateReportResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse
      */
-    public function generateUnitedOrdersReport($generate_united_orders_request, $format = null, string $contentType = self::contentTypes['generateUnitedOrdersReport'][0])
+    public function generateUnitedOrdersReport($generate_united_orders_request, $format = null, $language = null, string $contentType = self::contentTypes['generateUnitedOrdersReport'][0])
     {
-        list($response) = $this->generateUnitedOrdersReportWithHttpInfo($generate_united_orders_request, $format, $contentType);
+        list($response) = $this->generateUnitedOrdersReportWithHttpInfo($generate_united_orders_request, $format, $language, $contentType);
         return $response;
     }
 
@@ -4325,16 +9896,17 @@ class ReportsApi
      * Отчет по заказам
      *
      * @param  \YandexMarketApi\Model\GenerateUnitedOrdersRequest $generate_united_orders_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  ReportLanguageType $language Язык отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateUnitedOrdersReport'] to see the possible values for this operation
      *
      * @throws \YandexMarketApi\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \YandexMarketApi\Model\GenerateReportResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function generateUnitedOrdersReportWithHttpInfo($generate_united_orders_request, $format = null, string $contentType = self::contentTypes['generateUnitedOrdersReport'][0])
+    public function generateUnitedOrdersReportWithHttpInfo($generate_united_orders_request, $format = null, $language = null, string $contentType = self::contentTypes['generateUnitedOrdersReport'][0])
     {
-        $request = $this->generateUnitedOrdersReportRequest($generate_united_orders_request, $format, $contentType);
+        $request = $this->generateUnitedOrdersReportRequest($generate_united_orders_request, $format, $language, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4541,15 +10113,16 @@ class ReportsApi
      * Отчет по заказам
      *
      * @param  \YandexMarketApi\Model\GenerateUnitedOrdersRequest $generate_united_orders_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  ReportLanguageType $language Язык отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateUnitedOrdersReport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function generateUnitedOrdersReportAsync($generate_united_orders_request, $format = null, string $contentType = self::contentTypes['generateUnitedOrdersReport'][0])
+    public function generateUnitedOrdersReportAsync($generate_united_orders_request, $format = null, $language = null, string $contentType = self::contentTypes['generateUnitedOrdersReport'][0])
     {
-        return $this->generateUnitedOrdersReportAsyncWithHttpInfo($generate_united_orders_request, $format, $contentType)
+        return $this->generateUnitedOrdersReportAsyncWithHttpInfo($generate_united_orders_request, $format, $language, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4563,16 +10136,17 @@ class ReportsApi
      * Отчет по заказам
      *
      * @param  \YandexMarketApi\Model\GenerateUnitedOrdersRequest $generate_united_orders_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  ReportLanguageType $language Язык отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateUnitedOrdersReport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function generateUnitedOrdersReportAsyncWithHttpInfo($generate_united_orders_request, $format = null, string $contentType = self::contentTypes['generateUnitedOrdersReport'][0])
+    public function generateUnitedOrdersReportAsyncWithHttpInfo($generate_united_orders_request, $format = null, $language = null, string $contentType = self::contentTypes['generateUnitedOrdersReport'][0])
     {
         $returnType = '\YandexMarketApi\Model\GenerateReportResponse';
-        $request = $this->generateUnitedOrdersReportRequest($generate_united_orders_request, $format, $contentType);
+        $request = $this->generateUnitedOrdersReportRequest($generate_united_orders_request, $format, $language, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4614,13 +10188,14 @@ class ReportsApi
      * Create request for operation 'generateUnitedOrdersReport'
      *
      * @param  \YandexMarketApi\Model\GenerateUnitedOrdersRequest $generate_united_orders_request (required)
-     * @param  ReportFormatType $format Формат отчета. (optional)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  ReportLanguageType $language Язык отчета или документа. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateUnitedOrdersReport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function generateUnitedOrdersReportRequest($generate_united_orders_request, $format = null, string $contentType = self::contentTypes['generateUnitedOrdersReport'][0])
+    public function generateUnitedOrdersReportRequest($generate_united_orders_request, $format = null, $language = null, string $contentType = self::contentTypes['generateUnitedOrdersReport'][0])
     {
 
         // verify the required parameter 'generate_united_orders_request' is set
@@ -4632,7 +10207,8 @@ class ReportsApi
 
 
 
-        $resourcePath = '/reports/united-orders/generate';
+
+        $resourcePath = '/v2/reports/united-orders/generate';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -4644,6 +10220,15 @@ class ReportsApi
             $format,
             'format', // param base name
             'ReportFormatType', // openApiType
+            '', // style
+            false, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $language,
+            'language', // param base name
+            'ReportLanguageType', // openApiType
             '', // style
             false, // explode
             false // required
@@ -4690,6 +10275,432 @@ class ReportsApi
             }
         }
 
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation generateUnitedReturnsReport
+     *
+     * Отчет по невыкупам и возвратам
+     *
+     * @param  \YandexMarketApi\Model\GenerateUnitedReturnsRequest $generate_united_returns_request generate_united_returns_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateUnitedReturnsReport'] to see the possible values for this operation
+     *
+     * @throws \YandexMarketApi\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \YandexMarketApi\Model\GenerateReportResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse
+     */
+    public function generateUnitedReturnsReport($generate_united_returns_request, $format = null, string $contentType = self::contentTypes['generateUnitedReturnsReport'][0])
+    {
+        list($response) = $this->generateUnitedReturnsReportWithHttpInfo($generate_united_returns_request, $format, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation generateUnitedReturnsReportWithHttpInfo
+     *
+     * Отчет по невыкупам и возвратам
+     *
+     * @param  \YandexMarketApi\Model\GenerateUnitedReturnsRequest $generate_united_returns_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateUnitedReturnsReport'] to see the possible values for this operation
+     *
+     * @throws \YandexMarketApi\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \YandexMarketApi\Model\GenerateReportResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function generateUnitedReturnsReportWithHttpInfo($generate_united_returns_request, $format = null, string $contentType = self::contentTypes['generateUnitedReturnsReport'][0])
+    {
+        $request = $this->generateUnitedReturnsReportRequest($generate_united_returns_request, $format, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\YandexMarketApi\Model\GenerateReportResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\GenerateReportResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\GenerateReportResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 400:
+                    if ('\YandexMarketApi\Model\ApiClientDataErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiClientDataErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiClientDataErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 401:
+                    if ('\YandexMarketApi\Model\ApiUnauthorizedErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiUnauthorizedErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiUnauthorizedErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
+                    if ('\YandexMarketApi\Model\ApiForbiddenErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiForbiddenErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiForbiddenErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 420:
+                    if ('\YandexMarketApi\Model\ApiLimitErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiLimitErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiLimitErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 500:
+                    if ('\YandexMarketApi\Model\ApiServerErrorResponse' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\YandexMarketApi\Model\ApiServerErrorResponse' !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\YandexMarketApi\Model\ApiServerErrorResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\YandexMarketApi\Model\GenerateReportResponse';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+                if ($returnType !== 'string') {
+                    $content = json_decode($content);
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\GenerateReportResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiClientDataErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiUnauthorizedErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiForbiddenErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 420:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiLimitErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\YandexMarketApi\Model\ApiServerErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation generateUnitedReturnsReportAsync
+     *
+     * Отчет по невыкупам и возвратам
+     *
+     * @param  \YandexMarketApi\Model\GenerateUnitedReturnsRequest $generate_united_returns_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateUnitedReturnsReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function generateUnitedReturnsReportAsync($generate_united_returns_request, $format = null, string $contentType = self::contentTypes['generateUnitedReturnsReport'][0])
+    {
+        return $this->generateUnitedReturnsReportAsyncWithHttpInfo($generate_united_returns_request, $format, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation generateUnitedReturnsReportAsyncWithHttpInfo
+     *
+     * Отчет по невыкупам и возвратам
+     *
+     * @param  \YandexMarketApi\Model\GenerateUnitedReturnsRequest $generate_united_returns_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateUnitedReturnsReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function generateUnitedReturnsReportAsyncWithHttpInfo($generate_united_returns_request, $format = null, string $contentType = self::contentTypes['generateUnitedReturnsReport'][0])
+    {
+        $returnType = '\YandexMarketApi\Model\GenerateReportResponse';
+        $request = $this->generateUnitedReturnsReportRequest($generate_united_returns_request, $format, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'generateUnitedReturnsReport'
+     *
+     * @param  \YandexMarketApi\Model\GenerateUnitedReturnsRequest $generate_united_returns_request (required)
+     * @param  ReportFormatType $format Формат отчета или документа. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['generateUnitedReturnsReport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function generateUnitedReturnsReportRequest($generate_united_returns_request, $format = null, string $contentType = self::contentTypes['generateUnitedReturnsReport'][0])
+    {
+
+        // verify the required parameter 'generate_united_returns_request' is set
+        if ($generate_united_returns_request === null || (is_array($generate_united_returns_request) && count($generate_united_returns_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $generate_united_returns_request when calling generateUnitedReturnsReport'
+            );
+        }
+
+
+
+        $resourcePath = '/v2/reports/united-returns/generate';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $format,
+            'format', // param base name
+            'ReportFormatType', // openApiType
+            '', // style
+            false, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($generate_united_returns_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($generate_united_returns_request));
+            } else {
+                $httpBody = $generate_united_returns_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
@@ -4719,9 +10730,9 @@ class ReportsApi
     /**
      * Operation getReportInfo
      *
-     * Статус генерации и скачивание готовых отчетов
+     * Получение заданного отчета или документа
      *
-     * @param  string $report_id Идентификатор отчета, который вы получили после запуска генерации. (required)
+     * @param  string $report_id Идентификатор отчета или документа, который вы получили после запуска генерации. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getReportInfo'] to see the possible values for this operation
      *
      * @throws \YandexMarketApi\ApiException on non-2xx response
@@ -4737,9 +10748,9 @@ class ReportsApi
     /**
      * Operation getReportInfoWithHttpInfo
      *
-     * Статус генерации и скачивание готовых отчетов
+     * Получение заданного отчета или документа
      *
-     * @param  string $report_id Идентификатор отчета, который вы получили после запуска генерации. (required)
+     * @param  string $report_id Идентификатор отчета или документа, который вы получили после запуска генерации. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getReportInfo'] to see the possible values for this operation
      *
      * @throws \YandexMarketApi\ApiException on non-2xx response
@@ -4975,9 +10986,9 @@ class ReportsApi
     /**
      * Operation getReportInfoAsync
      *
-     * Статус генерации и скачивание готовых отчетов
+     * Получение заданного отчета или документа
      *
-     * @param  string $report_id Идентификатор отчета, который вы получили после запуска генерации. (required)
+     * @param  string $report_id Идентификатор отчета или документа, который вы получили после запуска генерации. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getReportInfo'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -4996,9 +11007,9 @@ class ReportsApi
     /**
      * Operation getReportInfoAsyncWithHttpInfo
      *
-     * Статус генерации и скачивание готовых отчетов
+     * Получение заданного отчета или документа
      *
-     * @param  string $report_id Идентификатор отчета, который вы получили после запуска генерации. (required)
+     * @param  string $report_id Идентификатор отчета или документа, который вы получили после запуска генерации. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getReportInfo'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -5048,7 +11059,7 @@ class ReportsApi
     /**
      * Create request for operation 'getReportInfo'
      *
-     * @param  string $report_id Идентификатор отчета, который вы получили после запуска генерации. (required)
+     * @param  string $report_id Идентификатор отчета или документа, который вы получили после запуска генерации. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getReportInfo'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -5063,9 +11074,15 @@ class ReportsApi
                 'Missing the required parameter $report_id when calling getReportInfo'
             );
         }
+        if (strlen($report_id) > 255) {
+            throw new \InvalidArgumentException('invalid length for "$report_id" when calling ReportsApi.getReportInfo, must be smaller than or equal to 255.');
+        }
+        if (strlen($report_id) < 1) {
+            throw new \InvalidArgumentException('invalid length for "$report_id" when calling ReportsApi.getReportInfo, must be bigger than or equal to 1.');
+        }
+        
 
-
-        $resourcePath = '/reports/info/{reportId}';
+        $resourcePath = '/v2/reports/info/{reportId}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -5115,6 +11132,11 @@ class ReportsApi
             }
         }
 
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Api-Key');
+        if ($apiKey !== null) {
+            $headers['Api-Key'] = $apiKey;
+        }
         // this endpoint requires OAuth (access token)
         if (!empty($this->config->getAccessToken())) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();

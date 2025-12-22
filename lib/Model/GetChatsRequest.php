@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -59,6 +59,8 @@ class GetChatsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'order_ids' => 'int[]',
+        'contexts' => '\YandexMarketApi\Model\ChatContextDTO[]',
+        'context_types' => '\YandexMarketApi\Model\ChatContextType[]',
         'types' => '\YandexMarketApi\Model\ChatType[]',
         'statuses' => '\YandexMarketApi\Model\ChatStatusType[]'
     ];
@@ -72,6 +74,8 @@ class GetChatsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'order_ids' => 'int64',
+        'contexts' => null,
+        'context_types' => null,
         'types' => null,
         'statuses' => null
     ];
@@ -82,9 +86,11 @@ class GetChatsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'order_ids' => false,
-		'types' => false,
-		'statuses' => false
+        'order_ids' => true,
+		'contexts' => true,
+		'context_types' => true,
+		'types' => true,
+		'statuses' => true
     ];
 
     /**
@@ -174,6 +180,8 @@ class GetChatsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'order_ids' => 'orderIds',
+        'contexts' => 'contexts',
+        'context_types' => 'contextTypes',
         'types' => 'types',
         'statuses' => 'statuses'
     ];
@@ -185,6 +193,8 @@ class GetChatsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'order_ids' => 'setOrderIds',
+        'contexts' => 'setContexts',
+        'context_types' => 'setContextTypes',
         'types' => 'setTypes',
         'statuses' => 'setStatuses'
     ];
@@ -196,6 +206,8 @@ class GetChatsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'order_ids' => 'getOrderIds',
+        'contexts' => 'getContexts',
+        'context_types' => 'getContextTypes',
         'types' => 'getTypes',
         'statuses' => 'getStatuses'
     ];
@@ -258,6 +270,8 @@ class GetChatsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(array $data = null)
     {
         $this->setIfExists('order_ids', $data ?? [], null);
+        $this->setIfExists('contexts', $data ?? [], null);
+        $this->setIfExists('context_types', $data ?? [], null);
         $this->setIfExists('types', $data ?? [], null);
         $this->setIfExists('statuses', $data ?? [], null);
     }
@@ -293,6 +307,14 @@ class GetChatsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'order_ids', number of items must be greater than or equal to 1.";
         }
 
+        if (!is_null($this->container['contexts']) && (count($this->container['contexts']) < 1)) {
+            $invalidProperties[] = "invalid value for 'contexts', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['context_types']) && (count($this->container['context_types']) < 1)) {
+            $invalidProperties[] = "invalid value for 'context_types', number of items must be greater than or equal to 1.";
+        }
+
         if (!is_null($this->container['types']) && (count($this->container['types']) < 1)) {
             $invalidProperties[] = "invalid value for 'types', number of items must be greater than or equal to 1.";
         }
@@ -320,6 +342,7 @@ class GetChatsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
      * Gets order_ids
      *
      * @return int[]|null
+     * @deprecated
      */
     public function getOrderIds()
     {
@@ -332,18 +355,104 @@ class GetChatsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
      * @param int[]|null $order_ids Фильтр по идентификаторам заказов на Маркете.
      *
      * @return self
+     * @deprecated
      */
     public function setOrderIds($order_ids)
     {
         if (is_null($order_ids)) {
-            throw new \InvalidArgumentException('non-nullable order_ids cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'order_ids');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('order_ids', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
         }
 
 
-        if ((count($order_ids) < 1)) {
+        if (!is_null($order_ids) && (count($order_ids) < 1)) {
             throw new \InvalidArgumentException('invalid length for $order_ids when calling GetChatsRequest., number of items must be greater than or equal to 1.');
         }
         $this->container['order_ids'] = $order_ids;
+
+        return $this;
+    }
+
+    /**
+     * Gets contexts
+     *
+     * @return \YandexMarketApi\Model\ChatContextDTO[]|null
+     */
+    public function getContexts()
+    {
+        return $this->container['contexts'];
+    }
+
+    /**
+     * Sets contexts
+     *
+     * @param \YandexMarketApi\Model\ChatContextDTO[]|null $contexts Фильтр по контексту чата.
+     *
+     * @return self
+     */
+    public function setContexts($contexts)
+    {
+        if (is_null($contexts)) {
+            array_push($this->openAPINullablesSetToNull, 'contexts');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('contexts', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+
+        if (!is_null($contexts) && (count($contexts) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $contexts when calling GetChatsRequest., number of items must be greater than or equal to 1.');
+        }
+        $this->container['contexts'] = $contexts;
+
+        return $this;
+    }
+
+    /**
+     * Gets context_types
+     *
+     * @return \YandexMarketApi\Model\ChatContextType[]|null
+     */
+    public function getContextTypes()
+    {
+        return $this->container['context_types'];
+    }
+
+    /**
+     * Sets context_types
+     *
+     * @param \YandexMarketApi\Model\ChatContextType[]|null $context_types Фильтр по типу контекста чата.
+     *
+     * @return self
+     */
+    public function setContextTypes($context_types)
+    {
+        if (is_null($context_types)) {
+            array_push($this->openAPINullablesSetToNull, 'context_types');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('context_types', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+
+        if (!is_null($context_types) && (count($context_types) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $context_types when calling GetChatsRequest., number of items must be greater than or equal to 1.');
+        }
+        $this->container['context_types'] = $context_types;
 
         return $this;
     }
@@ -368,11 +477,18 @@ class GetChatsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setTypes($types)
     {
         if (is_null($types)) {
-            throw new \InvalidArgumentException('non-nullable types cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'types');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('types', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
         }
 
 
-        if ((count($types) < 1)) {
+        if (!is_null($types) && (count($types) < 1)) {
             throw new \InvalidArgumentException('invalid length for $types when calling GetChatsRequest., number of items must be greater than or equal to 1.');
         }
         $this->container['types'] = $types;
@@ -400,11 +516,18 @@ class GetChatsRequest implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setStatuses($statuses)
     {
         if (is_null($statuses)) {
-            throw new \InvalidArgumentException('non-nullable statuses cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'statuses');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('statuses', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
         }
 
 
-        if ((count($statuses) < 1)) {
+        if (!is_null($statuses) && (count($statuses) < 1)) {
             throw new \InvalidArgumentException('invalid length for $statuses when calling GetChatsRequest., number of items must be greater than or equal to 1.');
         }
         $this->container['statuses'] = $statuses;

@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -61,8 +61,7 @@ class RegionDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'id' => 'int',
         'name' => 'string',
         'type' => '\YandexMarketApi\Model\RegionType',
-        'parent' => '\YandexMarketApi\Model\RegionDTO',
-        'children' => '\YandexMarketApi\Model\RegionDTO[]'
+        'parent' => '\YandexMarketApi\Model\RegionDTO'
     ];
 
     /**
@@ -76,8 +75,7 @@ class RegionDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'id' => 'int64',
         'name' => null,
         'type' => null,
-        'parent' => null,
-        'children' => null
+        'parent' => null
     ];
 
     /**
@@ -89,8 +87,7 @@ class RegionDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'id' => false,
 		'name' => false,
 		'type' => false,
-		'parent' => false,
-		'children' => false
+		'parent' => false
     ];
 
     /**
@@ -182,8 +179,7 @@ class RegionDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'id' => 'id',
         'name' => 'name',
         'type' => 'type',
-        'parent' => 'parent',
-        'children' => 'children'
+        'parent' => 'parent'
     ];
 
     /**
@@ -195,8 +191,7 @@ class RegionDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'id' => 'setId',
         'name' => 'setName',
         'type' => 'setType',
-        'parent' => 'setParent',
-        'children' => 'setChildren'
+        'parent' => 'setParent'
     ];
 
     /**
@@ -208,8 +203,7 @@ class RegionDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'id' => 'getId',
         'name' => 'getName',
         'type' => 'getType',
-        'parent' => 'getParent',
-        'children' => 'getChildren'
+        'parent' => 'getParent'
     ];
 
     /**
@@ -273,7 +267,6 @@ class RegionDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('name', $data ?? [], null);
         $this->setIfExists('type', $data ?? [], null);
         $this->setIfExists('parent', $data ?? [], null);
-        $this->setIfExists('children', $data ?? [], null);
     }
 
     /**
@@ -303,6 +296,9 @@ class RegionDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if ($this->container['id'] === null) {
+            $invalidProperties[] = "'id' can't be null";
+        }
         if ($this->container['name'] === null) {
             $invalidProperties[] = "'name' can't be null";
         }
@@ -327,7 +323,7 @@ class RegionDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets id
      *
-     * @return int|null
+     * @return int
      */
     public function getId()
     {
@@ -337,7 +333,7 @@ class RegionDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param int|null $id Идентификатор региона.
+     * @param int $id Идентификатор региона.
      *
      * @return self
      */
@@ -428,33 +424,6 @@ class RegionDTO implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable parent cannot be null');
         }
         $this->container['parent'] = $parent;
-
-        return $this;
-    }
-
-    /**
-     * Gets children
-     *
-     * @return \YandexMarketApi\Model\RegionDTO[]|null
-     */
-    public function getChildren()
-    {
-        return $this->container['children'];
-    }
-
-    /**
-     * Sets children
-     *
-     * @param \YandexMarketApi\Model\RegionDTO[]|null $children Дочерние регионы.
-     *
-     * @return self
-     */
-    public function setChildren($children)
-    {
-        if (is_null($children)) {
-            throw new \InvalidArgumentException('non-nullable children cannot be null');
-        }
-        $this->container['children'] = $children;
 
         return $this;
     }

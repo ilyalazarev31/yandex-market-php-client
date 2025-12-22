@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -65,7 +65,9 @@ class ReturnDecisionDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
         'subreason_type' => '\YandexMarketApi\Model\ReturnDecisionSubreasonType',
         'decision_type' => '\YandexMarketApi\Model\ReturnDecisionType',
         'refund_amount' => 'int',
+        'amount' => '\YandexMarketApi\Model\CurrencyValueDTO',
         'partner_compensation' => 'int',
+        'partner_compensation_amount' => '\YandexMarketApi\Model\CurrencyValueDTO',
         'images' => 'string[]'
     ];
 
@@ -84,7 +86,9 @@ class ReturnDecisionDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
         'subreason_type' => null,
         'decision_type' => null,
         'refund_amount' => 'int64',
+        'amount' => null,
         'partner_compensation' => 'int64',
+        'partner_compensation_amount' => null,
         'images' => null
     ];
 
@@ -101,8 +105,10 @@ class ReturnDecisionDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
 		'subreason_type' => false,
 		'decision_type' => false,
 		'refund_amount' => false,
+		'amount' => false,
 		'partner_compensation' => false,
-		'images' => false
+		'partner_compensation_amount' => false,
+		'images' => true
     ];
 
     /**
@@ -198,7 +204,9 @@ class ReturnDecisionDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
         'subreason_type' => 'subreasonType',
         'decision_type' => 'decisionType',
         'refund_amount' => 'refundAmount',
+        'amount' => 'amount',
         'partner_compensation' => 'partnerCompensation',
+        'partner_compensation_amount' => 'partnerCompensationAmount',
         'images' => 'images'
     ];
 
@@ -215,7 +223,9 @@ class ReturnDecisionDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
         'subreason_type' => 'setSubreasonType',
         'decision_type' => 'setDecisionType',
         'refund_amount' => 'setRefundAmount',
+        'amount' => 'setAmount',
         'partner_compensation' => 'setPartnerCompensation',
+        'partner_compensation_amount' => 'setPartnerCompensationAmount',
         'images' => 'setImages'
     ];
 
@@ -232,7 +242,9 @@ class ReturnDecisionDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
         'subreason_type' => 'getSubreasonType',
         'decision_type' => 'getDecisionType',
         'refund_amount' => 'getRefundAmount',
+        'amount' => 'getAmount',
         'partner_compensation' => 'getPartnerCompensation',
+        'partner_compensation_amount' => 'getPartnerCompensationAmount',
         'images' => 'getImages'
     ];
 
@@ -300,7 +312,9 @@ class ReturnDecisionDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
         $this->setIfExists('subreason_type', $data ?? [], null);
         $this->setIfExists('decision_type', $data ?? [], null);
         $this->setIfExists('refund_amount', $data ?? [], null);
+        $this->setIfExists('amount', $data ?? [], null);
         $this->setIfExists('partner_compensation', $data ?? [], null);
+        $this->setIfExists('partner_compensation_amount', $data ?? [], null);
         $this->setIfExists('images', $data ?? [], null);
     }
 
@@ -330,6 +344,10 @@ class ReturnDecisionDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
     public function listInvalidProperties()
     {
         $invalidProperties = [];
+
+        if (!is_null($this->container['images']) && (count($this->container['images']) < 1)) {
+            $invalidProperties[] = "invalid value for 'images', number of items must be greater than or equal to 1.";
+        }
 
         return $invalidProperties;
     }
@@ -512,6 +530,7 @@ class ReturnDecisionDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
      * Gets refund_amount
      *
      * @return int|null
+     * @deprecated
      */
     public function getRefundAmount()
     {
@@ -521,9 +540,10 @@ class ReturnDecisionDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets refund_amount
      *
-     * @param int|null $refund_amount Сумма возврата.
+     * @param int|null $refund_amount {% note warning \"Вместо него используйте `amount`.\" %}     {% endnote %}  Сумма возврата в копейках.
      *
      * @return self
+     * @deprecated
      */
     public function setRefundAmount($refund_amount)
     {
@@ -536,9 +556,37 @@ class ReturnDecisionDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
     }
 
     /**
+     * Gets amount
+     *
+     * @return \YandexMarketApi\Model\CurrencyValueDTO|null
+     */
+    public function getAmount()
+    {
+        return $this->container['amount'];
+    }
+
+    /**
+     * Sets amount
+     *
+     * @param \YandexMarketApi\Model\CurrencyValueDTO|null $amount amount
+     *
+     * @return self
+     */
+    public function setAmount($amount)
+    {
+        if (is_null($amount)) {
+            throw new \InvalidArgumentException('non-nullable amount cannot be null');
+        }
+        $this->container['amount'] = $amount;
+
+        return $this;
+    }
+
+    /**
      * Gets partner_compensation
      *
      * @return int|null
+     * @deprecated
      */
     public function getPartnerCompensation()
     {
@@ -548,9 +596,10 @@ class ReturnDecisionDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets partner_compensation
      *
-     * @param int|null $partner_compensation Компенсация за обратную доставку.
+     * @param int|null $partner_compensation {% note warning \"Вместо него используйте `partnerCompensationAmount`.\" %}     {% endnote %}  Компенсация за обратную доставку в копейках.
      *
      * @return self
+     * @deprecated
      */
     public function setPartnerCompensation($partner_compensation)
     {
@@ -558,6 +607,33 @@ class ReturnDecisionDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
             throw new \InvalidArgumentException('non-nullable partner_compensation cannot be null');
         }
         $this->container['partner_compensation'] = $partner_compensation;
+
+        return $this;
+    }
+
+    /**
+     * Gets partner_compensation_amount
+     *
+     * @return \YandexMarketApi\Model\CurrencyValueDTO|null
+     */
+    public function getPartnerCompensationAmount()
+    {
+        return $this->container['partner_compensation_amount'];
+    }
+
+    /**
+     * Sets partner_compensation_amount
+     *
+     * @param \YandexMarketApi\Model\CurrencyValueDTO|null $partner_compensation_amount partner_compensation_amount
+     *
+     * @return self
+     */
+    public function setPartnerCompensationAmount($partner_compensation_amount)
+    {
+        if (is_null($partner_compensation_amount)) {
+            throw new \InvalidArgumentException('non-nullable partner_compensation_amount cannot be null');
+        }
+        $this->container['partner_compensation_amount'] = $partner_compensation_amount;
 
         return $this;
     }
@@ -582,7 +658,19 @@ class ReturnDecisionDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
     public function setImages($images)
     {
         if (is_null($images)) {
-            throw new \InvalidArgumentException('non-nullable images cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'images');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('images', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+
+        if (!is_null($images) && (count($images) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $images when calling ReturnDecisionDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['images'] = $images;
 

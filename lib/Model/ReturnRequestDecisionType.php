@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -33,7 +33,7 @@ use \YandexMarketApi\ObjectSerializer;
  * ReturnRequestDecisionType Class Doc Comment
  *
  * @category Class
- * @description Решение по возврату.
+ * @description Решение по возврату:  * &#x60;FAST_REFUND_MONEY&#x60; — вернуть покупателю деньги без возврата товара.  * &#x60;REFUND_MONEY&#x60; — вернуть покупателю деньги за товар.  * &#x60;REFUND_MONEY_INCLUDING_SHIPMENT&#x60; — вернуть покупателю деньги за товар и обратную пересылку.  * &#x60;REPAIR&#x60; — отремонтировать товар.  * &#x60;REPLACE&#x60; — заменить товар.  * &#x60;SEND_TO_EXAMINATION&#x60; — взять товар на экспертизу.  * &#x60;DECLINE_REFUND&#x60; — отказать в возврате.  * &#x60;OTHER_DECISION&#x60; — другое решение.
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -43,6 +43,8 @@ class ReturnRequestDecisionType
     /**
      * Possible values of this enum
      */
+    public const FAST_REFUND_MONEY = 'FAST_REFUND_MONEY';
+
     public const REFUND_MONEY = 'REFUND_MONEY';
 
     public const REFUND_MONEY_INCLUDING_SHIPMENT = 'REFUND_MONEY_INCLUDING_SHIPMENT';
@@ -64,6 +66,7 @@ class ReturnRequestDecisionType
     public static function getAllowableEnumValues()
     {
         return [
+            self::FAST_REFUND_MONEY,
             self::REFUND_MONEY,
             self::REFUND_MONEY_INCLUDING_SHIPMENT,
             self::REPAIR,

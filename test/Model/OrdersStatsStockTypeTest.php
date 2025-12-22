@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -34,7 +34,7 @@ use PHPUnit\Framework\TestCase;
  * OrdersStatsStockTypeTest Class Doc Comment
  *
  * @category    Class
- * @description Тип товара:  * &#x60;DEFECT&#x60; — товар бракованный.  * &#x60;FIT&#x60; — товар надлежащего качества.
+ * @description Тип товара:  * &#x60;FIT&#x60; — товар надлежащего качества.  * &#x60;DEFECT&#x60; — товар бракованный.  * &#x60;EXPIRED&#x60; — товар с истекшим сроком годности.
  * @package     YandexMarketApi
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech

@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -282,6 +282,9 @@ class GetQuarantineOffersResultDTO implements ModelInterface, ArrayAccess, \Json
     {
         $invalidProperties = [];
 
+        if ($this->container['offers'] === null) {
+            $invalidProperties[] = "'offers' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -327,7 +330,7 @@ class GetQuarantineOffersResultDTO implements ModelInterface, ArrayAccess, \Json
     /**
      * Gets offers
      *
-     * @return \YandexMarketApi\Model\QuarantineOfferDTO[]|null
+     * @return \YandexMarketApi\Model\QuarantineOfferDTO[]
      */
     public function getOffers()
     {
@@ -337,7 +340,7 @@ class GetQuarantineOffersResultDTO implements ModelInterface, ArrayAccess, \Json
     /**
      * Sets offers
      *
-     * @param \YandexMarketApi\Model\QuarantineOfferDTO[]|null $offers Страница списка товаров в карантине.
+     * @param \YandexMarketApi\Model\QuarantineOfferDTO[] $offers Страница списка товаров в карантине.
      *
      * @return self
      */

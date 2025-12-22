@@ -10,7 +10,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -98,10 +98,22 @@ class BusinessOfferMappingsApiTest extends TestCase
     /**
      * Test case for deleteOffersFromArchive
      *
-     * Восстановление товаров из архива.
+     * Удаление товаров из архива.
      *
      */
     public function testDeleteOffersFromArchive()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for generateOfferBarcodes
+     *
+     * Генерация штрихкодов.
+     *
+     */
+    public function testGenerateOfferBarcodes()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
@@ -122,7 +134,7 @@ class BusinessOfferMappingsApiTest extends TestCase
     /**
      * Test case for getSuggestedOfferMappings
      *
-     * Предварительный просмотр карточек на Маркете, соответствующих вашим товарам.
+     * Просмотр карточек на Маркете, которые подходят вашим товарам.
      *
      */
     public function testGetSuggestedOfferMappings()
@@ -134,7 +146,7 @@ class BusinessOfferMappingsApiTest extends TestCase
     /**
      * Test case for updateOfferMappings
      *
-     * Добавление товаров в каталог и редактирование информации о них.
+     * Добавление товаров в каталог и изменение информации о них.
      *
      */
     public function testUpdateOfferMappings()

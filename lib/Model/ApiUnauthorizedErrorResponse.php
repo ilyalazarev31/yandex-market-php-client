@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -81,7 +81,7 @@ class ApiUnauthorizedErrorResponse implements ModelInterface, ArrayAccess, \Json
       */
     protected static array $openAPINullables = [
         'status' => false,
-		'errors' => false
+		'errors' => true
     ];
 
     /**
@@ -282,6 +282,13 @@ class ApiUnauthorizedErrorResponse implements ModelInterface, ArrayAccess, \Json
     {
         $invalidProperties = [];
 
+        if ($this->container['status'] === null) {
+            $invalidProperties[] = "'status' can't be null";
+        }
+        if (!is_null($this->container['errors']) && (count($this->container['errors']) < 1)) {
+            $invalidProperties[] = "invalid value for 'errors', number of items must be greater than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -300,7 +307,7 @@ class ApiUnauthorizedErrorResponse implements ModelInterface, ArrayAccess, \Json
     /**
      * Gets status
      *
-     * @return \YandexMarketApi\Model\ApiResponseStatusType|null
+     * @return \YandexMarketApi\Model\ApiResponseStatusType
      */
     public function getStatus()
     {
@@ -310,7 +317,7 @@ class ApiUnauthorizedErrorResponse implements ModelInterface, ArrayAccess, \Json
     /**
      * Sets status
      *
-     * @param \YandexMarketApi\Model\ApiResponseStatusType|null $status status
+     * @param \YandexMarketApi\Model\ApiResponseStatusType $status status
      *
      * @return self
      */
@@ -344,7 +351,19 @@ class ApiUnauthorizedErrorResponse implements ModelInterface, ArrayAccess, \Json
     public function setErrors($errors)
     {
         if (is_null($errors)) {
-            throw new \InvalidArgumentException('non-nullable errors cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'errors');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('errors', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+
+        if (!is_null($errors) && (count($errors) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $errors when calling ApiUnauthorizedErrorResponse., number of items must be greater than or equal to 1.');
         }
         $this->container['errors'] = $errors;
 

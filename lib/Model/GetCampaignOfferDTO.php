@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -98,8 +98,8 @@ class GetCampaignOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializa
 		'basic_price' => false,
 		'campaign_price' => false,
 		'status' => false,
-		'errors' => false,
-		'warnings' => false
+		'errors' => true,
+		'warnings' => true
     ];
 
     /**
@@ -327,14 +327,25 @@ class GetCampaignOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializa
         if ($this->container['offer_id'] === null) {
             $invalidProperties[] = "'offer_id' can't be null";
         }
-        if ((mb_strlen($this->container['offer_id']) > 80)) {
-            $invalidProperties[] = "invalid value for 'offer_id', the character length must be smaller than or equal to 80.";
+        if ((mb_strlen($this->container['offer_id']) > 255)) {
+            $invalidProperties[] = "invalid value for 'offer_id', the character length must be smaller than or equal to 255.";
         }
 
         if ((mb_strlen($this->container['offer_id']) < 1)) {
             $invalidProperties[] = "invalid value for 'offer_id', the character length must be bigger than or equal to 1.";
         }
 
+        if (!preg_match("/^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/", $this->container['offer_id'])) {
+            $invalidProperties[] = "invalid value for 'offer_id', must be conform to the pattern /^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/.";
+        }
+
+        if (!is_null($this->container['errors']) && (count($this->container['errors']) < 1)) {
+            $invalidProperties[] = "invalid value for 'errors', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['warnings']) && (count($this->container['warnings']) < 1)) {
+            $invalidProperties[] = "invalid value for 'warnings', number of items must be greater than or equal to 1.";
+        }
 
         return $invalidProperties;
     }
@@ -364,7 +375,7 @@ class GetCampaignOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets offer_id
      *
-     * @param string $offer_id Ваш SKU — идентификатор товара в вашей системе.  Разрешена любая последовательность длиной до 80 знаков. В нее могут входить английские и русские буквы, цифры и символы `. , / \\ ( ) [ ] - = _`  Правила использования SKU:  * У каждого товара SKU должен быть свой.  * SKU товара нельзя менять — можно только удалить товар и добавить заново с новым SKU.  * Уже заданный SKU нельзя освободить и использовать заново для другого товара. Каждый товар должен получать новый идентификатор, до того никогда не использовавшийся в вашем каталоге.  [Что такое SKU и как его назначать](https://yandex.ru/support/marketplace/assortment/add/index.html#fields)
+     * @param string $offer_id Ваш SKU — идентификатор товара в вашей системе.  Правила использования SKU:  * У каждого товара SKU должен быть свой.  * Уже заданный SKU нельзя освободить и использовать заново для другого товара. Каждый товар должен получать новый идентификатор, до того никогда не использовавшийся в вашем каталоге.  SKU товара можно изменить в кабинете продавца на Маркете. О том, как это сделать, читайте [в Справке Маркета для продавцов](https://yandex.ru/support2/marketplace/ru/assortment/operations/edit-sku).  {% note warning %}  Пробельные символы в начале и конце значения автоматически удаляются. Например, `\"  SKU123  \"` и `\"SKU123\"` будут обработаны как одинаковые значения.  {% endnote %}  [Что такое SKU и как его назначать](https://yandex.ru/support/marketplace/assortment/add/index.html#fields)
      *
      * @return self
      */
@@ -373,14 +384,14 @@ class GetCampaignOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializa
         if (is_null($offer_id)) {
             throw new \InvalidArgumentException('non-nullable offer_id cannot be null');
         }
-        if ((mb_strlen($offer_id) > 80)) {
-            throw new \InvalidArgumentException('invalid length for $offer_id when calling GetCampaignOfferDTO., must be smaller than or equal to 80.');
+        if ((mb_strlen($offer_id) > 255)) {
+            throw new \InvalidArgumentException('invalid length for $offer_id when calling GetCampaignOfferDTO., must be smaller than or equal to 255.');
         }
         if ((mb_strlen($offer_id) < 1)) {
             throw new \InvalidArgumentException('invalid length for $offer_id when calling GetCampaignOfferDTO., must be bigger than or equal to 1.');
         }
-        if ((!preg_match("/^[0-9a-zа-яА-ЯA-ZёËëЁ.,\\\\\/()\\[\\]\\-=_]{1,80}$/", $offer_id))) {
-            throw new \InvalidArgumentException("invalid value for \$offer_id when calling GetCampaignOfferDTO., must conform to the pattern /^[0-9a-zа-яА-ЯA-ZёËëЁ.,\\\\\/()\\[\\]\\-=_]{1,80}$/.");
+        if ((!preg_match("/^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/", $offer_id))) {
+            throw new \InvalidArgumentException("invalid value for \$offer_id when calling GetCampaignOfferDTO., must conform to the pattern /^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/.");
         }
 
         $this->container['offer_id'] = $offer_id;
@@ -392,6 +403,7 @@ class GetCampaignOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializa
      * Gets quantum
      *
      * @return \YandexMarketApi\Model\QuantumDTO|null
+     * @deprecated
      */
     public function getQuantum()
     {
@@ -404,6 +416,7 @@ class GetCampaignOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializa
      * @param \YandexMarketApi\Model\QuantumDTO|null $quantum quantum
      *
      * @return self
+     * @deprecated
      */
     public function setQuantum($quantum)
     {
@@ -419,6 +432,7 @@ class GetCampaignOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializa
      * Gets available
      *
      * @return bool|null
+     * @deprecated
      */
     public function getAvailable()
     {
@@ -428,9 +442,10 @@ class GetCampaignOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets available
      *
-     * @param bool|null $available Есть ли товар в продаже.
+     * @param bool|null $available {% note warning \"Вместо него используйте методы скрытия товаров с витрины\" %}  * [GET v2/campaigns/{campaignId}/hidden-offers](../../reference/assortment/getHiddenOffers.md) — просмотр скрытых товаров; * [POST v2/campaigns/{campaignId}/hidden-offers](../../reference/assortment/addHiddenOffers.md) — скрытие товаров; * [POST v2/campaigns/{campaignId}/hidden-offers/delete](../../reference/assortment/deleteHiddenOffers.md) — возобновление показа.  {% endnote %}  Есть ли товар в продаже.
      *
      * @return self
+     * @deprecated
      */
     public function setAvailable($available)
     {
@@ -543,7 +558,19 @@ class GetCampaignOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializa
     public function setErrors($errors)
     {
         if (is_null($errors)) {
-            throw new \InvalidArgumentException('non-nullable errors cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'errors');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('errors', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+
+        if (!is_null($errors) && (count($errors) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $errors when calling GetCampaignOfferDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['errors'] = $errors;
 
@@ -570,7 +597,19 @@ class GetCampaignOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializa
     public function setWarnings($warnings)
     {
         if (is_null($warnings)) {
-            throw new \InvalidArgumentException('non-nullable warnings cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'warnings');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('warnings', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+
+        if (!is_null($warnings) && (count($warnings) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $warnings when calling GetCampaignOfferDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['warnings'] = $warnings;
 

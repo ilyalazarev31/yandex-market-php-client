@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -94,8 +94,8 @@ class GetOrdersStatsRequest implements ModelInterface, ArrayAccess, \JsonSeriali
 		'date_to' => false,
 		'update_from' => false,
 		'update_to' => false,
-		'orders' => false,
-		'statuses' => false,
+		'orders' => true,
+		'statuses' => true,
 		'has_cis' => false
     ];
 
@@ -317,6 +317,14 @@ class GetOrdersStatsRequest implements ModelInterface, ArrayAccess, \JsonSeriali
     {
         $invalidProperties = [];
 
+        if (!is_null($this->container['orders']) && (count($this->container['orders']) < 1)) {
+            $invalidProperties[] = "invalid value for 'orders', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['statuses']) && (count($this->container['statuses']) < 1)) {
+            $invalidProperties[] = "invalid value for 'statuses', number of items must be greater than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -372,7 +380,7 @@ class GetOrdersStatsRequest implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Sets date_to
      *
-     * @param \DateTime|null $date_to Конечная дата, когда заказ был сформирован. Формат даты: `ГГГГ‑ММ‑ДД`. Нельзя использовать вместе с параметрами `updateFrom` и `updateTo`.
+     * @param \DateTime|null $date_to Конечная дата, когда заказ был сформирован.  Формат даты: `ГГГГ‑ММ‑ДД`.  Нельзя использовать вместе с параметрами `updateFrom` и `updateTo`.
      *
      * @return self
      */
@@ -399,7 +407,7 @@ class GetOrdersStatsRequest implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Sets update_from
      *
-     * @param \DateTime|null $update_from Начальная дата периода, за который были изменения статуса заказа. Формат даты: `ГГГГ‑ММ‑ДД`. Нельзя использовать вместе с параметрами `dateFrom` и `dateTo`.
+     * @param \DateTime|null $update_from Начальная дата периода, за который были изменения в заказе (например, статуса или информации о платежах).  Формат даты: `ГГГГ‑ММ‑ДД`.  Нельзя использовать вместе с параметрами `dateFrom` и `dateTo`.
      *
      * @return self
      */
@@ -426,7 +434,7 @@ class GetOrdersStatsRequest implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Sets update_to
      *
-     * @param \DateTime|null $update_to Конечная дата периода, за который были изменения статуса заказа. Формат даты: `ГГГГ‑ММ‑ДД`. Нельзя использовать вместе с параметрами `dateFrom` и `dateTo`.
+     * @param \DateTime|null $update_to Конечная дата периода, за который были изменения в заказе (например, статуса или информации о платежах).  Формат даты: `ГГГГ‑ММ‑ДД`.  Нельзя использовать вместе с параметрами `dateFrom` и `dateTo`.
      *
      * @return self
      */
@@ -460,7 +468,19 @@ class GetOrdersStatsRequest implements ModelInterface, ArrayAccess, \JsonSeriali
     public function setOrders($orders)
     {
         if (is_null($orders)) {
-            throw new \InvalidArgumentException('non-nullable orders cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'orders');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('orders', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+
+        if (!is_null($orders) && (count($orders) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $orders when calling GetOrdersStatsRequest., number of items must be greater than or equal to 1.');
         }
         $this->container['orders'] = $orders;
 
@@ -487,7 +507,19 @@ class GetOrdersStatsRequest implements ModelInterface, ArrayAccess, \JsonSeriali
     public function setStatuses($statuses)
     {
         if (is_null($statuses)) {
-            throw new \InvalidArgumentException('non-nullable statuses cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'statuses');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('statuses', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+
+        if (!is_null($statuses) && (count($statuses) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $statuses when calling GetOrdersStatsRequest., number of items must be greater than or equal to 1.');
         }
         $this->container['statuses'] = $statuses;
 
@@ -507,7 +539,7 @@ class GetOrdersStatsRequest implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Sets has_cis
      *
-     * @param bool|null $has_cis Нужно ли вернуть только те заказы, в составе которых есть хотя бы один товар с кодом идентификации [в системе «Честный ЗНАК»](https://честныйзнак.рф/):  * `true` — да. * `false` — нет. Такие коды присваиваются товарам, которые подлежат маркировке и относятся к определенным категориям.
+     * @param bool|null $has_cis Фильтр для получения заказов, в которых есть хотя бы один товар с кодом идентификации в системе [:no-translate[«Честный ЗНАК»]](https://честныйзнак.рф/) или [:no-translate[«ASL BELGISI»]](https://aslbelgisi.uz) (для продавцов :no-translate[Market Yandex Go]):  * `true` — да. * `false` — нет. Такие коды присваиваются товарам, которые подлежат маркировке и относятся к определенным категориям.
      *
      * @return self
      */

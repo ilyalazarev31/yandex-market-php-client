@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -282,6 +282,9 @@ class AddOffersToArchiveResponse implements ModelInterface, ArrayAccess, \JsonSe
     {
         $invalidProperties = [];
 
+        if ($this->container['status'] === null) {
+            $invalidProperties[] = "'status' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -300,7 +303,7 @@ class AddOffersToArchiveResponse implements ModelInterface, ArrayAccess, \JsonSe
     /**
      * Gets status
      *
-     * @return \YandexMarketApi\Model\ApiResponseStatusType|null
+     * @return \YandexMarketApi\Model\ApiResponseStatusType
      */
     public function getStatus()
     {
@@ -310,7 +313,7 @@ class AddOffersToArchiveResponse implements ModelInterface, ArrayAccess, \JsonSe
     /**
      * Sets status
      *
-     * @param \YandexMarketApi\Model\ApiResponseStatusType|null $status status
+     * @param \YandexMarketApi\Model\ApiResponseStatusType $status status
      *
      * @return self
      */

@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -59,7 +59,6 @@ class OrderShipmentDTO implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'id' => 'int',
-        'status' => '\YandexMarketApi\Model\OrderParcelStatusType',
         'shipment_date' => 'string',
         'shipment_time' => 'string',
         'tracks' => '\YandexMarketApi\Model\OrderTrackDTO[]',
@@ -75,7 +74,6 @@ class OrderShipmentDTO implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'id' => 'int64',
-        'status' => null,
         'shipment_date' => 'date-dd-MM-yyyy',
         'shipment_time' => null,
         'tracks' => null,
@@ -89,11 +87,10 @@ class OrderShipmentDTO implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static array $openAPINullables = [
         'id' => false,
-		'status' => false,
 		'shipment_date' => false,
 		'shipment_time' => false,
-		'tracks' => false,
-		'boxes' => false
+		'tracks' => true,
+		'boxes' => true
     ];
 
     /**
@@ -183,7 +180,6 @@ class OrderShipmentDTO implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'id' => 'id',
-        'status' => 'status',
         'shipment_date' => 'shipmentDate',
         'shipment_time' => 'shipmentTime',
         'tracks' => 'tracks',
@@ -197,7 +193,6 @@ class OrderShipmentDTO implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'id' => 'setId',
-        'status' => 'setStatus',
         'shipment_date' => 'setShipmentDate',
         'shipment_time' => 'setShipmentTime',
         'tracks' => 'setTracks',
@@ -211,7 +206,6 @@ class OrderShipmentDTO implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'id' => 'getId',
-        'status' => 'getStatus',
         'shipment_date' => 'getShipmentDate',
         'shipment_time' => 'getShipmentTime',
         'tracks' => 'getTracks',
@@ -276,7 +270,6 @@ class OrderShipmentDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(array $data = null)
     {
         $this->setIfExists('id', $data ?? [], null);
-        $this->setIfExists('status', $data ?? [], null);
         $this->setIfExists('shipment_date', $data ?? [], null);
         $this->setIfExists('shipment_time', $data ?? [], null);
         $this->setIfExists('tracks', $data ?? [], null);
@@ -310,6 +303,14 @@ class OrderShipmentDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if (!is_null($this->container['tracks']) && (count($this->container['tracks']) < 1)) {
+            $invalidProperties[] = "invalid value for 'tracks', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['boxes']) && (count($this->container['boxes']) < 1)) {
+            $invalidProperties[] = "invalid value for 'boxes', number of items must be greater than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -329,6 +330,7 @@ class OrderShipmentDTO implements ModelInterface, ArrayAccess, \JsonSerializable
      * Gets id
      *
      * @return int|null
+     * @deprecated
      */
     public function getId()
     {
@@ -341,6 +343,7 @@ class OrderShipmentDTO implements ModelInterface, ArrayAccess, \JsonSerializable
      * @param int|null $id Идентификатор посылки, присвоенный Маркетом.
      *
      * @return self
+     * @deprecated
      */
     public function setId($id)
     {
@@ -348,35 +351,6 @@ class OrderShipmentDTO implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable id cannot be null');
         }
         $this->container['id'] = $id;
-
-        return $this;
-    }
-
-    /**
-     * Gets status
-     *
-     * @return \YandexMarketApi\Model\OrderParcelStatusType|null
-     * @deprecated
-     */
-    public function getStatus()
-    {
-        return $this->container['status'];
-    }
-
-    /**
-     * Sets status
-     *
-     * @param \YandexMarketApi\Model\OrderParcelStatusType|null $status status
-     *
-     * @return self
-     * @deprecated
-     */
-    public function setStatus($status)
-    {
-        if (is_null($status)) {
-            throw new \InvalidArgumentException('non-nullable status cannot be null');
-        }
-        $this->container['status'] = $status;
 
         return $this;
     }
@@ -421,7 +395,7 @@ class OrderShipmentDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets shipment_time
      *
-     * @param string|null $shipment_time **Только для модели Экспресс**  Время, к которому магазин должен упаковать заказ и перевести его в статус `READY_TO_SHIP`. После смены статуса за заказом приедет курьер.  Формат времени: 24-часовой, `ЧЧ:ММ`.  Если заказ сделан организацией, параметр не возвращается до согласования даты доставки.
+     * @param string|null $shipment_time **Только для модели Экспресс**  Время, к которому магазин должен упаковать заказ и перевести его в статус `READY_TO_SHIP`. После смены статуса за заказом приедет курьер.  Поле может появиться не сразу. Запрашивайте информацию о заказе в течении 5–10 минут, пока оно не вернется.  Формат времени: 24-часовой, `ЧЧ:ММ`.  Если заказ сделан организацией, параметр не возвращается до согласования даты доставки.
      *
      * @return self
      */
@@ -448,14 +422,26 @@ class OrderShipmentDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets tracks
      *
-     * @param \YandexMarketApi\Model\OrderTrackDTO[]|null $tracks **Только для модели DBS**  Информация для отслеживания перемещений посылки.
+     * @param \YandexMarketApi\Model\OrderTrackDTO[]|null $tracks **Только для модели DBS**  Информация для отслеживания посылки.
      *
      * @return self
      */
     public function setTracks($tracks)
     {
         if (is_null($tracks)) {
-            throw new \InvalidArgumentException('non-nullable tracks cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'tracks');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('tracks', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+
+        if (!is_null($tracks) && (count($tracks) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $tracks when calling OrderShipmentDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['tracks'] = $tracks;
 
@@ -482,7 +468,19 @@ class OrderShipmentDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setBoxes($boxes)
     {
         if (is_null($boxes)) {
-            throw new \InvalidArgumentException('non-nullable boxes cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'boxes');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('boxes', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+
+        if (!is_null($boxes) && (count($boxes) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $boxes when calling OrderShipmentDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['boxes'] = $boxes;
 

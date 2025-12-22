@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -35,7 +35,7 @@ use \YandexMarketApi\ObjectSerializer;
  * GetPriceWithDiscountDTO Class Doc Comment
  *
  * @category Class
- * @description Цена с указанием скидки и времени последнего обновления.
+ * @description Цена с указанием валюты, скидки и времени последнего обновления.
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -341,7 +341,7 @@ class GetPriceWithDiscountDTO implements ModelInterface, ArrayAccess, \JsonSeria
     /**
      * Sets value
      *
-     * @param float $value Значение.
+     * @param float $value Цена товара.
      *
      * @return self
      */
@@ -400,7 +400,7 @@ class GetPriceWithDiscountDTO implements ModelInterface, ArrayAccess, \JsonSeria
     /**
      * Sets discount_base
      *
-     * @param float|null $discount_base Цена до скидки.  Число должно быть целым. Вы можете указать цену со скидкой от 5 до 75%.  Передавайте этот параметр при каждом обновлении цены, если предоставляете скидку на товар.
+     * @param float|null $discount_base Зачеркнутая цена.  Число должно быть целым. Вы можете указать цену со скидкой от 5 до 99%.  Передавайте этот параметр при каждом обновлении цены, если предоставляете скидку на товар.
      *
      * @return self
      */

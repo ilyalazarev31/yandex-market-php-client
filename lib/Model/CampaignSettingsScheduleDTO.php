@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -310,6 +310,18 @@ class CampaignSettingsScheduleDTO implements ModelInterface, ArrayAccess, \JsonS
     {
         $invalidProperties = [];
 
+        if ($this->container['custom_holidays'] === null) {
+            $invalidProperties[] = "'custom_holidays' can't be null";
+        }
+        if ($this->container['custom_working_days'] === null) {
+            $invalidProperties[] = "'custom_working_days' can't be null";
+        }
+        if ($this->container['total_holidays'] === null) {
+            $invalidProperties[] = "'total_holidays' can't be null";
+        }
+        if ($this->container['weekly_holidays'] === null) {
+            $invalidProperties[] = "'weekly_holidays' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -355,7 +367,7 @@ class CampaignSettingsScheduleDTO implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Gets custom_holidays
      *
-     * @return string[]|null
+     * @return string[]
      */
     public function getCustomHolidays()
     {
@@ -365,7 +377,7 @@ class CampaignSettingsScheduleDTO implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Sets custom_holidays
      *
-     * @param string[]|null $custom_holidays Список дней, в которые служба доставки не работает. Дни магазин указал в кабинете продавца на Маркете.
+     * @param string[] $custom_holidays Список дней, в которые служба доставки не работает. Дни магазин указал в кабинете продавца на Маркете.
      *
      * @return self
      */
@@ -374,6 +386,8 @@ class CampaignSettingsScheduleDTO implements ModelInterface, ArrayAccess, \JsonS
         if (is_null($custom_holidays)) {
             throw new \InvalidArgumentException('non-nullable custom_holidays cannot be null');
         }
+
+
         $this->container['custom_holidays'] = $custom_holidays;
 
         return $this;
@@ -382,7 +396,7 @@ class CampaignSettingsScheduleDTO implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Gets custom_working_days
      *
-     * @return string[]|null
+     * @return string[]
      */
     public function getCustomWorkingDays()
     {
@@ -392,7 +406,7 @@ class CampaignSettingsScheduleDTO implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Sets custom_working_days
      *
-     * @param string[]|null $custom_working_days Список выходных и праздничных дней, в которые служба доставки работает. Дни магазин указал в кабинете продавца на Маркете.
+     * @param string[] $custom_working_days Список выходных и праздничных дней, в которые служба доставки работает. Дни магазин указал в кабинете продавца на Маркете.
      *
      * @return self
      */
@@ -401,6 +415,8 @@ class CampaignSettingsScheduleDTO implements ModelInterface, ArrayAccess, \JsonS
         if (is_null($custom_working_days)) {
             throw new \InvalidArgumentException('non-nullable custom_working_days cannot be null');
         }
+
+
         $this->container['custom_working_days'] = $custom_working_days;
 
         return $this;
@@ -436,7 +452,7 @@ class CampaignSettingsScheduleDTO implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Gets total_holidays
      *
-     * @return string[]|null
+     * @return string[]
      */
     public function getTotalHolidays()
     {
@@ -446,7 +462,7 @@ class CampaignSettingsScheduleDTO implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Sets total_holidays
      *
-     * @param string[]|null $total_holidays Итоговый список нерабочих дней службы доставки. Список рассчитывается с учетом выходных, нерабочих дней и государственных праздников. Информацию по ним магазин указывает в кабинете продавца на Маркете.
+     * @param string[] $total_holidays Итоговый список нерабочих дней службы доставки. Список рассчитывается с учетом выходных, нерабочих дней и государственных праздников. Информацию по ним магазин указывает в кабинете продавца на Маркете.
      *
      * @return self
      */
@@ -455,6 +471,8 @@ class CampaignSettingsScheduleDTO implements ModelInterface, ArrayAccess, \JsonS
         if (is_null($total_holidays)) {
             throw new \InvalidArgumentException('non-nullable total_holidays cannot be null');
         }
+
+
         $this->container['total_holidays'] = $total_holidays;
 
         return $this;
@@ -463,7 +481,7 @@ class CampaignSettingsScheduleDTO implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Gets weekly_holidays
      *
-     * @return int[]|null
+     * @return int[]
      */
     public function getWeeklyHolidays()
     {
@@ -473,7 +491,7 @@ class CampaignSettingsScheduleDTO implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Sets weekly_holidays
      *
-     * @param int[]|null $weekly_holidays Список выходных дней недели и государственных праздников.
+     * @param int[] $weekly_holidays Список выходных дней недели и государственных праздников.
      *
      * @return self
      */
@@ -482,6 +500,8 @@ class CampaignSettingsScheduleDTO implements ModelInterface, ArrayAccess, \JsonS
         if (is_null($weekly_holidays)) {
             throw new \InvalidArgumentException('non-nullable weekly_holidays cannot be null');
         }
+
+
         $this->container['weekly_holidays'] = $weekly_holidays;
 
         return $this;

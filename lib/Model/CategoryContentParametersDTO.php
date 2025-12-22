@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -81,7 +81,7 @@ class CategoryContentParametersDTO implements ModelInterface, ArrayAccess, \Json
       */
     protected static array $openAPINullables = [
         'category_id' => false,
-		'parameters' => false
+		'parameters' => true
     ];
 
     /**
@@ -285,6 +285,14 @@ class CategoryContentParametersDTO implements ModelInterface, ArrayAccess, \Json
         if ($this->container['category_id'] === null) {
             $invalidProperties[] = "'category_id' can't be null";
         }
+        if (($this->container['category_id'] <= 0)) {
+            $invalidProperties[] = "invalid value for 'category_id', must be bigger than 0.";
+        }
+
+        if (!is_null($this->container['parameters']) && (count($this->container['parameters']) < 1)) {
+            $invalidProperties[] = "invalid value for 'parameters', number of items must be greater than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -313,7 +321,7 @@ class CategoryContentParametersDTO implements ModelInterface, ArrayAccess, \Json
     /**
      * Sets category_id
      *
-     * @param int $category_id Идентификатор категории на Маркете. Чтобы узнать идентификатор категории, к которой относится товар, воспользуйтесь запросом [POST categories/tree](../../reference/categories/getCategoriesTree.md).
+     * @param int $category_id Идентификатор категории на Маркете.  При изменении категории убедитесь, что характеристики товара и их значения в параметре `parameterValues` вы передаете для новой категории.  Список категорий Маркета можно получить с помощью запроса  [POST v2/categories/tree](../../reference/categories/getCategoriesTree.md).
      *
      * @return self
      */
@@ -322,6 +330,11 @@ class CategoryContentParametersDTO implements ModelInterface, ArrayAccess, \Json
         if (is_null($category_id)) {
             throw new \InvalidArgumentException('non-nullable category_id cannot be null');
         }
+
+        if (($category_id <= 0)) {
+            throw new \InvalidArgumentException('invalid value for $category_id when calling CategoryContentParametersDTO., must be bigger than 0.');
+        }
+
         $this->container['category_id'] = $category_id;
 
         return $this;
@@ -347,7 +360,19 @@ class CategoryContentParametersDTO implements ModelInterface, ArrayAccess, \Json
     public function setParameters($parameters)
     {
         if (is_null($parameters)) {
-            throw new \InvalidArgumentException('non-nullable parameters cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'parameters');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('parameters', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+
+        if (!is_null($parameters) && (count($parameters) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $parameters when calling CategoryContentParametersDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['parameters'] = $parameters;
 

@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -35,7 +35,7 @@ use \YandexMarketApi\ObjectSerializer;
  * QuantumDTO Class Doc Comment
  *
  * @category Class
- * @description Настройка продажи квантами.  Чтобы сбросить установленные ранее значения, передайте пустой параметр &#x60;quantum&#x60;.  {% cut \&quot;Пример\&quot; %}  &#x60;&#x60;&#x60;json {   \&quot;offers\&quot;: [     {       \&quot;offerId\&quot;: \&quot;08e35dc1-89a2-11e3-8055-0015e9b8c48d\&quot;,       \&quot;quantum\&quot;: {}     }   ] } &#x60;&#x60;&#x60;  {% endcut %}
+ * @description Настройка продажи квантами.  Чтобы сбросить установленные ранее значения, передайте пустой параметр &#x60;quantum&#x60;.  {% cut \&quot;Пример\&quot; %}  &#x60;&#x60;&#x60;json translate&#x3D;no {   \&quot;offers\&quot;: [     {       \&quot;offerId\&quot;: \&quot;08e35dc1-89a2-11e3-8055-0015e9b8c48d\&quot;,       \&quot;quantum\&quot;: {}     }   ] } &#x60;&#x60;&#x60;  {% endcut %}
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -282,10 +282,6 @@ class QuantumDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['min_quantity']) && ($this->container['min_quantity'] > 100)) {
-            $invalidProperties[] = "invalid value for 'min_quantity', must be smaller than or equal to 100.";
-        }
-
         if (!is_null($this->container['min_quantity']) && ($this->container['min_quantity'] < 1)) {
             $invalidProperties[] = "invalid value for 'min_quantity', must be bigger than or equal to 1.";
         }
@@ -336,9 +332,6 @@ class QuantumDTO implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable min_quantity cannot be null');
         }
 
-        if (($min_quantity > 100)) {
-            throw new \InvalidArgumentException('invalid value for $min_quantity when calling QuantumDTO., must be smaller than or equal to 100.');
-        }
         if (($min_quantity < 1)) {
             throw new \InvalidArgumentException('invalid value for $min_quantity when calling QuantumDTO., must be bigger than or equal to 1.');
         }

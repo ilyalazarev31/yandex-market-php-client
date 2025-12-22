@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -59,7 +59,7 @@ class OfferPriceByOfferIdsListResponseDTO implements ModelInterface, ArrayAccess
       */
     protected static $openAPITypes = [
         'offers' => '\YandexMarketApi\Model\OfferPriceByOfferIdsResponseDTO[]',
-        'paging' => '\YandexMarketApi\Model\ScrollingPagerDTO'
+        'paging' => '\YandexMarketApi\Model\ForwardScrollingPagerDTO'
     ];
 
     /**
@@ -282,6 +282,9 @@ class OfferPriceByOfferIdsListResponseDTO implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if ($this->container['offers'] === null) {
+            $invalidProperties[] = "'offers' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -300,7 +303,7 @@ class OfferPriceByOfferIdsListResponseDTO implements ModelInterface, ArrayAccess
     /**
      * Gets offers
      *
-     * @return \YandexMarketApi\Model\OfferPriceByOfferIdsResponseDTO[]|null
+     * @return \YandexMarketApi\Model\OfferPriceByOfferIdsResponseDTO[]
      */
     public function getOffers()
     {
@@ -310,7 +313,7 @@ class OfferPriceByOfferIdsListResponseDTO implements ModelInterface, ArrayAccess
     /**
      * Sets offers
      *
-     * @param \YandexMarketApi\Model\OfferPriceByOfferIdsResponseDTO[]|null $offers Страница списка цен.
+     * @param \YandexMarketApi\Model\OfferPriceByOfferIdsResponseDTO[] $offers Страница списка цен.
      *
      * @return self
      */
@@ -327,7 +330,7 @@ class OfferPriceByOfferIdsListResponseDTO implements ModelInterface, ArrayAccess
     /**
      * Gets paging
      *
-     * @return \YandexMarketApi\Model\ScrollingPagerDTO|null
+     * @return \YandexMarketApi\Model\ForwardScrollingPagerDTO|null
      */
     public function getPaging()
     {
@@ -337,7 +340,7 @@ class OfferPriceByOfferIdsListResponseDTO implements ModelInterface, ArrayAccess
     /**
      * Sets paging
      *
-     * @param \YandexMarketApi\Model\ScrollingPagerDTO|null $paging paging
+     * @param \YandexMarketApi\Model\ForwardScrollingPagerDTO|null $paging paging
      *
      * @return self
      */

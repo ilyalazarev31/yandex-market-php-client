@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -35,7 +35,7 @@ use \YandexMarketApi\ObjectSerializer;
  * ReturnDTO Class Doc Comment
  *
  * @category Class
- * @description Возврат заказа.
+ * @description Невыкуп или возврат в заказе.  Параметров &#x60;logisticPickupPoint&#x60;, &#x60;shipmentRecipientType&#x60; и &#x60;shipmentStatus&#x60; может не быть в случае возврата:   * С опцией **Быстрый возврат денег за дешевый брак**, когда товар остается у покупателя (&#x60;fastReturn&#x3D;true&#x60;).   * По заказу от бизнеса, если:     * статус возврата &#x60;STARTED_BY_USER&#x60; или &#x60;WAITING_FOR_DECISION&#x60;;     * возврат отменен до передачи товара.  Статус возврата денег &#x60;refundStatus&#x60; актуален только для &#x60;returnType&#x3D;RETURN&#x60;.
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -64,11 +64,14 @@ class ReturnDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'update_date' => '\DateTime',
         'refund_status' => '\YandexMarketApi\Model\RefundStatusType',
         'logistic_pickup_point' => '\YandexMarketApi\Model\LogisticPickupPointDTO',
+        'pickup_till_date' => '\DateTime',
         'shipment_recipient_type' => '\YandexMarketApi\Model\RecipientType',
         'shipment_status' => '\YandexMarketApi\Model\ReturnShipmentStatusType',
         'refund_amount' => 'int',
+        'amount' => '\YandexMarketApi\Model\CurrencyValueDTO',
         'items' => '\YandexMarketApi\Model\ReturnItemDTO[]',
-        'return_type' => '\YandexMarketApi\Model\ReturnType'
+        'return_type' => '\YandexMarketApi\Model\ReturnType',
+        'fast_return' => 'bool'
     ];
 
     /**
@@ -85,11 +88,14 @@ class ReturnDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'update_date' => 'date-time',
         'refund_status' => null,
         'logistic_pickup_point' => null,
+        'pickup_till_date' => 'date-time',
         'shipment_recipient_type' => null,
         'shipment_status' => null,
         'refund_amount' => 'int64',
+        'amount' => null,
         'items' => null,
-        'return_type' => null
+        'return_type' => null,
+        'fast_return' => null
     ];
 
     /**
@@ -104,11 +110,14 @@ class ReturnDTO implements ModelInterface, ArrayAccess, \JsonSerializable
 		'update_date' => false,
 		'refund_status' => false,
 		'logistic_pickup_point' => false,
+		'pickup_till_date' => false,
 		'shipment_recipient_type' => false,
 		'shipment_status' => false,
 		'refund_amount' => false,
+		'amount' => false,
 		'items' => false,
-		'return_type' => false
+		'return_type' => false,
+		'fast_return' => false
     ];
 
     /**
@@ -203,11 +212,14 @@ class ReturnDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'update_date' => 'updateDate',
         'refund_status' => 'refundStatus',
         'logistic_pickup_point' => 'logisticPickupPoint',
+        'pickup_till_date' => 'pickupTillDate',
         'shipment_recipient_type' => 'shipmentRecipientType',
         'shipment_status' => 'shipmentStatus',
         'refund_amount' => 'refundAmount',
+        'amount' => 'amount',
         'items' => 'items',
-        'return_type' => 'returnType'
+        'return_type' => 'returnType',
+        'fast_return' => 'fastReturn'
     ];
 
     /**
@@ -222,11 +234,14 @@ class ReturnDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'update_date' => 'setUpdateDate',
         'refund_status' => 'setRefundStatus',
         'logistic_pickup_point' => 'setLogisticPickupPoint',
+        'pickup_till_date' => 'setPickupTillDate',
         'shipment_recipient_type' => 'setShipmentRecipientType',
         'shipment_status' => 'setShipmentStatus',
         'refund_amount' => 'setRefundAmount',
+        'amount' => 'setAmount',
         'items' => 'setItems',
-        'return_type' => 'setReturnType'
+        'return_type' => 'setReturnType',
+        'fast_return' => 'setFastReturn'
     ];
 
     /**
@@ -241,11 +256,14 @@ class ReturnDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'update_date' => 'getUpdateDate',
         'refund_status' => 'getRefundStatus',
         'logistic_pickup_point' => 'getLogisticPickupPoint',
+        'pickup_till_date' => 'getPickupTillDate',
         'shipment_recipient_type' => 'getShipmentRecipientType',
         'shipment_status' => 'getShipmentStatus',
         'refund_amount' => 'getRefundAmount',
+        'amount' => 'getAmount',
         'items' => 'getItems',
-        'return_type' => 'getReturnType'
+        'return_type' => 'getReturnType',
+        'fast_return' => 'getFastReturn'
     ];
 
     /**
@@ -311,11 +329,14 @@ class ReturnDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('update_date', $data ?? [], null);
         $this->setIfExists('refund_status', $data ?? [], null);
         $this->setIfExists('logistic_pickup_point', $data ?? [], null);
+        $this->setIfExists('pickup_till_date', $data ?? [], null);
         $this->setIfExists('shipment_recipient_type', $data ?? [], null);
         $this->setIfExists('shipment_status', $data ?? [], null);
         $this->setIfExists('refund_amount', $data ?? [], null);
+        $this->setIfExists('amount', $data ?? [], null);
         $this->setIfExists('items', $data ?? [], null);
         $this->setIfExists('return_type', $data ?? [], null);
+        $this->setIfExists('fast_return', $data ?? [], null);
     }
 
     /**
@@ -345,6 +366,18 @@ class ReturnDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if ($this->container['id'] === null) {
+            $invalidProperties[] = "'id' can't be null";
+        }
+        if ($this->container['order_id'] === null) {
+            $invalidProperties[] = "'order_id' can't be null";
+        }
+        if ($this->container['items'] === null) {
+            $invalidProperties[] = "'items' can't be null";
+        }
+        if ($this->container['return_type'] === null) {
+            $invalidProperties[] = "'return_type' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -363,7 +396,7 @@ class ReturnDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets id
      *
-     * @return int|null
+     * @return int
      */
     public function getId()
     {
@@ -373,7 +406,7 @@ class ReturnDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param int|null $id Идентификатор возврата.
+     * @param int $id Идентификатор невыкупа или возврата.
      *
      * @return self
      */
@@ -390,7 +423,7 @@ class ReturnDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets order_id
      *
-     * @return int|null
+     * @return int
      */
     public function getOrderId()
     {
@@ -400,7 +433,7 @@ class ReturnDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets order_id
      *
-     * @param int|null $order_id Номер заказа.
+     * @param int $order_id Номер заказа.
      *
      * @return self
      */
@@ -427,7 +460,7 @@ class ReturnDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets creation_date
      *
-     * @param \DateTime|null $creation_date Дата создания возврата клиентом.
+     * @param \DateTime|null $creation_date Дата создания невыкупа или возврата.  Формат даты: ISO 8601 со смещением относительно UTC.
      *
      * @return self
      */
@@ -454,7 +487,7 @@ class ReturnDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets update_date
      *
-     * @param \DateTime|null $update_date Дата обновления возврата.
+     * @param \DateTime|null $update_date Дата обновления невыкупа или возврата.  Формат даты: ISO 8601 со смещением относительно UTC.
      *
      * @return self
      */
@@ -523,6 +556,33 @@ class ReturnDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
+     * Gets pickup_till_date
+     *
+     * @return \DateTime|null
+     */
+    public function getPickupTillDate()
+    {
+        return $this->container['pickup_till_date'];
+    }
+
+    /**
+     * Sets pickup_till_date
+     *
+     * @param \DateTime|null $pickup_till_date Дата, до которой можно забрать товар.  Только для невыкупов и возвратов в логистическом статусе `READY_FOR_PICKUP`.  Формат даты: ISO 8601 со смещением относительно UTC.
+     *
+     * @return self
+     */
+    public function setPickupTillDate($pickup_till_date)
+    {
+        if (is_null($pickup_till_date)) {
+            throw new \InvalidArgumentException('non-nullable pickup_till_date cannot be null');
+        }
+        $this->container['pickup_till_date'] = $pickup_till_date;
+
+        return $this;
+    }
+
+    /**
      * Gets shipment_recipient_type
      *
      * @return \YandexMarketApi\Model\RecipientType|null
@@ -580,6 +640,7 @@ class ReturnDTO implements ModelInterface, ArrayAccess, \JsonSerializable
      * Gets refund_amount
      *
      * @return int|null
+     * @deprecated
      */
     public function getRefundAmount()
     {
@@ -589,9 +650,10 @@ class ReturnDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets refund_amount
      *
-     * @param int|null $refund_amount Сумма возврата.
+     * @param int|null $refund_amount {% note warning \"Вместо него используйте `amount`.\" %}     {% endnote %}  Сумма возврата в копейках.
      *
      * @return self
+     * @deprecated
      */
     public function setRefundAmount($refund_amount)
     {
@@ -604,9 +666,36 @@ class ReturnDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
+     * Gets amount
+     *
+     * @return \YandexMarketApi\Model\CurrencyValueDTO|null
+     */
+    public function getAmount()
+    {
+        return $this->container['amount'];
+    }
+
+    /**
+     * Sets amount
+     *
+     * @param \YandexMarketApi\Model\CurrencyValueDTO|null $amount amount
+     *
+     * @return self
+     */
+    public function setAmount($amount)
+    {
+        if (is_null($amount)) {
+            throw new \InvalidArgumentException('non-nullable amount cannot be null');
+        }
+        $this->container['amount'] = $amount;
+
+        return $this;
+    }
+
+    /**
      * Gets items
      *
-     * @return \YandexMarketApi\Model\ReturnItemDTO[]|null
+     * @return \YandexMarketApi\Model\ReturnItemDTO[]
      */
     public function getItems()
     {
@@ -616,7 +705,7 @@ class ReturnDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets items
      *
-     * @param \YandexMarketApi\Model\ReturnItemDTO[]|null $items Список товаров в возврате.
+     * @param \YandexMarketApi\Model\ReturnItemDTO[] $items Список товаров в невыкупе или возврате.
      *
      * @return self
      */
@@ -633,7 +722,7 @@ class ReturnDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets return_type
      *
-     * @return \YandexMarketApi\Model\ReturnType|null
+     * @return \YandexMarketApi\Model\ReturnType
      */
     public function getReturnType()
     {
@@ -643,7 +732,7 @@ class ReturnDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets return_type
      *
-     * @param \YandexMarketApi\Model\ReturnType|null $return_type return_type
+     * @param \YandexMarketApi\Model\ReturnType $return_type return_type
      *
      * @return self
      */
@@ -653,6 +742,33 @@ class ReturnDTO implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable return_type cannot be null');
         }
         $this->container['return_type'] = $return_type;
+
+        return $this;
+    }
+
+    /**
+     * Gets fast_return
+     *
+     * @return bool|null
+     */
+    public function getFastReturn()
+    {
+        return $this->container['fast_return'];
+    }
+
+    /**
+     * Sets fast_return
+     *
+     * @param bool|null $fast_return Используется ли опция **Быстрый возврат денег за дешевый брак**.  Актуально только для `returnType=RETURN`.
+     *
+     * @return self
+     */
+    public function setFastReturn($fast_return)
+    {
+        if (is_null($fast_return)) {
+            throw new \InvalidArgumentException('non-nullable fast_return cannot be null');
+        }
+        $this->container['fast_return'] = $fast_return;
 
         return $this;
     }

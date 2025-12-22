@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**value** | **float** | Значение. |
+**value** | **float** | Цена товара. |
 **currency_id** | [**\YandexMarketApi\Model\CurrencyType**](CurrencyType.md) |  |
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)
