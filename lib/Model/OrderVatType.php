@@ -65,6 +65,8 @@ class OrderVatType
 
     public const VAT_07 = 'VAT_07';
 
+    public const VAT_22 = 'VAT_22';
+
     public const UNKNOWN_VALUE = 'UNKNOWN_VALUE';
 
     /**
@@ -85,6 +87,7 @@ class OrderVatType
             self::VAT_12,
             self::VAT_05,
             self::VAT_07,
+            self::VAT_22,
             self::UNKNOWN_VALUE
         ];
     }
