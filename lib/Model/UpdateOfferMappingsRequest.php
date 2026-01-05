@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -320,7 +320,7 @@ class UpdateOfferMappingsRequest implements ModelInterface, ArrayAccess, \JsonSe
     /**
      * Sets offer_mappings
      *
-     * @param \YandexMarketApi\Model\UpdateOfferMappingDTO[] $offer_mappings Перечень товаров, которые нужно добавить или обновить.
+     * @param \YandexMarketApi\Model\UpdateOfferMappingDTO[] $offer_mappings Список товаров, которые нужно добавить или обновить.  {% note warning \"Скоро мы уменьшим максимальное количество товаров в запросе\" %}  Уже сейчас не передавайте больше 100.  {% endnote %}   
      *
      * @return self
      */

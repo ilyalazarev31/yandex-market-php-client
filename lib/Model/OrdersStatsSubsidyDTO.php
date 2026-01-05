@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -35,7 +35,7 @@ use \YandexMarketApi\ObjectSerializer;
  * OrdersStatsSubsidyDTO Class Doc Comment
  *
  * @category Class
- * @description Информация о начислении баллов, которые используются для уменьшения стоимости размещения, и их списании в случае возврата или невыкупа.
+ * @description Информация о начислении баллов, которые используются для уменьшения стоимости размещения, и их списании в случае невыкупа или возврата.
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -82,9 +82,15 @@ class OrdersStatsSubsidyDTO implements ModelInterface, ArrayAccess, \JsonSeriali
       * @var boolean[]
       */
     protected static array $openAPINullables = [
+<<<<<<<< HEAD:lib/Model/EnrichedModelDTOAllOf.php
+        'offers' => true,
+		'offline_offers' => false,
+		'online_offers' => false
+========
         'operation_type' => false,
 		'type' => false,
 		'amount' => false
+>>>>>>>> upstream/main:lib/Model/OrdersStatsSubsidyDTO.php
     ];
 
     /**
@@ -332,8 +338,20 @@ class OrdersStatsSubsidyDTO implements ModelInterface, ArrayAccess, \JsonSeriali
      */
     public function setOperationType($operation_type)
     {
+<<<<<<<< HEAD:lib/Model/EnrichedModelDTOAllOf.php
+        if (is_null($offers)) {
+            array_push($this->openAPINullablesSetToNull, 'offers');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('offers', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+========
         if (is_null($operation_type)) {
             throw new \InvalidArgumentException('non-nullable operation_type cannot be null');
+>>>>>>>> upstream/main:lib/Model/OrdersStatsSubsidyDTO.php
         }
         $this->container['operation_type'] = $operation_type;
 

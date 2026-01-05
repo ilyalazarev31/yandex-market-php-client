@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -282,9 +282,19 @@ class GetCategoriesMaxSaleQuantumDTO implements ModelInterface, ArrayAccess, \Js
     {
         $invalidProperties = [];
 
+<<<<<<<< HEAD:lib/Model/GetModelsOffersResponse.php
+        if ($this->container['models'] === null) {
+            $invalidProperties[] = "'models' can't be null";
+        }
+========
         if ($this->container['results'] === null) {
             $invalidProperties[] = "'results' can't be null";
         }
+        if (!is_null($this->container['errors']) && (count($this->container['errors']) < 1)) {
+            $invalidProperties[] = "invalid value for 'errors', number of items must be greater than or equal to 1.";
+        }
+
+>>>>>>>> upstream/main:lib/Model/GetCategoriesMaxSaleQuantumDTO.php
         return $invalidProperties;
     }
 
@@ -303,7 +313,11 @@ class GetCategoriesMaxSaleQuantumDTO implements ModelInterface, ArrayAccess, \Js
     /**
      * Gets results
      *
+<<<<<<<< HEAD:lib/Model/GetModelsOffersResponse.php
+     * @return \YandexMarketApi\Model\EnrichedModelDTO[]
+========
      * @return \YandexMarketApi\Model\MaxSaleQuantumDTO[]
+>>>>>>>> upstream/main:lib/Model/GetCategoriesMaxSaleQuantumDTO.php
      */
     public function getResults()
     {
@@ -313,7 +327,11 @@ class GetCategoriesMaxSaleQuantumDTO implements ModelInterface, ArrayAccess, \Js
     /**
      * Sets results
      *
+<<<<<<<< HEAD:lib/Model/GetModelsOffersResponse.php
+     * @param \YandexMarketApi\Model\EnrichedModelDTO[] $models Список моделей товаров.
+========
      * @param \YandexMarketApi\Model\MaxSaleQuantumDTO[] $results Категории и лимит на установку кванта и минимального количества товаров.
+>>>>>>>> upstream/main:lib/Model/GetCategoriesMaxSaleQuantumDTO.php
      *
      * @return self
      */
@@ -355,6 +373,11 @@ class GetCategoriesMaxSaleQuantumDTO implements ModelInterface, ArrayAccess, \Js
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
+        }
+
+
+        if (!is_null($errors) && (count($errors) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $errors when calling GetCategoriesMaxSaleQuantumDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['errors'] = $errors;
 

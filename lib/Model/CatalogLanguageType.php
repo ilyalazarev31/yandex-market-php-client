@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -33,7 +33,11 @@ use \YandexMarketApi\ObjectSerializer;
  * CatalogLanguageType Class Doc Comment
  *
  * @category Class
- * @description Язык:  * &#x60;RU&#x60; — русский.  * &#x60;UZ&#x60; — узбекский.
+<<<<<<<< HEAD:lib/Model/FieldStateType.php
+ * @description Фильтр по заполненности или незаполненности поля:  * &#x60;SPECIFIED&#x60; — вывести товары, у которых поле заполнено. * &#x60;EMPTY&#x60; — вывести товары, у которых поле не заполнено.
+========
+ * @description Язык:  * &#x60;RU&#x60; — русский. * &#x60;UZ&#x60; — узбекский.
+>>>>>>>> upstream/main:lib/Model/CatalogLanguageType.php
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech

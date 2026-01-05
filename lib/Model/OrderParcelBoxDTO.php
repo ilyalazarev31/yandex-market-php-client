@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -316,7 +316,7 @@ class OrderParcelBoxDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets id
      *
-     * @param int $id Идентификатор грузоместа.
+     * @param int $id Идентификатор грузового места.
      *
      * @return self
      */
@@ -343,7 +343,7 @@ class OrderParcelBoxDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets fulfilment_id
      *
-     * @param string $fulfilment_id Идентификатор грузового места в информационной системе магазина.
+     * @param string $fulfilment_id Идентификатор грузового места в системе магазина.
      *
      * @return self
      */

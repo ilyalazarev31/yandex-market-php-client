@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -33,7 +33,7 @@ use \YandexMarketApi\ObjectSerializer;
  * OrderSubstatusType Class Doc Comment
  *
  * @category Class
- * @description Этап обработки заказа (если он имеет статус &#x60;PROCESSING&#x60;) или причина отмены заказа (если он имеет статус &#x60;CANCELLED&#x60;).  * Значения для заказа в статусе &#x60;PROCESSING&#x60;:      * &#x60;STARTED&#x60; — заказ подтвержден, его можно начать обрабатывать.      * &#x60;READY_TO_SHIP&#x60; — заказ собран и готов к отправке.  * Значения для заказа в статусе &#x60;CANCELLED&#x60;:      * &#x60;RESERVATION_EXPIRED&#x60; — покупатель не завершил оформление зарезервированного заказа в течение 10 минут.      * &#x60;USER_NOT_PAID&#x60; — покупатель не оплатил заказ (для типа оплаты &#x60;PREPAID&#x60;) в течение 30 минут.      * &#x60;USER_UNREACHABLE&#x60; — не удалось связаться с покупателем. Для отмены с этой причиной необходимо выполнить условия:        * не менее 3 звонков с 8 до 21 в часовом поясе покупателя;       * перерыв между первым и третьим звонком не менее 90 минут;       * соединение не короче 5 секунд.        Если хотя бы одно из этих условий не выполнено (кроме случая, когда номер недоступен), отменить заказ не получится. Вернется ответ с кодом ошибки 400.      * &#x60;USER_CHANGED_MIND&#x60; — покупатель отменил заказ по личным причинам.      * &#x60;USER_REFUSED_DELIVERY&#x60; — покупателя не устроили условия доставки.      * &#x60;USER_REFUSED_PRODUCT&#x60; — покупателю не подошел товар.      * &#x60;SHOP_FAILED&#x60; — магазин не может выполнить заказ.      * &#x60;USER_REFUSED_QUALITY&#x60; — покупателя не устроило качество товара.      * &#x60;REPLACING_ORDER&#x60; — покупатель решил заменить товар другим по собственной инициативе.      * &#x60;PROCESSING_EXPIRED&#x60; — значение более не используется.  * &#x60;TECHNICAL_ERROR&#x60; — техническая ошибка на стороне Маркета. Обратитесь в поддержку.  Также могут возвращаться другие значения. Обрабатывать их не требуется.
+ * @description Этап обработки заказа (статус &#x60;PROCESSING&#x60;) или причина отмены заказа (статус &#x60;CANCELLED&#x60;).  * Значения для заказа в статусе &#x60;PROCESSING&#x60;:      * &#x60;STARTED&#x60; — заказ подтвержден, его можно начать обрабатывать.      * &#x60;READY_TO_SHIP&#x60; — заказ собран и готов к отправке.  * Значения для заказа в статусе &#x60;CANCELLED&#x60;:      * &#x60;RESERVATION_EXPIRED&#x60; — покупатель не завершил оформление зарезервированного заказа в течение 10 минут.      * &#x60;USER_NOT_PAID&#x60; — покупатель не оплатил заказ (для типа оплаты &#x60;PREPAID&#x60;) в течение 30 минут.      * &#x60;USER_UNREACHABLE&#x60; — не удалось связаться с покупателем. Для отмены с этой причиной необходимо выполнить условия:        * не менее 3 звонков с 8 до 21 в часовом поясе покупателя;       * перерыв между первым и третьим звонком не менее 90 минут;       * соединение не короче 5 секунд.        Если хотя бы одно из этих условий не выполнено (кроме случая, когда номер недоступен), отменить заказ не получится. Вернется ответ с кодом ошибки 400.      * &#x60;USER_CHANGED_MIND&#x60; — покупатель отменил заказ по личным причинам.      * &#x60;USER_REFUSED_DELIVERY&#x60; — покупателя не устроили условия доставки.      * &#x60;USER_REFUSED_PRODUCT&#x60; — покупателю не подошел товар.      * &#x60;SHOP_FAILED&#x60; — магазин не может выполнить заказ.      * &#x60;USER_REFUSED_QUALITY&#x60; — покупателя не устроило качество товара.      * &#x60;REPLACING_ORDER&#x60; — покупатель решил заменить товар другим по собственной инициативе.      * &#x60;PROCESSING_EXPIRED&#x60; — значение более не используется.      * &#x60;PICKUP_EXPIRED&#x60; — закончился срок хранения заказа в пункт выдачи.      * &#x60;TOO_MANY_DELIVERY_DATE_CHANGES&#x60; — заказ переносили слишком много раз.      * &#x60;TOO_LONG_DELIVERY&#x60; — заказ доставляется слишком долго.      * &#x60;INCORRECT_PERSONAL_DATA&#x60; — для заказа из-за рубежа указаны неправильные данные получателя, заказ не пройдет проверку на таможне.  * &#x60;TECHNICAL_ERROR&#x60; — техническая ошибка на стороне Маркета. Обратитесь в поддержку.  Также могут возвращаться другие значения. Обрабатывать их не нужно.
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -95,8 +95,6 @@ class OrderSubstatusType
 
     public const WAREHOUSE_FAILED_TO_SHIP = 'WAREHOUSE_FAILED_TO_SHIP';
 
-    public const DELIVERY_SERIVCE_UNDELIVERED = 'DELIVERY_SERIVCE_UNDELIVERED';
-
     public const DELIVERY_SERVICE_UNDELIVERED = 'DELIVERY_SERVICE_UNDELIVERED';
 
     public const PREORDER = 'PREORDER';
@@ -112,8 +110,6 @@ class OrderSubstatusType
     public const SHIPPED = 'SHIPPED';
 
     public const ASYNC_PROCESSING = 'ASYNC_PROCESSING';
-
-    public const USER_REFUSED_TO_PROVIDE_PERSONAL_DATA = 'USER_REFUSED_TO_PROVIDE_PERSONAL_DATA';
 
     public const WAITING_USER_INPUT = 'WAITING_USER_INPUT';
 
@@ -154,8 +150,6 @@ class OrderSubstatusType
     public const USER_RECEIVED_TECHNICAL_ERROR = 'USER_RECEIVED_TECHNICAL_ERROR';
 
     public const USER_FORGOT_TO_USE_BONUS = 'USER_FORGOT_TO_USE_BONUS';
-
-    public const RECEIVED_ON_DISTRIBUTION_CENTER = 'RECEIVED_ON_DISTRIBUTION_CENTER';
 
     public const DELIVERY_SERVICE_NOT_RECEIVED = 'DELIVERY_SERVICE_NOT_RECEIVED';
 
@@ -269,6 +263,16 @@ class OrderSubstatusType
 
     public const READY_FOR_PICKUP = 'READY_FOR_PICKUP';
 
+    public const TOO_MANY_DELIVERY_DATE_CHANGES = 'TOO_MANY_DELIVERY_DATE_CHANGES';
+
+    public const TOO_LONG_DELIVERY = 'TOO_LONG_DELIVERY';
+
+    public const DEFERRED_PAYMENT = 'DEFERRED_PAYMENT';
+
+    public const POSTPAID_FAILED = 'POSTPAID_FAILED';
+
+    public const INCORRECT_PERSONAL_DATA = 'INCORRECT_PERSONAL_DATA';
+
     public const UNKNOWN = 'UNKNOWN';
 
     /**
@@ -304,7 +308,6 @@ class OrderSubstatusType
             self::CUSTOM,
             self::DELIVERY_SERVICE_FAILED,
             self::WAREHOUSE_FAILED_TO_SHIP,
-            self::DELIVERY_SERIVCE_UNDELIVERED,
             self::DELIVERY_SERVICE_UNDELIVERED,
             self::PREORDER,
             self::AWAIT_CONFIRMATION,
@@ -313,7 +316,6 @@ class OrderSubstatusType
             self::READY_TO_SHIP,
             self::SHIPPED,
             self::ASYNC_PROCESSING,
-            self::USER_REFUSED_TO_PROVIDE_PERSONAL_DATA,
             self::WAITING_USER_INPUT,
             self::WAITING_BANK_DECISION,
             self::BANK_REJECT_CREDIT_OFFER,
@@ -334,7 +336,6 @@ class OrderSubstatusType
             self::USER_WANTED_ANOTHER_PAYMENT_METHOD,
             self::USER_RECEIVED_TECHNICAL_ERROR,
             self::USER_FORGOT_TO_USE_BONUS,
-            self::RECEIVED_ON_DISTRIBUTION_CENTER,
             self::DELIVERY_SERVICE_NOT_RECEIVED,
             self::DELIVERY_SERVICE_LOST,
             self::SHIPPED_TO_WRONG_DELIVERY_SERVICE,
@@ -391,6 +392,11 @@ class OrderSubstatusType
             self::POSTPAID_BUDGET_RESERVATION_FAILED,
             self::AWAIT_CUSTOM_PRICE_CONFIRMATION,
             self::READY_FOR_PICKUP,
+            self::TOO_MANY_DELIVERY_DATE_CHANGES,
+            self::TOO_LONG_DELIVERY,
+            self::DEFERRED_PAYMENT,
+            self::POSTPAID_FAILED,
+            self::INCORRECT_PERSONAL_DATA,
             self::UNKNOWN
         ];
     }

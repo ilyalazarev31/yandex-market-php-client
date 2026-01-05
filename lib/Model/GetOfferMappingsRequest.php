@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -75,7 +75,7 @@ class GetOfferMappingsRequest implements ModelInterface, ArrayAccess, \JsonSeria
     protected static $openAPIFormats = [
         'offer_ids' => null,
         'card_statuses' => null,
-        'category_ids' => null,
+        'category_ids' => 'int32',
         'vendor_names' => null,
         'tags' => null,
         'archived' => null

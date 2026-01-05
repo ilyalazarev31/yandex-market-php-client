@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -432,7 +432,7 @@ class OutletDeliveryRuleDTO implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Sets delivery_service_id
      *
-     * @param int|null $delivery_service_id Идентификатор службы доставки товаров в точку продаж.  Информацию о службе доставки можно получить с помощью запроса [GET delivery/services](../../reference/orders/getDeliveryServices.md).
+     * @param int|null $delivery_service_id Идентификатор службы доставки товаров в точку продаж.  Информацию о службе доставки можно получить с помощью запроса [GET delivery/services](../../reference/orders/getDeliveryServices.md).
      *
      * @return self
      */
@@ -494,7 +494,7 @@ class OutletDeliveryRuleDTO implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Sets price_free_pickup
      *
-     * @param float|null $price_free_pickup Цена на товар, начиная с которой действует бесплатный самовывоз товара из точки продаж.
+     * @param float|null $price_free_pickup Цена товара, начиная с которой действует бесплатный самовывоз товара из точки продаж.
      *
      * @return self
      */

@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -354,6 +354,18 @@ class GoodsStatsGoodsDTO implements ModelInterface, ArrayAccess, \JsonSerializab
             $invalidProperties[] = "invalid value for 'market_sku', must be bigger than or equal to 1.";
         }
 
+        if (!is_null($this->container['warehouses']) && (count($this->container['warehouses']) < 1)) {
+            $invalidProperties[] = "invalid value for 'warehouses', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['tariffs']) && (count($this->container['tariffs']) < 1)) {
+            $invalidProperties[] = "invalid value for 'tariffs', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['pictures']) && (count($this->container['pictures']) < 1)) {
+            $invalidProperties[] = "invalid value for 'pictures', number of items must be greater than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -382,7 +394,7 @@ class GoodsStatsGoodsDTO implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets shop_sku
      *
-     * @param string|null $shop_sku Ваш SKU — идентификатор товара в вашей системе.  Правила использования SKU:  * У каждого товара SKU должен быть свой.  * Уже заданный SKU нельзя освободить и использовать заново для другого товара. Каждый товар должен получать новый идентификатор, до того никогда не использовавшийся в вашем каталоге.  SKU товара можно изменить в кабинете продавца на Маркете. О том, как это сделать, читайте [в Справке Маркета для продавцов](https://yandex.ru/support2/marketplace/ru/assortment/operations/edit-sku).  [Что такое SKU и как его назначать](https://yandex.ru/support/marketplace/assortment/add/index.html#fields)
+     * @param string|null $shop_sku Ваш SKU — идентификатор товара в вашей системе.  Правила использования SKU:  * У каждого товара SKU должен быть свой.  * Уже заданный SKU нельзя освободить и использовать заново для другого товара. Каждый товар должен получать новый идентификатор, до того никогда не использовавшийся в вашем каталоге.  SKU товара можно изменить в кабинете продавца на Маркете. О том, как это сделать, читайте [в Справке Маркета для продавцов](https://yandex.ru/support2/marketplace/ru/assortment/operations/edit-sku).  {% note warning %}  Пробельные символы в начале и конце значения автоматически удаляются. Например, `\"  SKU123  \"` и `\"SKU123\"` будут обработаны как одинаковые значения.  {% endnote %}  [Что такое SKU и как его назначать](https://yandex.ru/support/marketplace/assortment/add/index.html#fields)
      *
      * @return self
      */
@@ -419,7 +431,7 @@ class GoodsStatsGoodsDTO implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets market_sku
      *
-     * @param int|null $market_sku SKU на Маркете.
+     * @param int|null $market_sku Идентификатор карточки товара на Маркете.
      *
      * @return self
      */
@@ -478,7 +490,7 @@ class GoodsStatsGoodsDTO implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets price
      *
-     * @param float|null $price Цена на товар в валюте, которая установлена [в кабинете продавца на Маркете](https://partner.market.yandex.ru/).
+     * @param float|null $price Цена товара в валюте, которая установлена [в кабинете продавца на Маркете](https://partner.market.yandex.ru/).
      *
      * @return self
      */
@@ -602,6 +614,11 @@ class GoodsStatsGoodsDTO implements ModelInterface, ArrayAccess, \JsonSerializab
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
         }
+
+
+        if (!is_null($warehouses) && (count($warehouses) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $warehouses when calling GoodsStatsGoodsDTO., number of items must be greater than or equal to 1.');
+        }
         $this->container['warehouses'] = $warehouses;
 
         return $this;
@@ -636,6 +653,11 @@ class GoodsStatsGoodsDTO implements ModelInterface, ArrayAccess, \JsonSerializab
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
         }
+
+
+        if (!is_null($tariffs) && (count($tariffs) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $tariffs when calling GoodsStatsGoodsDTO., number of items must be greater than or equal to 1.');
+        }
         $this->container['tariffs'] = $tariffs;
 
         return $this;
@@ -669,6 +691,11 @@ class GoodsStatsGoodsDTO implements ModelInterface, ArrayAccess, \JsonSerializab
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
+        }
+
+
+        if (!is_null($pictures) && (count($pictures) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $pictures when calling GoodsStatsGoodsDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['pictures'] = $pictures;
 

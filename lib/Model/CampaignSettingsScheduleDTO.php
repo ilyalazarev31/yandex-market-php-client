@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -386,6 +386,8 @@ class CampaignSettingsScheduleDTO implements ModelInterface, ArrayAccess, \JsonS
         if (is_null($custom_holidays)) {
             throw new \InvalidArgumentException('non-nullable custom_holidays cannot be null');
         }
+
+
         $this->container['custom_holidays'] = $custom_holidays;
 
         return $this;
@@ -413,6 +415,8 @@ class CampaignSettingsScheduleDTO implements ModelInterface, ArrayAccess, \JsonS
         if (is_null($custom_working_days)) {
             throw new \InvalidArgumentException('non-nullable custom_working_days cannot be null');
         }
+
+
         $this->container['custom_working_days'] = $custom_working_days;
 
         return $this;
@@ -467,6 +471,8 @@ class CampaignSettingsScheduleDTO implements ModelInterface, ArrayAccess, \JsonS
         if (is_null($total_holidays)) {
             throw new \InvalidArgumentException('non-nullable total_holidays cannot be null');
         }
+
+
         $this->container['total_holidays'] = $total_holidays;
 
         return $this;
@@ -494,6 +500,8 @@ class CampaignSettingsScheduleDTO implements ModelInterface, ArrayAccess, \JsonS
         if (is_null($weekly_holidays)) {
             throw new \InvalidArgumentException('non-nullable weekly_holidays cannot be null');
         }
+
+
         $this->container['weekly_holidays'] = $weekly_holidays;
 
         return $this;

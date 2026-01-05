@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -58,11 +58,12 @@ class GetGoodsFeedbackRequest implements ModelInterface, ArrayAccess, \JsonSeria
       * @var string[]
       */
     protected static $openAPITypes = [
+        'feedback_ids' => 'int[]',
         'date_time_from' => '\DateTime',
         'date_time_to' => '\DateTime',
         'reaction_status' => '\YandexMarketApi\Model\FeedbackReactionStatusType',
         'rating_values' => 'int[]',
-        'model_ids' => 'int[]',
+        'offer_ids' => 'string[]',
         'paid' => 'bool'
     ];
 
@@ -74,11 +75,12 @@ class GetGoodsFeedbackRequest implements ModelInterface, ArrayAccess, \JsonSeria
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
+        'feedback_ids' => 'int64',
         'date_time_from' => 'date-time',
         'date_time_to' => 'date-time',
         'reaction_status' => null,
         'rating_values' => 'int32',
-        'model_ids' => 'int64',
+        'offer_ids' => null,
         'paid' => null
     ];
 
@@ -88,11 +90,12 @@ class GetGoodsFeedbackRequest implements ModelInterface, ArrayAccess, \JsonSeria
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'date_time_from' => false,
+        'feedback_ids' => true,
+		'date_time_from' => false,
 		'date_time_to' => false,
 		'reaction_status' => false,
 		'rating_values' => true,
-		'model_ids' => true,
+		'offer_ids' => true,
 		'paid' => false
     ];
 
@@ -182,11 +185,12 @@ class GetGoodsFeedbackRequest implements ModelInterface, ArrayAccess, \JsonSeria
      * @var string[]
      */
     protected static $attributeMap = [
+        'feedback_ids' => 'feedbackIds',
         'date_time_from' => 'dateTimeFrom',
         'date_time_to' => 'dateTimeTo',
         'reaction_status' => 'reactionStatus',
         'rating_values' => 'ratingValues',
-        'model_ids' => 'modelIds',
+        'offer_ids' => 'offerIds',
         'paid' => 'paid'
     ];
 
@@ -196,11 +200,12 @@ class GetGoodsFeedbackRequest implements ModelInterface, ArrayAccess, \JsonSeria
      * @var string[]
      */
     protected static $setters = [
+        'feedback_ids' => 'setFeedbackIds',
         'date_time_from' => 'setDateTimeFrom',
         'date_time_to' => 'setDateTimeTo',
         'reaction_status' => 'setReactionStatus',
         'rating_values' => 'setRatingValues',
-        'model_ids' => 'setModelIds',
+        'offer_ids' => 'setOfferIds',
         'paid' => 'setPaid'
     ];
 
@@ -210,11 +215,12 @@ class GetGoodsFeedbackRequest implements ModelInterface, ArrayAccess, \JsonSeria
      * @var string[]
      */
     protected static $getters = [
+        'feedback_ids' => 'getFeedbackIds',
         'date_time_from' => 'getDateTimeFrom',
         'date_time_to' => 'getDateTimeTo',
         'reaction_status' => 'getReactionStatus',
         'rating_values' => 'getRatingValues',
-        'model_ids' => 'getModelIds',
+        'offer_ids' => 'getOfferIds',
         'paid' => 'getPaid'
     ];
 
@@ -275,11 +281,12 @@ class GetGoodsFeedbackRequest implements ModelInterface, ArrayAccess, \JsonSeria
      */
     public function __construct(array $data = null)
     {
+        $this->setIfExists('feedback_ids', $data ?? [], null);
         $this->setIfExists('date_time_from', $data ?? [], null);
         $this->setIfExists('date_time_to', $data ?? [], null);
         $this->setIfExists('reaction_status', $data ?? [], null);
         $this->setIfExists('rating_values', $data ?? [], null);
-        $this->setIfExists('model_ids', $data ?? [], null);
+        $this->setIfExists('offer_ids', $data ?? [], null);
         $this->setIfExists('paid', $data ?? [], null);
     }
 
@@ -310,12 +317,28 @@ class GetGoodsFeedbackRequest implements ModelInterface, ArrayAccess, \JsonSeria
     {
         $invalidProperties = [];
 
+        if (!is_null($this->container['feedback_ids']) && (count($this->container['feedback_ids']) > 50)) {
+            $invalidProperties[] = "invalid value for 'feedback_ids', number of items must be less than or equal to 50.";
+        }
+
+        if (!is_null($this->container['feedback_ids']) && (count($this->container['feedback_ids']) < 1)) {
+            $invalidProperties[] = "invalid value for 'feedback_ids', number of items must be greater than or equal to 1.";
+        }
+
         if (!is_null($this->container['rating_values']) && (count($this->container['rating_values']) > 5)) {
             $invalidProperties[] = "invalid value for 'rating_values', number of items must be less than or equal to 5.";
         }
 
-        if (!is_null($this->container['model_ids']) && (count($this->container['model_ids']) > 20)) {
-            $invalidProperties[] = "invalid value for 'model_ids', number of items must be less than or equal to 20.";
+        if (!is_null($this->container['rating_values']) && (count($this->container['rating_values']) < 1)) {
+            $invalidProperties[] = "invalid value for 'rating_values', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['offer_ids']) && (count($this->container['offer_ids']) > 20)) {
+            $invalidProperties[] = "invalid value for 'offer_ids', number of items must be less than or equal to 20.";
+        }
+
+        if (!is_null($this->container['offer_ids']) && (count($this->container['offer_ids']) < 1)) {
+            $invalidProperties[] = "invalid value for 'offer_ids', number of items must be greater than or equal to 1.";
         }
 
         return $invalidProperties;
@@ -334,6 +357,47 @@ class GetGoodsFeedbackRequest implements ModelInterface, ArrayAccess, \JsonSeria
 
 
     /**
+     * Gets feedback_ids
+     *
+     * @return int[]|null
+     */
+    public function getFeedbackIds()
+    {
+        return $this->container['feedback_ids'];
+    }
+
+    /**
+     * Sets feedback_ids
+     *
+     * @param int[]|null $feedback_ids Идентификаторы отзывов.  ⚠️ Не используйте это поле одновременно с другими фильтрами. Если вы хотите воспользоваться ими, оставьте поле пустым.
+     *
+     * @return self
+     */
+    public function setFeedbackIds($feedback_ids)
+    {
+        if (is_null($feedback_ids)) {
+            array_push($this->openAPINullablesSetToNull, 'feedback_ids');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('feedback_ids', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+        if (!is_null($feedback_ids) && (count($feedback_ids) > 50)) {
+            throw new \InvalidArgumentException('invalid value for $feedback_ids when calling GetGoodsFeedbackRequest., number of items must be less than or equal to 50.');
+        }
+        if (!is_null($feedback_ids) && (count($feedback_ids) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $feedback_ids when calling GetGoodsFeedbackRequest., number of items must be greater than or equal to 1.');
+        }
+        $this->container['feedback_ids'] = $feedback_ids;
+
+        return $this;
+    }
+
+    /**
      * Gets date_time_from
      *
      * @return \DateTime|null
@@ -346,7 +410,7 @@ class GetGoodsFeedbackRequest implements ModelInterface, ArrayAccess, \JsonSeria
     /**
      * Sets date_time_from
      *
-     * @param \DateTime|null $date_time_from Начало периода. Не включительно.  Если параметр не указан, возвращается информация за 6 месяцев до указанной в `dateTimeTo` даты.
+     * @param \DateTime|null $date_time_from Начало периода. Не включительно.  Если параметр не указан, возвращается информация за 6 месяцев до указанной в `dateTimeTo` даты.  Максимальный интервал 6 месяцев.
      *
      * @return self
      */
@@ -373,7 +437,7 @@ class GetGoodsFeedbackRequest implements ModelInterface, ArrayAccess, \JsonSeria
     /**
      * Sets date_time_to
      *
-     * @param \DateTime|null $date_time_to Конец периода. Не включительно.  Если параметр не указан, используется текущая дата.
+     * @param \DateTime|null $date_time_to Конец периода. Не включительно.  Если параметр не указан, используется текущая дата.  Максимальный интервал 6 месяцев.
      *
      * @return self
      */
@@ -447,45 +511,51 @@ class GetGoodsFeedbackRequest implements ModelInterface, ArrayAccess, \JsonSeria
         if (!is_null($rating_values) && (count($rating_values) > 5)) {
             throw new \InvalidArgumentException('invalid value for $rating_values when calling GetGoodsFeedbackRequest., number of items must be less than or equal to 5.');
         }
+        if (!is_null($rating_values) && (count($rating_values) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $rating_values when calling GetGoodsFeedbackRequest., number of items must be greater than or equal to 1.');
+        }
         $this->container['rating_values'] = $rating_values;
 
         return $this;
     }
 
     /**
-     * Gets model_ids
+     * Gets offer_ids
      *
-     * @return int[]|null
+     * @return string[]|null
      */
-    public function getModelIds()
+    public function getOfferIds()
     {
-        return $this->container['model_ids'];
+        return $this->container['offer_ids'];
     }
 
     /**
-     * Sets model_ids
+     * Sets offer_ids
      *
-     * @param int[]|null $model_ids Фильтр по идентификатору модели товара.  Получить идентификатор модели можно с помощью одного из запросов:  * [POST businesses/{businessId}/offer-mappings](../../reference/business-assortment/getOfferMappings.md);  * [POST businesses/{businessId}/offer-cards](../../reference/content/getOfferCardsContentStatus.md);  * [POST models](../../reference/models/getModels.md).
+     * @param string[]|null $offer_ids Фильтр по идентификатору товара.
      *
      * @return self
      */
-    public function setModelIds($model_ids)
+    public function setOfferIds($offer_ids)
     {
-        if (is_null($model_ids)) {
-            array_push($this->openAPINullablesSetToNull, 'model_ids');
+        if (is_null($offer_ids)) {
+            array_push($this->openAPINullablesSetToNull, 'offer_ids');
         } else {
             $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
-            $index = array_search('model_ids', $nullablesSetToNull);
+            $index = array_search('offer_ids', $nullablesSetToNull);
             if ($index !== FALSE) {
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
         }
 
-        if (!is_null($model_ids) && (count($model_ids) > 20)) {
-            throw new \InvalidArgumentException('invalid value for $model_ids when calling GetGoodsFeedbackRequest., number of items must be less than or equal to 20.');
+        if (!is_null($offer_ids) && (count($offer_ids) > 20)) {
+            throw new \InvalidArgumentException('invalid value for $offer_ids when calling GetGoodsFeedbackRequest., number of items must be less than or equal to 20.');
         }
-        $this->container['model_ids'] = $model_ids;
+        if (!is_null($offer_ids) && (count($offer_ids) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $offer_ids when calling GetGoodsFeedbackRequest., number of items must be greater than or equal to 1.');
+        }
+        $this->container['offer_ids'] = $offer_ids;
 
         return $this;
     }

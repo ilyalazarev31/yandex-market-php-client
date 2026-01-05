@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -317,6 +317,14 @@ class GetOrdersStatsRequest implements ModelInterface, ArrayAccess, \JsonSeriali
     {
         $invalidProperties = [];
 
+        if (!is_null($this->container['orders']) && (count($this->container['orders']) < 1)) {
+            $invalidProperties[] = "invalid value for 'orders', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['statuses']) && (count($this->container['statuses']) < 1)) {
+            $invalidProperties[] = "invalid value for 'statuses', number of items must be greater than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -469,6 +477,11 @@ class GetOrdersStatsRequest implements ModelInterface, ArrayAccess, \JsonSeriali
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
         }
+
+
+        if (!is_null($orders) && (count($orders) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $orders when calling GetOrdersStatsRequest., number of items must be greater than or equal to 1.');
+        }
         $this->container['orders'] = $orders;
 
         return $this;
@@ -503,6 +516,11 @@ class GetOrdersStatsRequest implements ModelInterface, ArrayAccess, \JsonSeriali
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
         }
+
+
+        if (!is_null($statuses) && (count($statuses) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $statuses when calling GetOrdersStatsRequest., number of items must be greater than or equal to 1.');
+        }
         $this->container['statuses'] = $statuses;
 
         return $this;
@@ -521,7 +539,7 @@ class GetOrdersStatsRequest implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Sets has_cis
      *
-     * @param bool|null $has_cis Нужно ли вернуть только те заказы, в составе которых есть хотя бы один товар с кодом идентификации [в системе «Честный ЗНАК»](https://честныйзнак.рф/):  * `true` — да. * `false` — нет. Такие коды присваиваются товарам, которые подлежат маркировке и относятся к определенным категориям.
+     * @param bool|null $has_cis Фильтр для получения заказов, в которых есть хотя бы один товар с кодом идентификации в системе [:no-translate[«Честный ЗНАК»]](https://честныйзнак.рф/) или [:no-translate[«ASL BELGISI»]](https://aslbelgisi.uz) (для продавцов :no-translate[Market Yandex Go]):  * `true` — да. * `false` — нет. Такие коды присваиваются товарам, которые подлежат маркировке и относятся к определенным категориям.
      *
      * @return self
      */

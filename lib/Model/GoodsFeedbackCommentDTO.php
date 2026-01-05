@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -63,7 +63,8 @@ class GoodsFeedbackCommentDTO implements ModelInterface, ArrayAccess, \JsonSeria
         'can_modify' => 'bool',
         'parent_id' => 'int',
         'author' => '\YandexMarketApi\Model\GoodsFeedbackCommentAuthorDTO',
-        'status' => '\YandexMarketApi\Model\GoodsFeedbackCommentStatusType'
+        'status' => '\YandexMarketApi\Model\GoodsFeedbackCommentStatusType',
+        'feedback_id' => 'int'
     ];
 
     /**
@@ -79,7 +80,8 @@ class GoodsFeedbackCommentDTO implements ModelInterface, ArrayAccess, \JsonSeria
         'can_modify' => null,
         'parent_id' => 'int64',
         'author' => null,
-        'status' => null
+        'status' => null,
+        'feedback_id' => 'int64'
     ];
 
     /**
@@ -93,7 +95,12 @@ class GoodsFeedbackCommentDTO implements ModelInterface, ArrayAccess, \JsonSeria
 		'can_modify' => false,
 		'parent_id' => false,
 		'author' => false,
-		'status' => false
+<<<<<<<< HEAD:lib/Model/FeedbackCommentDTO.php
+		'children' => true
+========
+		'status' => false,
+		'feedback_id' => false
+>>>>>>>> upstream/main:lib/Model/GoodsFeedbackCommentDTO.php
     ];
 
     /**
@@ -187,7 +194,8 @@ class GoodsFeedbackCommentDTO implements ModelInterface, ArrayAccess, \JsonSeria
         'can_modify' => 'canModify',
         'parent_id' => 'parentId',
         'author' => 'author',
-        'status' => 'status'
+        'status' => 'status',
+        'feedback_id' => 'feedbackId'
     ];
 
     /**
@@ -201,7 +209,8 @@ class GoodsFeedbackCommentDTO implements ModelInterface, ArrayAccess, \JsonSeria
         'can_modify' => 'setCanModify',
         'parent_id' => 'setParentId',
         'author' => 'setAuthor',
-        'status' => 'setStatus'
+        'status' => 'setStatus',
+        'feedback_id' => 'setFeedbackId'
     ];
 
     /**
@@ -215,7 +224,8 @@ class GoodsFeedbackCommentDTO implements ModelInterface, ArrayAccess, \JsonSeria
         'can_modify' => 'getCanModify',
         'parent_id' => 'getParentId',
         'author' => 'getAuthor',
-        'status' => 'getStatus'
+        'status' => 'getStatus',
+        'feedback_id' => 'getFeedbackId'
     ];
 
     /**
@@ -281,6 +291,7 @@ class GoodsFeedbackCommentDTO implements ModelInterface, ArrayAccess, \JsonSeria
         $this->setIfExists('parent_id', $data ?? [], null);
         $this->setIfExists('author', $data ?? [], null);
         $this->setIfExists('status', $data ?? [], null);
+        $this->setIfExists('feedback_id', $data ?? [], null);
     }
 
     /**
@@ -324,11 +335,11 @@ class GoodsFeedbackCommentDTO implements ModelInterface, ArrayAccess, \JsonSeria
             $invalidProperties[] = "invalid value for 'text', the character length must be bigger than or equal to 1.";
         }
 
-        if ($this->container['author'] === null) {
-            $invalidProperties[] = "'author' can't be null";
-        }
         if ($this->container['status'] === null) {
             $invalidProperties[] = "'status' can't be null";
+        }
+        if ($this->container['feedback_id'] === null) {
+            $invalidProperties[] = "'feedback_id' can't be null";
         }
         return $invalidProperties;
     }
@@ -385,7 +396,7 @@ class GoodsFeedbackCommentDTO implements ModelInterface, ArrayAccess, \JsonSeria
     /**
      * Sets text
      *
-     * @param string $text Текст комментария.
+     * @param string $text Текст комментария.  Не должен содержать контакты магазина и ссылки на сайты, кроме Маркета.
      *
      * @return self
      */
@@ -446,7 +457,7 @@ class GoodsFeedbackCommentDTO implements ModelInterface, ArrayAccess, \JsonSeria
     /**
      * Sets parent_id
      *
-     * @param int|null $parent_id Идентификатор комментария к отзыву.
+     * @param int|null $parent_id Идентификатор родительского комментария.
      *
      * @return self
      */
@@ -463,7 +474,7 @@ class GoodsFeedbackCommentDTO implements ModelInterface, ArrayAccess, \JsonSeria
     /**
      * Gets author
      *
-     * @return \YandexMarketApi\Model\GoodsFeedbackCommentAuthorDTO
+     * @return \YandexMarketApi\Model\GoodsFeedbackCommentAuthorDTO|null
      */
     public function getAuthor()
     {
@@ -473,7 +484,7 @@ class GoodsFeedbackCommentDTO implements ModelInterface, ArrayAccess, \JsonSeria
     /**
      * Sets author
      *
-     * @param \YandexMarketApi\Model\GoodsFeedbackCommentAuthorDTO $author author
+     * @param \YandexMarketApi\Model\GoodsFeedbackCommentAuthorDTO|null $author author
      *
      * @return self
      */
@@ -506,10 +517,49 @@ class GoodsFeedbackCommentDTO implements ModelInterface, ArrayAccess, \JsonSeria
      */
     public function setStatus($status)
     {
+<<<<<<<< HEAD:lib/Model/FeedbackCommentDTO.php
+        if (is_null($children)) {
+            array_push($this->openAPINullablesSetToNull, 'children');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('children', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+========
         if (is_null($status)) {
             throw new \InvalidArgumentException('non-nullable status cannot be null');
+>>>>>>>> upstream/main:lib/Model/GoodsFeedbackCommentDTO.php
         }
         $this->container['status'] = $status;
+
+        return $this;
+    }
+
+    /**
+     * Gets feedback_id
+     *
+     * @return int
+     */
+    public function getFeedbackId()
+    {
+        return $this->container['feedback_id'];
+    }
+
+    /**
+     * Sets feedback_id
+     *
+     * @param int $feedback_id Идентификатор отзыва.
+     *
+     * @return self
+     */
+    public function setFeedbackId($feedback_id)
+    {
+        if (is_null($feedback_id)) {
+            throw new \InvalidArgumentException('non-nullable feedback_id cannot be null');
+        }
+        $this->container['feedback_id'] = $feedback_id;
 
         return $this;
     }

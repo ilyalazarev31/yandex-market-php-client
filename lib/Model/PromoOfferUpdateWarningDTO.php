@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -285,6 +285,10 @@ class PromoOfferUpdateWarningDTO implements ModelInterface, ArrayAccess, \JsonSe
         if ($this->container['code'] === null) {
             $invalidProperties[] = "'code' can't be null";
         }
+        if (!is_null($this->container['campaign_ids']) && (count($this->container['campaign_ids']) < 1)) {
+            $invalidProperties[] = "invalid value for 'campaign_ids', number of items must be greater than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -340,7 +344,7 @@ class PromoOfferUpdateWarningDTO implements ModelInterface, ArrayAccess, \JsonSe
     /**
      * Sets campaign_ids
      *
-     * @param int[]|null $campaign_ids Идентификаторы магазинов в кабинете, для которых получены предупреждения.  Не возвращается, если предупреждения действуют для всех магазинов в кабинете.
+     * @param int[]|null $campaign_ids Идентификаторы кампаний тех магазинов, для которых получены предупреждения.  Не возвращается, если предупреждения действуют для всех магазинов в кабинете.
      *
      * @return self
      */
@@ -355,6 +359,11 @@ class PromoOfferUpdateWarningDTO implements ModelInterface, ArrayAccess, \JsonSe
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
+        }
+
+
+        if (!is_null($campaign_ids) && (count($campaign_ids) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $campaign_ids when calling PromoOfferUpdateWarningDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['campaign_ids'] = $campaign_ids;
 

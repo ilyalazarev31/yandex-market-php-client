@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -278,6 +278,10 @@ class UpdateOutletLicenseRequest implements ModelInterface, ArrayAccess, \JsonSe
         if ($this->container['licenses'] === null) {
             $invalidProperties[] = "'licenses' can't be null";
         }
+        if ((count($this->container['licenses']) > 500)) {
+            $invalidProperties[] = "invalid value for 'licenses', number of items must be less than or equal to 500.";
+        }
+
         if ((count($this->container['licenses']) < 1)) {
             $invalidProperties[] = "invalid value for 'licenses', number of items must be greater than or equal to 1.";
         }
@@ -320,7 +324,9 @@ class UpdateOutletLicenseRequest implements ModelInterface, ArrayAccess, \JsonSe
             throw new \InvalidArgumentException('non-nullable licenses cannot be null');
         }
 
-
+        if ((count($licenses) > 500)) {
+            throw new \InvalidArgumentException('invalid value for $licenses when calling UpdateOutletLicenseRequest., number of items must be less than or equal to 500.');
+        }
         if ((count($licenses) < 1)) {
             throw new \InvalidArgumentException('invalid length for $licenses when calling UpdateOutletLicenseRequest., number of items must be greater than or equal to 1.');
         }

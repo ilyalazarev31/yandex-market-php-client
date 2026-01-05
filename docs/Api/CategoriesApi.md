@@ -4,8 +4,8 @@ All URIs are relative to https://api.partner.market.yandex.ru, except if the ope
 
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
-| [**getCategoriesMaxSaleQuantum()**](CategoriesApi.md#getCategoriesMaxSaleQuantum) | **POST** /categories/max-sale-quantum | Лимит на установку кванта продажи и минимального количества товаров в заказе |
-| [**getCategoriesTree()**](CategoriesApi.md#getCategoriesTree) | **POST** /categories/tree | Дерево категорий |
+| [**getCategoriesMaxSaleQuantum()**](CategoriesApi.md#getCategoriesMaxSaleQuantum) | **POST** /v2/categories/max-sale-quantum | Лимит на установку кванта продажи и минимального количества товаров в заказе |
+| [**getCategoriesTree()**](CategoriesApi.md#getCategoriesTree) | **POST** /v2/categories/tree | Дерево категорий |
 
 
 ## `getCategoriesMaxSaleQuantum()`
@@ -16,7 +16,7 @@ getCategoriesMaxSaleQuantum($get_categories_max_sale_quantum_request): \YandexMa
 
 Лимит на установку кванта продажи и минимального количества товаров в заказе
 
-{% include notitle [access](../../_auto/method_scopes/getCategoriesMaxSaleQuantum.md) %}  Возвращает лимит на установку [кванта](*quantum) и минимального количества товаров в заказе, которые вы можете задать для товаров указанных категорий.  Если вы передадите значение кванта или минимального количества товаров выше установленного Маркетом ограничения, товар будет скрыт с витрины.  Подробнее о том, как продавать товары по несколько штук, читайте [в Справке Маркета для продавцов](https://yandex.ru/support2/marketplace/ru/assortment/fields/quantum).  |**⚙️ Лимит:** 1 000 запросов в час| |-|
+{% include notitle [:no-translate[access]](../../_auto/method_scopes/getCategoriesMaxSaleQuantum.md) %}  Возвращает лимит на установку [кванта](*quantum) и минимального количества товаров в заказе, которые вы можете задать для товаров указанных категорий.  Если вы передадите значение кванта или минимального количества товаров выше установленного Маркетом ограничения, товар будет скрыт с витрины.  Подробнее о том, как продавать товары по несколько штук, читайте [в Справке Маркета для продавцов](https://yandex.ru/support2/marketplace/ru/assortment/fields/quantum).  |**⚙️ Лимит:** 5 000 запросов в час| |-|
 
 ### Example
 
@@ -81,7 +81,7 @@ getCategoriesTree($get_categories_request): \YandexMarketApi\Model\GetCategories
 
 Дерево категорий
 
-{% include notitle [access](../../_auto/method_scopes/getCategoriesTree.md) %}  Возвращает дерево категорий Маркета.  |**⚙️ Лимит:** 1 000 запросов в час| |-|
+{% include notitle [:no-translate[access]](../../_auto/method_scopes/getCategoriesTree.md) %}  Возвращает дерево категорий Маркета.  |**⚙️ Лимит:** 1 000 запросов в час| |-|
 
 ### Example
 

@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -59,7 +59,6 @@ class EnrichedMappingsOfferDTOAllOf implements ModelInterface, ArrayAccess, \Jso
     protected static $openAPITypes = [
         'market_category_id' => 'int',
         'market_category_name' => 'string',
-        'market_model_id' => 'int',
         'market_model_name' => 'string',
         'market_sku' => 'int',
         'market_sku_name' => 'string'
@@ -75,7 +74,6 @@ class EnrichedMappingsOfferDTOAllOf implements ModelInterface, ArrayAccess, \Jso
     protected static $openAPIFormats = [
         'market_category_id' => 'int64',
         'market_category_name' => null,
-        'market_model_id' => 'int64',
         'market_model_name' => null,
         'market_sku' => 'int64',
         'market_sku_name' => null
@@ -89,7 +87,6 @@ class EnrichedMappingsOfferDTOAllOf implements ModelInterface, ArrayAccess, \Jso
     protected static array $openAPINullables = [
         'market_category_id' => false,
 		'market_category_name' => false,
-		'market_model_id' => false,
 		'market_model_name' => false,
 		'market_sku' => false,
 		'market_sku_name' => false
@@ -183,7 +180,6 @@ class EnrichedMappingsOfferDTOAllOf implements ModelInterface, ArrayAccess, \Jso
     protected static $attributeMap = [
         'market_category_id' => 'marketCategoryId',
         'market_category_name' => 'marketCategoryName',
-        'market_model_id' => 'marketModelId',
         'market_model_name' => 'marketModelName',
         'market_sku' => 'marketSku',
         'market_sku_name' => 'marketSkuName'
@@ -197,7 +193,6 @@ class EnrichedMappingsOfferDTOAllOf implements ModelInterface, ArrayAccess, \Jso
     protected static $setters = [
         'market_category_id' => 'setMarketCategoryId',
         'market_category_name' => 'setMarketCategoryName',
-        'market_model_id' => 'setMarketModelId',
         'market_model_name' => 'setMarketModelName',
         'market_sku' => 'setMarketSku',
         'market_sku_name' => 'setMarketSkuName'
@@ -211,7 +206,6 @@ class EnrichedMappingsOfferDTOAllOf implements ModelInterface, ArrayAccess, \Jso
     protected static $getters = [
         'market_category_id' => 'getMarketCategoryId',
         'market_category_name' => 'getMarketCategoryName',
-        'market_model_id' => 'getMarketModelId',
         'market_model_name' => 'getMarketModelName',
         'market_sku' => 'getMarketSku',
         'market_sku_name' => 'getMarketSkuName'
@@ -276,7 +270,6 @@ class EnrichedMappingsOfferDTOAllOf implements ModelInterface, ArrayAccess, \Jso
     {
         $this->setIfExists('market_category_id', $data ?? [], null);
         $this->setIfExists('market_category_name', $data ?? [], null);
-        $this->setIfExists('market_model_id', $data ?? [], null);
         $this->setIfExists('market_model_name', $data ?? [], null);
         $this->setIfExists('market_sku', $data ?? [], null);
         $this->setIfExists('market_sku_name', $data ?? [], null);
@@ -341,7 +334,7 @@ class EnrichedMappingsOfferDTOAllOf implements ModelInterface, ArrayAccess, \Jso
     /**
      * Sets market_category_id
      *
-     * @param int|null $market_category_id Идентификатор категории для рекомендованной карточки товара на Маркете.  Возвращается только вместе с параметром ##marketSku##.
+     * @param int|null $market_category_id Идентификатор категории для рекомендованной карточки товара на Маркете.  Возвращается только вместе с параметром `marketSku`.
      *
      * @return self
      */
@@ -383,36 +376,10 @@ class EnrichedMappingsOfferDTOAllOf implements ModelInterface, ArrayAccess, \Jso
     }
 
     /**
-     * Gets market_model_id
-     *
-     * @return int|null
-     */
-    public function getMarketModelId()
-    {
-        return $this->container['market_model_id'];
-    }
-
-    /**
-     * Sets market_model_id
-     *
-     * @param int|null $market_model_id Идентификатор модели для рекомендованной карточки товара на Маркете.  Может отсутствовать в ответе.
-     *
-     * @return self
-     */
-    public function setMarketModelId($market_model_id)
-    {
-        if (is_null($market_model_id)) {
-            throw new \InvalidArgumentException('non-nullable market_model_id cannot be null');
-        }
-        $this->container['market_model_id'] = $market_model_id;
-
-        return $this;
-    }
-
-    /**
      * Gets market_model_name
      *
      * @return string|null
+     * @deprecated
      */
     public function getMarketModelName()
     {
@@ -425,6 +392,7 @@ class EnrichedMappingsOfferDTOAllOf implements ModelInterface, ArrayAccess, \Jso
      * @param string|null $market_model_name Название модели для рекомендованной карточки товара на Маркете.  Возвращается только вместе с параметром ##marketSku##.
      *
      * @return self
+     * @deprecated
      */
     public function setMarketModelName($market_model_name)
     {
@@ -449,7 +417,7 @@ class EnrichedMappingsOfferDTOAllOf implements ModelInterface, ArrayAccess, \Jso
     /**
      * Sets market_sku
      *
-     * @param int|null $market_sku SKU на Маркете.
+     * @param int|null $market_sku Идентификатор карточки товара на Маркете.
      *
      * @return self
      */

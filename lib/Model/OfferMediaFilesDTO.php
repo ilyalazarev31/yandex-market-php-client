@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -296,6 +296,18 @@ class OfferMediaFilesDTO implements ModelInterface, ArrayAccess, \JsonSerializab
     {
         $invalidProperties = [];
 
+        if (!is_null($this->container['videos']) && (count($this->container['videos']) < 1)) {
+            $invalidProperties[] = "invalid value for 'videos', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['pictures']) && (count($this->container['pictures']) < 1)) {
+            $invalidProperties[] = "invalid value for 'pictures', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['manuals']) && (count($this->container['manuals']) < 1)) {
+            $invalidProperties[] = "invalid value for 'manuals', number of items must be greater than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -315,6 +327,7 @@ class OfferMediaFilesDTO implements ModelInterface, ArrayAccess, \JsonSerializab
      * Gets first_video_as_cover
      *
      * @return bool|null
+     * @deprecated
      */
     public function getFirstVideoAsCover()
     {
@@ -327,6 +340,7 @@ class OfferMediaFilesDTO implements ModelInterface, ArrayAccess, \JsonSerializab
      * @param bool|null $first_video_as_cover Использовать первое видео в карточке как видеообложку.  Передайте `true`, чтобы первое видео использовалось как видеообложка, или `false`, чтобы видеообложка не отображалась в карточке товара.
      *
      * @return self
+     * @deprecated
      */
     public function setFirstVideoAsCover($first_video_as_cover)
     {
@@ -367,6 +381,11 @@ class OfferMediaFilesDTO implements ModelInterface, ArrayAccess, \JsonSerializab
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
         }
+
+
+        if (!is_null($videos) && (count($videos) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $videos when calling OfferMediaFilesDTO., number of items must be greater than or equal to 1.');
+        }
         $this->container['videos'] = $videos;
 
         return $this;
@@ -401,6 +420,11 @@ class OfferMediaFilesDTO implements ModelInterface, ArrayAccess, \JsonSerializab
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
         }
+
+
+        if (!is_null($pictures) && (count($pictures) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $pictures when calling OfferMediaFilesDTO., number of items must be greater than or equal to 1.');
+        }
         $this->container['pictures'] = $pictures;
 
         return $this;
@@ -434,6 +458,11 @@ class OfferMediaFilesDTO implements ModelInterface, ArrayAccess, \JsonSerializab
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
+        }
+
+
+        if (!is_null($manuals) && (count($manuals) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $manuals when calling OfferMediaFilesDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['manuals'] = $manuals;
 

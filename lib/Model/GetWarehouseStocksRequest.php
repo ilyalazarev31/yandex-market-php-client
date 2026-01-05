@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -58,6 +58,8 @@ class GetWarehouseStocksRequest implements ModelInterface, ArrayAccess, \JsonSer
       * @var string[]
       */
     protected static $openAPITypes = [
+        'stocks_warehouse_id' => 'int',
+        'has_stocks' => 'bool',
         'with_turnover' => 'bool',
         'archived' => 'bool',
         'offer_ids' => 'string[]'
@@ -71,6 +73,8 @@ class GetWarehouseStocksRequest implements ModelInterface, ArrayAccess, \JsonSer
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
+        'stocks_warehouse_id' => 'int64',
+        'has_stocks' => null,
         'with_turnover' => null,
         'archived' => null,
         'offer_ids' => null
@@ -82,7 +86,9 @@ class GetWarehouseStocksRequest implements ModelInterface, ArrayAccess, \JsonSer
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'with_turnover' => false,
+        'stocks_warehouse_id' => false,
+		'has_stocks' => false,
+		'with_turnover' => false,
 		'archived' => false,
 		'offer_ids' => true
     ];
@@ -173,6 +179,8 @@ class GetWarehouseStocksRequest implements ModelInterface, ArrayAccess, \JsonSer
      * @var string[]
      */
     protected static $attributeMap = [
+        'stocks_warehouse_id' => 'stocksWarehouseId',
+        'has_stocks' => 'hasStocks',
         'with_turnover' => 'withTurnover',
         'archived' => 'archived',
         'offer_ids' => 'offerIds'
@@ -184,6 +192,8 @@ class GetWarehouseStocksRequest implements ModelInterface, ArrayAccess, \JsonSer
      * @var string[]
      */
     protected static $setters = [
+        'stocks_warehouse_id' => 'setStocksWarehouseId',
+        'has_stocks' => 'setHasStocks',
         'with_turnover' => 'setWithTurnover',
         'archived' => 'setArchived',
         'offer_ids' => 'setOfferIds'
@@ -195,6 +205,8 @@ class GetWarehouseStocksRequest implements ModelInterface, ArrayAccess, \JsonSer
      * @var string[]
      */
     protected static $getters = [
+        'stocks_warehouse_id' => 'getStocksWarehouseId',
+        'has_stocks' => 'getHasStocks',
         'with_turnover' => 'getWithTurnover',
         'archived' => 'getArchived',
         'offer_ids' => 'getOfferIds'
@@ -257,6 +269,8 @@ class GetWarehouseStocksRequest implements ModelInterface, ArrayAccess, \JsonSer
      */
     public function __construct(array $data = null)
     {
+        $this->setIfExists('stocks_warehouse_id', $data ?? [], null);
+        $this->setIfExists('has_stocks', $data ?? [], null);
         $this->setIfExists('with_turnover', $data ?? [], false);
         $this->setIfExists('archived', $data ?? [], null);
         $this->setIfExists('offer_ids', $data ?? [], null);
@@ -289,6 +303,10 @@ class GetWarehouseStocksRequest implements ModelInterface, ArrayAccess, \JsonSer
     {
         $invalidProperties = [];
 
+        if (!is_null($this->container['stocks_warehouse_id']) && ($this->container['stocks_warehouse_id'] < 1)) {
+            $invalidProperties[] = "invalid value for 'stocks_warehouse_id', must be bigger than or equal to 1.";
+        }
+
         if (!is_null($this->container['offer_ids']) && (count($this->container['offer_ids']) > 500)) {
             $invalidProperties[] = "invalid value for 'offer_ids', number of items must be less than or equal to 500.";
         }
@@ -311,6 +329,65 @@ class GetWarehouseStocksRequest implements ModelInterface, ArrayAccess, \JsonSer
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets stocks_warehouse_id
+     *
+     * @return int|null
+     */
+    public function getStocksWarehouseId()
+    {
+        return $this->container['stocks_warehouse_id'];
+    }
+
+    /**
+     * Sets stocks_warehouse_id
+     *
+     * @param int|null $stocks_warehouse_id Идентификатор склада.  Если параметр указан, возвращаются только товары на переданном складе.  **Для модели FBY:** получить список складов Маркета можно с помощью метода [GET v2/warehouses](../../reference/warehouses/getFulfillmentWarehouses.md).
+     *
+     * @return self
+     */
+    public function setStocksWarehouseId($stocks_warehouse_id)
+    {
+        if (is_null($stocks_warehouse_id)) {
+            throw new \InvalidArgumentException('non-nullable stocks_warehouse_id cannot be null');
+        }
+
+        if (($stocks_warehouse_id < 1)) {
+            throw new \InvalidArgumentException('invalid value for $stocks_warehouse_id when calling GetWarehouseStocksRequest., must be bigger than or equal to 1.');
+        }
+
+        $this->container['stocks_warehouse_id'] = $stocks_warehouse_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets has_stocks
+     *
+     * @return bool|null
+     */
+    public function getHasStocks()
+    {
+        return $this->container['has_stocks'];
+    }
+
+    /**
+     * Sets has_stocks
+     *
+     * @param bool|null $has_stocks **Только для модели FBY**  Фильтр по наличию товаров. Используйте только вместе со `stocksWarehouseId`.  Передайте `false`, чтобы получить информацию о товарах, которых нет в наличие. При значении `true` возвращаются данные о товарах, которые есть на указанном складе.
+     *
+     * @return self
+     */
+    public function setHasStocks($has_stocks)
+    {
+        if (is_null($has_stocks)) {
+            throw new \InvalidArgumentException('non-nullable has_stocks cannot be null');
+        }
+        $this->container['has_stocks'] = $has_stocks;
+
+        return $this;
+    }
 
     /**
      * Gets with_turnover
@@ -379,7 +456,7 @@ class GetWarehouseStocksRequest implements ModelInterface, ArrayAccess, \JsonSer
     /**
      * Sets offer_ids
      *
-     * @param string[]|null $offer_ids Фильтр по вашим SKU товаров.  Возвращается информация об остатках всех переданных SKU, включая товары в архиве.  {% note warning \"Такой список возвращается только целиком\" %}  Если вы запрашиваете информацию по конкретным SKU, не заполняйте:  * `page_token` * `limit` * `archived`  {% endnote %}   
+     * @param string[]|null $offer_ids Фильтр по вашим SKU товаров.  Возвращается информация об остатках всех переданных SKU, включая товары в архиве.  {% note warning \"Такой список возвращается только целиком\" %}  Если вы запрашиваете информацию по конкретным SKU, не заполняйте:  * `page_token` * `limit` * `archived` * `stocksOnWarehouse`  {% endnote %}   
      *
      * @return self
      */

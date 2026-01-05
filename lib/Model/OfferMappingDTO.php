@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -59,7 +59,6 @@ class OfferMappingDTO implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'market_sku' => 'int',
-        'model_id' => 'int',
         'category_id' => 'int'
     ];
 
@@ -72,7 +71,6 @@ class OfferMappingDTO implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'market_sku' => 'int64',
-        'model_id' => 'int64',
         'category_id' => 'int64'
     ];
 
@@ -83,7 +81,6 @@ class OfferMappingDTO implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static array $openAPINullables = [
         'market_sku' => false,
-		'model_id' => false,
 		'category_id' => false
     ];
 
@@ -174,7 +171,6 @@ class OfferMappingDTO implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'market_sku' => 'marketSku',
-        'model_id' => 'modelId',
         'category_id' => 'categoryId'
     ];
 
@@ -185,7 +181,6 @@ class OfferMappingDTO implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'market_sku' => 'setMarketSku',
-        'model_id' => 'setModelId',
         'category_id' => 'setCategoryId'
     ];
 
@@ -196,7 +191,6 @@ class OfferMappingDTO implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'market_sku' => 'getMarketSku',
-        'model_id' => 'getModelId',
         'category_id' => 'getCategoryId'
     ];
 
@@ -258,7 +252,6 @@ class OfferMappingDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(array $data = null)
     {
         $this->setIfExists('market_sku', $data ?? [], null);
-        $this->setIfExists('model_id', $data ?? [], null);
         $this->setIfExists('category_id', $data ?? [], null);
     }
 
@@ -321,7 +314,7 @@ class OfferMappingDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets market_sku
      *
-     * @param int|null $market_sku SKU на Маркете.
+     * @param int|null $market_sku Идентификатор карточки товара на Маркете.
      *
      * @return self
      */
@@ -336,33 +329,6 @@ class OfferMappingDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         $this->container['market_sku'] = $market_sku;
-
-        return $this;
-    }
-
-    /**
-     * Gets model_id
-     *
-     * @return int|null
-     */
-    public function getModelId()
-    {
-        return $this->container['model_id'];
-    }
-
-    /**
-     * Sets model_id
-     *
-     * @param int|null $model_id Идентификатор модели для текущей карточки товара на Маркете.  Например, две лопатки разных цветов имеют разные SKU на Маркете (параметр `marketSku`), но одинаковый идентификатор модели товара.
-     *
-     * @return self
-     */
-    public function setModelId($model_id)
-    {
-        if (is_null($model_id)) {
-            throw new \InvalidArgumentException('non-nullable model_id cannot be null');
-        }
-        $this->container['model_id'] = $model_id;
 
         return $this;
     }

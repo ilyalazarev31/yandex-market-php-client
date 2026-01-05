@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -58,11 +58,11 @@ class UpdateOfferDTOAllOf implements ModelInterface, ArrayAccess, \JsonSerializa
       */
     protected static $openAPITypes = [
         'parameter_values' => '\YandexMarketApi\Model\ParameterValueDTO[]',
-        'basic_price' => '\YandexMarketApi\Model\UpdatePriceWithDiscountDTO',
+        'basic_price' => '\YandexMarketApi\Model\PriceWithDiscountDTO',
         'purchase_price' => '\YandexMarketApi\Model\BasePriceDTO',
         'additional_expenses' => '\YandexMarketApi\Model\BasePriceDTO',
-        'cofinance_price' => '\YandexMarketApi\Model\BasePriceDTO',
-        'first_video_as_cover' => 'bool'
+        'first_video_as_cover' => 'bool',
+        'delete_parameters' => '\YandexMarketApi\Model\DeleteOfferParameterType[]'
     ];
 
     /**
@@ -77,8 +77,8 @@ class UpdateOfferDTOAllOf implements ModelInterface, ArrayAccess, \JsonSerializa
         'basic_price' => null,
         'purchase_price' => null,
         'additional_expenses' => null,
-        'cofinance_price' => null,
-        'first_video_as_cover' => null
+        'first_video_as_cover' => null,
+        'delete_parameters' => null
     ];
 
     /**
@@ -91,8 +91,8 @@ class UpdateOfferDTOAllOf implements ModelInterface, ArrayAccess, \JsonSerializa
 		'basic_price' => false,
 		'purchase_price' => false,
 		'additional_expenses' => false,
-		'cofinance_price' => false,
-		'first_video_as_cover' => false
+		'first_video_as_cover' => false,
+		'delete_parameters' => true
     ];
 
     /**
@@ -185,8 +185,8 @@ class UpdateOfferDTOAllOf implements ModelInterface, ArrayAccess, \JsonSerializa
         'basic_price' => 'basicPrice',
         'purchase_price' => 'purchasePrice',
         'additional_expenses' => 'additionalExpenses',
-        'cofinance_price' => 'cofinancePrice',
-        'first_video_as_cover' => 'firstVideoAsCover'
+        'first_video_as_cover' => 'firstVideoAsCover',
+        'delete_parameters' => 'deleteParameters'
     ];
 
     /**
@@ -199,8 +199,8 @@ class UpdateOfferDTOAllOf implements ModelInterface, ArrayAccess, \JsonSerializa
         'basic_price' => 'setBasicPrice',
         'purchase_price' => 'setPurchasePrice',
         'additional_expenses' => 'setAdditionalExpenses',
-        'cofinance_price' => 'setCofinancePrice',
-        'first_video_as_cover' => 'setFirstVideoAsCover'
+        'first_video_as_cover' => 'setFirstVideoAsCover',
+        'delete_parameters' => 'setDeleteParameters'
     ];
 
     /**
@@ -213,8 +213,8 @@ class UpdateOfferDTOAllOf implements ModelInterface, ArrayAccess, \JsonSerializa
         'basic_price' => 'getBasicPrice',
         'purchase_price' => 'getPurchasePrice',
         'additional_expenses' => 'getAdditionalExpenses',
-        'cofinance_price' => 'getCofinancePrice',
-        'first_video_as_cover' => 'getFirstVideoAsCover'
+        'first_video_as_cover' => 'getFirstVideoAsCover',
+        'delete_parameters' => 'getDeleteParameters'
     ];
 
     /**
@@ -278,8 +278,8 @@ class UpdateOfferDTOAllOf implements ModelInterface, ArrayAccess, \JsonSerializa
         $this->setIfExists('basic_price', $data ?? [], null);
         $this->setIfExists('purchase_price', $data ?? [], null);
         $this->setIfExists('additional_expenses', $data ?? [], null);
-        $this->setIfExists('cofinance_price', $data ?? [], null);
         $this->setIfExists('first_video_as_cover', $data ?? [], null);
+        $this->setIfExists('delete_parameters', $data ?? [], null);
     }
 
     /**
@@ -313,6 +313,14 @@ class UpdateOfferDTOAllOf implements ModelInterface, ArrayAccess, \JsonSerializa
             $invalidProperties[] = "invalid value for 'parameter_values', number of items must be less than or equal to 300.";
         }
 
+        if (!is_null($this->container['parameter_values']) && (count($this->container['parameter_values']) < 1)) {
+            $invalidProperties[] = "invalid value for 'parameter_values', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['delete_parameters']) && (count($this->container['delete_parameters']) < 1)) {
+            $invalidProperties[] = "invalid value for 'delete_parameters', number of items must be greater than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -341,7 +349,7 @@ class UpdateOfferDTOAllOf implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets parameter_values
      *
-     * @param \YandexMarketApi\Model\ParameterValueDTO[]|null $parameter_values Список характеристик с их значениями.  С `parameterValues` обязательно передавайте `marketCategoryId` — идентификатор категории на Маркете, к которой относятся указанные характеристики товара.  При **изменении** характеристик передавайте только те, значение которых нужно обновить. Если в `marketCategoryId` вы меняете категорию, значения общих характеристик для старой и новой категории сохранятся, передавать их не нужно.  Чтобы **удалить** значение заданной характеристики, передайте ее `parameterId` с пустым `value`.  Максимальное количество характеристик — 300.
+     * @param \YandexMarketApi\Model\ParameterValueDTO[]|null $parameter_values Список характеристик с их значениями.  {% note warning \"Всегда передавайте вместе с `marketCategoryId`\" %}  Если не передать `marketCategoryId` при изменении характеристик, они обновятся, но в ответе придет предупреждение (параметр `warnings`).  Если не передать их оба, будет использована информация из устаревших параметров `params` и `category`, а `marketCategoryId` будет определен автоматически.  {% endnote %}  При **изменении** характеристик передавайте только те, значение которых нужно обновить. Если в `marketCategoryId` вы меняете категорию, значения общих характеристик для старой и новой категории сохранятся, передавать их не нужно.  Подробнее читайте в [«Передача значений характеристики»](../../step-by-step/parameter-values.md).
      *
      * @return self
      */
@@ -361,6 +369,9 @@ class UpdateOfferDTOAllOf implements ModelInterface, ArrayAccess, \JsonSerializa
         if (!is_null($parameter_values) && (count($parameter_values) > 300)) {
             throw new \InvalidArgumentException('invalid value for $parameter_values when calling UpdateOfferDTOAllOf., number of items must be less than or equal to 300.');
         }
+        if (!is_null($parameter_values) && (count($parameter_values) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $parameter_values when calling UpdateOfferDTOAllOf., number of items must be greater than or equal to 1.');
+        }
         $this->container['parameter_values'] = $parameter_values;
 
         return $this;
@@ -369,7 +380,7 @@ class UpdateOfferDTOAllOf implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Gets basic_price
      *
-     * @return \YandexMarketApi\Model\UpdatePriceWithDiscountDTO|null
+     * @return \YandexMarketApi\Model\PriceWithDiscountDTO|null
      */
     public function getBasicPrice()
     {
@@ -379,7 +390,7 @@ class UpdateOfferDTOAllOf implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets basic_price
      *
-     * @param \YandexMarketApi\Model\UpdatePriceWithDiscountDTO|null $basic_price basic_price
+     * @param \YandexMarketApi\Model\PriceWithDiscountDTO|null $basic_price basic_price
      *
      * @return self
      */
@@ -448,36 +459,10 @@ class UpdateOfferDTOAllOf implements ModelInterface, ArrayAccess, \JsonSerializa
     }
 
     /**
-     * Gets cofinance_price
-     *
-     * @return \YandexMarketApi\Model\BasePriceDTO|null
-     */
-    public function getCofinancePrice()
-    {
-        return $this->container['cofinance_price'];
-    }
-
-    /**
-     * Sets cofinance_price
-     *
-     * @param \YandexMarketApi\Model\BasePriceDTO|null $cofinance_price cofinance_price
-     *
-     * @return self
-     */
-    public function setCofinancePrice($cofinance_price)
-    {
-        if (is_null($cofinance_price)) {
-            throw new \InvalidArgumentException('non-nullable cofinance_price cannot be null');
-        }
-        $this->container['cofinance_price'] = $cofinance_price;
-
-        return $this;
-    }
-
-    /**
      * Gets first_video_as_cover
      *
      * @return bool|null
+     * @deprecated
      */
     public function getFirstVideoAsCover()
     {
@@ -490,6 +475,7 @@ class UpdateOfferDTOAllOf implements ModelInterface, ArrayAccess, \JsonSerializa
      * @param bool|null $first_video_as_cover Использовать первое видео в карточке как видеообложку.  Передайте `true`, чтобы первое видео использовалось как видеообложка, или `false`, чтобы видеообложка не отображалась в карточке товара.
      *
      * @return self
+     * @deprecated
      */
     public function setFirstVideoAsCover($first_video_as_cover)
     {
@@ -497,6 +483,45 @@ class UpdateOfferDTOAllOf implements ModelInterface, ArrayAccess, \JsonSerializa
             throw new \InvalidArgumentException('non-nullable first_video_as_cover cannot be null');
         }
         $this->container['first_video_as_cover'] = $first_video_as_cover;
+
+        return $this;
+    }
+
+    /**
+     * Gets delete_parameters
+     *
+     * @return \YandexMarketApi\Model\DeleteOfferParameterType[]|null
+     */
+    public function getDeleteParameters()
+    {
+        return $this->container['delete_parameters'];
+    }
+
+    /**
+     * Sets delete_parameters
+     *
+     * @param \YandexMarketApi\Model\DeleteOfferParameterType[]|null $delete_parameters Параметры, которые вы ранее передали в `UpdateOfferDTO`, а теперь хотите удалить.  Если передать `adult`, `downloadable` и `firstVideoAsCover`, они не удалятся — их значение изменится на `false`.  Можно передать сразу несколько значений.  Не используйте вместе с соответствующим параметром в `UpdateOfferDTO`. Это приведет к ошибке `400`.
+     *
+     * @return self
+     */
+    public function setDeleteParameters($delete_parameters)
+    {
+        if (is_null($delete_parameters)) {
+            array_push($this->openAPINullablesSetToNull, 'delete_parameters');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('delete_parameters', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+
+        if (!is_null($delete_parameters) && (count($delete_parameters) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $delete_parameters when calling UpdateOfferDTOAllOf., number of items must be greater than or equal to 1.');
+        }
+        $this->container['delete_parameters'] = $delete_parameters;
 
         return $this;
     }

@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -313,7 +313,11 @@ class ExtensionShipmentDTO implements ModelInterface, ArrayAccess, \JsonSerializ
     /**
      * Sets current_status
      *
+<<<<<<<< HEAD:lib/Model/FeedPublicationFullDTO.php
+     * @param \DateTime|null $file_time Дата и время, которые магазин указал в прайс-листе.  Формат даты: ISO 8601 со смещением относительно UTC. Например, `2017-11-21T00:42:42+03:00`.
+========
      * @param \YandexMarketApi\Model\ShipmentStatusChangeDTO|null $current_status current_status
+>>>>>>>> upstream/main:lib/Model/ExtensionShipmentDTO.php
      *
      * @return self
      */
@@ -340,7 +344,11 @@ class ExtensionShipmentDTO implements ModelInterface, ArrayAccess, \JsonSerializ
     /**
      * Sets available_actions
      *
+<<<<<<<< HEAD:lib/Model/FeedPublicationFullDTO.php
+     * @param \DateTime|null $published_time Дата и время публикации предложений из прайс-листа на Маркете.  Формат даты: ISO 8601 со смещением относительно UTC. Например, `2017-11-21T00:42:42+03:00`.
+========
      * @param \YandexMarketApi\Model\ShipmentActionType[] $available_actions Доступные действия над отгрузкой.
+>>>>>>>> upstream/main:lib/Model/ExtensionShipmentDTO.php
      *
      * @return self
      */

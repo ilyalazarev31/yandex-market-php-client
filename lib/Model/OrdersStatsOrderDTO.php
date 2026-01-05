@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -70,7 +70,8 @@ class OrdersStatsOrderDTO implements ModelInterface, ArrayAccess, \JsonSerializa
         'initial_items' => '\YandexMarketApi\Model\OrdersStatsItemDTO[]',
         'payments' => '\YandexMarketApi\Model\OrdersStatsPaymentDTO[]',
         'commissions' => '\YandexMarketApi\Model\OrdersStatsCommissionDTO[]',
-        'subsidies' => '\YandexMarketApi\Model\OrdersStatsSubsidyDTO[]'
+        'subsidies' => '\YandexMarketApi\Model\OrdersStatsSubsidyDTO[]',
+        'currency' => '\YandexMarketApi\Model\CurrencyType'
     ];
 
     /**
@@ -93,7 +94,8 @@ class OrdersStatsOrderDTO implements ModelInterface, ArrayAccess, \JsonSerializa
         'initial_items' => null,
         'payments' => null,
         'commissions' => null,
-        'subsidies' => null
+        'subsidies' => null,
+        'currency' => null
     ];
 
     /**
@@ -114,7 +116,8 @@ class OrdersStatsOrderDTO implements ModelInterface, ArrayAccess, \JsonSerializa
 		'initial_items' => true,
 		'payments' => false,
 		'commissions' => false,
-		'subsidies' => true
+		'subsidies' => true,
+		'currency' => false
     ];
 
     /**
@@ -215,7 +218,8 @@ class OrdersStatsOrderDTO implements ModelInterface, ArrayAccess, \JsonSerializa
         'initial_items' => 'initialItems',
         'payments' => 'payments',
         'commissions' => 'commissions',
-        'subsidies' => 'subsidies'
+        'subsidies' => 'subsidies',
+        'currency' => 'currency'
     ];
 
     /**
@@ -236,7 +240,8 @@ class OrdersStatsOrderDTO implements ModelInterface, ArrayAccess, \JsonSerializa
         'initial_items' => 'setInitialItems',
         'payments' => 'setPayments',
         'commissions' => 'setCommissions',
-        'subsidies' => 'setSubsidies'
+        'subsidies' => 'setSubsidies',
+        'currency' => 'setCurrency'
     ];
 
     /**
@@ -257,7 +262,8 @@ class OrdersStatsOrderDTO implements ModelInterface, ArrayAccess, \JsonSerializa
         'initial_items' => 'getInitialItems',
         'payments' => 'getPayments',
         'commissions' => 'getCommissions',
-        'subsidies' => 'getSubsidies'
+        'subsidies' => 'getSubsidies',
+        'currency' => 'getCurrency'
     ];
 
     /**
@@ -330,6 +336,7 @@ class OrdersStatsOrderDTO implements ModelInterface, ArrayAccess, \JsonSerializa
         $this->setIfExists('payments', $data ?? [], null);
         $this->setIfExists('commissions', $data ?? [], null);
         $this->setIfExists('subsidies', $data ?? [], null);
+        $this->setIfExists('currency', $data ?? [], null);
     }
 
     /**
@@ -362,6 +369,10 @@ class OrdersStatsOrderDTO implements ModelInterface, ArrayAccess, \JsonSerializa
         if ($this->container['items'] === null) {
             $invalidProperties[] = "'items' can't be null";
         }
+        if (!is_null($this->container['initial_items']) && (count($this->container['initial_items']) < 1)) {
+            $invalidProperties[] = "invalid value for 'initial_items', number of items must be greater than or equal to 1.";
+        }
+
         if ($this->container['payments'] === null) {
             $invalidProperties[] = "'payments' can't be null";
         }
@@ -372,6 +383,9 @@ class OrdersStatsOrderDTO implements ModelInterface, ArrayAccess, \JsonSerializa
             $invalidProperties[] = "invalid value for 'subsidies', number of items must be greater than or equal to 1.";
         }
 
+        if ($this->container['currency'] === null) {
+            $invalidProperties[] = "'currency' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -562,7 +576,7 @@ class OrdersStatsOrderDTO implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets fake
      *
-     * @param bool|null $fake Тип заказа:  * `false` — настоящий заказ покупателя.  * `true` — [тестовый](../../concepts/sandbox.md) заказ Маркета.
+     * @param bool|null $fake Тип заказа:  * `false` — настоящий заказ покупателя.  * `true` — [тестовый заказ](../../concepts/sandbox.md) Маркета.
      *
      * @return self
      */
@@ -643,7 +657,7 @@ class OrdersStatsOrderDTO implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets initial_items
      *
-     * @param \YandexMarketApi\Model\OrdersStatsItemDTO[]|null $initial_items Список товаров в заказе до изменений.
+     * @param \YandexMarketApi\Model\OrdersStatsItemDTO[]|null $initial_items Список товаров в заказе.  Возвращается, только если было изменение количества товаров.
      *
      * @return self
      */
@@ -658,6 +672,11 @@ class OrdersStatsOrderDTO implements ModelInterface, ArrayAccess, \JsonSerializa
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
+        }
+
+
+        if (!is_null($initial_items) && (count($initial_items) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $initial_items when calling OrdersStatsOrderDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['initial_items'] = $initial_items;
 
@@ -677,7 +696,7 @@ class OrdersStatsOrderDTO implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets payments
      *
-     * @param \YandexMarketApi\Model\OrdersStatsPaymentDTO[] $payments Информация о денежных переводах по заказу.  Может вернуться пустым, если нет данных о переводах.
+     * @param \YandexMarketApi\Model\OrdersStatsPaymentDTO[] $payments Информация о расчетах по заказу.  Возвращается пустым, если заказ:   * только начали обрабатывать (даже если он оплачен);   * отменили до момента передачи в доставку.  Окончательная информация о расчетах по заказу вернется после его финальной обработки (например, после перехода в статус `DELIVERED`).
      *
      * @return self
      */
@@ -704,7 +723,7 @@ class OrdersStatsOrderDTO implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets commissions
      *
-     * @param \YandexMarketApi\Model\OrdersStatsCommissionDTO[] $commissions Информация о комиссиях за заказ.
+     * @param \YandexMarketApi\Model\OrdersStatsCommissionDTO[] $commissions Информация о стоимости услуг.
      *
      * @return self
      */
@@ -731,7 +750,7 @@ class OrdersStatsOrderDTO implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets subsidies
      *
-     * @param \YandexMarketApi\Model\OrdersStatsSubsidyDTO[]|null $subsidies Начисление баллов, которые используются для уменьшения стоимости размещения, и их списание в случае возврата или невыкупа.
+     * @param \YandexMarketApi\Model\OrdersStatsSubsidyDTO[]|null $subsidies Начисление баллов, которые используются для уменьшения стоимости размещения, и их списание в случае невыкупа или возврата.
      *
      * @return self
      */
@@ -753,6 +772,33 @@ class OrdersStatsOrderDTO implements ModelInterface, ArrayAccess, \JsonSerializa
             throw new \InvalidArgumentException('invalid length for $subsidies when calling OrdersStatsOrderDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['subsidies'] = $subsidies;
+
+        return $this;
+    }
+
+    /**
+     * Gets currency
+     *
+     * @return \YandexMarketApi\Model\CurrencyType
+     */
+    public function getCurrency()
+    {
+        return $this->container['currency'];
+    }
+
+    /**
+     * Sets currency
+     *
+     * @param \YandexMarketApi\Model\CurrencyType $currency currency
+     *
+     * @return self
+     */
+    public function setCurrency($currency)
+    {
+        if (is_null($currency)) {
+            throw new \InvalidArgumentException('non-nullable currency cannot be null');
+        }
+        $this->container['currency'] = $currency;
 
         return $this;
     }

@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -61,7 +61,7 @@ class GenerateShelfsStatisticsRequest implements ModelInterface, ArrayAccess, \J
         'business_id' => 'int',
         'date_from' => '\DateTime',
         'date_to' => '\DateTime',
-        'attribution_type' => '\YandexMarketApi\Model\ShelfsStatisticsAttributionType'
+        'attribution_type' => '\YandexMarketApi\Model\StatisticsAttributionType'
     ];
 
     /**
@@ -299,6 +299,10 @@ class GenerateShelfsStatisticsRequest implements ModelInterface, ArrayAccess, \J
         if ($this->container['business_id'] === null) {
             $invalidProperties[] = "'business_id' can't be null";
         }
+        if (($this->container['business_id'] < 1)) {
+            $invalidProperties[] = "invalid value for 'business_id', must be bigger than or equal to 1.";
+        }
+
         if ($this->container['date_from'] === null) {
             $invalidProperties[] = "'date_from' can't be null";
         }
@@ -336,7 +340,7 @@ class GenerateShelfsStatisticsRequest implements ModelInterface, ArrayAccess, \J
     /**
      * Sets business_id
      *
-     * @param int $business_id Идентификатор бизнеса.
+     * @param int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html)
      *
      * @return self
      */
@@ -345,6 +349,11 @@ class GenerateShelfsStatisticsRequest implements ModelInterface, ArrayAccess, \J
         if (is_null($business_id)) {
             throw new \InvalidArgumentException('non-nullable business_id cannot be null');
         }
+
+        if (($business_id < 1)) {
+            throw new \InvalidArgumentException('invalid value for $business_id when calling GenerateShelfsStatisticsRequest., must be bigger than or equal to 1.');
+        }
+
         $this->container['business_id'] = $business_id;
 
         return $this;
@@ -407,7 +416,7 @@ class GenerateShelfsStatisticsRequest implements ModelInterface, ArrayAccess, \J
     /**
      * Gets attribution_type
      *
-     * @return \YandexMarketApi\Model\ShelfsStatisticsAttributionType
+     * @return \YandexMarketApi\Model\StatisticsAttributionType
      */
     public function getAttributionType()
     {
@@ -417,7 +426,7 @@ class GenerateShelfsStatisticsRequest implements ModelInterface, ArrayAccess, \J
     /**
      * Sets attribution_type
      *
-     * @param \YandexMarketApi\Model\ShelfsStatisticsAttributionType $attribution_type attribution_type
+     * @param \YandexMarketApi\Model\StatisticsAttributionType $attribution_type attribution_type
      *
      * @return self
      */

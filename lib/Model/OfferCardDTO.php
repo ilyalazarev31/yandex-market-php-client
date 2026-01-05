@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -63,7 +63,10 @@ class OfferCardDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'parameter_values' => '\YandexMarketApi\Model\ParameterValueDTO[]',
         'card_status' => '\YandexMarketApi\Model\OfferCardStatusType',
         'content_rating' => 'int',
+        'average_content_rating' => 'int',
+        'content_rating_status' => '\YandexMarketApi\Model\OfferCardContentStatusType',
         'recommendations' => '\YandexMarketApi\Model\OfferCardRecommendationDTO[]',
+        'group_id' => 'string',
         'errors' => '\YandexMarketApi\Model\OfferErrorDTO[]',
         'warnings' => '\YandexMarketApi\Model\OfferErrorDTO[]'
     ];
@@ -81,7 +84,10 @@ class OfferCardDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'parameter_values' => null,
         'card_status' => null,
         'content_rating' => 'int32',
+        'average_content_rating' => 'int32',
+        'content_rating_status' => null,
         'recommendations' => null,
+        'group_id' => null,
         'errors' => null,
         'warnings' => null
     ];
@@ -97,7 +103,10 @@ class OfferCardDTO implements ModelInterface, ArrayAccess, \JsonSerializable
 		'parameter_values' => true,
 		'card_status' => false,
 		'content_rating' => false,
+		'average_content_rating' => false,
+		'content_rating_status' => false,
 		'recommendations' => true,
+		'group_id' => false,
 		'errors' => true,
 		'warnings' => true
     ];
@@ -193,7 +202,10 @@ class OfferCardDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'parameter_values' => 'parameterValues',
         'card_status' => 'cardStatus',
         'content_rating' => 'contentRating',
+        'average_content_rating' => 'averageContentRating',
+        'content_rating_status' => 'contentRatingStatus',
         'recommendations' => 'recommendations',
+        'group_id' => 'groupId',
         'errors' => 'errors',
         'warnings' => 'warnings'
     ];
@@ -209,7 +221,10 @@ class OfferCardDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'parameter_values' => 'setParameterValues',
         'card_status' => 'setCardStatus',
         'content_rating' => 'setContentRating',
+        'average_content_rating' => 'setAverageContentRating',
+        'content_rating_status' => 'setContentRatingStatus',
         'recommendations' => 'setRecommendations',
+        'group_id' => 'setGroupId',
         'errors' => 'setErrors',
         'warnings' => 'setWarnings'
     ];
@@ -225,7 +240,10 @@ class OfferCardDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'parameter_values' => 'getParameterValues',
         'card_status' => 'getCardStatus',
         'content_rating' => 'getContentRating',
+        'average_content_rating' => 'getAverageContentRating',
+        'content_rating_status' => 'getContentRatingStatus',
         'recommendations' => 'getRecommendations',
+        'group_id' => 'getGroupId',
         'errors' => 'getErrors',
         'warnings' => 'getWarnings'
     ];
@@ -292,7 +310,10 @@ class OfferCardDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('parameter_values', $data ?? [], null);
         $this->setIfExists('card_status', $data ?? [], null);
         $this->setIfExists('content_rating', $data ?? [], null);
+        $this->setIfExists('average_content_rating', $data ?? [], null);
+        $this->setIfExists('content_rating_status', $data ?? [], null);
         $this->setIfExists('recommendations', $data ?? [], null);
+        $this->setIfExists('group_id', $data ?? [], null);
         $this->setIfExists('errors', $data ?? [], null);
         $this->setIfExists('warnings', $data ?? [], null);
     }
@@ -335,7 +356,25 @@ class OfferCardDTO implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'offer_id', the character length must be bigger than or equal to 1.";
         }
 
+        if (!preg_match("/^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/", $this->container['offer_id'])) {
+            $invalidProperties[] = "invalid value for 'offer_id', must be conform to the pattern /^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/.";
+        }
 
+        if (!is_null($this->container['parameter_values']) && (count($this->container['parameter_values']) < 1)) {
+            $invalidProperties[] = "invalid value for 'parameter_values', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['recommendations']) && (count($this->container['recommendations']) < 1)) {
+            $invalidProperties[] = "invalid value for 'recommendations', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['errors']) && (count($this->container['errors']) < 1)) {
+            $invalidProperties[] = "invalid value for 'errors', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['warnings']) && (count($this->container['warnings']) < 1)) {
+            $invalidProperties[] = "invalid value for 'warnings', number of items must be greater than or equal to 1.";
+        }
 
         return $invalidProperties;
     }
@@ -365,7 +404,7 @@ class OfferCardDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets offer_id
      *
-     * @param string $offer_id Ваш SKU — идентификатор товара в вашей системе.  Правила использования SKU:  * У каждого товара SKU должен быть свой.  * Уже заданный SKU нельзя освободить и использовать заново для другого товара. Каждый товар должен получать новый идентификатор, до того никогда не использовавшийся в вашем каталоге.  SKU товара можно изменить в кабинете продавца на Маркете. О том, как это сделать, читайте [в Справке Маркета для продавцов](https://yandex.ru/support2/marketplace/ru/assortment/operations/edit-sku).  [Что такое SKU и как его назначать](https://yandex.ru/support/marketplace/assortment/add/index.html#fields)
+     * @param string $offer_id Ваш SKU — идентификатор товара в вашей системе.  Правила использования SKU:  * У каждого товара SKU должен быть свой.  * Уже заданный SKU нельзя освободить и использовать заново для другого товара. Каждый товар должен получать новый идентификатор, до того никогда не использовавшийся в вашем каталоге.  SKU товара можно изменить в кабинете продавца на Маркете. О том, как это сделать, читайте [в Справке Маркета для продавцов](https://yandex.ru/support2/marketplace/ru/assortment/operations/edit-sku).  {% note warning %}  Пробельные символы в начале и конце значения автоматически удаляются. Например, `\"  SKU123  \"` и `\"SKU123\"` будут обработаны как одинаковые значения.  {% endnote %}  [Что такое SKU и как его назначать](https://yandex.ru/support/marketplace/assortment/add/index.html#fields)
      *
      * @return self
      */
@@ -445,6 +484,11 @@ class OfferCardDTO implements ModelInterface, ArrayAccess, \JsonSerializable
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
         }
+
+
+        if (!is_null($parameter_values) && (count($parameter_values) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $parameter_values when calling OfferCardDTO., number of items must be greater than or equal to 1.');
+        }
         $this->container['parameter_values'] = $parameter_values;
 
         return $this;
@@ -490,7 +534,7 @@ class OfferCardDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets content_rating
      *
-     * @param int|null $content_rating Процент заполненности карточки.
+     * @param int|null $content_rating Рейтинг карточки.
      *
      * @return self
      */
@@ -500,6 +544,60 @@ class OfferCardDTO implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable content_rating cannot be null');
         }
         $this->container['content_rating'] = $content_rating;
+
+        return $this;
+    }
+
+    /**
+     * Gets average_content_rating
+     *
+     * @return int|null
+     */
+    public function getAverageContentRating()
+    {
+        return $this->container['average_content_rating'];
+    }
+
+    /**
+     * Sets average_content_rating
+     *
+     * @param int|null $average_content_rating Средний рейтинг карточки у товаров той категории, которая указана в `marketCategoryId`.  Возвращается, только если параметр `withRecommendations` имеет значение `true`.
+     *
+     * @return self
+     */
+    public function setAverageContentRating($average_content_rating)
+    {
+        if (is_null($average_content_rating)) {
+            throw new \InvalidArgumentException('non-nullable average_content_rating cannot be null');
+        }
+        $this->container['average_content_rating'] = $average_content_rating;
+
+        return $this;
+    }
+
+    /**
+     * Gets content_rating_status
+     *
+     * @return \YandexMarketApi\Model\OfferCardContentStatusType|null
+     */
+    public function getContentRatingStatus()
+    {
+        return $this->container['content_rating_status'];
+    }
+
+    /**
+     * Sets content_rating_status
+     *
+     * @param \YandexMarketApi\Model\OfferCardContentStatusType|null $content_rating_status content_rating_status
+     *
+     * @return self
+     */
+    public function setContentRatingStatus($content_rating_status)
+    {
+        if (is_null($content_rating_status)) {
+            throw new \InvalidArgumentException('non-nullable content_rating_status cannot be null');
+        }
+        $this->container['content_rating_status'] = $content_rating_status;
 
         return $this;
     }
@@ -517,7 +615,7 @@ class OfferCardDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets recommendations
      *
-     * @param \YandexMarketApi\Model\OfferCardRecommendationDTO[]|null $recommendations Список рекомендаций к заполнению карточки.  Рекомендации Маркета помогают заполнять карточку так, чтобы покупателям было проще найти ваш товар и решиться на покупку.
+     * @param \YandexMarketApi\Model\OfferCardRecommendationDTO[]|null $recommendations Список рекомендаций к заполнению карточки.  Возвращается, только если параметр `withRecommendations` имеет значение `true`.  Рекомендации Маркета помогают заполнять карточку так, чтобы покупателям было проще найти ваш товар и решиться на покупку.
      *
      * @return self
      */
@@ -533,7 +631,39 @@ class OfferCardDTO implements ModelInterface, ArrayAccess, \JsonSerializable
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
         }
+
+
+        if (!is_null($recommendations) && (count($recommendations) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $recommendations when calling OfferCardDTO., number of items must be greater than or equal to 1.');
+        }
         $this->container['recommendations'] = $recommendations;
+
+        return $this;
+    }
+
+    /**
+     * Gets group_id
+     *
+     * @return string|null
+     */
+    public function getGroupId()
+    {
+        return $this->container['group_id'];
+    }
+
+    /**
+     * Sets group_id
+     *
+     * @param string|null $group_id Идентификатор группы товаров.  У товаров, которые объединены в одну группу, будет одинаковый идентификатор.  [Как объединить товары на карточке](../../step-by-step/assortment-add-goods.md#combine-variants)
+     *
+     * @return self
+     */
+    public function setGroupId($group_id)
+    {
+        if (is_null($group_id)) {
+            throw new \InvalidArgumentException('non-nullable group_id cannot be null');
+        }
+        $this->container['group_id'] = $group_id;
 
         return $this;
     }
@@ -566,6 +696,11 @@ class OfferCardDTO implements ModelInterface, ArrayAccess, \JsonSerializable
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
+        }
+
+
+        if (!is_null($errors) && (count($errors) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $errors when calling OfferCardDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['errors'] = $errors;
 
@@ -600,6 +735,11 @@ class OfferCardDTO implements ModelInterface, ArrayAccess, \JsonSerializable
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
+        }
+
+
+        if (!is_null($warnings) && (count($warnings) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $warnings when calling OfferCardDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['warnings'] = $warnings;
 

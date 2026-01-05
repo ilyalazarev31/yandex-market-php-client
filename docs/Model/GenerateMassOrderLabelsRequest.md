@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**business_id** | **int** | Идентификатор кабинета. |
+**business_id** | **int** | Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) |
 **order_ids** | **int[]** | Список идентификаторов заказов. |
 **sorting_type** | [**\YandexMarketApi\Model\LabelsSortingType**](LabelsSortingType.md) |  | [optional]
 

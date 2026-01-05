@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -33,7 +33,11 @@ use \YandexMarketApi\ObjectSerializer;
  * GoodsFeedbackCommentAuthorType Class Doc Comment
  *
  * @category Class
+<<<<<<<< HEAD:lib/Model/FeedbackCommentAuthorType.php
+ * @description Тип автора:  * &#x60;USER&#x60; — пользователь. * &#x60;SHOP&#x60; — магазин.
+========
  * @description Тип автора:  * &#x60;USER&#x60; — пользователь. * &#x60;BUSINESS&#x60; — кабинет.
+>>>>>>>> upstream/main:lib/Model/GoodsFeedbackCommentAuthorType.php
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech

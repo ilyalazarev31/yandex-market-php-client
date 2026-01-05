@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -376,6 +376,10 @@ class CategoryParameterDTO implements ModelInterface, ArrayAccess, \JsonSerializ
         if ($this->container['type'] === null) {
             $invalidProperties[] = "'type' can't be null";
         }
+        if (!is_null($this->container['recommendation_types']) && (count($this->container['recommendation_types']) < 1)) {
+            $invalidProperties[] = "invalid value for 'recommendation_types', number of items must be greater than or equal to 1.";
+        }
+
         if ($this->container['required'] === null) {
             $invalidProperties[] = "'required' can't be null";
         }
@@ -391,6 +395,14 @@ class CategoryParameterDTO implements ModelInterface, ArrayAccess, \JsonSerializ
         if ($this->container['allow_custom_values'] === null) {
             $invalidProperties[] = "'allow_custom_values' can't be null";
         }
+        if (!is_null($this->container['values']) && (count($this->container['values']) < 1)) {
+            $invalidProperties[] = "invalid value for 'values', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['value_restrictions']) && (count($this->container['value_restrictions']) < 1)) {
+            $invalidProperties[] = "invalid value for 'value_restrictions', number of items must be greater than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -575,6 +587,11 @@ class CategoryParameterDTO implements ModelInterface, ArrayAccess, \JsonSerializ
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
         }
+
+
+        if (!is_null($recommendation_types) && (count($recommendation_types) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $recommendation_types when calling CategoryParameterDTO., number of items must be greater than or equal to 1.');
+        }
         $this->container['recommendation_types'] = $recommendation_types;
 
         return $this;
@@ -744,6 +761,11 @@ class CategoryParameterDTO implements ModelInterface, ArrayAccess, \JsonSerializ
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
         }
+
+
+        if (!is_null($values) && (count($values) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $values when calling CategoryParameterDTO., number of items must be greater than or equal to 1.');
+        }
         $this->container['values'] = $values;
 
         return $this;
@@ -804,6 +826,11 @@ class CategoryParameterDTO implements ModelInterface, ArrayAccess, \JsonSerializ
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
+        }
+
+
+        if (!is_null($value_restrictions) && (count($value_restrictions) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $value_restrictions when calling CategoryParameterDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['value_restrictions'] = $value_restrictions;
 

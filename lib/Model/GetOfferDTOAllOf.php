@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -60,12 +60,12 @@ class GetOfferDTOAllOf implements ModelInterface, ArrayAccess, \JsonSerializable
         'basic_price' => '\YandexMarketApi\Model\GetPriceWithDiscountDTO',
         'purchase_price' => '\YandexMarketApi\Model\GetPriceDTO',
         'additional_expenses' => '\YandexMarketApi\Model\GetPriceDTO',
-        'cofinance_price' => '\YandexMarketApi\Model\GetPriceDTO',
         'card_status' => '\YandexMarketApi\Model\OfferCardStatusType',
         'campaigns' => '\YandexMarketApi\Model\OfferCampaignStatusDTO[]',
         'selling_programs' => '\YandexMarketApi\Model\OfferSellingProgramDTO[]',
         'media_files' => '\YandexMarketApi\Model\OfferMediaFilesDTO',
-        'archived' => 'bool'
+        'archived' => 'bool',
+        'group_id' => 'string'
     ];
 
     /**
@@ -79,12 +79,12 @@ class GetOfferDTOAllOf implements ModelInterface, ArrayAccess, \JsonSerializable
         'basic_price' => null,
         'purchase_price' => null,
         'additional_expenses' => null,
-        'cofinance_price' => null,
         'card_status' => null,
         'campaigns' => null,
         'selling_programs' => null,
         'media_files' => null,
-        'archived' => null
+        'archived' => null,
+        'group_id' => null
     ];
 
     /**
@@ -96,12 +96,12 @@ class GetOfferDTOAllOf implements ModelInterface, ArrayAccess, \JsonSerializable
         'basic_price' => false,
 		'purchase_price' => false,
 		'additional_expenses' => false,
-		'cofinance_price' => false,
 		'card_status' => false,
 		'campaigns' => true,
 		'selling_programs' => true,
 		'media_files' => false,
-		'archived' => false
+		'archived' => false,
+		'group_id' => false
     ];
 
     /**
@@ -193,12 +193,12 @@ class GetOfferDTOAllOf implements ModelInterface, ArrayAccess, \JsonSerializable
         'basic_price' => 'basicPrice',
         'purchase_price' => 'purchasePrice',
         'additional_expenses' => 'additionalExpenses',
-        'cofinance_price' => 'cofinancePrice',
         'card_status' => 'cardStatus',
         'campaigns' => 'campaigns',
         'selling_programs' => 'sellingPrograms',
         'media_files' => 'mediaFiles',
-        'archived' => 'archived'
+        'archived' => 'archived',
+        'group_id' => 'groupId'
     ];
 
     /**
@@ -210,12 +210,12 @@ class GetOfferDTOAllOf implements ModelInterface, ArrayAccess, \JsonSerializable
         'basic_price' => 'setBasicPrice',
         'purchase_price' => 'setPurchasePrice',
         'additional_expenses' => 'setAdditionalExpenses',
-        'cofinance_price' => 'setCofinancePrice',
         'card_status' => 'setCardStatus',
         'campaigns' => 'setCampaigns',
         'selling_programs' => 'setSellingPrograms',
         'media_files' => 'setMediaFiles',
-        'archived' => 'setArchived'
+        'archived' => 'setArchived',
+        'group_id' => 'setGroupId'
     ];
 
     /**
@@ -227,12 +227,12 @@ class GetOfferDTOAllOf implements ModelInterface, ArrayAccess, \JsonSerializable
         'basic_price' => 'getBasicPrice',
         'purchase_price' => 'getPurchasePrice',
         'additional_expenses' => 'getAdditionalExpenses',
-        'cofinance_price' => 'getCofinancePrice',
         'card_status' => 'getCardStatus',
         'campaigns' => 'getCampaigns',
         'selling_programs' => 'getSellingPrograms',
         'media_files' => 'getMediaFiles',
-        'archived' => 'getArchived'
+        'archived' => 'getArchived',
+        'group_id' => 'getGroupId'
     ];
 
     /**
@@ -295,12 +295,12 @@ class GetOfferDTOAllOf implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('basic_price', $data ?? [], null);
         $this->setIfExists('purchase_price', $data ?? [], null);
         $this->setIfExists('additional_expenses', $data ?? [], null);
-        $this->setIfExists('cofinance_price', $data ?? [], null);
         $this->setIfExists('card_status', $data ?? [], null);
         $this->setIfExists('campaigns', $data ?? [], null);
         $this->setIfExists('selling_programs', $data ?? [], null);
         $this->setIfExists('media_files', $data ?? [], null);
         $this->setIfExists('archived', $data ?? [], null);
+        $this->setIfExists('group_id', $data ?? [], null);
     }
 
     /**
@@ -329,6 +329,14 @@ class GetOfferDTOAllOf implements ModelInterface, ArrayAccess, \JsonSerializable
     public function listInvalidProperties()
     {
         $invalidProperties = [];
+
+        if (!is_null($this->container['campaigns']) && (count($this->container['campaigns']) < 1)) {
+            $invalidProperties[] = "invalid value for 'campaigns', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['selling_programs']) && (count($this->container['selling_programs']) < 1)) {
+            $invalidProperties[] = "invalid value for 'selling_programs', number of items must be greater than or equal to 1.";
+        }
 
         return $invalidProperties;
     }
@@ -427,33 +435,6 @@ class GetOfferDTOAllOf implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets cofinance_price
-     *
-     * @return \YandexMarketApi\Model\GetPriceDTO|null
-     */
-    public function getCofinancePrice()
-    {
-        return $this->container['cofinance_price'];
-    }
-
-    /**
-     * Sets cofinance_price
-     *
-     * @param \YandexMarketApi\Model\GetPriceDTO|null $cofinance_price cofinance_price
-     *
-     * @return self
-     */
-    public function setCofinancePrice($cofinance_price)
-    {
-        if (is_null($cofinance_price)) {
-            throw new \InvalidArgumentException('non-nullable cofinance_price cannot be null');
-        }
-        $this->container['cofinance_price'] = $cofinance_price;
-
-        return $this;
-    }
-
-    /**
      * Gets card_status
      *
      * @return \YandexMarketApi\Model\OfferCardStatusType|null
@@ -509,6 +490,11 @@ class GetOfferDTOAllOf implements ModelInterface, ArrayAccess, \JsonSerializable
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
         }
+
+
+        if (!is_null($campaigns) && (count($campaigns) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $campaigns when calling GetOfferDTOAllOf., number of items must be greater than or equal to 1.');
+        }
         $this->container['campaigns'] = $campaigns;
 
         return $this;
@@ -542,6 +528,11 @@ class GetOfferDTOAllOf implements ModelInterface, ArrayAccess, \JsonSerializable
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
+        }
+
+
+        if (!is_null($selling_programs) && (count($selling_programs) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $selling_programs when calling GetOfferDTOAllOf., number of items must be greater than or equal to 1.');
         }
         $this->container['selling_programs'] = $selling_programs;
 
@@ -598,6 +589,33 @@ class GetOfferDTOAllOf implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable archived cannot be null');
         }
         $this->container['archived'] = $archived;
+
+        return $this;
+    }
+
+    /**
+     * Gets group_id
+     *
+     * @return string|null
+     */
+    public function getGroupId()
+    {
+        return $this->container['group_id'];
+    }
+
+    /**
+     * Sets group_id
+     *
+     * @param string|null $group_id Идентификатор группы товаров.  У товаров, которые объединены в одну группу, будет одинаковый идентификатор.  [Как объединить товары на карточке](../../step-by-step/assortment-add-goods.md#combine-variants)
+     *
+     * @return self
+     */
+    public function setGroupId($group_id)
+    {
+        if (is_null($group_id)) {
+            throw new \InvalidArgumentException('non-nullable group_id cannot be null');
+        }
+        $this->container['group_id'] = $group_id;
 
         return $this;
     }

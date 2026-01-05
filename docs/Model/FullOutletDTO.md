@@ -11,15 +11,15 @@ Name | Type | Description | Notes
 **shop_outlet_code** | **string** | Идентификатор точки продаж, присвоенный магазином. | [optional]
 **visibility** | [**\YandexMarketApi\Model\OutletVisibilityType**](OutletVisibilityType.md) |  | [optional]
 **address** | [**\YandexMarketApi\Model\OutletAddressDTO**](OutletAddressDTO.md) |  |
-**phones** | **string[]** | Номера телефонов точки продаж. Передавайте в формате: &#x60;+7 (999) 999-99-99&#x60;. |
+**phones** | **string[]** | Номера телефонов точки продаж. Передавайте номер в формате: &#x60;+&lt;код страны&gt;(&lt;код города&gt;)&lt;номер&gt;[#&lt;добавочный&gt;]&#x60;.  Примеры: - &#x60;+7 (999) 999-99-99&#x60; - &#x60;+7 (999) 999-99-99#1234&#x60; |
 **working_schedule** | [**\YandexMarketApi\Model\OutletWorkingScheduleDTO**](OutletWorkingScheduleDTO.md) |  |
 **delivery_rules** | [**\YandexMarketApi\Model\OutletDeliveryRuleDTO[]**](OutletDeliveryRuleDTO.md) | Информация об условиях доставки для данной точки продаж.  Обязательный параметр, если параметр &#x60;type&#x3D;DEPOT&#x60; или &#x60;type&#x3D;MIXED&#x60;. | [optional]
 **storage_period** | **int** | Срок хранения заказа в собственном пункте выдачи заказов. Считается в днях. | [optional]
 **id** | **int** | Идентификатор точки продаж, присвоенный Маркетом. |
 **status** | [**\YandexMarketApi\Model\OutletStatusType**](OutletStatusType.md) |  | [optional]
 **region** | [**\YandexMarketApi\Model\RegionDTO**](RegionDTO.md) |  | [optional]
-**shop_outlet_id** | **string** | Идентификатор точки продаж, заданный магазином. | [optional]
-**working_time** | **string** | Рабочее время. | [optional]
+**shop_outlet_id** | **string** | {% note warning \&quot;Вместо него используйте &#x60;shopOutletCode&#x60;.\&quot; %}     {% endnote %}  Идентификатор точки продаж, заданный магазином. | [optional]
+**working_time** | **string** | {% note warning \&quot;Вместо него используйте &#x60;workingSchedule&#x60;.\&quot; %}     {% endnote %}  Рабочее время. | [optional]
 **moderation_reason** | **string** | Статус модерации. | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

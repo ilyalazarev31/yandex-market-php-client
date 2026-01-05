@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -274,6 +274,9 @@ class GetPromosResponseAllOf implements ModelInterface, ArrayAccess, \JsonSerial
     {
         $invalidProperties = [];
 
+        if ($this->container['offers'] === null) {
+            $invalidProperties[] = "'offers' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -292,7 +295,11 @@ class GetPromosResponseAllOf implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Gets result
      *
+<<<<<<<< HEAD:lib/Model/OffersDTO.php
+     * @return \YandexMarketApi\Model\OfferDTO[]
+========
      * @return \YandexMarketApi\Model\GetPromosResultDTO|null
+>>>>>>>> upstream/main:lib/Model/GetPromosResponseAllOf.php
      */
     public function getResult()
     {
@@ -302,7 +309,11 @@ class GetPromosResponseAllOf implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets result
      *
+<<<<<<<< HEAD:lib/Model/OffersDTO.php
+     * @param \YandexMarketApi\Model\OfferDTO[] $offers Список предложений магазина.
+========
      * @param \YandexMarketApi\Model\GetPromosResultDTO|null $result result
+>>>>>>>> upstream/main:lib/Model/GetPromosResponseAllOf.php
      *
      * @return self
      */

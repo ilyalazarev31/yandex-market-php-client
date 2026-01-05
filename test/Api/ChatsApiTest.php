@@ -10,7 +10,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -84,12 +84,36 @@ class ChatsApiTest extends TestCase
     }
 
     /**
+     * Test case for getChat
+     *
+     * Получение чата по идентификатору.
+     *
+     */
+    public function testGetChat()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test case for getChatHistory
      *
      * Получение истории сообщений в чате.
      *
      */
     public function testGetChatHistory()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for getChatMessage
+     *
+     * Получение сообщения в чате.
+     *
+     */
+    public function testGetChatMessage()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

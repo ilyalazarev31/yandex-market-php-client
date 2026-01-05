@@ -17,5 +17,6 @@ Name | Type | Description | Notes
 **draft_count** | **int** | Количество заказов, которое Маркет запланировал к отгрузке. |
 **planned_count** | **int** | Количество заказов, которое Маркет подтвердил к отгрузке. |
 **fact_count** | **int** | Количество заказов, принятых в сортировочном центре или пункте приема. |
+**signature** | [**\YandexMarketApi\Model\SignatureDTO**](SignatureDTO.md) |  |
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

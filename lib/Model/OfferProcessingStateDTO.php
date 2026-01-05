@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -282,6 +282,10 @@ class OfferProcessingStateDTO implements ModelInterface, ArrayAccess, \JsonSeria
     {
         $invalidProperties = [];
 
+        if (!is_null($this->container['notes']) && (count($this->container['notes']) < 1)) {
+            $invalidProperties[] = "invalid value for 'notes', number of items must be greater than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -352,6 +356,11 @@ class OfferProcessingStateDTO implements ModelInterface, ArrayAccess, \JsonSeria
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
+        }
+
+
+        if (!is_null($notes) && (count($notes) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $notes when calling OfferProcessingStateDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['notes'] = $notes;
 

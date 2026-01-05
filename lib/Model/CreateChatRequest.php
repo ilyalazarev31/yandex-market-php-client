@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -58,7 +58,8 @@ class CreateChatRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
       * @var string[]
       */
     protected static $openAPITypes = [
-        'order_id' => 'int'
+        'order_id' => 'int',
+        'context' => '\YandexMarketApi\Model\ChatContextDTO'
     ];
 
     /**
@@ -69,7 +70,8 @@ class CreateChatRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'order_id' => 'int64'
+        'order_id' => 'int64',
+        'context' => null
     ];
 
     /**
@@ -78,7 +80,8 @@ class CreateChatRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'order_id' => false
+        'order_id' => false,
+		'context' => false
     ];
 
     /**
@@ -167,7 +170,8 @@ class CreateChatRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
      * @var string[]
      */
     protected static $attributeMap = [
-        'order_id' => 'orderId'
+        'order_id' => 'orderId',
+        'context' => 'context'
     ];
 
     /**
@@ -176,7 +180,8 @@ class CreateChatRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
      * @var string[]
      */
     protected static $setters = [
-        'order_id' => 'setOrderId'
+        'order_id' => 'setOrderId',
+        'context' => 'setContext'
     ];
 
     /**
@@ -185,7 +190,8 @@ class CreateChatRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
      * @var string[]
      */
     protected static $getters = [
-        'order_id' => 'getOrderId'
+        'order_id' => 'getOrderId',
+        'context' => 'getContext'
     ];
 
     /**
@@ -246,6 +252,7 @@ class CreateChatRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
     public function __construct(array $data = null)
     {
         $this->setIfExists('order_id', $data ?? [], null);
+        $this->setIfExists('context', $data ?? [], null);
     }
 
     /**
@@ -275,9 +282,6 @@ class CreateChatRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
     {
         $invalidProperties = [];
 
-        if ($this->container['order_id'] === null) {
-            $invalidProperties[] = "'order_id' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -296,7 +300,8 @@ class CreateChatRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Gets order_id
      *
-     * @return int
+     * @return int|null
+     * @deprecated
      */
     public function getOrderId()
     {
@@ -306,9 +311,10 @@ class CreateChatRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets order_id
      *
-     * @param int $order_id Идентификатор заказа на Маркете.
+     * @param int|null $order_id Идентификатор заказа на Маркете.
      *
      * @return self
+     * @deprecated
      */
     public function setOrderId($order_id)
     {
@@ -316,6 +322,33 @@ class CreateChatRequest implements ModelInterface, ArrayAccess, \JsonSerializabl
             throw new \InvalidArgumentException('non-nullable order_id cannot be null');
         }
         $this->container['order_id'] = $order_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets context
+     *
+     * @return \YandexMarketApi\Model\ChatContextDTO|null
+     */
+    public function getContext()
+    {
+        return $this->container['context'];
+    }
+
+    /**
+     * Sets context
+     *
+     * @param \YandexMarketApi\Model\ChatContextDTO|null $context context
+     *
+     * @return self
+     */
+    public function setContext($context)
+    {
+        if (is_null($context)) {
+            throw new \InvalidArgumentException('non-nullable context cannot be null');
+        }
+        $this->container['context'] = $context;
 
         return $this;
     }

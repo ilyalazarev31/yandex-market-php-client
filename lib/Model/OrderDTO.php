@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -59,6 +59,7 @@ class OrderDTO implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'id' => 'int',
+        'external_order_id' => 'string',
         'status' => '\YandexMarketApi\Model\OrderStatusType',
         'substatus' => '\YandexMarketApi\Model\OrderSubstatusType',
         'creation_date' => 'string',
@@ -92,17 +93,18 @@ class OrderDTO implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'id' => 'int64',
+        'external_order_id' => null,
         'status' => null,
         'substatus' => null,
         'creation_date' => 'date-dd-MM-yyyy-HH-mm-ss',
         'updated_at' => 'date-dd-MM-yyyy-HH-mm-ss',
         'currency' => null,
-        'items_total' => 'decimal',
-        'delivery_total' => 'decimal',
-        'buyer_items_total' => 'decimal',
-        'buyer_total' => 'decimal',
-        'buyer_items_total_before_discount' => 'decimal',
-        'buyer_total_before_discount' => 'decimal',
+        'items_total' => null,
+        'delivery_total' => null,
+        'buyer_items_total' => null,
+        'buyer_total' => null,
+        'buyer_items_total_before_discount' => null,
+        'buyer_total_before_discount' => null,
         'payment_type' => null,
         'payment_method' => null,
         'fake' => null,
@@ -123,6 +125,7 @@ class OrderDTO implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static array $openAPINullables = [
         'id' => false,
+		'external_order_id' => false,
 		'status' => false,
 		'substatus' => false,
 		'creation_date' => false,
@@ -234,6 +237,7 @@ class OrderDTO implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'id' => 'id',
+        'external_order_id' => 'externalOrderId',
         'status' => 'status',
         'substatus' => 'substatus',
         'creation_date' => 'creationDate',
@@ -265,6 +269,7 @@ class OrderDTO implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'id' => 'setId',
+        'external_order_id' => 'setExternalOrderId',
         'status' => 'setStatus',
         'substatus' => 'setSubstatus',
         'creation_date' => 'setCreationDate',
@@ -296,6 +301,7 @@ class OrderDTO implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'id' => 'getId',
+        'external_order_id' => 'getExternalOrderId',
         'status' => 'getStatus',
         'substatus' => 'getSubstatus',
         'creation_date' => 'getCreationDate',
@@ -378,6 +384,7 @@ class OrderDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(array $data = null)
     {
         $this->setIfExists('id', $data ?? [], null);
+        $this->setIfExists('external_order_id', $data ?? [], null);
         $this->setIfExists('status', $data ?? [], null);
         $this->setIfExists('substatus', $data ?? [], null);
         $this->setIfExists('creation_date', $data ?? [], null);
@@ -432,6 +439,10 @@ class OrderDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['id'] === null) {
             $invalidProperties[] = "'id' can't be null";
         }
+        if (!is_null($this->container['external_order_id']) && (mb_strlen($this->container['external_order_id']) < 1)) {
+            $invalidProperties[] = "invalid value for 'external_order_id', the character length must be bigger than or equal to 1.";
+        }
+
         if ($this->container['status'] === null) {
             $invalidProperties[] = "'status' can't be null";
         }
@@ -465,6 +476,10 @@ class OrderDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['items'] === null) {
             $invalidProperties[] = "'items' can't be null";
         }
+        if (!is_null($this->container['subsidies']) && (count($this->container['subsidies']) < 1)) {
+            $invalidProperties[] = "invalid value for 'subsidies', number of items must be greater than or equal to 1.";
+        }
+
         if ($this->container['delivery'] === null) {
             $invalidProperties[] = "'delivery' can't be null";
         }
@@ -512,6 +527,38 @@ class OrderDTO implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable id cannot be null');
         }
         $this->container['id'] = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets external_order_id
+     *
+     * @return string|null
+     */
+    public function getExternalOrderId()
+    {
+        return $this->container['external_order_id'];
+    }
+
+    /**
+     * Sets external_order_id
+     *
+     * @param string|null $external_order_id Внешний идентификатор заказа, который вы передали в [POST v2/campaigns/{campaignId}/orders/{orderId}/external-id](../../reference/orders/updateExternalOrderId.md).
+     *
+     * @return self
+     */
+    public function setExternalOrderId($external_order_id)
+    {
+        if (is_null($external_order_id)) {
+            throw new \InvalidArgumentException('non-nullable external_order_id cannot be null');
+        }
+
+        if ((mb_strlen($external_order_id) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $external_order_id when calling OrderDTO., must be bigger than or equal to 1.');
+        }
+
+        $this->container['external_order_id'] = $external_order_id;
 
         return $this;
     }
@@ -719,7 +766,7 @@ class OrderDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets buyer_items_total
      *
-     * @param float|null $buyer_items_total {% note warning \"Этот параметр устарел\" %}  Не используйте его.  {% endnote %}  Стоимость всех товаров в заказе в валюте покупателя после применения скидок и без учета стоимости доставки.
+     * @param float|null $buyer_items_total Стоимость всех товаров в заказе в валюте покупателя после применения скидок и без учета стоимости доставки.
      *
      * @return self
      * @deprecated
@@ -748,7 +795,7 @@ class OrderDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets buyer_total
      *
-     * @param float|null $buyer_total {% note warning \"Этот параметр устарел\" %}  Не используйте его.  {% endnote %}  Стоимость всех товаров в заказе в валюте покупателя после применения скидок и с учетом стоимости доставки.
+     * @param float|null $buyer_total Стоимость всех товаров в заказе в валюте покупателя после применения скидок и с учетом стоимости доставки.
      *
      * @return self
      * @deprecated
@@ -804,7 +851,7 @@ class OrderDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets buyer_total_before_discount
      *
-     * @param float|null $buyer_total_before_discount {% note warning \"Этот параметр устарел\" %}  Не используйте его.  {% endnote %}  Стоимость всех товаров в заказе в валюте покупателя до применения скидок и с учетом стоимости доставки (`buyerItemsTotalBeforeDiscount` + стоимость доставки).
+     * @param float|null $buyer_total_before_discount Стоимость всех товаров в заказе в валюте покупателя до применения скидок и с учетом стоимости доставки (`buyerItemsTotalBeforeDiscount` + стоимость доставки).
      *
      * @return self
      * @deprecated
@@ -886,7 +933,7 @@ class OrderDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets fake
      *
-     * @param bool $fake Тип заказа:  * `false` — настоящий заказ покупателя.  * `true` — [тестовый](../../concepts/sandbox.md) заказ Маркета.
+     * @param bool $fake Тип заказа:  * `false` — настоящий заказ покупателя.  * `true` — [тестовый заказ](../../concepts/sandbox.md) Маркета.
      *
      * @return self
      */
@@ -955,6 +1002,11 @@ class OrderDTO implements ModelInterface, ArrayAccess, \JsonSerializable
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
+        }
+
+
+        if (!is_null($subsidies) && (count($subsidies) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $subsidies when calling OrderDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['subsidies'] = $subsidies;
 

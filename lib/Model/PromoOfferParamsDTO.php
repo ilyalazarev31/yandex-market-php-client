@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -58,8 +58,7 @@ class PromoOfferParamsDTO implements ModelInterface, ArrayAccess, \JsonSerializa
       * @var string[]
       */
     protected static $openAPITypes = [
-        'discount_params' => '\YandexMarketApi\Model\PromoOfferDiscountParamsDTO',
-        'promocode_params' => '\YandexMarketApi\Model\PromoOfferPromocodeParamsDTO'
+        'discount_params' => '\YandexMarketApi\Model\PromoOfferDiscountParamsDTO'
     ];
 
     /**
@@ -70,8 +69,7 @@ class PromoOfferParamsDTO implements ModelInterface, ArrayAccess, \JsonSerializa
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'discount_params' => null,
-        'promocode_params' => null
+        'discount_params' => null
     ];
 
     /**
@@ -80,8 +78,7 @@ class PromoOfferParamsDTO implements ModelInterface, ArrayAccess, \JsonSerializa
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'discount_params' => false,
-		'promocode_params' => false
+        'discount_params' => false
     ];
 
     /**
@@ -170,8 +167,7 @@ class PromoOfferParamsDTO implements ModelInterface, ArrayAccess, \JsonSerializa
      * @var string[]
      */
     protected static $attributeMap = [
-        'discount_params' => 'discountParams',
-        'promocode_params' => 'promocodeParams'
+        'discount_params' => 'discountParams'
     ];
 
     /**
@@ -180,8 +176,7 @@ class PromoOfferParamsDTO implements ModelInterface, ArrayAccess, \JsonSerializa
      * @var string[]
      */
     protected static $setters = [
-        'discount_params' => 'setDiscountParams',
-        'promocode_params' => 'setPromocodeParams'
+        'discount_params' => 'setDiscountParams'
     ];
 
     /**
@@ -190,8 +185,7 @@ class PromoOfferParamsDTO implements ModelInterface, ArrayAccess, \JsonSerializa
      * @var string[]
      */
     protected static $getters = [
-        'discount_params' => 'getDiscountParams',
-        'promocode_params' => 'getPromocodeParams'
+        'discount_params' => 'getDiscountParams'
     ];
 
     /**
@@ -252,7 +246,6 @@ class PromoOfferParamsDTO implements ModelInterface, ArrayAccess, \JsonSerializa
     public function __construct(array $data = null)
     {
         $this->setIfExists('discount_params', $data ?? [], null);
-        $this->setIfExists('promocode_params', $data ?? [], null);
     }
 
     /**
@@ -320,33 +313,6 @@ class PromoOfferParamsDTO implements ModelInterface, ArrayAccess, \JsonSerializa
             throw new \InvalidArgumentException('non-nullable discount_params cannot be null');
         }
         $this->container['discount_params'] = $discount_params;
-
-        return $this;
-    }
-
-    /**
-     * Gets promocode_params
-     *
-     * @return \YandexMarketApi\Model\PromoOfferPromocodeParamsDTO|null
-     */
-    public function getPromocodeParams()
-    {
-        return $this->container['promocode_params'];
-    }
-
-    /**
-     * Sets promocode_params
-     *
-     * @param \YandexMarketApi\Model\PromoOfferPromocodeParamsDTO|null $promocode_params promocode_params
-     *
-     * @return self
-     */
-    public function setPromocodeParams($promocode_params)
-    {
-        if (is_null($promocode_params)) {
-            throw new \InvalidArgumentException('non-nullable promocode_params cannot be null');
-        }
-        $this->container['promocode_params'] = $promocode_params;
 
         return $this;
     }

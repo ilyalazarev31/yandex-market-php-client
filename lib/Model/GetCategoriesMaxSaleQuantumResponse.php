@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -288,9 +288,16 @@ class GetCategoriesMaxSaleQuantumResponse implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if ($this->container['status'] === null) {
+            $invalidProperties[] = "'status' can't be null";
+        }
         if ($this->container['results'] === null) {
             $invalidProperties[] = "'results' can't be null";
         }
+        if (!is_null($this->container['errors']) && (count($this->container['errors']) < 1)) {
+            $invalidProperties[] = "invalid value for 'errors', number of items must be greater than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -309,7 +316,7 @@ class GetCategoriesMaxSaleQuantumResponse implements ModelInterface, ArrayAccess
     /**
      * Gets status
      *
-     * @return \YandexMarketApi\Model\ApiResponseStatusType|null
+     * @return \YandexMarketApi\Model\ApiResponseStatusType
      */
     public function getStatus()
     {
@@ -319,7 +326,7 @@ class GetCategoriesMaxSaleQuantumResponse implements ModelInterface, ArrayAccess
     /**
      * Sets status
      *
-     * @param \YandexMarketApi\Model\ApiResponseStatusType|null $status status
+     * @param \YandexMarketApi\Model\ApiResponseStatusType $status status
      *
      * @return self
      */
@@ -388,6 +395,11 @@ class GetCategoriesMaxSaleQuantumResponse implements ModelInterface, ArrayAccess
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
+        }
+
+
+        if (!is_null($errors) && (count($errors) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $errors when calling GetCategoriesMaxSaleQuantumResponse., number of items must be greater than or equal to 1.');
         }
         $this->container['errors'] = $errors;
 

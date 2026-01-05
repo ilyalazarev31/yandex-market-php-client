@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -59,7 +59,7 @@ class GoodsFeedbackIdentifiersDTO implements ModelInterface, ArrayAccess, \JsonS
       */
     protected static $openAPITypes = [
         'order_id' => 'int',
-        'model_id' => 'int'
+        'offer_id' => 'string'
     ];
 
     /**
@@ -71,7 +71,7 @@ class GoodsFeedbackIdentifiersDTO implements ModelInterface, ArrayAccess, \JsonS
       */
     protected static $openAPIFormats = [
         'order_id' => 'int64',
-        'model_id' => 'int64'
+        'offer_id' => null
     ];
 
     /**
@@ -81,7 +81,7 @@ class GoodsFeedbackIdentifiersDTO implements ModelInterface, ArrayAccess, \JsonS
       */
     protected static array $openAPINullables = [
         'order_id' => false,
-		'model_id' => false
+		'offer_id' => false
     ];
 
     /**
@@ -171,7 +171,7 @@ class GoodsFeedbackIdentifiersDTO implements ModelInterface, ArrayAccess, \JsonS
      */
     protected static $attributeMap = [
         'order_id' => 'orderId',
-        'model_id' => 'modelId'
+        'offer_id' => 'offerId'
     ];
 
     /**
@@ -181,7 +181,7 @@ class GoodsFeedbackIdentifiersDTO implements ModelInterface, ArrayAccess, \JsonS
      */
     protected static $setters = [
         'order_id' => 'setOrderId',
-        'model_id' => 'setModelId'
+        'offer_id' => 'setOfferId'
     ];
 
     /**
@@ -191,7 +191,7 @@ class GoodsFeedbackIdentifiersDTO implements ModelInterface, ArrayAccess, \JsonS
      */
     protected static $getters = [
         'order_id' => 'getOrderId',
-        'model_id' => 'getModelId'
+        'offer_id' => 'getOfferId'
     ];
 
     /**
@@ -252,7 +252,7 @@ class GoodsFeedbackIdentifiersDTO implements ModelInterface, ArrayAccess, \JsonS
     public function __construct(array $data = null)
     {
         $this->setIfExists('order_id', $data ?? [], null);
-        $this->setIfExists('model_id', $data ?? [], null);
+        $this->setIfExists('offer_id', $data ?? [], null);
     }
 
     /**
@@ -282,9 +282,25 @@ class GoodsFeedbackIdentifiersDTO implements ModelInterface, ArrayAccess, \JsonS
     {
         $invalidProperties = [];
 
-        if ($this->container['model_id'] === null) {
-            $invalidProperties[] = "'model_id' can't be null";
+        if (!is_null($this->container['offer_id']) && (mb_strlen($this->container['offer_id']) > 255)) {
+            $invalidProperties[] = "invalid value for 'offer_id', the character length must be smaller than or equal to 255.";
         }
+
+        if (!is_null($this->container['offer_id']) && (mb_strlen($this->container['offer_id']) < 1)) {
+            $invalidProperties[] = "invalid value for 'offer_id', the character length must be bigger than or equal to 1.";
+        }
+
+        if (!is_null($this->container['offer_id']) && !preg_match("/^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/", $this->container['offer_id'])) {
+            $invalidProperties[] = "invalid value for 'offer_id', must be conform to the pattern /^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/.";
+<<<<<<<< HEAD:lib/Model/SuggestOfferPriceDTO.php
+        }
+
+        if (!is_null($this->container['market_sku']) && ($this->container['market_sku'] < 1)) {
+            $invalidProperties[] = "invalid value for 'market_sku', must be bigger than or equal to 1.";
+========
+>>>>>>>> upstream/main:lib/Model/GoodsFeedbackIdentifiersDTO.php
+        }
+
         return $invalidProperties;
     }
 
@@ -328,31 +344,88 @@ class GoodsFeedbackIdentifiersDTO implements ModelInterface, ArrayAccess, \JsonS
     }
 
     /**
-     * Gets model_id
+     * Gets offer_id
      *
-     * @return int
+     * @return string|null
      */
-    public function getModelId()
+    public function getOfferId()
     {
-        return $this->container['model_id'];
+        return $this->container['offer_id'];
     }
 
     /**
-     * Sets model_id
+     * Sets offer_id
      *
-     * @param int $model_id Идентификатор модели товара.
+<<<<<<<< HEAD:lib/Model/SuggestOfferPriceDTO.php
+     * @param string|null $offer_id Ваш SKU — идентификатор товара в вашей системе.  Правила использования SKU:  * У каждого товара SKU должен быть свой.  * Уже заданный SKU нельзя освободить и использовать заново для другого товара. Каждый товар должен получать новый идентификатор, до того никогда не использовавшийся в вашем каталоге.  SKU товара можно изменить в кабинете продавца на Маркете. О том, как это сделать, читайте [в Справке Маркета для продавцов](https://yandex.ru/support2/marketplace/ru/assortment/operations/edit-sku).  [Что такое SKU и как его назначать](https://yandex.ru/support/marketplace/assortment/add/index.html#fields)
+========
+     * @param string|null $offer_id Ваш SKU — идентификатор товара в вашей системе.  Правила использования SKU:  * У каждого товара SKU должен быть свой.  * Уже заданный SKU нельзя освободить и использовать заново для другого товара. Каждый товар должен получать новый идентификатор, до того никогда не использовавшийся в вашем каталоге.  SKU товара можно изменить в кабинете продавца на Маркете. О том, как это сделать, читайте [в Справке Маркета для продавцов](https://yandex.ru/support2/marketplace/ru/assortment/operations/edit-sku).  {% note warning %}  Пробельные символы в начале и конце значения автоматически удаляются. Например, `\"  SKU123  \"` и `\"SKU123\"` будут обработаны как одинаковые значения.  {% endnote %}  [Что такое SKU и как его назначать](https://yandex.ru/support/marketplace/assortment/add/index.html#fields)
+>>>>>>>> upstream/main:lib/Model/GoodsFeedbackIdentifiersDTO.php
      *
      * @return self
      */
-    public function setModelId($model_id)
+    public function setOfferId($offer_id)
     {
-        if (is_null($model_id)) {
-            throw new \InvalidArgumentException('non-nullable model_id cannot be null');
+        if (is_null($offer_id)) {
+            throw new \InvalidArgumentException('non-nullable offer_id cannot be null');
         }
-        $this->container['model_id'] = $model_id;
+        if ((mb_strlen($offer_id) > 255)) {
+<<<<<<<< HEAD:lib/Model/SuggestOfferPriceDTO.php
+            throw new \InvalidArgumentException('invalid length for $offer_id when calling SuggestOfferPriceDTO., must be smaller than or equal to 255.');
+========
+            throw new \InvalidArgumentException('invalid length for $offer_id when calling GoodsFeedbackIdentifiersDTO., must be smaller than or equal to 255.');
+>>>>>>>> upstream/main:lib/Model/GoodsFeedbackIdentifiersDTO.php
+        }
+        if ((mb_strlen($offer_id) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $offer_id when calling GoodsFeedbackIdentifiersDTO., must be bigger than or equal to 1.');
+        }
+        if ((!preg_match("/^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/", $offer_id))) {
+<<<<<<<< HEAD:lib/Model/SuggestOfferPriceDTO.php
+            throw new \InvalidArgumentException("invalid value for \$offer_id when calling SuggestOfferPriceDTO., must conform to the pattern /^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/.");
+========
+            throw new \InvalidArgumentException("invalid value for \$offer_id when calling GoodsFeedbackIdentifiersDTO., must conform to the pattern /^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/.");
+>>>>>>>> upstream/main:lib/Model/GoodsFeedbackIdentifiersDTO.php
+        }
+
+        $this->container['offer_id'] = $offer_id;
 
         return $this;
     }
+<<<<<<<< HEAD:lib/Model/SuggestOfferPriceDTO.php
+
+    /**
+     * Gets market_sku
+     *
+     * @return int|null
+     */
+    public function getMarketSku()
+    {
+        return $this->container['market_sku'];
+    }
+
+    /**
+     * Sets market_sku
+     *
+     * @param int|null $market_sku SKU на Маркете.
+     *
+     * @return self
+     */
+    public function setMarketSku($market_sku)
+    {
+        if (is_null($market_sku)) {
+            throw new \InvalidArgumentException('non-nullable market_sku cannot be null');
+        }
+
+        if (($market_sku < 1)) {
+            throw new \InvalidArgumentException('invalid value for $market_sku when calling SuggestOfferPriceDTO., must be bigger than or equal to 1.');
+        }
+
+        $this->container['market_sku'] = $market_sku;
+
+        return $this;
+    }
+========
+>>>>>>>> upstream/main:lib/Model/GoodsFeedbackIdentifiersDTO.php
     /**
      * Returns true if offset exists. False otherwise.
      *

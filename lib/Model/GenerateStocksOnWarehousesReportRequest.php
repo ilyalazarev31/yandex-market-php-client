@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -35,7 +35,7 @@ use \YandexMarketApi\ObjectSerializer;
  * GenerateStocksOnWarehousesReportRequest Class Doc Comment
  *
  * @category Class
- * @description Данные, необходимые для генерации отчета.
+ * @description Данные, необходимые для генерации отчета. Передавайте либо &#x60;businessId&#x60;, либо &#x60;campaignId&#x60;/&#x60;campaignIds&#x60;, но не все сразу.
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -59,10 +59,12 @@ class GenerateStocksOnWarehousesReportRequest implements ModelInterface, ArrayAc
       */
     protected static $openAPITypes = [
         'campaign_id' => 'int',
+        'business_id' => 'int',
         'warehouse_ids' => 'int[]',
         'report_date' => '\DateTime',
         'category_ids' => 'int[]',
-        'has_stocks' => 'bool'
+        'has_stocks' => 'bool',
+        'campaign_ids' => 'int[]'
     ];
 
     /**
@@ -74,10 +76,12 @@ class GenerateStocksOnWarehousesReportRequest implements ModelInterface, ArrayAc
       */
     protected static $openAPIFormats = [
         'campaign_id' => 'int64',
+        'business_id' => 'int64',
         'warehouse_ids' => 'int64',
         'report_date' => 'date',
-        'category_ids' => 'int64',
-        'has_stocks' => null
+        'category_ids' => 'int32',
+        'has_stocks' => null,
+        'campaign_ids' => 'int64'
     ];
 
     /**
@@ -87,10 +91,12 @@ class GenerateStocksOnWarehousesReportRequest implements ModelInterface, ArrayAc
       */
     protected static array $openAPINullables = [
         'campaign_id' => false,
+		'business_id' => false,
 		'warehouse_ids' => true,
 		'report_date' => false,
 		'category_ids' => true,
-		'has_stocks' => false
+		'has_stocks' => false,
+		'campaign_ids' => true
     ];
 
     /**
@@ -180,10 +186,12 @@ class GenerateStocksOnWarehousesReportRequest implements ModelInterface, ArrayAc
      */
     protected static $attributeMap = [
         'campaign_id' => 'campaignId',
+        'business_id' => 'businessId',
         'warehouse_ids' => 'warehouseIds',
         'report_date' => 'reportDate',
         'category_ids' => 'categoryIds',
-        'has_stocks' => 'hasStocks'
+        'has_stocks' => 'hasStocks',
+        'campaign_ids' => 'campaignIds'
     ];
 
     /**
@@ -193,10 +201,12 @@ class GenerateStocksOnWarehousesReportRequest implements ModelInterface, ArrayAc
      */
     protected static $setters = [
         'campaign_id' => 'setCampaignId',
+        'business_id' => 'setBusinessId',
         'warehouse_ids' => 'setWarehouseIds',
         'report_date' => 'setReportDate',
         'category_ids' => 'setCategoryIds',
-        'has_stocks' => 'setHasStocks'
+        'has_stocks' => 'setHasStocks',
+        'campaign_ids' => 'setCampaignIds'
     ];
 
     /**
@@ -206,10 +216,12 @@ class GenerateStocksOnWarehousesReportRequest implements ModelInterface, ArrayAc
      */
     protected static $getters = [
         'campaign_id' => 'getCampaignId',
+        'business_id' => 'getBusinessId',
         'warehouse_ids' => 'getWarehouseIds',
         'report_date' => 'getReportDate',
         'category_ids' => 'getCategoryIds',
-        'has_stocks' => 'getHasStocks'
+        'has_stocks' => 'getHasStocks',
+        'campaign_ids' => 'getCampaignIds'
     ];
 
     /**
@@ -270,10 +282,12 @@ class GenerateStocksOnWarehousesReportRequest implements ModelInterface, ArrayAc
     public function __construct(array $data = null)
     {
         $this->setIfExists('campaign_id', $data ?? [], null);
+        $this->setIfExists('business_id', $data ?? [], null);
         $this->setIfExists('warehouse_ids', $data ?? [], null);
         $this->setIfExists('report_date', $data ?? [], null);
         $this->setIfExists('category_ids', $data ?? [], null);
         $this->setIfExists('has_stocks', $data ?? [], null);
+        $this->setIfExists('campaign_ids', $data ?? [], null);
     }
 
     /**
@@ -303,9 +317,26 @@ class GenerateStocksOnWarehousesReportRequest implements ModelInterface, ArrayAc
     {
         $invalidProperties = [];
 
-        if ($this->container['campaign_id'] === null) {
-            $invalidProperties[] = "'campaign_id' can't be null";
+        if (!is_null($this->container['campaign_id']) && ($this->container['campaign_id'] < 1)) {
+            $invalidProperties[] = "invalid value for 'campaign_id', must be bigger than or equal to 1.";
         }
+
+        if (!is_null($this->container['business_id']) && ($this->container['business_id'] < 1)) {
+            $invalidProperties[] = "invalid value for 'business_id', must be bigger than or equal to 1.";
+        }
+
+        if (!is_null($this->container['warehouse_ids']) && (count($this->container['warehouse_ids']) < 1)) {
+            $invalidProperties[] = "invalid value for 'warehouse_ids', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['category_ids']) && (count($this->container['category_ids']) < 1)) {
+            $invalidProperties[] = "invalid value for 'category_ids', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['campaign_ids']) && (count($this->container['campaign_ids']) < 1)) {
+            $invalidProperties[] = "invalid value for 'campaign_ids', number of items must be greater than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -324,7 +355,7 @@ class GenerateStocksOnWarehousesReportRequest implements ModelInterface, ArrayAc
     /**
      * Gets campaign_id
      *
-     * @return int
+     * @return int|null
      */
     public function getCampaignId()
     {
@@ -334,7 +365,7 @@ class GenerateStocksOnWarehousesReportRequest implements ModelInterface, ArrayAc
     /**
      * Sets campaign_id
      *
-     * @param int $campaign_id Идентификатор магазина.
+     * @param int|null $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями.
      *
      * @return self
      */
@@ -343,7 +374,44 @@ class GenerateStocksOnWarehousesReportRequest implements ModelInterface, ArrayAc
         if (is_null($campaign_id)) {
             throw new \InvalidArgumentException('non-nullable campaign_id cannot be null');
         }
+
+        if (($campaign_id < 1)) {
+            throw new \InvalidArgumentException('invalid value for $campaign_id when calling GenerateStocksOnWarehousesReportRequest., must be bigger than or equal to 1.');
+        }
+
         $this->container['campaign_id'] = $campaign_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets business_id
+     *
+     * @return int|null
+     */
+    public function getBusinessId()
+    {
+        return $this->container['business_id'];
+    }
+
+    /**
+     * Sets business_id
+     *
+     * @param int|null $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html)
+     *
+     * @return self
+     */
+    public function setBusinessId($business_id)
+    {
+        if (is_null($business_id)) {
+            throw new \InvalidArgumentException('non-nullable business_id cannot be null');
+        }
+
+        if (($business_id < 1)) {
+            throw new \InvalidArgumentException('invalid value for $business_id when calling GenerateStocksOnWarehousesReportRequest., must be bigger than or equal to 1.');
+        }
+
+        $this->container['business_id'] = $business_id;
 
         return $this;
     }
@@ -361,7 +429,7 @@ class GenerateStocksOnWarehousesReportRequest implements ModelInterface, ArrayAc
     /**
      * Sets warehouse_ids
      *
-     * @param int[]|null $warehouse_ids Фильтр по идентификаторам складов (только модель FBY). Чтобы узнать идентификатор, воспользуйтесь запросом [GET warehouses](../../reference/warehouses/getFulfillmentWarehouses.md).
+     * @param int[]|null $warehouse_ids Фильтр по идентификаторам складов (только модель FBY). Чтобы узнать идентификатор, воспользуйтесь запросом [GET v2/warehouses](../../reference/warehouses/getFulfillmentWarehouses.md).
      *
      * @return self
      */
@@ -376,6 +444,11 @@ class GenerateStocksOnWarehousesReportRequest implements ModelInterface, ArrayAc
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
+        }
+
+
+        if (!is_null($warehouse_ids) && (count($warehouse_ids) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $warehouse_ids when calling GenerateStocksOnWarehousesReportRequest., number of items must be greater than or equal to 1.');
         }
         $this->container['warehouse_ids'] = $warehouse_ids;
 
@@ -395,7 +468,7 @@ class GenerateStocksOnWarehousesReportRequest implements ModelInterface, ArrayAc
     /**
      * Sets report_date
      *
-     * @param \DateTime|null $report_date Фильтр по дате (для модели FBY). В отчет попадут данные за **предшествующий** дате день.
+     * @param \DateTime|null $report_date Фильтр по дате (для модели FBY). В отчет попадут данные за **предшествующий** дате день.  Формат даты: `ГГГГ-ММ-ДД`.
      *
      * @return self
      */
@@ -438,6 +511,11 @@ class GenerateStocksOnWarehousesReportRequest implements ModelInterface, ArrayAc
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
         }
+
+
+        if (!is_null($category_ids) && (count($category_ids) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $category_ids when calling GenerateStocksOnWarehousesReportRequest., number of items must be greater than or equal to 1.');
+        }
         $this->container['category_ids'] = $category_ids;
 
         return $this;
@@ -466,6 +544,45 @@ class GenerateStocksOnWarehousesReportRequest implements ModelInterface, ArrayAc
             throw new \InvalidArgumentException('non-nullable has_stocks cannot be null');
         }
         $this->container['has_stocks'] = $has_stocks;
+
+        return $this;
+    }
+
+    /**
+     * Gets campaign_ids
+     *
+     * @return int[]|null
+     */
+    public function getCampaignIds()
+    {
+        return $this->container['campaign_ids'];
+    }
+
+    /**
+     * Sets campaign_ids
+     *
+     * @param int[]|null $campaign_ids Фильтр по магазинам для отчета по кабинету (кроме модели FBY).  Передавайте вместе с `businessId`.
+     *
+     * @return self
+     */
+    public function setCampaignIds($campaign_ids)
+    {
+        if (is_null($campaign_ids)) {
+            array_push($this->openAPINullablesSetToNull, 'campaign_ids');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('campaign_ids', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+
+        if (!is_null($campaign_ids) && (count($campaign_ids) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $campaign_ids when calling GenerateStocksOnWarehousesReportRequest., number of items must be greater than or equal to 1.');
+        }
+        $this->container['campaign_ids'] = $campaign_ids;
 
         return $this;
     }

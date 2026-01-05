@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **draft_count** | **int** | Количество заказов, которое Маркет запланировал к отгрузке. |
 **planned_count** | **int** | Количество заказов, которое Маркет подтвердил к отгрузке. |
 **fact_count** | **int** | Количество заказов, принятых в сортировочном центре или пункте приема. |
+**signature** | [**\YandexMarketApi\Model\SignatureDTO**](SignatureDTO.md) |  |
 **status** | [**\YandexMarketApi\Model\ShipmentStatusType**](ShipmentStatusType.md) |  | [optional]
 **status_description** | **string** | Описание статуса отгрузки. | [optional]
 **status_update_time** | **\DateTime** | Время последнего изменения статуса отгрузки  Формат даты: ISO 8601 со смещением относительно UTC. | [optional]

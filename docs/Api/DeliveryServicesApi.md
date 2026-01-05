@@ -4,7 +4,7 @@ All URIs are relative to https://api.partner.market.yandex.ru, except if the ope
 
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
-| [**getDeliveryServices()**](DeliveryServicesApi.md#getDeliveryServices) | **GET** /delivery/services | Справочник служб доставки |
+| [**getDeliveryServices()**](DeliveryServicesApi.md#getDeliveryServices) | **GET** /v2/delivery/services | Справочник служб доставки |
 
 
 ## `getDeliveryServices()`
@@ -15,7 +15,7 @@ getDeliveryServices(): \YandexMarketApi\Model\GetDeliveryServicesResponse
 
 Справочник служб доставки
 
-{% include notitle [access](../../_auto/method_scopes/getDeliveryServices.md) %}  Возвращает справочник служб доставки: идентификаторы и наименования. |**⚙️ Лимит:** 5 000 запросов в час| |-|
+{% include notitle [:no-translate[access]](../../_auto/method_scopes/getDeliveryServices.md) %}  Возвращает справочник служб доставки: идентификаторы и наименования. |**⚙️ Лимит:** 5 000 запросов в час| |-|
 
 ### Example
 

@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -501,7 +501,9 @@ class MappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'shop_sku', must be conform to the pattern /^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/.";
         }
 
-
+        if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 6000)) {
+            $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 6000.";
+        }
 
         if (!is_null($this->container['id']) && (mb_strlen($this->container['id']) > 255)) {
             $invalidProperties[] = "invalid value for 'id', the character length must be smaller than or equal to 255.";
@@ -513,6 +515,38 @@ class MappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializable
 
         if (!is_null($this->container['id']) && !preg_match("/^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/", $this->container['id'])) {
             $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/.";
+        }
+
+        if (!is_null($this->container['barcodes']) && (count($this->container['barcodes']) < 1)) {
+            $invalidProperties[] = "invalid value for 'barcodes', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['urls']) && (count($this->container['urls']) < 1)) {
+            $invalidProperties[] = "invalid value for 'urls', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['pictures']) && (count($this->container['pictures']) > 30)) {
+            $invalidProperties[] = "invalid value for 'pictures', number of items must be less than or equal to 30.";
+        }
+
+        if (!is_null($this->container['pictures']) && (count($this->container['pictures']) < 1)) {
+            $invalidProperties[] = "invalid value for 'pictures', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['manufacturer_countries']) && (count($this->container['manufacturer_countries']) > 5)) {
+            $invalidProperties[] = "invalid value for 'manufacturer_countries', number of items must be less than or equal to 5.";
+        }
+
+        if (!is_null($this->container['manufacturer_countries']) && (count($this->container['manufacturer_countries']) < 1)) {
+            $invalidProperties[] = "invalid value for 'manufacturer_countries', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['customs_commodity_codes']) && (count($this->container['customs_commodity_codes']) < 1)) {
+            $invalidProperties[] = "invalid value for 'customs_commodity_codes', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['supply_schedule_days']) && (count($this->container['supply_schedule_days']) < 1)) {
+            $invalidProperties[] = "invalid value for 'supply_schedule_days', number of items must be greater than or equal to 1.";
         }
 
         return $invalidProperties;
@@ -574,7 +608,7 @@ class MappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets shop_sku
      *
-     * @param string|null $shop_sku Ваш SKU — идентификатор товара в вашей системе.  Правила использования SKU:  * У каждого товара SKU должен быть свой.  * Уже заданный SKU нельзя освободить и использовать заново для другого товара. Каждый товар должен получать новый идентификатор, до того никогда не использовавшийся в вашем каталоге.  SKU товара можно изменить в кабинете продавца на Маркете. О том, как это сделать, читайте [в Справке Маркета для продавцов](https://yandex.ru/support2/marketplace/ru/assortment/operations/edit-sku).  [Что такое SKU и как его назначать](https://yandex.ru/support/marketplace/assortment/add/index.html#fields)
+     * @param string|null $shop_sku Ваш SKU — идентификатор товара в вашей системе.  Правила использования SKU:  * У каждого товара SKU должен быть свой.  * Уже заданный SKU нельзя освободить и использовать заново для другого товара. Каждый товар должен получать новый идентификатор, до того никогда не использовавшийся в вашем каталоге.  SKU товара можно изменить в кабинете продавца на Маркете. О том, как это сделать, читайте [в Справке Маркета для продавцов](https://yandex.ru/support2/marketplace/ru/assortment/operations/edit-sku).  {% note warning %}  Пробельные символы в начале и конце значения автоматически удаляются. Например, `\"  SKU123  \"` и `\"SKU123\"` будут обработаны как одинаковые значения.  {% endnote %}  [Что такое SKU и как его назначать](https://yandex.ru/support/marketplace/assortment/add/index.html#fields)
      *
      * @return self
      */
@@ -612,7 +646,7 @@ class MappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets category
      *
-     * @param string|null $category {% note warning \"Этот параметр устарел\" %}  Вместо него используйте `marketCategoryId`.  {% endnote %}  Категория товара в вашем магазине.
+     * @param string|null $category {% note warning \"Вместо него используйте `marketCategoryId`.\" %}     {% endnote %}  Категория товара в вашем магазине.
      *
      * @return self
      * @deprecated
@@ -694,7 +728,7 @@ class MappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets description
      *
-     * @param string|null $description Подробное описание товара: например, его преимущества и особенности.  Не давайте в описании инструкций по установке и сборке. Не используйте слова «скидка», «распродажа», «дешевый», «подарок» (кроме подарочных категорий), «бесплатно», «акция», «специальная цена», «новинка», «new», «аналог», «заказ», «хит». Не указывайте никакой контактной информации и не давайте ссылок.  Можно использовать теги:  * \\<h>, \\<h1>, \\<h2> и так далее — для заголовков; * \\<br> и \\<p> — для переноса строки; * \\<ol> — для нумерованного списка; * \\<ul> — для маркированного списка; * \\<li> — для создания элементов списка (должен находиться внутри \\<ol> или \\<ul>); * \\<div> — поддерживается, но не влияет на отображение текста.  Оптимальная длина — 400–600 символов.  [Рекомендации и правила](https://yandex.ru/support/marketplace/assortment/fields/description.html)
+     * @param string|null $description Подробное описание товара: например, его преимущества и особенности.  Не давайте в описании инструкций по установке и сборке. Не используйте слова «скидка», «распродажа», «дешевый», «подарок» (кроме подарочных категорий), «бесплатно», «акция», «специальная цена», «новинка», «new», «аналог», «заказ», «хит». Не указывайте никакой контактной информации и не давайте ссылок.  Для форматирования текста можно использовать теги HTML:  * \\<h>, \\<h1>, \\<h2> и так далее — для заголовков; * \\<br> и \\<p> — для переноса строки; * \\<ol> — для нумерованного списка; * \\<ul> — для маркированного списка; * \\<li> — для создания элементов списка (должен находиться внутри \\<ol> или \\<ul>); * \\<div> — поддерживается, но не влияет на отображение текста.  Оптимальная длина — 400–600 символов.  [Рекомендации и правила](https://yandex.ru/support/marketplace/assortment/fields/description.html)
      *
      * @return self
      */
@@ -702,6 +736,9 @@ class MappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         if (is_null($description)) {
             throw new \InvalidArgumentException('non-nullable description cannot be null');
+        }
+        if ((mb_strlen($description) > 6000)) {
+            throw new \InvalidArgumentException('invalid length for $description when calling MappingsOfferDTO., must be smaller than or equal to 6000.');
         }
 
         $this->container['description'] = $description;
@@ -722,7 +759,7 @@ class MappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param string|null $id Ваш SKU — идентификатор товара в вашей системе.  Правила использования SKU:  * У каждого товара SKU должен быть свой.  * Уже заданный SKU нельзя освободить и использовать заново для другого товара. Каждый товар должен получать новый идентификатор, до того никогда не использовавшийся в вашем каталоге.  SKU товара можно изменить в кабинете продавца на Маркете. О том, как это сделать, читайте [в Справке Маркета для продавцов](https://yandex.ru/support2/marketplace/ru/assortment/operations/edit-sku).  [Что такое SKU и как его назначать](https://yandex.ru/support/marketplace/assortment/add/index.html#fields)
+     * @param string|null $id Ваш SKU — идентификатор товара в вашей системе.  Правила использования SKU:  * У каждого товара SKU должен быть свой.  * Уже заданный SKU нельзя освободить и использовать заново для другого товара. Каждый товар должен получать новый идентификатор, до того никогда не использовавшийся в вашем каталоге.  SKU товара можно изменить в кабинете продавца на Маркете. О том, как это сделать, читайте [в Справке Маркета для продавцов](https://yandex.ru/support2/marketplace/ru/assortment/operations/edit-sku).  {% note warning %}  Пробельные символы в начале и конце значения автоматически удаляются. Например, `\"  SKU123  \"` и `\"SKU123\"` будут обработаны как одинаковые значения.  {% endnote %}  [Что такое SKU и как его назначать](https://yandex.ru/support/marketplace/assortment/add/index.html#fields)
      *
      * @return self
      */
@@ -786,7 +823,7 @@ class MappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets barcodes
      *
-     * @param string[]|null $barcodes Указывайте в виде последовательности цифр. Подойдут коды EAN-13, EAN-8, UPC-A, UPC-E или Code 128.  Для книг указывайте ISBN.  Для товаров [определенных категорий и торговых марок](https://yastatic.net/s3/doc-binary/src/support/market/ru/yandex-market-list-for-gtin.xlsx) штрихкод должен быть действительным кодом GTIN. Обратите внимание: внутренние штрихкоды, начинающиеся на 2 или 02, и коды формата Code 128 не являются GTIN.  [Что такое GTIN](*gtin)
+     * @param string[]|null $barcodes Штрихкод.  Указывайте в виде последовательности цифр. Подойдут коды :no-translate[EAN-13, EAN-8, UPC-A, UPC-E] или :no-translate[Code 128]. Для книг — :no-translate[ISBN].  Для товаров [определенных категорий и торговых марок](https://yastatic.net/s3/doc-binary/src/support/market/ru/yandex-market-list-for-gtin.xlsx) штрихкод должен быть действительным кодом :no-translate[GTIN]. Обратите внимание: внутренние штрихкоды, начинающиеся на 2 или 02, и коды формата :no-translate[Code 128] не являются :no-translate[GTIN].  [Что такое :no-translate[GTIN]](*gtin)
      *
      * @return self
      */
@@ -801,6 +838,11 @@ class MappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializable
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
+        }
+
+
+        if (!is_null($barcodes) && (count($barcodes) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $barcodes when calling MappingsOfferDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['barcodes'] = $barcodes;
 
@@ -820,7 +862,7 @@ class MappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets urls
      *
-     * @param string[]|null $urls URL фотографии товара или страницы с описанием на вашем сайте.  Переданные данные не будут отображаться на витрине, но они помогут специалистам Маркета найти карточку для вашего товара.  Должен содержать один вложенный параметр url.
+     * @param string[]|null $urls URL фотографии товара или страницы с описанием на вашем сайте.  Переданные данные не будут отображаться на витрине, но они помогут специалистам Маркета найти карточку для вашего товара.  Должен содержать один вложенный параметр `url`.
      *
      * @return self
      */
@@ -835,6 +877,11 @@ class MappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializable
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
+        }
+
+
+        if (!is_null($urls) && (count($urls) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $urls when calling MappingsOfferDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['urls'] = $urls;
 
@@ -854,7 +901,7 @@ class MappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets pictures
      *
-     * @param string[]|null $pictures Ссылки (URL) изображений товара в хорошем качестве.  Можно указать до 30 ссылок. При этом изображение по первой ссылке будет основным. Оно используется в качестве изображения товара в поиске Маркета и на карточке товара. Другие изображения товара доступны в режиме просмотра увеличенных изображений.  Обязательный параметр.  Должен содержать хотя бы один вложенный параметр `picture`.
+     * @param string[]|null $pictures Ссылки (URL) изображений товара в хорошем качестве.  Можно указать до 30 ссылок. При этом изображение по первой ссылке будет основным. Оно используется в качестве изображения товара в поиске Маркета и на карточке товара. Другие изображения товара доступны в режиме просмотра увеличенных изображений.
      *
      * @return self
      */
@@ -869,6 +916,13 @@ class MappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializable
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
+        }
+
+        if (!is_null($pictures) && (count($pictures) > 30)) {
+            throw new \InvalidArgumentException('invalid value for $pictures when calling MappingsOfferDTO., number of items must be less than or equal to 30.');
+        }
+        if (!is_null($pictures) && (count($pictures) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $pictures when calling MappingsOfferDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['pictures'] = $pictures;
 
@@ -930,6 +984,13 @@ class MappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializable
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
+        }
+
+        if (!is_null($manufacturer_countries) && (count($manufacturer_countries) > 5)) {
+            throw new \InvalidArgumentException('invalid value for $manufacturer_countries when calling MappingsOfferDTO., number of items must be less than or equal to 5.');
+        }
+        if (!is_null($manufacturer_countries) && (count($manufacturer_countries) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $manufacturer_countries when calling MappingsOfferDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['manufacturer_countries'] = $manufacturer_countries;
 
@@ -994,6 +1055,7 @@ class MappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializable
      * Gets quantum_of_supply
      *
      * @return int|null
+     * @deprecated
      */
     public function getQuantumOfSupply()
     {
@@ -1003,9 +1065,10 @@ class MappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets quantum_of_supply
      *
-     * @param int|null $quantum_of_supply Добавочная партия: по сколько единиц товара можно добавлять к минимальному количеству minShipment.  Например, если вы поставляете детское питание партиями минимум по 10 коробок и хотите добавлять к минимальной партии по 2 коробки, а в каждой коробке по 6 баночек, укажите значение 12.
+     * @param int|null $quantum_of_supply Добавочная партия: по сколько единиц товара можно добавлять к минимальному количеству `minShipment`.  Например, если вы поставляете детское питание партиями минимум по 10 коробок и хотите добавлять к минимальной партии по 2 коробки, а в каждой коробке по 6 баночек, укажите значение 12.
      *
      * @return self
+     * @deprecated
      */
     public function setQuantumOfSupply($quantum_of_supply)
     {
@@ -1100,6 +1163,11 @@ class MappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializable
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
         }
+
+
+        if (!is_null($customs_commodity_codes) && (count($customs_commodity_codes) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $customs_commodity_codes when calling MappingsOfferDTO., number of items must be greater than or equal to 1.');
+        }
         $this->container['customs_commodity_codes'] = $customs_commodity_codes;
 
         return $this;
@@ -1161,6 +1229,11 @@ class MappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializable
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
         }
+
+
+        if (!is_null($supply_schedule_days) && (count($supply_schedule_days) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $supply_schedule_days when calling MappingsOfferDTO., number of items must be greater than or equal to 1.');
+        }
         $this->container['supply_schedule_days'] = $supply_schedule_days;
 
         return $this;
@@ -1170,6 +1243,7 @@ class MappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializable
      * Gets shelf_life_days
      *
      * @return int|null
+     * @deprecated
      */
     public function getShelfLifeDays()
     {
@@ -1179,9 +1253,10 @@ class MappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets shelf_life_days
      *
-     * @param int|null $shelf_life_days {% note warning \"Этот параметр устарел\" %}  Вместо него используйте `shelfLife`. Совместное использование обоих параметров приведет к ошибке.  {% endnote %}  Срок годности: через сколько дней товар станет непригоден для использования.
+     * @param int|null $shelf_life_days {% note warning \"Вместо него используйте `shelfLife`. Совместное использование обоих параметров приведет к ошибке.\" %}     {% endnote %}  Срок годности: через сколько дней товар станет непригоден для использования.
      *
      * @return self
+     * @deprecated
      */
     public function setShelfLifeDays($shelf_life_days)
     {
@@ -1197,6 +1272,7 @@ class MappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializable
      * Gets life_time_days
      *
      * @return int|null
+     * @deprecated
      */
     public function getLifeTimeDays()
     {
@@ -1206,9 +1282,10 @@ class MappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets life_time_days
      *
-     * @param int|null $life_time_days {% note warning \"Этот параметр устарел\" %}  Вместо него используйте `lifeTime`. Совместное использование обоих параметров приведет к ошибке.  {% endnote %}  Срок службы: сколько дней товар будет исправно выполнять свою функцию, а изготовитель — нести ответственность за его существенные недостатки.
+     * @param int|null $life_time_days {% note warning \"Вместо него используйте `lifeTime`. Совместное использование обоих параметров приведет к ошибке.\" %}     {% endnote %}  Срок службы: сколько дней товар будет исправно выполнять свою функцию, а изготовитель — нести ответственность за его существенные недостатки.
      *
      * @return self
+     * @deprecated
      */
     public function setLifeTimeDays($life_time_days)
     {
@@ -1422,7 +1499,7 @@ class MappingsOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets price
      *
-     * @param float|null $price Цена на товар.
+     * @param float|null $price Цена товара.
      *
      * @return self
      */

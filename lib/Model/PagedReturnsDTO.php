@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -35,7 +35,7 @@ use \YandexMarketApi\ObjectSerializer;
  * PagedReturnsDTO Class Doc Comment
  *
  * @category Class
- * @description Возвраты.
+ * @description Невыкупы или возвраты.
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -340,7 +340,7 @@ class PagedReturnsDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets returns
      *
-     * @param \YandexMarketApi\Model\ReturnDTO[] $returns Список возвратов.
+     * @param \YandexMarketApi\Model\ReturnDTO[] $returns Список невыкупов или возвратов.
      *
      * @return self
      */

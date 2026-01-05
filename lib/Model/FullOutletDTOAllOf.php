@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -409,6 +409,7 @@ class FullOutletDTOAllOf implements ModelInterface, ArrayAccess, \JsonSerializab
      * Gets shop_outlet_id
      *
      * @return string|null
+     * @deprecated
      */
     public function getShopOutletId()
     {
@@ -418,9 +419,10 @@ class FullOutletDTOAllOf implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets shop_outlet_id
      *
-     * @param string|null $shop_outlet_id Идентификатор точки продаж, заданный магазином.
+     * @param string|null $shop_outlet_id {% note warning \"Вместо него используйте `shopOutletCode`.\" %}     {% endnote %}  Идентификатор точки продаж, заданный магазином.
      *
      * @return self
+     * @deprecated
      */
     public function setShopOutletId($shop_outlet_id)
     {
@@ -436,6 +438,7 @@ class FullOutletDTOAllOf implements ModelInterface, ArrayAccess, \JsonSerializab
      * Gets working_time
      *
      * @return string|null
+     * @deprecated
      */
     public function getWorkingTime()
     {
@@ -445,9 +448,10 @@ class FullOutletDTOAllOf implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets working_time
      *
-     * @param string|null $working_time Рабочее время.
+     * @param string|null $working_time {% note warning \"Вместо него используйте `workingSchedule`.\" %}     {% endnote %}  Рабочее время.
      *
      * @return self
+     * @deprecated
      */
     public function setWorkingTime($working_time)
     {

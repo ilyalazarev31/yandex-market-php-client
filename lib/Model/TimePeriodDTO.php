@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -295,6 +295,10 @@ class TimePeriodDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['time_unit'] === null) {
             $invalidProperties[] = "'time_unit' can't be null";
         }
+        if (!is_null($this->container['comment']) && (mb_strlen($this->container['comment']) > 500)) {
+            $invalidProperties[] = "invalid value for 'comment', the character length must be smaller than or equal to 500.";
+        }
+
         return $invalidProperties;
     }
 
@@ -386,6 +390,10 @@ class TimePeriodDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         if (is_null($comment)) {
             throw new \InvalidArgumentException('non-nullable comment cannot be null');
         }
+        if ((mb_strlen($comment) > 500)) {
+            throw new \InvalidArgumentException('invalid length for $comment when calling TimePeriodDTO., must be smaller than or equal to 500.');
+        }
+
         $this->container['comment'] = $comment;
 
         return $this;

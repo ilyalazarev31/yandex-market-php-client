@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -92,7 +92,7 @@ class OrderDeliveryDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'id' => null,
         'type' => null,
         'service_name' => null,
-        'price' => 'decimal',
+        'price' => null,
         'delivery_partner_type' => null,
         'courier' => null,
         'dates' => null,
@@ -101,7 +101,7 @@ class OrderDeliveryDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'vat' => null,
         'delivery_service_id' => 'int64',
         'lift_type' => null,
-        'lift_price' => 'decimal',
+        'lift_price' => null,
         'outlet_code' => null,
         'outlet_storage_limit_date' => 'date-dd-MM-yyyy',
         'dispatch_type' => null,
@@ -430,6 +430,14 @@ class OrderDeliveryDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['delivery_service_id'] === null) {
             $invalidProperties[] = "'delivery_service_id' can't be null";
         }
+        if (!is_null($this->container['tracks']) && (count($this->container['tracks']) < 1)) {
+            $invalidProperties[] = "invalid value for 'tracks', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['shipments']) && (count($this->container['shipments']) < 1)) {
+            $invalidProperties[] = "invalid value for 'shipments', number of items must be greater than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -459,7 +467,7 @@ class OrderDeliveryDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param string|null $id {% note warning \"Этот параметр устарел\" %}  Не используйте его.  {% endnote %}  Идентификатор доставки, присвоенный магазином.  Указывается, только если магазин передал данный идентификатор в ответе на запрос методом `POST cart`.
+     * @param string|null $id Идентификатор доставки, присвоенный магазином.  Указывается, только если магазин передал данный идентификатор в ответе на запрос методом `POST cart`.
      *
      * @return self
      * @deprecated
@@ -514,7 +522,7 @@ class OrderDeliveryDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets service_name
      *
-     * @param string $service_name Наименование службы доставки.
+     * @param string $service_name Название службы доставки.
      *
      * @return self
      */
@@ -542,7 +550,7 @@ class OrderDeliveryDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets price
      *
-     * @param float|null $price {% note warning \"Этот параметр устарел\" %}  Стоимость доставки смотрите в параметре `deliveryTotal`.  {% endnote %}  Стоимость доставки в валюте заказа.
+     * @param float|null $price {% note warning \"Стоимость доставки смотрите в параметре `deliveryTotal`.\" %}     {% endnote %}  Стоимость доставки в валюте заказа.
      *
      * @return self
      * @deprecated
@@ -813,7 +821,7 @@ class OrderDeliveryDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets outlet_code
      *
-     * @param string|null $outlet_code Идентификатор пункта самовывоза, присвоенный магазином.
+     * @param string|null $outlet_code Идентификатор пункта выдачи, присвоенный магазином.
      *
      * @return self
      */
@@ -894,7 +902,7 @@ class OrderDeliveryDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets tracks
      *
-     * @param \YandexMarketApi\Model\OrderTrackDTO[]|null $tracks Информация для отслеживания перемещений посылки.
+     * @param \YandexMarketApi\Model\OrderTrackDTO[]|null $tracks Информация для отслеживания посылки.
      *
      * @return self
      */
@@ -909,6 +917,11 @@ class OrderDeliveryDTO implements ModelInterface, ArrayAccess, \JsonSerializable
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
+        }
+
+
+        if (!is_null($tracks) && (count($tracks) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $tracks when calling OrderDeliveryDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['tracks'] = $tracks;
 
@@ -943,6 +956,11 @@ class OrderDeliveryDTO implements ModelInterface, ArrayAccess, \JsonSerializable
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
+        }
+
+
+        if (!is_null($shipments) && (count($shipments) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $shipments when calling OrderDeliveryDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['shipments'] = $shipments;
 

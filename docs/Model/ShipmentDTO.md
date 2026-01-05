@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **draft_count** | **int** | Количество заказов, которое Маркет запланировал к отгрузке. |
 **planned_count** | **int** | Количество заказов, которое Маркет подтвердил к отгрузке. |
 **fact_count** | **int** | Количество заказов, принятых в сортировочном центре или пункте приема. |
+**signature** | [**\YandexMarketApi\Model\SignatureDTO**](SignatureDTO.md) |  |
 **current_status** | [**\YandexMarketApi\Model\ShipmentStatusChangeDTO**](ShipmentStatusChangeDTO.md) |  | [optional]
 **available_actions** | [**\YandexMarketApi\Model\ShipmentActionType[]**](ShipmentActionType.md) | Доступные действия над отгрузкой. |
 

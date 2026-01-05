@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -300,6 +300,9 @@ class BaseCampaignOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializ
             $invalidProperties[] = "invalid value for 'offer_id', the character length must be bigger than or equal to 1.";
         }
 
+        if (!preg_match("/^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/", $this->container['offer_id'])) {
+            $invalidProperties[] = "invalid value for 'offer_id', must be conform to the pattern /^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/.";
+        }
 
         return $invalidProperties;
     }
@@ -329,7 +332,7 @@ class BaseCampaignOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializ
     /**
      * Sets offer_id
      *
-     * @param string $offer_id Ваш SKU — идентификатор товара в вашей системе.  Правила использования SKU:  * У каждого товара SKU должен быть свой.  * Уже заданный SKU нельзя освободить и использовать заново для другого товара. Каждый товар должен получать новый идентификатор, до того никогда не использовавшийся в вашем каталоге.  SKU товара можно изменить в кабинете продавца на Маркете. О том, как это сделать, читайте [в Справке Маркета для продавцов](https://yandex.ru/support2/marketplace/ru/assortment/operations/edit-sku).  [Что такое SKU и как его назначать](https://yandex.ru/support/marketplace/assortment/add/index.html#fields)
+     * @param string $offer_id Ваш SKU — идентификатор товара в вашей системе.  Правила использования SKU:  * У каждого товара SKU должен быть свой.  * Уже заданный SKU нельзя освободить и использовать заново для другого товара. Каждый товар должен получать новый идентификатор, до того никогда не использовавшийся в вашем каталоге.  SKU товара можно изменить в кабинете продавца на Маркете. О том, как это сделать, читайте [в Справке Маркета для продавцов](https://yandex.ru/support2/marketplace/ru/assortment/operations/edit-sku).  {% note warning %}  Пробельные символы в начале и конце значения автоматически удаляются. Например, `\"  SKU123  \"` и `\"SKU123\"` будут обработаны как одинаковые значения.  {% endnote %}  [Что такое SKU и как его назначать](https://yandex.ru/support/marketplace/assortment/add/index.html#fields)
      *
      * @return self
      */
@@ -357,6 +360,7 @@ class BaseCampaignOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializ
      * Gets quantum
      *
      * @return \YandexMarketApi\Model\QuantumDTO|null
+     * @deprecated
      */
     public function getQuantum()
     {
@@ -369,6 +373,7 @@ class BaseCampaignOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializ
      * @param \YandexMarketApi\Model\QuantumDTO|null $quantum quantum
      *
      * @return self
+     * @deprecated
      */
     public function setQuantum($quantum)
     {
@@ -384,6 +389,7 @@ class BaseCampaignOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializ
      * Gets available
      *
      * @return bool|null
+     * @deprecated
      */
     public function getAvailable()
     {
@@ -393,9 +399,10 @@ class BaseCampaignOfferDTO implements ModelInterface, ArrayAccess, \JsonSerializ
     /**
      * Sets available
      *
-     * @param bool|null $available Есть ли товар в продаже.
+     * @param bool|null $available {% note warning \"Вместо него используйте методы скрытия товаров с витрины\" %}  * [GET v2/campaigns/{campaignId}/hidden-offers](../../reference/assortment/getHiddenOffers.md) — просмотр скрытых товаров; * [POST v2/campaigns/{campaignId}/hidden-offers](../../reference/assortment/addHiddenOffers.md) — скрытие товаров; * [POST v2/campaigns/{campaignId}/hidden-offers/delete](../../reference/assortment/deleteHiddenOffers.md) — возобновление показа.  {% endnote %}  Есть ли товар в продаже.
      *
      * @return self
+     * @deprecated
      */
     public function setAvailable($available)
     {

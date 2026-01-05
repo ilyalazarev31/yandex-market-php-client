@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**url** | **string** | Ссылка на медиафайл. | [optional]
+**url** | **string** |  | [optional]
 **title** | **string** | Название медиафайла. | [optional]
 **upload_state** | [**\YandexMarketApi\Model\MediaFileUploadStateType**](MediaFileUploadStateType.md) |  | [optional]
 

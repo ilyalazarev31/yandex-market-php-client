@@ -10,7 +10,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -72,6 +72,18 @@ class PricesApiTest extends TestCase
     }
 
     /**
+     * Test case for getDefaultPrices
+     *
+     * Просмотр цен на указанные товары во всех магазинах.
+     *
+     */
+    public function testGetDefaultPrices()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test case for getPrices
      *
      * Список цен.
@@ -86,22 +98,10 @@ class PricesApiTest extends TestCase
     /**
      * Test case for getPricesByOfferIds
      *
-     * Просмотр цен на указанные товары в магазине.
+     * Просмотр цен на указанные товары в конкретном магазине.
      *
      */
     public function testGetPricesByOfferIds()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test case for getSuggestedPrices
-     *
-     * Цены для продвижения товаров.
-     *
-     */
-    public function testGetSuggestedPrices()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

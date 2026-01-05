@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -71,6 +71,7 @@ class ShipmentInfoDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'draft_count' => 'int',
         'planned_count' => 'int',
         'fact_count' => 'int',
+        'signature' => '\YandexMarketApi\Model\SignatureDTO',
         'status' => '\YandexMarketApi\Model\ShipmentStatusType',
         'status_description' => 'string',
         'status_update_time' => '\DateTime'
@@ -97,6 +98,7 @@ class ShipmentInfoDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'draft_count' => 'int32',
         'planned_count' => 'int32',
         'fact_count' => 'int32',
+        'signature' => null,
         'status' => null,
         'status_description' => null,
         'status_update_time' => 'date-time'
@@ -121,6 +123,7 @@ class ShipmentInfoDTO implements ModelInterface, ArrayAccess, \JsonSerializable
 		'draft_count' => false,
 		'planned_count' => false,
 		'fact_count' => false,
+		'signature' => false,
 		'status' => false,
 		'status_description' => false,
 		'status_update_time' => false
@@ -225,6 +228,7 @@ class ShipmentInfoDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'draft_count' => 'draftCount',
         'planned_count' => 'plannedCount',
         'fact_count' => 'factCount',
+        'signature' => 'signature',
         'status' => 'status',
         'status_description' => 'statusDescription',
         'status_update_time' => 'statusUpdateTime'
@@ -249,6 +253,7 @@ class ShipmentInfoDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'draft_count' => 'setDraftCount',
         'planned_count' => 'setPlannedCount',
         'fact_count' => 'setFactCount',
+        'signature' => 'setSignature',
         'status' => 'setStatus',
         'status_description' => 'setStatusDescription',
         'status_update_time' => 'setStatusUpdateTime'
@@ -273,6 +278,7 @@ class ShipmentInfoDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'draft_count' => 'getDraftCount',
         'planned_count' => 'getPlannedCount',
         'fact_count' => 'getFactCount',
+        'signature' => 'getSignature',
         'status' => 'getStatus',
         'status_description' => 'getStatusDescription',
         'status_update_time' => 'getStatusUpdateTime'
@@ -348,6 +354,7 @@ class ShipmentInfoDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('draft_count', $data ?? [], null);
         $this->setIfExists('planned_count', $data ?? [], null);
         $this->setIfExists('fact_count', $data ?? [], null);
+        $this->setIfExists('signature', $data ?? [], null);
         $this->setIfExists('status', $data ?? [], null);
         $this->setIfExists('status_description', $data ?? [], null);
         $this->setIfExists('status_update_time', $data ?? [], null);
@@ -417,6 +424,9 @@ class ShipmentInfoDTO implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'fact_count', must be bigger than or equal to 0.";
         }
 
+        if ($this->container['signature'] === null) {
+            $invalidProperties[] = "'signature' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -801,6 +811,33 @@ class ShipmentInfoDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         $this->container['fact_count'] = $fact_count;
+
+        return $this;
+    }
+
+    /**
+     * Gets signature
+     *
+     * @return \YandexMarketApi\Model\SignatureDTO
+     */
+    public function getSignature()
+    {
+        return $this->container['signature'];
+    }
+
+    /**
+     * Sets signature
+     *
+     * @param \YandexMarketApi\Model\SignatureDTO $signature signature
+     *
+     * @return self
+     */
+    public function setSignature($signature)
+    {
+        if (is_null($signature)) {
+            throw new \InvalidArgumentException('non-nullable signature cannot be null');
+        }
+        $this->container['signature'] = $signature;
 
         return $this;
     }

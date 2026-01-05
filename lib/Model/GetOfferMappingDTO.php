@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -59,7 +59,8 @@ class GetOfferMappingDTO implements ModelInterface, ArrayAccess, \JsonSerializab
       */
     protected static $openAPITypes = [
         'offer' => '\YandexMarketApi\Model\GetOfferDTO',
-        'mapping' => '\YandexMarketApi\Model\GetMappingDTO'
+        'mapping' => '\YandexMarketApi\Model\GetMappingDTO',
+        'showcase_urls' => '\YandexMarketApi\Model\ShowcaseUrlDTO[]'
     ];
 
     /**
@@ -71,7 +72,8 @@ class GetOfferMappingDTO implements ModelInterface, ArrayAccess, \JsonSerializab
       */
     protected static $openAPIFormats = [
         'offer' => null,
-        'mapping' => null
+        'mapping' => null,
+        'showcase_urls' => null
     ];
 
     /**
@@ -81,7 +83,8 @@ class GetOfferMappingDTO implements ModelInterface, ArrayAccess, \JsonSerializab
       */
     protected static array $openAPINullables = [
         'offer' => false,
-		'mapping' => false
+		'mapping' => false,
+		'showcase_urls' => true
     ];
 
     /**
@@ -171,7 +174,8 @@ class GetOfferMappingDTO implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     protected static $attributeMap = [
         'offer' => 'offer',
-        'mapping' => 'mapping'
+        'mapping' => 'mapping',
+        'showcase_urls' => 'showcaseUrls'
     ];
 
     /**
@@ -181,7 +185,8 @@ class GetOfferMappingDTO implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     protected static $setters = [
         'offer' => 'setOffer',
-        'mapping' => 'setMapping'
+        'mapping' => 'setMapping',
+        'showcase_urls' => 'setShowcaseUrls'
     ];
 
     /**
@@ -191,7 +196,8 @@ class GetOfferMappingDTO implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     protected static $getters = [
         'offer' => 'getOffer',
-        'mapping' => 'getMapping'
+        'mapping' => 'getMapping',
+        'showcase_urls' => 'getShowcaseUrls'
     ];
 
     /**
@@ -253,6 +259,7 @@ class GetOfferMappingDTO implements ModelInterface, ArrayAccess, \JsonSerializab
     {
         $this->setIfExists('offer', $data ?? [], null);
         $this->setIfExists('mapping', $data ?? [], null);
+        $this->setIfExists('showcase_urls', $data ?? [], null);
     }
 
     /**
@@ -281,6 +288,10 @@ class GetOfferMappingDTO implements ModelInterface, ArrayAccess, \JsonSerializab
     public function listInvalidProperties()
     {
         $invalidProperties = [];
+
+        if (!is_null($this->container['showcase_urls']) && (count($this->container['showcase_urls']) < 1)) {
+            $invalidProperties[] = "invalid value for 'showcase_urls', number of items must be greater than or equal to 1.";
+        }
 
         return $invalidProperties;
     }
@@ -347,6 +358,45 @@ class GetOfferMappingDTO implements ModelInterface, ArrayAccess, \JsonSerializab
             throw new \InvalidArgumentException('non-nullable mapping cannot be null');
         }
         $this->container['mapping'] = $mapping;
+
+        return $this;
+    }
+
+    /**
+     * Gets showcase_urls
+     *
+     * @return \YandexMarketApi\Model\ShowcaseUrlDTO[]|null
+     */
+    public function getShowcaseUrls()
+    {
+        return $this->container['showcase_urls'];
+    }
+
+    /**
+     * Sets showcase_urls
+     *
+     * @param \YandexMarketApi\Model\ShowcaseUrlDTO[]|null $showcase_urls Ссылки на один и тот же товар на разных витринах Маркета.
+     *
+     * @return self
+     */
+    public function setShowcaseUrls($showcase_urls)
+    {
+        if (is_null($showcase_urls)) {
+            array_push($this->openAPINullablesSetToNull, 'showcase_urls');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('showcase_urls', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+
+        if (!is_null($showcase_urls) && (count($showcase_urls) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $showcase_urls when calling GetOfferMappingDTO., number of items must be greater than or equal to 1.');
+        }
+        $this->container['showcase_urls'] = $showcase_urls;
 
         return $this;
     }

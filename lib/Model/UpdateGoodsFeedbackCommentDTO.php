@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -355,7 +355,7 @@ class UpdateGoodsFeedbackCommentDTO implements ModelInterface, ArrayAccess, \Jso
     /**
      * Sets parent_id
      *
-     * @param int|null $parent_id Идентификатор комментария к отзыву.
+     * @param int|null $parent_id Идентификатор родительского комментария, на который нужно ответить.
      *
      * @return self
      */
@@ -382,7 +382,7 @@ class UpdateGoodsFeedbackCommentDTO implements ModelInterface, ArrayAccess, \Jso
     /**
      * Sets text
      *
-     * @param string $text Текст комментария.
+     * @param string $text Текст комментария.  Не должен содержать контакты магазина и ссылки на сайты, кроме Маркета.
      *
      * @return self
      */

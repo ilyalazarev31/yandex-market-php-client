@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -295,6 +295,10 @@ class CategoryDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['name'] === null) {
             $invalidProperties[] = "'name' can't be null";
         }
+        if (!is_null($this->container['children']) && (count($this->container['children']) < 1)) {
+            $invalidProperties[] = "invalid value for 'children', number of items must be greater than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -392,6 +396,11 @@ class CategoryDTO implements ModelInterface, ArrayAccess, \JsonSerializable
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
+        }
+
+
+        if (!is_null($children) && (count($children) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $children when calling CategoryDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['children'] = $children;
 

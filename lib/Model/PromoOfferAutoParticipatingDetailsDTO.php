@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -275,6 +275,10 @@ class PromoOfferAutoParticipatingDetailsDTO implements ModelInterface, ArrayAcce
     {
         $invalidProperties = [];
 
+        if (!is_null($this->container['campaign_ids']) && (count($this->container['campaign_ids']) < 1)) {
+            $invalidProperties[] = "invalid value for 'campaign_ids', number of items must be greater than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -303,7 +307,7 @@ class PromoOfferAutoParticipatingDetailsDTO implements ModelInterface, ArrayAcce
     /**
      * Sets campaign_ids
      *
-     * @param int[]|null $campaign_ids Магазины, в которых товар добавлен в акцию автоматически.  Возвращается, если статус товара в акции — `PARTIALLY_AUTO`.
+     * @param int[]|null $campaign_ids Идентификаторы кампаний тех магазинов, в которых товар добавлен в акцию автоматически.  Возвращается, если статус товара в акции — `PARTIALLY_AUTO`.
      *
      * @return self
      */
@@ -318,6 +322,11 @@ class PromoOfferAutoParticipatingDetailsDTO implements ModelInterface, ArrayAcce
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
+        }
+
+
+        if (!is_null($campaign_ids) && (count($campaign_ids) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $campaign_ids when calling PromoOfferAutoParticipatingDetailsDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['campaign_ids'] = $campaign_ids;
 

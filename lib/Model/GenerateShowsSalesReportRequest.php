@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -35,7 +35,7 @@ use \YandexMarketApi\ObjectSerializer;
  * GenerateShowsSalesReportRequest Class Doc Comment
  *
  * @category Class
- * @description Данные, необходимые для генерации отчета.
+ * @description Данные, необходимые для генерации отчета.  В запросе обязательно должен быть либо &#x60;businessId&#x60;, либо &#x60;campaignId&#x60;, но не оба сразу.
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -303,6 +303,14 @@ class GenerateShowsSalesReportRequest implements ModelInterface, ArrayAccess, \J
     {
         $invalidProperties = [];
 
+        if (!is_null($this->container['business_id']) && ($this->container['business_id'] < 1)) {
+            $invalidProperties[] = "invalid value for 'business_id', must be bigger than or equal to 1.";
+        }
+
+        if (!is_null($this->container['campaign_id']) && ($this->container['campaign_id'] < 1)) {
+            $invalidProperties[] = "invalid value for 'campaign_id', must be bigger than or equal to 1.";
+        }
+
         if ($this->container['date_from'] === null) {
             $invalidProperties[] = "'date_from' can't be null";
         }
@@ -340,7 +348,7 @@ class GenerateShowsSalesReportRequest implements ModelInterface, ArrayAccess, \J
     /**
      * Sets business_id
      *
-     * @param int|null $business_id Идентификатор бизнеса.  Указывается, если нужно составить отчет по всем магазинам бизнеса. В запросе обязательно должен быть либо `businessID`, либо `campaignId`, но не оба сразу.
+     * @param int|null $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html)
      *
      * @return self
      */
@@ -349,6 +357,11 @@ class GenerateShowsSalesReportRequest implements ModelInterface, ArrayAccess, \J
         if (is_null($business_id)) {
             throw new \InvalidArgumentException('non-nullable business_id cannot be null');
         }
+
+        if (($business_id < 1)) {
+            throw new \InvalidArgumentException('invalid value for $business_id when calling GenerateShowsSalesReportRequest., must be bigger than or equal to 1.');
+        }
+
         $this->container['business_id'] = $business_id;
 
         return $this;
@@ -367,7 +380,7 @@ class GenerateShowsSalesReportRequest implements ModelInterface, ArrayAccess, \J
     /**
      * Sets campaign_id
      *
-     * @param int|null $campaign_id Идентификатор кампании.  Указывается, если нужно составить отчет по конкретному магазину. В запросе обязательно должен быть либо `businessID`, либо `campaignId`, но не оба сразу.
+     * @param int|null $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями.
      *
      * @return self
      */
@@ -376,6 +389,11 @@ class GenerateShowsSalesReportRequest implements ModelInterface, ArrayAccess, \J
         if (is_null($campaign_id)) {
             throw new \InvalidArgumentException('non-nullable campaign_id cannot be null');
         }
+
+        if (($campaign_id < 1)) {
+            throw new \InvalidArgumentException('invalid value for $campaign_id when calling GenerateShowsSalesReportRequest., must be bigger than or equal to 1.');
+        }
+
         $this->container['campaign_id'] = $campaign_id;
 
         return $this;
@@ -394,7 +412,7 @@ class GenerateShowsSalesReportRequest implements ModelInterface, ArrayAccess, \J
     /**
      * Sets date_from
      *
-     * @param \DateTime $date_from Начало периода, включительно.
+     * @param \DateTime $date_from Начало периода, включительно.  Формат даты: `ГГГГ-ММ-ДД`.
      *
      * @return self
      */
@@ -421,7 +439,7 @@ class GenerateShowsSalesReportRequest implements ModelInterface, ArrayAccess, \J
     /**
      * Sets date_to
      *
-     * @param \DateTime $date_to Конец периода, включительно.
+     * @param \DateTime $date_to Конец периода, включительно.  Формат даты: `ГГГГ-ММ-ДД`.
      *
      * @return self
      */

@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -275,6 +275,10 @@ class DeletePromoOffersResultDTO implements ModelInterface, ArrayAccess, \JsonSe
     {
         $invalidProperties = [];
 
+        if (!is_null($this->container['rejected_offers']) && (count($this->container['rejected_offers']) < 1)) {
+            $invalidProperties[] = "invalid value for 'rejected_offers', number of items must be greater than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -318,6 +322,11 @@ class DeletePromoOffersResultDTO implements ModelInterface, ArrayAccess, \JsonSe
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
+        }
+
+
+        if (!is_null($rejected_offers) && (count($rejected_offers) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $rejected_offers when calling DeletePromoOffersResultDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['rejected_offers'] = $rejected_offers;
 

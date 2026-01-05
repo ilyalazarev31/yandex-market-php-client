@@ -10,7 +10,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -136,6 +136,7 @@ class CategoriesApi
      * @throws \YandexMarketApi\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \YandexMarketApi\Model\GetCategoriesMaxSaleQuantumResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiNotFoundErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse
+     * @deprecated
      */
     public function getCategoriesMaxSaleQuantum($get_categories_max_sale_quantum_request, string $contentType = self::contentTypes['getCategoriesMaxSaleQuantum'][0])
     {
@@ -154,6 +155,7 @@ class CategoriesApi
      * @throws \YandexMarketApi\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \YandexMarketApi\Model\GetCategoriesMaxSaleQuantumResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiNotFoundErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     * @deprecated
      */
     public function getCategoriesMaxSaleQuantumWithHttpInfo($get_categories_max_sale_quantum_request, string $contentType = self::contentTypes['getCategoriesMaxSaleQuantum'][0])
     {
@@ -391,6 +393,7 @@ class CategoriesApi
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
+     * @deprecated
      */
     public function getCategoriesMaxSaleQuantumAsync($get_categories_max_sale_quantum_request, string $contentType = self::contentTypes['getCategoriesMaxSaleQuantum'][0])
     {
@@ -412,6 +415,7 @@ class CategoriesApi
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
+     * @deprecated
      */
     public function getCategoriesMaxSaleQuantumAsyncWithHttpInfo($get_categories_max_sale_quantum_request, string $contentType = self::contentTypes['getCategoriesMaxSaleQuantum'][0])
     {
@@ -462,6 +466,7 @@ class CategoriesApi
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
+     * @deprecated
      */
     public function getCategoriesMaxSaleQuantumRequest($get_categories_max_sale_quantum_request, string $contentType = self::contentTypes['getCategoriesMaxSaleQuantum'][0])
     {
@@ -474,7 +479,7 @@ class CategoriesApi
         }
 
 
-        $resourcePath = '/categories/max-sale-quantum';
+        $resourcePath = '/v2/categories/max-sale-quantum';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -897,7 +902,7 @@ class CategoriesApi
 
 
 
-        $resourcePath = '/categories/tree';
+        $resourcePath = '/v2/categories/tree';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];

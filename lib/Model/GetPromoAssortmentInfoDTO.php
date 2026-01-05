@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -289,8 +289,13 @@ class GetPromoAssortmentInfoDTO implements ModelInterface, ArrayAccess, \JsonSer
     {
         $invalidProperties = [];
 
+<<<<<<<< HEAD:lib/Model/SearchModelsResponse.php
+        if ($this->container['models'] === null) {
+            $invalidProperties[] = "'models' can't be null";
+========
         if ($this->container['active_offers'] === null) {
             $invalidProperties[] = "'active_offers' can't be null";
+>>>>>>>> upstream/main:lib/Model/GetPromoAssortmentInfoDTO.php
         }
         return $invalidProperties;
     }
@@ -310,7 +315,11 @@ class GetPromoAssortmentInfoDTO implements ModelInterface, ArrayAccess, \JsonSer
     /**
      * Gets active_offers
      *
+<<<<<<<< HEAD:lib/Model/SearchModelsResponse.php
+     * @return \YandexMarketApi\Model\ModelDTO[]
+========
      * @return int
+>>>>>>>> upstream/main:lib/Model/GetPromoAssortmentInfoDTO.php
      */
     public function getActiveOffers()
     {
@@ -320,7 +329,11 @@ class GetPromoAssortmentInfoDTO implements ModelInterface, ArrayAccess, \JsonSer
     /**
      * Sets active_offers
      *
-     * @param int $active_offers Количество товаров, которые участвуют или участвовали в акции.  Учитываются только товары, которые были добавлены вручную.  Об автоматическом и ручном добавлении товаров в акцию читайте [в Справке Маркета для продавцов](https://yandex.ru/support2/marketplace/ru/marketing/promos/market/index).
+<<<<<<<< HEAD:lib/Model/SearchModelsResponse.php
+     * @param \YandexMarketApi\Model\ModelDTO[] $models Список моделей товаров.
+========
+     * @param int $active_offers Количество товаров, которые участвуют или участвовали в акции.  Не учитываются товары, которые были добавлены автоматически.  Об автоматическом и ручном добавлении товаров в акцию читайте [в Справке Маркета для продавцов](https://yandex.ru/support2/marketplace/ru/marketing/promos/market/index).
+>>>>>>>> upstream/main:lib/Model/GetPromoAssortmentInfoDTO.php
      *
      * @return self
      */

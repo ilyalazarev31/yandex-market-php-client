@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**status** | [**\YandexMarketApi\Model\ApiResponseStatusType**](ApiResponseStatusType.md) |  | [optional]
+**status** | [**\YandexMarketApi\Model\ApiResponseStatusType**](ApiResponseStatusType.md) |  |
 **results** | [**\YandexMarketApi\Model\MaxSaleQuantumDTO[]**](MaxSaleQuantumDTO.md) | Категории и лимит на установку кванта и минимального количества товаров. |
 **errors** | [**\YandexMarketApi\Model\CategoryErrorDTO[]**](CategoryErrorDTO.md) | Ошибки, которые появились из-за переданных категорий. | [optional]
 

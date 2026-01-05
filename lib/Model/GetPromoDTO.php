@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -352,6 +352,10 @@ class GetPromoDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['bestseller_info'] === null) {
             $invalidProperties[] = "'bestseller_info' can't be null";
         }
+        if (!is_null($this->container['channels']) && (count($this->container['channels']) < 1)) {
+            $invalidProperties[] = "invalid value for 'channels', number of items must be greater than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -380,7 +384,11 @@ class GetPromoDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
+<<<<<<<< HEAD:lib/Model/ModelOfferDTO.php
+     * @param int|null $discount Скидка на предложение в процентах.
+========
      * @param string $id Идентификатор акции.
+>>>>>>>> upstream/main:lib/Model/GetPromoDTO.php
      *
      * @return self
      */
@@ -542,7 +550,11 @@ class GetPromoDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets bestseller_info
      *
+<<<<<<<< HEAD:lib/Model/ModelOfferDTO.php
+     * @param float|null $shipping_cost Стоимость доставки товара в регион:  * `0` — доставка осуществляется бесплатно. * `-1` — магазин не осуществляет доставку этого товара (самовывоз).  Если стоимость доставки неизвестна, параметр не выводится.
+========
      * @param \YandexMarketApi\Model\GetPromoBestsellerInfoDTO $bestseller_info bestseller_info
+>>>>>>>> upstream/main:lib/Model/GetPromoDTO.php
      *
      * @return self
      */
@@ -585,6 +597,11 @@ class GetPromoDTO implements ModelInterface, ArrayAccess, \JsonSerializable
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
         }
+
+
+        if (!is_null($channels) && (count($channels) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $channels when calling GetPromoDTO., number of items must be greater than or equal to 1.');
+        }
         $this->container['channels'] = $channels;
 
         return $this;
@@ -612,7 +629,40 @@ class GetPromoDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         if (is_null($constraints)) {
             throw new \InvalidArgumentException('non-nullable constraints cannot be null');
         }
+<<<<<<<< HEAD:lib/Model/ModelOfferDTO.php
+        $this->container['shop_rating'] = $shop_rating;
+
+        return $this;
+    }
+
+    /**
+     * Gets in_stock
+     *
+     * @return int|null
+     * @deprecated
+     */
+    public function getInStock()
+    {
+        return $this->container['in_stock'];
+    }
+
+    /**
+     * Sets in_stock
+     *
+     * @param int|null $in_stock {% note warning \"Этот параметр устарел\" %}  Не используйте его.  {% endnote %}
+     *
+     * @return self
+     * @deprecated
+     */
+    public function setInStock($in_stock)
+    {
+        if (is_null($in_stock)) {
+            throw new \InvalidArgumentException('non-nullable in_stock cannot be null');
+        }
+        $this->container['in_stock'] = $in_stock;
+========
         $this->container['constraints'] = $constraints;
+>>>>>>>> upstream/main:lib/Model/GetPromoDTO.php
 
         return $this;
     }

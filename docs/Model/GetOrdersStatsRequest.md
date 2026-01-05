@@ -10,6 +10,6 @@ Name | Type | Description | Notes
 **update_to** | **\DateTime** | Конечная дата периода, за который были изменения в заказе (например, статуса или информации о платежах).  Формат даты: &#x60;ГГГГ‑ММ‑ДД&#x60;.  Нельзя использовать вместе с параметрами &#x60;dateFrom&#x60; и &#x60;dateTo&#x60;. | [optional]
 **orders** | **int[]** | Список идентификаторов заказов. | [optional]
 **statuses** | [**\YandexMarketApi\Model\OrderStatsStatusType[]**](OrderStatsStatusType.md) | Список статусов заказов. | [optional]
-**has_cis** | **bool** | Нужно ли вернуть только те заказы, в составе которых есть хотя бы один товар с кодом идентификации [в системе «Честный ЗНАК»](https://честныйзнак.рф/):  * &#x60;true&#x60; — да. * &#x60;false&#x60; — нет. Такие коды присваиваются товарам, которые подлежат маркировке и относятся к определенным категориям. | [optional]
+**has_cis** | **bool** | Фильтр для получения заказов, в которых есть хотя бы один товар с кодом идентификации в системе [:no-translate[«Честный ЗНАК»]](https://честныйзнак.рф/) или [:no-translate[«ASL BELGISI»]](https://aslbelgisi.uz) (для продавцов :no-translate[Market Yandex Go]):  * &#x60;true&#x60; — да. * &#x60;false&#x60; — нет. Такие коды присваиваются товарам, которые подлежат маркировке и относятся к определенным категориям. | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

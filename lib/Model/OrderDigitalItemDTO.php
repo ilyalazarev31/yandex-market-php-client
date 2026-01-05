@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -59,7 +59,6 @@ class OrderDigitalItemDTO implements ModelInterface, ArrayAccess, \JsonSerializa
       */
     protected static $openAPITypes = [
         'id' => 'int',
-        'code' => 'string',
         'codes' => 'string[]',
         'slip' => 'string',
         'activate_till' => '\DateTime'
@@ -74,7 +73,6 @@ class OrderDigitalItemDTO implements ModelInterface, ArrayAccess, \JsonSerializa
       */
     protected static $openAPIFormats = [
         'id' => 'int64',
-        'code' => null,
         'codes' => null,
         'slip' => null,
         'activate_till' => 'date'
@@ -87,7 +85,6 @@ class OrderDigitalItemDTO implements ModelInterface, ArrayAccess, \JsonSerializa
       */
     protected static array $openAPINullables = [
         'id' => false,
-		'code' => false,
 		'codes' => true,
 		'slip' => false,
 		'activate_till' => false
@@ -180,7 +177,6 @@ class OrderDigitalItemDTO implements ModelInterface, ArrayAccess, \JsonSerializa
      */
     protected static $attributeMap = [
         'id' => 'id',
-        'code' => 'code',
         'codes' => 'codes',
         'slip' => 'slip',
         'activate_till' => 'activate_till'
@@ -193,7 +189,6 @@ class OrderDigitalItemDTO implements ModelInterface, ArrayAccess, \JsonSerializa
      */
     protected static $setters = [
         'id' => 'setId',
-        'code' => 'setCode',
         'codes' => 'setCodes',
         'slip' => 'setSlip',
         'activate_till' => 'setActivateTill'
@@ -206,7 +201,6 @@ class OrderDigitalItemDTO implements ModelInterface, ArrayAccess, \JsonSerializa
      */
     protected static $getters = [
         'id' => 'getId',
-        'code' => 'getCode',
         'codes' => 'getCodes',
         'slip' => 'getSlip',
         'activate_till' => 'getActivateTill'
@@ -270,7 +264,6 @@ class OrderDigitalItemDTO implements ModelInterface, ArrayAccess, \JsonSerializa
     public function __construct(array $data = null)
     {
         $this->setIfExists('id', $data ?? [], null);
-        $this->setIfExists('code', $data ?? [], null);
         $this->setIfExists('codes', $data ?? [], null);
         $this->setIfExists('slip', $data ?? [], null);
         $this->setIfExists('activate_till', $data ?? [], null);
@@ -352,7 +345,7 @@ class OrderDigitalItemDTO implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets id
      *
-     * @param int $id Идентификатор товара в заказе.  Он приходит в ответе на запрос [GET campaigns/{campaignId}/orders/{orderId}](../../reference/orders/getOrder.md) — параметр `id` в `items`.
+     * @param int $id Идентификатор товара в заказе.  Он приходит в ответе метода [POST v1/businesses/{businessId}/orders](../../reference/orders/getBusinessOrders.md) — параметр `id` в `items`.
      *
      * @return self
      */
@@ -362,35 +355,6 @@ class OrderDigitalItemDTO implements ModelInterface, ArrayAccess, \JsonSerializa
             throw new \InvalidArgumentException('non-nullable id cannot be null');
         }
         $this->container['id'] = $id;
-
-        return $this;
-    }
-
-    /**
-     * Gets code
-     *
-     * @return string|null
-     * @deprecated
-     */
-    public function getCode()
-    {
-        return $this->container['code'];
-    }
-
-    /**
-     * Sets code
-     *
-     * @param string|null $code {% note warning \"Этот параметр устарел\" %}  Вместо него используйте `codes`. Совместное использование обоих параметров приведет к ошибке.  {% endnote %}  Сам ключ.
-     *
-     * @return self
-     * @deprecated
-     */
-    public function setCode($code)
-    {
-        if (is_null($code)) {
-            throw new \InvalidArgumentException('non-nullable code cannot be null');
-        }
-        $this->container['code'] = $code;
 
         return $this;
     }
@@ -408,7 +372,7 @@ class OrderDigitalItemDTO implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets codes
      *
-     * @param string[]|null $codes Ключи, относящиеся к товару.
+     * @param string[]|null $codes Ключи, относящиеся к товару.  Поле обязательно для заполнения.
      *
      * @return self
      */
@@ -449,7 +413,7 @@ class OrderDigitalItemDTO implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets slip
      *
-     * @param string $slip Инструкция по активации.
+     * @param string $slip Инструкция по активации.  Для форматирования текста можно использовать теги HTML:  * \\<h>, \\<h1>, \\<h2> и так далее — для заголовков; * \\<br> и \\<p> — для переноса строки; * \\<ol> — для нумерованного списка; * \\<ul> — для маркированного списка; * \\<li> — для создания элементов списка (должен находиться внутри \\<ol> или \\<ul>); * \\<div> — поддерживается, но не влияет на отображение текста.
      *
      * @return self
      */

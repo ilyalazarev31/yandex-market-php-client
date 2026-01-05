@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -35,7 +35,7 @@ use \YandexMarketApi\ObjectSerializer;
  * CalculateTariffsParametersDTO Class Doc Comment
  *
  * @category Class
- * @description Параметры для расчета стоимости услуг.
+ * @description Параметры для расчета стоимости услуг. Обязательно необходимо указать параметр &#x60;campaignId&#x60; либо &#x60;sellingProgram&#x60;. Совместное использование параметров приведет к ошибке.
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -60,7 +60,8 @@ class CalculateTariffsParametersDTO implements ModelInterface, ArrayAccess, \Jso
     protected static $openAPITypes = [
         'campaign_id' => 'int',
         'selling_program' => '\YandexMarketApi\Model\SellingProgramType',
-        'frequency' => '\YandexMarketApi\Model\PaymentFrequencyType'
+        'frequency' => '\YandexMarketApi\Model\PaymentFrequencyType',
+        'currency' => '\YandexMarketApi\Model\CurrencyType'
     ];
 
     /**
@@ -73,7 +74,8 @@ class CalculateTariffsParametersDTO implements ModelInterface, ArrayAccess, \Jso
     protected static $openAPIFormats = [
         'campaign_id' => 'int64',
         'selling_program' => null,
-        'frequency' => null
+        'frequency' => null,
+        'currency' => null
     ];
 
     /**
@@ -84,7 +86,8 @@ class CalculateTariffsParametersDTO implements ModelInterface, ArrayAccess, \Jso
     protected static array $openAPINullables = [
         'campaign_id' => false,
 		'selling_program' => false,
-		'frequency' => false
+		'frequency' => false,
+		'currency' => false
     ];
 
     /**
@@ -175,7 +178,8 @@ class CalculateTariffsParametersDTO implements ModelInterface, ArrayAccess, \Jso
     protected static $attributeMap = [
         'campaign_id' => 'campaignId',
         'selling_program' => 'sellingProgram',
-        'frequency' => 'frequency'
+        'frequency' => 'frequency',
+        'currency' => 'currency'
     ];
 
     /**
@@ -186,7 +190,8 @@ class CalculateTariffsParametersDTO implements ModelInterface, ArrayAccess, \Jso
     protected static $setters = [
         'campaign_id' => 'setCampaignId',
         'selling_program' => 'setSellingProgram',
-        'frequency' => 'setFrequency'
+        'frequency' => 'setFrequency',
+        'currency' => 'setCurrency'
     ];
 
     /**
@@ -197,7 +202,8 @@ class CalculateTariffsParametersDTO implements ModelInterface, ArrayAccess, \Jso
     protected static $getters = [
         'campaign_id' => 'getCampaignId',
         'selling_program' => 'getSellingProgram',
-        'frequency' => 'getFrequency'
+        'frequency' => 'getFrequency',
+        'currency' => 'getCurrency'
     ];
 
     /**
@@ -260,6 +266,7 @@ class CalculateTariffsParametersDTO implements ModelInterface, ArrayAccess, \Jso
         $this->setIfExists('campaign_id', $data ?? [], null);
         $this->setIfExists('selling_program', $data ?? [], null);
         $this->setIfExists('frequency', $data ?? [], null);
+        $this->setIfExists('currency', $data ?? [], null);
     }
 
     /**
@@ -321,7 +328,7 @@ class CalculateTariffsParametersDTO implements ModelInterface, ArrayAccess, \Jso
     /**
      * Sets campaign_id
      *
-     * @param int|null $campaign_id Идентификатор кампании. У пользователя, который выполняет запрос, должен быть доступ к этой кампании.  Используйте параметр `campaignId`, если уже завершили подключение магазина на Маркете. Иначе вернется пустой список.  Обязательный параметр, если не указан параметр `sellingProgram`. Совместное использование параметров приведет к ошибке.
+     * @param int|null $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями.
      *
      * @return self
      */
@@ -390,6 +397,33 @@ class CalculateTariffsParametersDTO implements ModelInterface, ArrayAccess, \Jso
             throw new \InvalidArgumentException('non-nullable frequency cannot be null');
         }
         $this->container['frequency'] = $frequency;
+
+        return $this;
+    }
+
+    /**
+     * Gets currency
+     *
+     * @return \YandexMarketApi\Model\CurrencyType|null
+     */
+    public function getCurrency()
+    {
+        return $this->container['currency'];
+    }
+
+    /**
+     * Sets currency
+     *
+     * @param \YandexMarketApi\Model\CurrencyType|null $currency currency
+     *
+     * @return self
+     */
+    public function setCurrency($currency)
+    {
+        if (is_null($currency)) {
+            throw new \InvalidArgumentException('non-nullable currency cannot be null');
+        }
+        $this->container['currency'] = $currency;
 
         return $this;
     }

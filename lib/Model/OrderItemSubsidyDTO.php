@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -35,7 +35,7 @@ use \YandexMarketApi\ObjectSerializer;
  * OrderItemSubsidyDTO Class Doc Comment
  *
  * @category Class
- * @description Общее вознаграждение партнеру за все скидки на товар:  * по промокодам, купонам и акциям; * по баллам Плюса.
+ * @description Общее вознаграждение продавцу за все скидки на товар:  * по промокодам, купонам и акциям; * по баллам Плюса.  Включает НДС.
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -71,7 +71,7 @@ class OrderItemSubsidyDTO implements ModelInterface, ArrayAccess, \JsonSerializa
       */
     protected static $openAPIFormats = [
         'type' => null,
-        'amount' => 'decimal'
+        'amount' => null
     ];
 
     /**

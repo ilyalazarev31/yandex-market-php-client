@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -285,6 +285,10 @@ class CampaignQualityRatingDTO implements ModelInterface, ArrayAccess, \JsonSeri
         if ($this->container['campaign_id'] === null) {
             $invalidProperties[] = "'campaign_id' can't be null";
         }
+        if (($this->container['campaign_id'] < 1)) {
+            $invalidProperties[] = "invalid value for 'campaign_id', must be bigger than or equal to 1.";
+        }
+
         if ($this->container['ratings'] === null) {
             $invalidProperties[] = "'ratings' can't be null";
         }
@@ -316,7 +320,7 @@ class CampaignQualityRatingDTO implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets campaign_id
      *
-     * @param int $campaign_id Идентификатор магазина.
+     * @param int $campaign_id Идентификатор кампании (магазина) — технический идентификатор, который представляет ваш магазин в системе Яндекс Маркета при работе через API. Он однозначно связывается с вашим магазином, но предназначен только для автоматизированного взаимодействия.  Его можно узнать с помощью запроса [GET v2/campaigns](../../reference/campaigns/getCampaigns.md) или найти в кабинете продавца на Маркете. Нажмите на иконку вашего аккаунта → **Настройки** и в меню слева выберите **API и модули**:  * блок **Идентификатор кампании**; * вкладка **Лог запросов** → выпадающий список в блоке **Показывать логи**.  ⚠️ Не путайте его с: - идентификатором магазина, который отображается в личном кабинете продавца; - рекламными кампаниями.
      *
      * @return self
      */
@@ -325,6 +329,11 @@ class CampaignQualityRatingDTO implements ModelInterface, ArrayAccess, \JsonSeri
         if (is_null($campaign_id)) {
             throw new \InvalidArgumentException('non-nullable campaign_id cannot be null');
         }
+
+        if (($campaign_id < 1)) {
+            throw new \InvalidArgumentException('invalid value for $campaign_id when calling CampaignQualityRatingDTO., must be bigger than or equal to 1.');
+        }
+
         $this->container['campaign_id'] = $campaign_id;
 
         return $this;

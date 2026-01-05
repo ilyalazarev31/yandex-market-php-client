@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -35,7 +35,11 @@ use \YandexMarketApi\ObjectSerializer;
  * GoodsFeedbackListDTO Class Doc Comment
  *
  * @category Class
+<<<<<<<< HEAD:lib/Model/FeedbackListDTO.php
+ * @description Отзывы пользователей Яндекс Маркета об указанном магазине.
+========
  * @description Список отзывов о товарах.
+>>>>>>>> upstream/main:lib/Model/GoodsFeedbackListDTO.php
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -282,8 +286,13 @@ class GoodsFeedbackListDTO implements ModelInterface, ArrayAccess, \JsonSerializ
     {
         $invalidProperties = [];
 
+<<<<<<<< HEAD:lib/Model/FeedbackListDTO.php
+        if ($this->container['feedback_list'] === null) {
+            $invalidProperties[] = "'feedback_list' can't be null";
+========
         if ($this->container['feedbacks'] === null) {
             $invalidProperties[] = "'feedbacks' can't be null";
+>>>>>>>> upstream/main:lib/Model/GoodsFeedbackListDTO.php
         }
         return $invalidProperties;
     }
@@ -353,6 +362,36 @@ class GoodsFeedbackListDTO implements ModelInterface, ArrayAccess, \JsonSerializ
 
         return $this;
     }
+<<<<<<<< HEAD:lib/Model/FeedbackListDTO.php
+
+    /**
+     * Gets feedback_list
+     *
+     * @return \YandexMarketApi\Model\FeedbackDTO[]
+     */
+    public function getFeedbackList()
+    {
+        return $this->container['feedback_list'];
+    }
+
+    /**
+     * Sets feedback_list
+     *
+     * @param \YandexMarketApi\Model\FeedbackDTO[] $feedback_list Список отзывов.  Содержит не более 20 отзывов.
+     *
+     * @return self
+     */
+    public function setFeedbackList($feedback_list)
+    {
+        if (is_null($feedback_list)) {
+            throw new \InvalidArgumentException('non-nullable feedback_list cannot be null');
+        }
+        $this->container['feedback_list'] = $feedback_list;
+
+        return $this;
+    }
+========
+>>>>>>>> upstream/main:lib/Model/GoodsFeedbackListDTO.php
     /**
      * Returns true if offset exists. False otherwise.
      *

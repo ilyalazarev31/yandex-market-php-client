@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -364,6 +364,10 @@ class OutletDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['working_schedule'] === null) {
             $invalidProperties[] = "'working_schedule' can't be null";
         }
+        if (!is_null($this->container['delivery_rules']) && (count($this->container['delivery_rules']) < 1)) {
+            $invalidProperties[] = "invalid value for 'delivery_rules', number of items must be greater than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -581,7 +585,7 @@ class OutletDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets phones
      *
-     * @param string[] $phones Номера телефонов точки продаж. Передавайте в формате: `+7 (999) 999-99-99`.
+     * @param string[] $phones Номера телефонов точки продаж. Передавайте номер в формате: `+<код страны>(<код города>)<номер>[#<добавочный>]`.  Примеры: - `+7 (999) 999-99-99` - `+7 (999) 999-99-99#1234`
      *
      * @return self
      */
@@ -655,6 +659,11 @@ class OutletDTO implements ModelInterface, ArrayAccess, \JsonSerializable
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
+        }
+
+
+        if (!is_null($delivery_rules) && (count($delivery_rules) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $delivery_rules when calling OutletDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['delivery_rules'] = $delivery_rules;
 

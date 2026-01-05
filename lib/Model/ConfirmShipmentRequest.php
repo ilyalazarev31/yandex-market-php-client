@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -58,7 +58,8 @@ class ConfirmShipmentRequest implements ModelInterface, ArrayAccess, \JsonSerial
       * @var string[]
       */
     protected static $openAPITypes = [
-        'external_shipment_id' => 'string'
+        'external_shipment_id' => 'string',
+        'signatory' => 'string'
     ];
 
     /**
@@ -69,7 +70,8 @@ class ConfirmShipmentRequest implements ModelInterface, ArrayAccess, \JsonSerial
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'external_shipment_id' => null
+        'external_shipment_id' => null,
+        'signatory' => null
     ];
 
     /**
@@ -78,7 +80,8 @@ class ConfirmShipmentRequest implements ModelInterface, ArrayAccess, \JsonSerial
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'external_shipment_id' => false
+        'external_shipment_id' => false,
+		'signatory' => false
     ];
 
     /**
@@ -167,7 +170,8 @@ class ConfirmShipmentRequest implements ModelInterface, ArrayAccess, \JsonSerial
      * @var string[]
      */
     protected static $attributeMap = [
-        'external_shipment_id' => 'externalShipmentId'
+        'external_shipment_id' => 'externalShipmentId',
+        'signatory' => 'signatory'
     ];
 
     /**
@@ -176,7 +180,8 @@ class ConfirmShipmentRequest implements ModelInterface, ArrayAccess, \JsonSerial
      * @var string[]
      */
     protected static $setters = [
-        'external_shipment_id' => 'setExternalShipmentId'
+        'external_shipment_id' => 'setExternalShipmentId',
+        'signatory' => 'setSignatory'
     ];
 
     /**
@@ -185,7 +190,8 @@ class ConfirmShipmentRequest implements ModelInterface, ArrayAccess, \JsonSerial
      * @var string[]
      */
     protected static $getters = [
-        'external_shipment_id' => 'getExternalShipmentId'
+        'external_shipment_id' => 'getExternalShipmentId',
+        'signatory' => 'getSignatory'
     ];
 
     /**
@@ -246,6 +252,7 @@ class ConfirmShipmentRequest implements ModelInterface, ArrayAccess, \JsonSerial
     public function __construct(array $data = null)
     {
         $this->setIfExists('external_shipment_id', $data ?? [], null);
+        $this->setIfExists('signatory', $data ?? [], null);
     }
 
     /**
@@ -313,6 +320,33 @@ class ConfirmShipmentRequest implements ModelInterface, ArrayAccess, \JsonSerial
             throw new \InvalidArgumentException('non-nullable external_shipment_id cannot be null');
         }
         $this->container['external_shipment_id'] = $external_shipment_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets signatory
+     *
+     * @return string|null
+     */
+    public function getSignatory()
+    {
+        return $this->container['signatory'];
+    }
+
+    /**
+     * Sets signatory
+     *
+     * @param string|null $signatory Логин пользователя в Яндекс ID, от имени которого будет подписываться электронный акт приема-передачи.  Указывается без `@yandex.ru`.  Где его найти:  * на странице [Яндекс ID](https://id.yandex.ru); * в [кабинете продавца на Маркете](https://partner.market.yandex.ru/):    * в верхнем правом углу под иконкой пользователя;   * на странице **Настройки** → **Сотрудники и доступы**.
+     *
+     * @return self
+     */
+    public function setSignatory($signatory)
+    {
+        if (is_null($signatory)) {
+            throw new \InvalidArgumentException('non-nullable signatory cannot be null');
+        }
+        $this->container['signatory'] = $signatory;
 
         return $this;
     }

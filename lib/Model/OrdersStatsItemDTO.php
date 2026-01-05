@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -368,6 +368,18 @@ class OrdersStatsItemDTO implements ModelInterface, ArrayAccess, \JsonSerializab
             $invalidProperties[] = "invalid value for 'shop_sku', must be conform to the pattern /^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/.";
         }
 
+        if (!is_null($this->container['prices']) && (count($this->container['prices']) < 1)) {
+            $invalidProperties[] = "invalid value for 'prices', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['details']) && (count($this->container['details']) < 1)) {
+            $invalidProperties[] = "invalid value for 'details', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['cis_list']) && (count($this->container['cis_list']) < 1)) {
+            $invalidProperties[] = "invalid value for 'cis_list', number of items must be greater than or equal to 1.";
+        }
+
         if (!is_null($this->container['bid_fee']) && ($this->container['bid_fee'] > 10000)) {
             $invalidProperties[] = "invalid value for 'bid_fee', must be smaller than or equal to 10000.";
         }
@@ -431,7 +443,7 @@ class OrdersStatsItemDTO implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets market_sku
      *
-     * @param int|null $market_sku SKU на Маркете.
+     * @param int|null $market_sku Идентификатор карточки товара на Маркете.
      *
      * @return self
      */
@@ -463,7 +475,7 @@ class OrdersStatsItemDTO implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets shop_sku
      *
-     * @param string|null $shop_sku Ваш SKU — идентификатор товара в вашей системе.  Правила использования SKU:  * У каждого товара SKU должен быть свой.  * Уже заданный SKU нельзя освободить и использовать заново для другого товара. Каждый товар должен получать новый идентификатор, до того никогда не использовавшийся в вашем каталоге.  SKU товара можно изменить в кабинете продавца на Маркете. О том, как это сделать, читайте [в Справке Маркета для продавцов](https://yandex.ru/support2/marketplace/ru/assortment/operations/edit-sku).  [Что такое SKU и как его назначать](https://yandex.ru/support/marketplace/assortment/add/index.html#fields)
+     * @param string|null $shop_sku Ваш SKU — идентификатор товара в вашей системе.  Правила использования SKU:  * У каждого товара SKU должен быть свой.  * Уже заданный SKU нельзя освободить и использовать заново для другого товара. Каждый товар должен получать новый идентификатор, до того никогда не использовавшийся в вашем каталоге.  SKU товара можно изменить в кабинете продавца на Маркете. О том, как это сделать, читайте [в Справке Маркета для продавцов](https://yandex.ru/support2/marketplace/ru/assortment/operations/edit-sku).  {% note warning %}  Пробельные символы в начале и конце значения автоматически удаляются. Например, `\"  SKU123  \"` и `\"SKU123\"` будут обработаны как одинаковые значения.  {% endnote %}  [Что такое SKU и как его назначать](https://yandex.ru/support/marketplace/assortment/add/index.html#fields)
      *
      * @return self
      */
@@ -543,6 +555,11 @@ class OrdersStatsItemDTO implements ModelInterface, ArrayAccess, \JsonSerializab
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
         }
+
+
+        if (!is_null($prices) && (count($prices) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $prices when calling OrdersStatsItemDTO., number of items must be greater than or equal to 1.');
+        }
         $this->container['prices'] = $prices;
 
         return $this;
@@ -604,6 +621,11 @@ class OrdersStatsItemDTO implements ModelInterface, ArrayAccess, \JsonSerializab
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
         }
+
+
+        if (!is_null($details) && (count($details) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $details when calling OrdersStatsItemDTO., number of items must be greater than or equal to 1.');
+        }
         $this->container['details'] = $details;
 
         return $this;
@@ -622,7 +644,7 @@ class OrdersStatsItemDTO implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets cis_list
      *
-     * @param string[]|null $cis_list Список кодов идентификации товара [в системе «Честный ЗНАК»](https://честныйзнак.рф/).
+     * @param string[]|null $cis_list Список кодов идентификации товара в системе [:no-translate[«Честный ЗНАК»]](https://честныйзнак.рф/) или [:no-translate[«ASL BELGISI»]](https://aslbelgisi.uz) (для продавцов :no-translate[Market Yandex Go]).
      *
      * @return self
      */
@@ -637,6 +659,11 @@ class OrdersStatsItemDTO implements ModelInterface, ArrayAccess, \JsonSerializab
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
+        }
+
+
+        if (!is_null($cis_list) && (count($cis_list) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $cis_list when calling OrdersStatsItemDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['cis_list'] = $cis_list;
 
@@ -718,7 +745,7 @@ class OrdersStatsItemDTO implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets cofinance_threshold
      *
-     * @param float|null $cofinance_threshold Порог для скидок с Маркетом на момент оформления заказа. [Что это такое?](https://yandex.ru/support/marketplace/marketing/smart-pricing.html#sponsored-discounts)  Указан в рублях. Точность — два знака после запятой.
+     * @param float|null $cofinance_threshold Порог для скидок с Маркетом на момент оформления заказа. [Что это такое?](https://yandex.ru/support/marketplace/marketing/smart-pricing.html#sponsored-discounts)  Точность — два знака после запятой.
      *
      * @return self
      */
@@ -745,7 +772,7 @@ class OrdersStatsItemDTO implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets cofinance_value
      *
-     * @param float|null $cofinance_value Скидка с Маркетом. [Что это такое?](https://yandex.ru/support/marketplace/marketing/smart-pricing.html#sponsored-discounts)  Указана в рублях. Точность — два знака после запятой.
+     * @param float|null $cofinance_value Скидка с Маркетом. [Что это такое?](https://yandex.ru/support/marketplace/marketing/smart-pricing.html#sponsored-discounts)  Точность — два знака после запятой.
      *
      * @return self
      */

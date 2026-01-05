@@ -10,7 +10,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -133,16 +133,17 @@ class ContentApi
      *
      * Списки характеристик товаров по категориям
      *
-     * @param  int $category_id Идентификатор категории на Маркете.  Чтобы узнать идентификатор категории, к которой относится интересующий вас товар, воспользуйтесь запросом [POST categories/tree](../../reference/categories/getCategoriesTree.md). (required)
+     * @param  int $category_id Идентификатор категории на Маркете.  Чтобы узнать идентификатор категории, к которой относится интересующий вас товар, воспользуйтесь запросом [POST v2/categories/tree](../../reference/categories/getCategoriesTree.md). (required)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  Передайте параметр, чтобы получить характеристики, которые являются особенностями варианта товара в данном кабинете. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCategoryContentParameters'] to see the possible values for this operation
      *
      * @throws \YandexMarketApi\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \YandexMarketApi\Model\GetCategoryContentParametersResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiNotFoundErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse
      */
-    public function getCategoryContentParameters($category_id, string $contentType = self::contentTypes['getCategoryContentParameters'][0])
+    public function getCategoryContentParameters($category_id, $business_id = null, string $contentType = self::contentTypes['getCategoryContentParameters'][0])
     {
-        list($response) = $this->getCategoryContentParametersWithHttpInfo($category_id, $contentType);
+        list($response) = $this->getCategoryContentParametersWithHttpInfo($category_id, $business_id, $contentType);
         return $response;
     }
 
@@ -151,16 +152,17 @@ class ContentApi
      *
      * Списки характеристик товаров по категориям
      *
-     * @param  int $category_id Идентификатор категории на Маркете.  Чтобы узнать идентификатор категории, к которой относится интересующий вас товар, воспользуйтесь запросом [POST categories/tree](../../reference/categories/getCategoriesTree.md). (required)
+     * @param  int $category_id Идентификатор категории на Маркете.  Чтобы узнать идентификатор категории, к которой относится интересующий вас товар, воспользуйтесь запросом [POST v2/categories/tree](../../reference/categories/getCategoriesTree.md). (required)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  Передайте параметр, чтобы получить характеристики, которые являются особенностями варианта товара в данном кабинете. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCategoryContentParameters'] to see the possible values for this operation
      *
      * @throws \YandexMarketApi\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \YandexMarketApi\Model\GetCategoryContentParametersResponse|\YandexMarketApi\Model\ApiClientDataErrorResponse|\YandexMarketApi\Model\ApiUnauthorizedErrorResponse|\YandexMarketApi\Model\ApiForbiddenErrorResponse|\YandexMarketApi\Model\ApiNotFoundErrorResponse|\YandexMarketApi\Model\ApiLimitErrorResponse|\YandexMarketApi\Model\ApiServerErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getCategoryContentParametersWithHttpInfo($category_id, string $contentType = self::contentTypes['getCategoryContentParameters'][0])
+    public function getCategoryContentParametersWithHttpInfo($category_id, $business_id = null, string $contentType = self::contentTypes['getCategoryContentParameters'][0])
     {
-        $request = $this->getCategoryContentParametersRequest($category_id, $contentType);
+        $request = $this->getCategoryContentParametersRequest($category_id, $business_id, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -389,15 +391,16 @@ class ContentApi
      *
      * Списки характеристик товаров по категориям
      *
-     * @param  int $category_id Идентификатор категории на Маркете.  Чтобы узнать идентификатор категории, к которой относится интересующий вас товар, воспользуйтесь запросом [POST categories/tree](../../reference/categories/getCategoriesTree.md). (required)
+     * @param  int $category_id Идентификатор категории на Маркете.  Чтобы узнать идентификатор категории, к которой относится интересующий вас товар, воспользуйтесь запросом [POST v2/categories/tree](../../reference/categories/getCategoriesTree.md). (required)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  Передайте параметр, чтобы получить характеристики, которые являются особенностями варианта товара в данном кабинете. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCategoryContentParameters'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getCategoryContentParametersAsync($category_id, string $contentType = self::contentTypes['getCategoryContentParameters'][0])
+    public function getCategoryContentParametersAsync($category_id, $business_id = null, string $contentType = self::contentTypes['getCategoryContentParameters'][0])
     {
-        return $this->getCategoryContentParametersAsyncWithHttpInfo($category_id, $contentType)
+        return $this->getCategoryContentParametersAsyncWithHttpInfo($category_id, $business_id, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -410,16 +413,17 @@ class ContentApi
      *
      * Списки характеристик товаров по категориям
      *
-     * @param  int $category_id Идентификатор категории на Маркете.  Чтобы узнать идентификатор категории, к которой относится интересующий вас товар, воспользуйтесь запросом [POST categories/tree](../../reference/categories/getCategoriesTree.md). (required)
+     * @param  int $category_id Идентификатор категории на Маркете.  Чтобы узнать идентификатор категории, к которой относится интересующий вас товар, воспользуйтесь запросом [POST v2/categories/tree](../../reference/categories/getCategoriesTree.md). (required)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  Передайте параметр, чтобы получить характеристики, которые являются особенностями варианта товара в данном кабинете. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCategoryContentParameters'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getCategoryContentParametersAsyncWithHttpInfo($category_id, string $contentType = self::contentTypes['getCategoryContentParameters'][0])
+    public function getCategoryContentParametersAsyncWithHttpInfo($category_id, $business_id = null, string $contentType = self::contentTypes['getCategoryContentParameters'][0])
     {
         $returnType = '\YandexMarketApi\Model\GetCategoryContentParametersResponse';
-        $request = $this->getCategoryContentParametersRequest($category_id, $contentType);
+        $request = $this->getCategoryContentParametersRequest($category_id, $business_id, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -460,13 +464,14 @@ class ContentApi
     /**
      * Create request for operation 'getCategoryContentParameters'
      *
-     * @param  int $category_id Идентификатор категории на Маркете.  Чтобы узнать идентификатор категории, к которой относится интересующий вас товар, воспользуйтесь запросом [POST categories/tree](../../reference/categories/getCategoriesTree.md). (required)
+     * @param  int $category_id Идентификатор категории на Маркете.  Чтобы узнать идентификатор категории, к которой относится интересующий вас товар, воспользуйтесь запросом [POST v2/categories/tree](../../reference/categories/getCategoriesTree.md). (required)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  Передайте параметр, чтобы получить характеристики, которые являются особенностями варианта товара в данном кабинете. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCategoryContentParameters'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getCategoryContentParametersRequest($category_id, string $contentType = self::contentTypes['getCategoryContentParameters'][0])
+    public function getCategoryContentParametersRequest($category_id, $business_id = null, string $contentType = self::contentTypes['getCategoryContentParameters'][0])
     {
 
         // verify the required parameter 'category_id' is set
@@ -475,18 +480,31 @@ class ContentApi
                 'Missing the required parameter $category_id when calling getCategoryContentParameters'
             );
         }
-        if ($category_id < 1) {
-            throw new \InvalidArgumentException('invalid value for "$category_id" when calling ContentApi.getCategoryContentParameters, must be bigger than or equal to 1.');
+        if ($category_id <= 0) {
+            throw new \InvalidArgumentException('invalid value for "$category_id" when calling ContentApi.getCategoryContentParameters, must be bigger than 0.');
+        }
+        
+        if ($business_id !== null && $business_id < 1) {
+            throw new \InvalidArgumentException('invalid value for "$business_id" when calling ContentApi.getCategoryContentParameters, must be bigger than or equal to 1.');
         }
         
 
-        $resourcePath = '/category/{categoryId}/parameters';
+        $resourcePath = '/v2/category/{categoryId}/parameters';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
         $multipart = false;
 
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $business_id,
+            'businessId', // param base name
+            'integer', // openApiType
+            '', // style
+            false, // explode
+            false // required
+        ) ?? []);
 
 
         // path params
@@ -566,8 +584,8 @@ class ContentApi
      *
      * Получение информации о заполненности карточек магазина
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
-     * @param  string $page_token Идентификатор страницы c результатами.  Если параметр не указан, возвращается первая страница.  Рекомендуется передавать значение выходного параметра &#x60;nextPageToken&#x60;, полученное при последнем запросе.  Если задан &#x60;page_token&#x60; и в запросе есть параметры &#x60;page_number&#x60; и &#x60;page_size&#x60;, они игнорируются. (optional)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  string $page_token Идентификатор страницы c результатами.  Если параметр не указан, возвращается первая страница.  Рекомендуем передавать значение выходного параметра &#x60;nextPageToken&#x60;, полученное при последнем запросе.  Если задан &#x60;page_token&#x60; и в запросе есть параметры &#x60;page&#x60; и &#x60;pageSize&#x60;, они игнорируются. (optional)
      * @param  int $limit Количество значений на одной странице. (optional)
      * @param  \YandexMarketApi\Model\GetOfferCardsContentStatusRequest $get_offer_cards_content_status_request get_offer_cards_content_status_request (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOfferCardsContentStatus'] to see the possible values for this operation
@@ -587,8 +605,8 @@ class ContentApi
      *
      * Получение информации о заполненности карточек магазина
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
-     * @param  string $page_token Идентификатор страницы c результатами.  Если параметр не указан, возвращается первая страница.  Рекомендуется передавать значение выходного параметра &#x60;nextPageToken&#x60;, полученное при последнем запросе.  Если задан &#x60;page_token&#x60; и в запросе есть параметры &#x60;page_number&#x60; и &#x60;page_size&#x60;, они игнорируются. (optional)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  string $page_token Идентификатор страницы c результатами.  Если параметр не указан, возвращается первая страница.  Рекомендуем передавать значение выходного параметра &#x60;nextPageToken&#x60;, полученное при последнем запросе.  Если задан &#x60;page_token&#x60; и в запросе есть параметры &#x60;page&#x60; и &#x60;pageSize&#x60;, они игнорируются. (optional)
      * @param  int $limit Количество значений на одной странице. (optional)
      * @param  \YandexMarketApi\Model\GetOfferCardsContentStatusRequest $get_offer_cards_content_status_request (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOfferCardsContentStatus'] to see the possible values for this operation
@@ -828,8 +846,8 @@ class ContentApi
      *
      * Получение информации о заполненности карточек магазина
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
-     * @param  string $page_token Идентификатор страницы c результатами.  Если параметр не указан, возвращается первая страница.  Рекомендуется передавать значение выходного параметра &#x60;nextPageToken&#x60;, полученное при последнем запросе.  Если задан &#x60;page_token&#x60; и в запросе есть параметры &#x60;page_number&#x60; и &#x60;page_size&#x60;, они игнорируются. (optional)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  string $page_token Идентификатор страницы c результатами.  Если параметр не указан, возвращается первая страница.  Рекомендуем передавать значение выходного параметра &#x60;nextPageToken&#x60;, полученное при последнем запросе.  Если задан &#x60;page_token&#x60; и в запросе есть параметры &#x60;page&#x60; и &#x60;pageSize&#x60;, они игнорируются. (optional)
      * @param  int $limit Количество значений на одной странице. (optional)
      * @param  \YandexMarketApi\Model\GetOfferCardsContentStatusRequest $get_offer_cards_content_status_request (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOfferCardsContentStatus'] to see the possible values for this operation
@@ -852,8 +870,8 @@ class ContentApi
      *
      * Получение информации о заполненности карточек магазина
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
-     * @param  string $page_token Идентификатор страницы c результатами.  Если параметр не указан, возвращается первая страница.  Рекомендуется передавать значение выходного параметра &#x60;nextPageToken&#x60;, полученное при последнем запросе.  Если задан &#x60;page_token&#x60; и в запросе есть параметры &#x60;page_number&#x60; и &#x60;page_size&#x60;, они игнорируются. (optional)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  string $page_token Идентификатор страницы c результатами.  Если параметр не указан, возвращается первая страница.  Рекомендуем передавать значение выходного параметра &#x60;nextPageToken&#x60;, полученное при последнем запросе.  Если задан &#x60;page_token&#x60; и в запросе есть параметры &#x60;page&#x60; и &#x60;pageSize&#x60;, они игнорируются. (optional)
      * @param  int $limit Количество значений на одной странице. (optional)
      * @param  \YandexMarketApi\Model\GetOfferCardsContentStatusRequest $get_offer_cards_content_status_request (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOfferCardsContentStatus'] to see the possible values for this operation
@@ -905,8 +923,8 @@ class ContentApi
     /**
      * Create request for operation 'getOfferCardsContentStatus'
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
-     * @param  string $page_token Идентификатор страницы c результатами.  Если параметр не указан, возвращается первая страница.  Рекомендуется передавать значение выходного параметра &#x60;nextPageToken&#x60;, полученное при последнем запросе.  Если задан &#x60;page_token&#x60; и в запросе есть параметры &#x60;page_number&#x60; и &#x60;page_size&#x60;, они игнорируются. (optional)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  string $page_token Идентификатор страницы c результатами.  Если параметр не указан, возвращается первая страница.  Рекомендуем передавать значение выходного параметра &#x60;nextPageToken&#x60;, полученное при последнем запросе.  Если задан &#x60;page_token&#x60; и в запросе есть параметры &#x60;page&#x60; и &#x60;pageSize&#x60;, они игнорируются. (optional)
      * @param  int $limit Количество значений на одной странице. (optional)
      * @param  \YandexMarketApi\Model\GetOfferCardsContentStatusRequest $get_offer_cards_content_status_request (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOfferCardsContentStatus'] to see the possible values for this operation
@@ -928,10 +946,13 @@ class ContentApi
         }
         
 
+        if ($limit !== null && $limit < 1) {
+            throw new \InvalidArgumentException('invalid value for "$limit" when calling ContentApi.getOfferCardsContentStatus, must be bigger than or equal to 1.');
+        }
+        
 
 
-
-        $resourcePath = '/businesses/{businessId}/offer-cards';
+        $resourcePath = '/v2/businesses/{businessId}/offer-cards';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1042,7 +1063,7 @@ class ContentApi
      *
      * Редактирование категорийных характеристик товара
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
      * @param  \YandexMarketApi\Model\UpdateOfferContentRequest $update_offer_content_request update_offer_content_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateOfferContent'] to see the possible values for this operation
      *
@@ -1061,7 +1082,7 @@ class ContentApi
      *
      * Редактирование категорийных характеристик товара
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
      * @param  \YandexMarketApi\Model\UpdateOfferContentRequest $update_offer_content_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateOfferContent'] to see the possible values for this operation
      *
@@ -1323,7 +1344,7 @@ class ContentApi
      *
      * Редактирование категорийных характеристик товара
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
      * @param  \YandexMarketApi\Model\UpdateOfferContentRequest $update_offer_content_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateOfferContent'] to see the possible values for this operation
      *
@@ -1345,7 +1366,7 @@ class ContentApi
      *
      * Редактирование категорийных характеристик товара
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
      * @param  \YandexMarketApi\Model\UpdateOfferContentRequest $update_offer_content_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateOfferContent'] to see the possible values for this operation
      *
@@ -1396,7 +1417,7 @@ class ContentApi
     /**
      * Create request for operation 'updateOfferContent'
      *
-     * @param  int $business_id Идентификатор кабинета. Чтобы узнать идентификатор, воспользуйтесь запросом [GET campaigns](../../reference/campaigns/getCampaigns.md#businessdto).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
+     * @param  int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html) (required)
      * @param  \YandexMarketApi\Model\UpdateOfferContentRequest $update_offer_content_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateOfferContent'] to see the possible values for this operation
      *
@@ -1424,7 +1445,7 @@ class ContentApi
         }
 
 
-        $resourcePath = '/businesses/{businessId}/offer-cards/update';
+        $resourcePath = '/v2/businesses/{businessId}/offer-cards/update';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];

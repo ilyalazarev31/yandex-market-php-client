@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -314,7 +314,7 @@ class UpdateBusinessPricesRequest implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Sets offers
      *
-     * @param \YandexMarketApi\Model\UpdateBusinessOfferPriceDTO[] $offers Список товаров с ценами.
+     * @param \YandexMarketApi\Model\UpdateBusinessOfferPriceDTO[] $offers Список товаров с ценами.  В рамках одного запроса все значения `offerId` должны быть уникальными. Не допускается передача двух объектов с одинаковым `offerId`.
      *
      * @return self
      */

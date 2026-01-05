@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**photos** | **string[]** | Ссылки на фото. | [optional]
+**photos** | **string[]** | Ссылки на фотографии. | [optional]
 **videos** | **string[]** | Ссылки на видео. | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

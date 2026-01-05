@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -34,7 +34,7 @@ use PHPUnit\Framework\TestCase;
  * RefundStatusTypeTest Class Doc Comment
  *
  * @category    Class
- * @description Cтатус возврата денег:  * &#x60;STARTED_BY_USER&#x60; — создан клиентом из личного кабинета.  * &#x60;REFUND_IN_PROGRESS&#x60; — ждет решение о возврате денег.  * &#x60;REFUNDED&#x60; — по возврату проведены все возвратные денежные транзакции.  * &#x60;FAILED&#x60; — невозможно провести возврат покупателю.  * &#x60;WAITING_FOR_DECISION&#x60; — ожидает решения.  * &#x60;DECISION_MADE&#x60; — по возврату принято решение.  * &#x60;REFUNDED_WITH_BONUSES&#x60; — возврат осуществлен баллами Плюса или промокодом.  * &#x60;REFUNDED_BY_SHOP&#x60; — магазин сделал самостоятельно возврат денег.  * &#x60;COMPLETE_WITHOUT_REFUND&#x60; — возврат денег не требуется.  * &#x60;CANCELLED&#x60; — возврат отменен.
+ * @description Статус возврата денег:  * &#x60;STARTED_BY_USER&#x60; — создан покупателем из личного кабинета.  * &#x60;REFUND_IN_PROGRESS&#x60; — ждет решение о возврате денег (на рассмотрении).  * &#x60;REFUNDED&#x60; — деньги возвращены.  * &#x60;FAILED&#x60; — невозможно провести возврат покупателю.  * &#x60;WAITING_FOR_DECISION&#x60; — ожидает решения (DBS).  * &#x60;DECISION_MADE&#x60; — по возврату принято решение (DBS).  * &#x60;REFUNDED_WITH_BONUSES&#x60; — возврат осуществлен баллами Плюса или промокодом.  * &#x60;REFUNDED_BY_SHOP&#x60; — магазин сделал самостоятельно возврат денег.  * &#x60;COMPLETE_WITHOUT_REFUND&#x60; — возврат денег не требуется.  * &#x60;CANCELLED&#x60; — возврат отменен.  * &#x60;REJECTED&#x60; — возврат отклонен модерацией или в ПВЗ.  * &#x60;PREMODERATION_DISPUTE&#x60; — по возврату открыт спор (FBY, FBS и Экспресс).  * &#x60;PREMODERATION_DECISION_WAITING&#x60; — ожидает решения (FBY, FBS и Экспресс).  * &#x60;PREMODERATION_DECISION_MADE&#x60; — по возврату принято решение (FBY, FBS и Экспресс).  * &#x60;PREMODERATION_SELECT_DELIVERY&#x60; — пользователь выбирает способ доставки (FBY, FBS и Экспресс).  * &#x60;UNKNOWN&#x60; — неизвестный статус, обратитесь в поддержку.
  * @package     YandexMarketApi
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech

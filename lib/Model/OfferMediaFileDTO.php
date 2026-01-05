@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -289,6 +289,14 @@ class OfferMediaFileDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
     {
         $invalidProperties = [];
 
+        if (!is_null($this->container['url']) && (mb_strlen($this->container['url']) > 2000)) {
+            $invalidProperties[] = "invalid value for 'url', the character length must be smaller than or equal to 2000.";
+        }
+
+        if (!is_null($this->container['url']) && (mb_strlen($this->container['url']) < 1)) {
+            $invalidProperties[] = "invalid value for 'url', the character length must be bigger than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -317,7 +325,7 @@ class OfferMediaFileDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets url
      *
-     * @param string|null $url Ссылка на медиафайл.
+     * @param string|null $url url
      *
      * @return self
      */
@@ -326,6 +334,13 @@ class OfferMediaFileDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
         if (is_null($url)) {
             throw new \InvalidArgumentException('non-nullable url cannot be null');
         }
+        if ((mb_strlen($url) > 2000)) {
+            throw new \InvalidArgumentException('invalid length for $url when calling OfferMediaFileDTO., must be smaller than or equal to 2000.');
+        }
+        if ((mb_strlen($url) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $url when calling OfferMediaFileDTO., must be bigger than or equal to 1.');
+        }
+
         $this->container['url'] = $url;
 
         return $this;

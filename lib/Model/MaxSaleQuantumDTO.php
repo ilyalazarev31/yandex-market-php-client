@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -84,7 +84,11 @@ class MaxSaleQuantumDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
     protected static array $openAPINullables = [
         'id' => false,
 		'name' => false,
+<<<<<<<< HEAD:lib/Model/FeedParameterDTO.php
+		'values' => true
+========
 		'max_sale_quantum' => false
+>>>>>>>> upstream/main:lib/Model/MaxSaleQuantumDTO.php
     ];
 
     /**
@@ -347,7 +351,11 @@ class MaxSaleQuantumDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets name
      *
+<<<<<<<< HEAD:lib/Model/FeedParameterDTO.php
+     * @param string $name Название параметра.  Возможное значение: - `reparseIntervalMinutes` — период скачивания прайс-листа. Маркет будет скачивать прайс-лист через количество минут, указанное в параметре `value`. Например, при `value=1440`, Маркет будет скачивать прайс-лист один раз в сутки.  Несмотря на установленное значение, Маркет скачает прайс-лист один раз в сутки.  Обязательный параметр.
+========
      * @param string|null $name Название категории.
+>>>>>>>> upstream/main:lib/Model/MaxSaleQuantumDTO.php
      *
      * @return self
      */
@@ -380,8 +388,20 @@ class MaxSaleQuantumDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
      */
     public function setMaxSaleQuantum($max_sale_quantum)
     {
+<<<<<<<< HEAD:lib/Model/FeedParameterDTO.php
+        if (is_null($values)) {
+            array_push($this->openAPINullablesSetToNull, 'values');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('values', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+========
         if (is_null($max_sale_quantum)) {
             throw new \InvalidArgumentException('non-nullable max_sale_quantum cannot be null');
+>>>>>>>> upstream/main:lib/Model/MaxSaleQuantumDTO.php
         }
         $this->container['max_sale_quantum'] = $max_sale_quantum;
 

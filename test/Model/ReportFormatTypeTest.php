@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -34,7 +34,7 @@ use PHPUnit\Framework\TestCase;
  * ReportFormatTypeTest Class Doc Comment
  *
  * @category    Class
- * @description Формат отчета:  * &#x60;FILE&#x60; — файл с электронной таблицей (XLSX). * &#x60;CSV&#x60; — ZIP-архив с CSV-файлами на каждый лист отчета. * &#x60;JSON&#x60; — ZIP-архив с JSON-файлами на каждый лист отчета.
+ * @description Формат отчета:  * &#x60;FILE&#x60; — файл с электронной таблицей (:no-translate[XLSX]). * &#x60;CSV&#x60; — ZIP-архив с CSV-файлами на каждый лист отчета. * &#x60;JSON&#x60; — ZIP-архив с JSON-файлами на каждый лист отчета.
  * @package     YandexMarketApi
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech

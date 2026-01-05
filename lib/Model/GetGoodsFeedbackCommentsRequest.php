@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -58,7 +58,8 @@ class GetGoodsFeedbackCommentsRequest implements ModelInterface, ArrayAccess, \J
       * @var string[]
       */
     protected static $openAPITypes = [
-        'feedback_id' => 'int'
+        'feedback_id' => 'int',
+        'comment_ids' => 'int[]'
     ];
 
     /**
@@ -69,7 +70,8 @@ class GetGoodsFeedbackCommentsRequest implements ModelInterface, ArrayAccess, \J
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'feedback_id' => 'int64'
+        'feedback_id' => 'int64',
+        'comment_ids' => 'int64'
     ];
 
     /**
@@ -78,7 +80,8 @@ class GetGoodsFeedbackCommentsRequest implements ModelInterface, ArrayAccess, \J
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'feedback_id' => false
+        'feedback_id' => false,
+		'comment_ids' => true
     ];
 
     /**
@@ -167,7 +170,8 @@ class GetGoodsFeedbackCommentsRequest implements ModelInterface, ArrayAccess, \J
      * @var string[]
      */
     protected static $attributeMap = [
-        'feedback_id' => 'feedbackId'
+        'feedback_id' => 'feedbackId',
+        'comment_ids' => 'commentIds'
     ];
 
     /**
@@ -176,7 +180,8 @@ class GetGoodsFeedbackCommentsRequest implements ModelInterface, ArrayAccess, \J
      * @var string[]
      */
     protected static $setters = [
-        'feedback_id' => 'setFeedbackId'
+        'feedback_id' => 'setFeedbackId',
+        'comment_ids' => 'setCommentIds'
     ];
 
     /**
@@ -185,7 +190,8 @@ class GetGoodsFeedbackCommentsRequest implements ModelInterface, ArrayAccess, \J
      * @var string[]
      */
     protected static $getters = [
-        'feedback_id' => 'getFeedbackId'
+        'feedback_id' => 'getFeedbackId',
+        'comment_ids' => 'getCommentIds'
     ];
 
     /**
@@ -246,6 +252,7 @@ class GetGoodsFeedbackCommentsRequest implements ModelInterface, ArrayAccess, \J
     public function __construct(array $data = null)
     {
         $this->setIfExists('feedback_id', $data ?? [], null);
+        $this->setIfExists('comment_ids', $data ?? [], null);
     }
 
     /**
@@ -275,9 +282,14 @@ class GetGoodsFeedbackCommentsRequest implements ModelInterface, ArrayAccess, \J
     {
         $invalidProperties = [];
 
-        if ($this->container['feedback_id'] === null) {
-            $invalidProperties[] = "'feedback_id' can't be null";
+        if (!is_null($this->container['comment_ids']) && (count($this->container['comment_ids']) > 50)) {
+            $invalidProperties[] = "invalid value for 'comment_ids', number of items must be less than or equal to 50.";
         }
+
+        if (!is_null($this->container['comment_ids']) && (count($this->container['comment_ids']) < 1)) {
+            $invalidProperties[] = "invalid value for 'comment_ids', number of items must be greater than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -296,7 +308,7 @@ class GetGoodsFeedbackCommentsRequest implements ModelInterface, ArrayAccess, \J
     /**
      * Gets feedback_id
      *
-     * @return int
+     * @return int|null
      */
     public function getFeedbackId()
     {
@@ -306,7 +318,7 @@ class GetGoodsFeedbackCommentsRequest implements ModelInterface, ArrayAccess, \J
     /**
      * Sets feedback_id
      *
-     * @param int $feedback_id Идентификатор отзыва.
+     * @param int|null $feedback_id Идентификатор отзыва.
      *
      * @return self
      */
@@ -316,6 +328,47 @@ class GetGoodsFeedbackCommentsRequest implements ModelInterface, ArrayAccess, \J
             throw new \InvalidArgumentException('non-nullable feedback_id cannot be null');
         }
         $this->container['feedback_id'] = $feedback_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets comment_ids
+     *
+     * @return int[]|null
+     */
+    public function getCommentIds()
+    {
+        return $this->container['comment_ids'];
+    }
+
+    /**
+     * Sets comment_ids
+     *
+     * @param int[]|null $comment_ids Идентификаторы комментариев.  ⚠️ Не используйте это поле одновременно с другими фильтрами. Если вы хотите воспользоваться ими, оставьте поле пустым.
+     *
+     * @return self
+     */
+    public function setCommentIds($comment_ids)
+    {
+        if (is_null($comment_ids)) {
+            array_push($this->openAPINullablesSetToNull, 'comment_ids');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('comment_ids', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+        if (!is_null($comment_ids) && (count($comment_ids) > 50)) {
+            throw new \InvalidArgumentException('invalid value for $comment_ids when calling GetGoodsFeedbackCommentsRequest., number of items must be less than or equal to 50.');
+        }
+        if (!is_null($comment_ids) && (count($comment_ids) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $comment_ids when calling GetGoodsFeedbackCommentsRequest., number of items must be greater than or equal to 1.');
+        }
+        $this->container['comment_ids'] = $comment_ids;
 
         return $this;
     }

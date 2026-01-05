@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -383,6 +383,7 @@ class CampaignSettingsDTO implements ModelInterface, ArrayAccess, \JsonSerializa
      * Gets show_in_context
      *
      * @return bool|null
+     * @deprecated
      */
     public function getShowInContext()
     {
@@ -395,6 +396,7 @@ class CampaignSettingsDTO implements ModelInterface, ArrayAccess, \JsonSerializa
      * @param bool|null $show_in_context Признак размещения магазина на сайтах партнеров Яндекс Дистрибуции. Возможные значения: * `false` — магазин не размещен на сайтах партнеров Яндекс Дистрибуции. * `true` — магазин размещен на сайтах партнеров Яндекс Дистрибуции.
      *
      * @return self
+     * @deprecated
      */
     public function setShowInContext($show_in_context)
     {
@@ -410,6 +412,7 @@ class CampaignSettingsDTO implements ModelInterface, ArrayAccess, \JsonSerializa
      * Gets show_in_premium
      *
      * @return bool|null
+     * @deprecated
      */
     public function getShowInPremium()
     {
@@ -419,9 +422,10 @@ class CampaignSettingsDTO implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets show_in_premium
      *
-     * @param bool|null $show_in_premium Признак показа предложений магазина в рекламном блоке над результатами поиска (cпецразмещение). Возможные значения: * `false` — предложения не показываются в блоке cпецразмещения. * `true` — предложения показываются в блоке cпецразмещения.
+     * @param bool|null $show_in_premium Признак показа предложений магазина в блоке над результатами поиска (cпецразмещение). Возможные значения: * `false` — предложения не показываются в блоке cпецразмещения. * `true` — предложения показываются в блоке cпецразмещения.
      *
      * @return self
+     * @deprecated
      */
     public function setShowInPremium($show_in_premium)
     {
@@ -437,6 +441,7 @@ class CampaignSettingsDTO implements ModelInterface, ArrayAccess, \JsonSerializa
      * Gets use_open_stat
      *
      * @return bool|null
+     * @deprecated
      */
     public function getUseOpenStat()
     {
@@ -449,6 +454,7 @@ class CampaignSettingsDTO implements ModelInterface, ArrayAccess, \JsonSerializa
      * @param bool|null $use_open_stat Признак использования внешней интернет-статистики. Возможные значения: * `false` — внешняя интернет-статистика не используется. * `true` — внешняя интернет-статистика используется.
      *
      * @return self
+     * @deprecated
      */
     public function setUseOpenStat($use_open_stat)
     {

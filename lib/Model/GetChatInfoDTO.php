@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -35,7 +35,7 @@ use \YandexMarketApi\ObjectSerializer;
  * GetChatInfoDTO Class Doc Comment
  *
  * @category Class
- * @description Информация о чатах.
+ * @description Информация о чате.
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -60,6 +60,7 @@ class GetChatInfoDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPITypes = [
         'chat_id' => 'int',
         'order_id' => 'int',
+        'context' => '\YandexMarketApi\Model\ChatFullContextDTO',
         'type' => '\YandexMarketApi\Model\ChatType',
         'status' => '\YandexMarketApi\Model\ChatStatusType',
         'created_at' => '\DateTime',
@@ -76,6 +77,7 @@ class GetChatInfoDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'chat_id' => 'int64',
         'order_id' => 'int64',
+        'context' => null,
         'type' => null,
         'status' => null,
         'created_at' => 'date-time',
@@ -90,6 +92,7 @@ class GetChatInfoDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static array $openAPINullables = [
         'chat_id' => false,
 		'order_id' => false,
+		'context' => false,
 		'type' => false,
 		'status' => false,
 		'created_at' => false,
@@ -184,6 +187,7 @@ class GetChatInfoDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $attributeMap = [
         'chat_id' => 'chatId',
         'order_id' => 'orderId',
+        'context' => 'context',
         'type' => 'type',
         'status' => 'status',
         'created_at' => 'createdAt',
@@ -198,6 +202,7 @@ class GetChatInfoDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $setters = [
         'chat_id' => 'setChatId',
         'order_id' => 'setOrderId',
+        'context' => 'setContext',
         'type' => 'setType',
         'status' => 'setStatus',
         'created_at' => 'setCreatedAt',
@@ -212,6 +217,7 @@ class GetChatInfoDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $getters = [
         'chat_id' => 'getChatId',
         'order_id' => 'getOrderId',
+        'context' => 'getContext',
         'type' => 'getType',
         'status' => 'getStatus',
         'created_at' => 'getCreatedAt',
@@ -277,6 +283,7 @@ class GetChatInfoDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $this->setIfExists('chat_id', $data ?? [], null);
         $this->setIfExists('order_id', $data ?? [], null);
+        $this->setIfExists('context', $data ?? [], null);
         $this->setIfExists('type', $data ?? [], null);
         $this->setIfExists('status', $data ?? [], null);
         $this->setIfExists('created_at', $data ?? [], null);
@@ -317,8 +324,12 @@ class GetChatInfoDTO implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'chat_id', must be bigger than or equal to 1.";
         }
 
-        if ($this->container['order_id'] === null) {
-            $invalidProperties[] = "'order_id' can't be null";
+        if (!is_null($this->container['order_id']) && ($this->container['order_id'] < 1)) {
+            $invalidProperties[] = "invalid value for 'order_id', must be bigger than or equal to 1.";
+        }
+
+        if ($this->container['context'] === null) {
+            $invalidProperties[] = "'context' can't be null";
         }
         if ($this->container['type'] === null) {
             $invalidProperties[] = "'type' can't be null";
@@ -382,7 +393,8 @@ class GetChatInfoDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets order_id
      *
-     * @return int
+     * @return int|null
+     * @deprecated
      */
     public function getOrderId()
     {
@@ -392,16 +404,49 @@ class GetChatInfoDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets order_id
      *
-     * @param int $order_id Идентификатор заказа.
+     * @param int|null $order_id Идентификатор заказа.
      *
      * @return self
+     * @deprecated
      */
     public function setOrderId($order_id)
     {
         if (is_null($order_id)) {
             throw new \InvalidArgumentException('non-nullable order_id cannot be null');
         }
+
+        if (($order_id < 1)) {
+            throw new \InvalidArgumentException('invalid value for $order_id when calling GetChatInfoDTO., must be bigger than or equal to 1.');
+        }
+
         $this->container['order_id'] = $order_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets context
+     *
+     * @return \YandexMarketApi\Model\ChatFullContextDTO
+     */
+    public function getContext()
+    {
+        return $this->container['context'];
+    }
+
+    /**
+     * Sets context
+     *
+     * @param \YandexMarketApi\Model\ChatFullContextDTO $context context
+     *
+     * @return self
+     */
+    public function setContext($context)
+    {
+        if (is_null($context)) {
+            throw new \InvalidArgumentException('non-nullable context cannot be null');
+        }
+        $this->container['context'] = $context;
 
         return $this;
     }

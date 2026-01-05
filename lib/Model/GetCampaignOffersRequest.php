@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -35,7 +35,7 @@ use \YandexMarketApi\ObjectSerializer;
  * GetCampaignOffersRequest Class Doc Comment
  *
  * @category Class
- * @description Фильтрации товаров  В запросе можно указать либо фильтр offerIds, либо любые другие фильтры товаров. Совместное использование фильтра offerIds с другими фильтрациями приведет к ошибке.
+ * @description Фильтрации товаров  В запросе можно указать либо фильтр offerIds, либо любые другие фильтры товаров. Совместное использование фильтра &#x60;offerIds&#x60; с другими фильтрациями приведет к ошибке.
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -75,7 +75,7 @@ class GetCampaignOffersRequest implements ModelInterface, ArrayAccess, \JsonSeri
     protected static $openAPIFormats = [
         'offer_ids' => null,
         'statuses' => null,
-        'category_ids' => null,
+        'category_ids' => 'int32',
         'vendor_names' => null,
         'tags' => null
     ];

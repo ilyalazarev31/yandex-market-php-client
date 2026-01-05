@@ -10,7 +10,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -122,7 +122,7 @@ class ShipmentsApiTest extends TestCase
     /**
      * Test case for downloadShipmentPalletLabels
      *
-     * Ярлыки для доверительной приемки (FBS).
+     * Ярлыки для доверительной приемки.
      *
      */
     public function testDownloadShipmentPalletLabels()
@@ -170,7 +170,7 @@ class ShipmentsApiTest extends TestCase
     /**
      * Test case for getShipmentOrdersInfo
      *
-     * Получение информации о возможности печати ярлыков (FBS).
+     * Получение информации о возможности печати ярлыков.
      *
      */
     public function testGetShipmentOrdersInfo()
@@ -194,7 +194,7 @@ class ShipmentsApiTest extends TestCase
     /**
      * Test case for setShipmentPalletsCount
      *
-     * Передача количества упаковок в отгрузке.
+     * Передача количества упаковок для доверительной приемки.
      *
      */
     public function testSetShipmentPalletsCount()

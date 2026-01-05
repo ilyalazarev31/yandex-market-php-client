@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -296,6 +296,14 @@ class PriceDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if (!is_null($this->container['value']) && ($this->container['value'] <= 0)) {
+            $invalidProperties[] = "invalid value for 'value', must be bigger than 0.";
+        }
+
+        if (!is_null($this->container['discount_base']) && ($this->container['discount_base'] <= 0)) {
+            $invalidProperties[] = "invalid value for 'discount_base', must be bigger than 0.";
+        }
+
         return $invalidProperties;
     }
 
@@ -324,7 +332,7 @@ class PriceDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets value
      *
-     * @param float|null $value Цена на товар.
+     * @param float|null $value Цена товара.
      *
      * @return self
      */
@@ -333,6 +341,11 @@ class PriceDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         if (is_null($value)) {
             throw new \InvalidArgumentException('non-nullable value cannot be null');
         }
+
+        if (($value <= 0)) {
+            throw new \InvalidArgumentException('invalid value for $value when calling PriceDTO., must be bigger than 0.');
+        }
+
         $this->container['value'] = $value;
 
         return $this;
@@ -351,7 +364,7 @@ class PriceDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets discount_base
      *
-     * @param float|null $discount_base Цена на товар без скидки.  Число должно быть целым. Вы можете указать цену со скидкой от 5 до 99%.  Передавайте этот параметр при каждом обновлении цены, если предоставляете скидку на товар.
+     * @param float|null $discount_base Зачеркнутая цена.  Число должно быть целым. Вы можете указать цену со скидкой от 5 до 99%.  Передавайте этот параметр при каждом обновлении цены, если предоставляете скидку на товар.
      *
      * @return self
      */
@@ -360,6 +373,11 @@ class PriceDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         if (is_null($discount_base)) {
             throw new \InvalidArgumentException('non-nullable discount_base cannot be null');
         }
+
+        if (($discount_base <= 0)) {
+            throw new \InvalidArgumentException('invalid value for $discount_base when calling PriceDTO., must be bigger than 0.');
+        }
+
         $this->container['discount_base'] = $discount_base;
 
         return $this;
@@ -405,7 +423,7 @@ class PriceDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets vat
      *
-     * @param int|null $vat Идентификатор НДС, применяемый для товара:  * `2` — НДС 10%. Например, используется при реализации отдельных продовольственных и медицинских товаров. * `5` — НДС 0%. Например, используется при продаже товаров, вывезенных в таможенной процедуре экспорта, или при оказании услуг по международной перевозке товаров. * `6` — НДС не облагается, используется только для отдельных видов услуг. * `7` — НДС 20%. Основной НДС с 2019 года. * `9` — НДС 12%. Используется только в Узбекистане. * `10` — НДС 5%. НДС для упрощенной системы налогообложения (УСН). * `11` — НДС 7%. НДС для упрощенной системы налогообложения (УСН).  Если параметр не указан, используется НДС, установленный в кабинете.
+     * @param int|null $vat Идентификатор НДС, применяемый для товара:  * `2` — НДС 10%. Например, используется при реализации отдельных продовольственных и медицинских товаров. * `5` — НДС 0%. Например, используется при продаже товаров, вывезенных в таможенной процедуре экспорта, или при оказании услуг по международной перевозке товаров. * `6` — НДС не облагается, используется только для отдельных видов услуг. * `7` — НДС 20%. Основной НДС с 2019 года до 1 января 2026 года. * `10` — НДС 5%. НДС для упрощенной системы налогообложения (УСН). * `11` — НДС 7%. НДС для упрощенной системы налогообложения (УСН). * `14` — НДС 22%. Основной НДС с 1 января 2026 года.  Если параметр не указан, используется НДС, установленный в кабинете.  **Для продавцов :no-translate[Market Yandex Go]** недоступна передача и получение НДС.
      *
      * @return self
      */

@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -35,7 +35,7 @@ use \YandexMarketApi\ObjectSerializer;
  * GenerateUnitedMarketplaceServicesReportRequest Class Doc Comment
  *
  * @category Class
- * @description Данные, необходимые для генерации отчета: идентификатор магазина, период, за который нужен отчет, а также фильтры.
+ * @description Данные, необходимые для генерации отчета: идентификатор кампании, период, за который нужен отчет, а также фильтры.
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -355,6 +355,10 @@ class GenerateUnitedMarketplaceServicesReportRequest implements ModelInterface, 
         if ($this->container['business_id'] === null) {
             $invalidProperties[] = "'business_id' can't be null";
         }
+        if (($this->container['business_id'] < 1)) {
+            $invalidProperties[] = "invalid value for 'business_id', must be bigger than or equal to 1.";
+        }
+
         if (!is_null($this->container['month_from']) && ($this->container['month_from'] > 12)) {
             $invalidProperties[] = "invalid value for 'month_from', must be smaller than or equal to 12.";
         }
@@ -369,6 +373,18 @@ class GenerateUnitedMarketplaceServicesReportRequest implements ModelInterface, 
 
         if (!is_null($this->container['month_to']) && ($this->container['month_to'] < 1)) {
             $invalidProperties[] = "invalid value for 'month_to', must be bigger than or equal to 1.";
+        }
+
+        if (!is_null($this->container['placement_programs']) && (count($this->container['placement_programs']) < 1)) {
+            $invalidProperties[] = "invalid value for 'placement_programs', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['inns']) && (count($this->container['inns']) < 1)) {
+            $invalidProperties[] = "invalid value for 'inns', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['campaign_ids']) && (count($this->container['campaign_ids']) < 1)) {
+            $invalidProperties[] = "invalid value for 'campaign_ids', number of items must be greater than or equal to 1.";
         }
 
         return $invalidProperties;
@@ -399,7 +415,7 @@ class GenerateUnitedMarketplaceServicesReportRequest implements ModelInterface, 
     /**
      * Sets business_id
      *
-     * @param int $business_id Идентификатор бизнеса.
+     * @param int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html)
      *
      * @return self
      */
@@ -408,6 +424,11 @@ class GenerateUnitedMarketplaceServicesReportRequest implements ModelInterface, 
         if (is_null($business_id)) {
             throw new \InvalidArgumentException('non-nullable business_id cannot be null');
         }
+
+        if (($business_id < 1)) {
+            throw new \InvalidArgumentException('invalid value for $business_id when calling GenerateUnitedMarketplaceServicesReportRequest., must be bigger than or equal to 1.');
+        }
+
         $this->container['business_id'] = $business_id;
 
         return $this;
@@ -417,6 +438,7 @@ class GenerateUnitedMarketplaceServicesReportRequest implements ModelInterface, 
      * Gets date_time_from
      *
      * @return \DateTime|null
+     * @deprecated
      */
     public function getDateTimeFrom()
     {
@@ -426,9 +448,10 @@ class GenerateUnitedMarketplaceServicesReportRequest implements ModelInterface, 
     /**
      * Sets date_time_from
      *
-     * @param \DateTime|null $date_time_from {% note warning \"Этот параметр устарел\" %}  Не используйте его.  {% endnote %}  Начало периода, включительно.
+     * @param \DateTime|null $date_time_from Начало периода, включительно.
      *
      * @return self
+     * @deprecated
      */
     public function setDateTimeFrom($date_time_from)
     {
@@ -444,6 +467,7 @@ class GenerateUnitedMarketplaceServicesReportRequest implements ModelInterface, 
      * Gets date_time_to
      *
      * @return \DateTime|null
+     * @deprecated
      */
     public function getDateTimeTo()
     {
@@ -453,9 +477,10 @@ class GenerateUnitedMarketplaceServicesReportRequest implements ModelInterface, 
     /**
      * Sets date_time_to
      *
-     * @param \DateTime|null $date_time_to {% note warning \"Этот параметр устарел\" %}  Не используйте его.  {% endnote %}  Конец периода, включительно. Максимальный период — 3 месяца.
+     * @param \DateTime|null $date_time_to Конец периода, включительно. Максимальный период — 3 месяца.
      *
      * @return self
+     * @deprecated
      */
     public function setDateTimeTo($date_time_to)
     {
@@ -480,7 +505,7 @@ class GenerateUnitedMarketplaceServicesReportRequest implements ModelInterface, 
     /**
      * Sets date_from
      *
-     * @param \DateTime|null $date_from Начало периода, включительно.
+     * @param \DateTime|null $date_from Начало периода, включительно.  Формат даты: `ГГГГ-ММ-ДД`.
      *
      * @return self
      */
@@ -507,7 +532,7 @@ class GenerateUnitedMarketplaceServicesReportRequest implements ModelInterface, 
     /**
      * Sets date_to
      *
-     * @param \DateTime|null $date_to Конец периода, включительно. Максимальный период — 3 месяца.
+     * @param \DateTime|null $date_to Конец периода, включительно. Максимальный период — 3 месяца.  Формат даты: `ГГГГ-ММ-ДД`.
      *
      * @return self
      */
@@ -534,7 +559,7 @@ class GenerateUnitedMarketplaceServicesReportRequest implements ModelInterface, 
     /**
      * Sets year_from
      *
-     * @param int|null $year_from Начальный год формирования акта.
+     * @param int|null $year_from Год.
      *
      * @return self
      */
@@ -561,7 +586,7 @@ class GenerateUnitedMarketplaceServicesReportRequest implements ModelInterface, 
     /**
      * Sets month_from
      *
-     * @param int|null $month_from Начальный номер месяца формирования акта.
+     * @param int|null $month_from Номер месяца.
      *
      * @return self
      */
@@ -596,7 +621,7 @@ class GenerateUnitedMarketplaceServicesReportRequest implements ModelInterface, 
     /**
      * Sets year_to
      *
-     * @param int|null $year_to Конечный год формирования акта.
+     * @param int|null $year_to Год.
      *
      * @return self
      */
@@ -623,7 +648,7 @@ class GenerateUnitedMarketplaceServicesReportRequest implements ModelInterface, 
     /**
      * Sets month_to
      *
-     * @param int|null $month_to Конечный номер месяца формирования акта.
+     * @param int|null $month_to Номер месяца.
      *
      * @return self
      */
@@ -674,6 +699,11 @@ class GenerateUnitedMarketplaceServicesReportRequest implements ModelInterface, 
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
         }
+
+
+        if (!is_null($placement_programs) && (count($placement_programs) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $placement_programs when calling GenerateUnitedMarketplaceServicesReportRequest., number of items must be greater than or equal to 1.');
+        }
         $this->container['placement_programs'] = $placement_programs;
 
         return $this;
@@ -708,6 +738,11 @@ class GenerateUnitedMarketplaceServicesReportRequest implements ModelInterface, 
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
         }
+
+
+        if (!is_null($inns) && (count($inns) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $inns when calling GenerateUnitedMarketplaceServicesReportRequest., number of items must be greater than or equal to 1.');
+        }
         $this->container['inns'] = $inns;
 
         return $this;
@@ -726,7 +761,7 @@ class GenerateUnitedMarketplaceServicesReportRequest implements ModelInterface, 
     /**
      * Sets campaign_ids
      *
-     * @param int[]|null $campaign_ids Список магазинов, которые нужны в отчете.
+     * @param int[]|null $campaign_ids Список идентификаторов кампании тех магазинов, которые нужны в отчете.
      *
      * @return self
      */
@@ -741,6 +776,11 @@ class GenerateUnitedMarketplaceServicesReportRequest implements ModelInterface, 
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
+        }
+
+
+        if (!is_null($campaign_ids) && (count($campaign_ids) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $campaign_ids when calling GenerateUnitedMarketplaceServicesReportRequest., number of items must be greater than or equal to 1.');
         }
         $this->container['campaign_ids'] = $campaign_ids;
 

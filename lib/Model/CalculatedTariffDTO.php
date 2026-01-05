@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -60,6 +60,7 @@ class CalculatedTariffDTO implements ModelInterface, ArrayAccess, \JsonSerializa
     protected static $openAPITypes = [
         'type' => '\YandexMarketApi\Model\CalculatedTariffType',
         'amount' => 'float',
+        'currency' => '\YandexMarketApi\Model\CurrencyType',
         'parameters' => '\YandexMarketApi\Model\TariffParameterDTO[]'
     ];
 
@@ -73,6 +74,7 @@ class CalculatedTariffDTO implements ModelInterface, ArrayAccess, \JsonSerializa
     protected static $openAPIFormats = [
         'type' => null,
         'amount' => null,
+        'currency' => null,
         'parameters' => null
     ];
 
@@ -84,6 +86,7 @@ class CalculatedTariffDTO implements ModelInterface, ArrayAccess, \JsonSerializa
     protected static array $openAPINullables = [
         'type' => false,
 		'amount' => false,
+		'currency' => false,
 		'parameters' => false
     ];
 
@@ -175,6 +178,7 @@ class CalculatedTariffDTO implements ModelInterface, ArrayAccess, \JsonSerializa
     protected static $attributeMap = [
         'type' => 'type',
         'amount' => 'amount',
+        'currency' => 'currency',
         'parameters' => 'parameters'
     ];
 
@@ -186,6 +190,7 @@ class CalculatedTariffDTO implements ModelInterface, ArrayAccess, \JsonSerializa
     protected static $setters = [
         'type' => 'setType',
         'amount' => 'setAmount',
+        'currency' => 'setCurrency',
         'parameters' => 'setParameters'
     ];
 
@@ -197,6 +202,7 @@ class CalculatedTariffDTO implements ModelInterface, ArrayAccess, \JsonSerializa
     protected static $getters = [
         'type' => 'getType',
         'amount' => 'getAmount',
+        'currency' => 'getCurrency',
         'parameters' => 'getParameters'
     ];
 
@@ -259,6 +265,7 @@ class CalculatedTariffDTO implements ModelInterface, ArrayAccess, \JsonSerializa
     {
         $this->setIfExists('type', $data ?? [], null);
         $this->setIfExists('amount', $data ?? [], null);
+        $this->setIfExists('currency', $data ?? [], null);
         $this->setIfExists('parameters', $data ?? [], null);
     }
 
@@ -360,6 +367,33 @@ class CalculatedTariffDTO implements ModelInterface, ArrayAccess, \JsonSerializa
             throw new \InvalidArgumentException('non-nullable amount cannot be null');
         }
         $this->container['amount'] = $amount;
+
+        return $this;
+    }
+
+    /**
+     * Gets currency
+     *
+     * @return \YandexMarketApi\Model\CurrencyType|null
+     */
+    public function getCurrency()
+    {
+        return $this->container['currency'];
+    }
+
+    /**
+     * Sets currency
+     *
+     * @param \YandexMarketApi\Model\CurrencyType|null $currency currency
+     *
+     * @return self
+     */
+    public function setCurrency($currency)
+    {
+        if (is_null($currency)) {
+            throw new \InvalidArgumentException('non-nullable currency cannot be null');
+        }
+        $this->container['currency'] = $currency;
 
         return $this;
     }

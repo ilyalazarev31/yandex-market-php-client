@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -33,7 +33,7 @@ use \YandexMarketApi\ObjectSerializer;
  * CommodityCodeType Class Doc Comment
  *
  * @category Class
- * @description Тип товарного кода:  * &#x60;CUSTOMS_COMMODITY_CODE&#x60; — код товара в единой Товарной номенклатуре внешнеэкономической деятельности (ТН ВЭД) — 10 или 14 цифр без пробелов. * &#x60;IKPU_CODE&#x60; — идентификационный код продукции и услуг (ИКПУ) в Узбекистане – 17 цифр без пробелов. Передавайте вместе с &#x60;PACK_CODE&#x60;. * &#x60;PACK_CODE&#x60; — код упаковки для ИКПУ. Может состоять только из цифр. Передавайте вместе с &#x60;IKPU_CODE&#x60;.  Не передавайте несколько кодов одного типа.
+ * @description Тип товарного кода:  * &#x60;CUSTOMS_COMMODITY_CODE&#x60; — код товара в единой Товарной номенклатуре внешнеэкономической деятельности (ТН ВЭД) — 10 или 14 цифр без пробелов. * &#x60;IKPU_CODE&#x60; — идентификационный код продукции и услуг (ИКПУ) в Узбекистане – 17 цифр без пробелов.  Не передавайте несколько кодов одного типа.
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -47,8 +47,6 @@ class CommodityCodeType
 
     public const IKPU_CODE = 'IKPU_CODE';
 
-    public const PACK_CODE = 'PACK_CODE';
-
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -57,8 +55,7 @@ class CommodityCodeType
     {
         return [
             self::CUSTOMS_COMMODITY_CODE,
-            self::IKPU_CODE,
-            self::PACK_CODE
+            self::IKPU_CODE
         ];
     }
 }

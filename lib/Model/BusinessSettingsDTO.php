@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -282,6 +282,9 @@ class BusinessSettingsDTO implements ModelInterface, ArrayAccess, \JsonSerializa
     {
         $invalidProperties = [];
 
+        if ($this->container['models'] === null) {
+            $invalidProperties[] = "'models' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -300,7 +303,11 @@ class BusinessSettingsDTO implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Gets only_default_price
      *
+<<<<<<<< HEAD:lib/Model/GetModelsResponse.php
+     * @return \YandexMarketApi\Model\ModelDTO[]
+========
      * @return bool|null
+>>>>>>>> upstream/main:lib/Model/BusinessSettingsDTO.php
      */
     public function getOnlyDefaultPrice()
     {
@@ -310,7 +317,11 @@ class BusinessSettingsDTO implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets only_default_price
      *
-     * @param bool|null $only_default_price Управление ценами на товары:  * `false` — можно установить цену, которая действует:   * во всех магазинах кабинета — [POST businesses/{businessId}/offer-prices/updates](../../reference/business-assortment/updateBusinessPrices.md);   * в конкретном магазине — [POST campaigns/{campaignId}/offer-prices/updates](../../reference/assortment/updatePrices.md). * `true` — можно установить только цену, которая действует во всех магазинах кабинета, — [POST businesses/{businessId}/offer-prices/updates](../../reference/business-assortment/updateBusinessPrices.md).
+<<<<<<<< HEAD:lib/Model/GetModelsResponse.php
+     * @param \YandexMarketApi\Model\ModelDTO[] $models Список моделей товаров.
+========
+     * @param bool|null $only_default_price Управление ценами на товары:  * `false` — можно установить цену, которая действует:   * во всех магазинах кабинета — [POST v2/businesses/{businessId}/offer-prices/updates](../../reference/business-assortment/updateBusinessPrices.md);   * в конкретном магазине — [POST v2/campaigns/{campaignId}/offer-prices/updates](../../reference/assortment/updatePrices.md). * `true` — можно установить только цену, которая действует во всех магазинах кабинета, — [POST v2/businesses/{businessId}/offer-prices/updates](../../reference/business-assortment/updateBusinessPrices.md).
+>>>>>>>> upstream/main:lib/Model/BusinessSettingsDTO.php
      *
      * @return self
      */

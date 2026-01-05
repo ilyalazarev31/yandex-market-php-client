@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -300,13 +300,15 @@ class OfferContentDTO implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'offer_id', the character length must be bigger than or equal to 1.";
         }
 
-
+        if (!preg_match("/^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/", $this->container['offer_id'])) {
+            $invalidProperties[] = "invalid value for 'offer_id', must be conform to the pattern /^(?=.*\\S.*)[^\\x00-\\x08\\x0A-\\x1f\\x7f]{1,255}$/.";
+        }
 
         if ($this->container['category_id'] === null) {
             $invalidProperties[] = "'category_id' can't be null";
         }
-        if (($this->container['category_id'] < 1)) {
-            $invalidProperties[] = "invalid value for 'category_id', must be bigger than or equal to 1.";
+        if (($this->container['category_id'] <= 0)) {
+            $invalidProperties[] = "invalid value for 'category_id', must be bigger than 0.";
         }
 
         if ($this->container['parameter_values'] === null) {
@@ -348,7 +350,7 @@ class OfferContentDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets offer_id
      *
-     * @param string $offer_id Ваш SKU — идентификатор товара в вашей системе.  Правила использования SKU:  * У каждого товара SKU должен быть свой.  * Уже заданный SKU нельзя освободить и использовать заново для другого товара. Каждый товар должен получать новый идентификатор, до того никогда не использовавшийся в вашем каталоге.  SKU товара можно изменить в кабинете продавца на Маркете. О том, как это сделать, читайте [в Справке Маркета для продавцов](https://yandex.ru/support2/marketplace/ru/assortment/operations/edit-sku).  [Что такое SKU и как его назначать](https://yandex.ru/support/marketplace/assortment/add/index.html#fields)
+     * @param string $offer_id Ваш SKU — идентификатор товара в вашей системе.  Правила использования SKU:  * У каждого товара SKU должен быть свой.  * Уже заданный SKU нельзя освободить и использовать заново для другого товара. Каждый товар должен получать новый идентификатор, до того никогда не использовавшийся в вашем каталоге.  SKU товара можно изменить в кабинете продавца на Маркете. О том, как это сделать, читайте [в Справке Маркета для продавцов](https://yandex.ru/support2/marketplace/ru/assortment/operations/edit-sku).  {% note warning %}  Пробельные символы в начале и конце значения автоматически удаляются. Например, `\"  SKU123  \"` и `\"SKU123\"` будут обработаны как одинаковые значения.  {% endnote %}  [Что такое SKU и как его назначать](https://yandex.ru/support/marketplace/assortment/add/index.html#fields)
      *
      * @return self
      */
@@ -385,7 +387,7 @@ class OfferContentDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets category_id
      *
-     * @param int $category_id Идентификатор категории на Маркете.  При изменении категории убедитесь, что характеристики товара и их значения в параметре `parameterValues` вы передаете для новой категории.  Список категорий Маркета можно получить с помощью запроса  [POST categories/tree](../../reference/categories/getCategoriesTree.md).
+     * @param int $category_id Идентификатор категории на Маркете.  При изменении категории убедитесь, что характеристики товара и их значения в параметре `parameterValues` вы передаете для новой категории.  Список категорий Маркета можно получить с помощью запроса  [POST v2/categories/tree](../../reference/categories/getCategoriesTree.md).
      *
      * @return self
      */
@@ -395,8 +397,8 @@ class OfferContentDTO implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable category_id cannot be null');
         }
 
-        if (($category_id < 1)) {
-            throw new \InvalidArgumentException('invalid value for $category_id when calling OfferContentDTO., must be bigger than or equal to 1.');
+        if (($category_id <= 0)) {
+            throw new \InvalidArgumentException('invalid value for $category_id when calling OfferContentDTO., must be bigger than 0.');
         }
 
         $this->container['category_id'] = $category_id;
@@ -417,7 +419,7 @@ class OfferContentDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets parameter_values
      *
-     * @param \YandexMarketApi\Model\ParameterValueDTO[] $parameter_values Список характеристик с их значениями.  С `parameterValues` обязательно передавайте `categoryId` — идентификатор категории на Маркете, к которой относятся указанные характеристики товара.  При **изменении** характеристик передавайте только те, значение которых нужно обновить. Если в `categoryId` вы меняете категорию, значения общих характеристик для старой и новой категории сохранятся, передавать их не нужно.  Чтобы **удалить** значение заданной характеристики, передайте ее `parameterId` с пустым `value`.
+     * @param \YandexMarketApi\Model\ParameterValueDTO[] $parameter_values Список характеристик с их значениями.  При **изменении** характеристик передавайте только те, значение которых нужно обновить. Если в `categoryId` вы меняете категорию, значения общих характеристик для старой и новой категории сохранятся, передавать их не нужно.  Подробнее читайте в [«Передача значений характеристики»](../../step-by-step/parameter-values.md).
      *
      * @return self
      */

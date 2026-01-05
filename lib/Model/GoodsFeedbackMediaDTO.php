@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -35,7 +35,7 @@ use \YandexMarketApi\ObjectSerializer;
  * GoodsFeedbackMediaDTO Class Doc Comment
  *
  * @category Class
- * @description Фото и видео.
+ * @description Фотографии и видео.
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -282,6 +282,14 @@ class GoodsFeedbackMediaDTO implements ModelInterface, ArrayAccess, \JsonSeriali
     {
         $invalidProperties = [];
 
+        if (!is_null($this->container['photos']) && (count($this->container['photos']) < 1)) {
+            $invalidProperties[] = "invalid value for 'photos', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['videos']) && (count($this->container['videos']) < 1)) {
+            $invalidProperties[] = "invalid value for 'videos', number of items must be greater than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -310,7 +318,7 @@ class GoodsFeedbackMediaDTO implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Sets photos
      *
-     * @param string[]|null $photos Ссылки на фото.
+     * @param string[]|null $photos Ссылки на фотографии.
      *
      * @return self
      */
@@ -325,6 +333,11 @@ class GoodsFeedbackMediaDTO implements ModelInterface, ArrayAccess, \JsonSeriali
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
+        }
+
+
+        if (!is_null($photos) && (count($photos) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $photos when calling GoodsFeedbackMediaDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['photos'] = $photos;
 
@@ -359,6 +372,11 @@ class GoodsFeedbackMediaDTO implements ModelInterface, ArrayAccess, \JsonSeriali
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
+        }
+
+
+        if (!is_null($videos) && (count($videos) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $videos when calling GoodsFeedbackMediaDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['videos'] = $videos;
 

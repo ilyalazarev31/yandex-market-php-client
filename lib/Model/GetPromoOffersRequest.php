@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -59,7 +59,8 @@ class GetPromoOffersRequest implements ModelInterface, ArrayAccess, \JsonSeriali
       */
     protected static $openAPITypes = [
         'promo_id' => 'string',
-        'status_type' => '\YandexMarketApi\Model\PromoOfferParticipationStatusFilterType'
+        'status_type' => '\YandexMarketApi\Model\PromoOfferParticipationStatusFilterType',
+        'statuses' => '\YandexMarketApi\Model\PromoOfferParticipationStatusMultiFilterType[]'
     ];
 
     /**
@@ -71,7 +72,8 @@ class GetPromoOffersRequest implements ModelInterface, ArrayAccess, \JsonSeriali
       */
     protected static $openAPIFormats = [
         'promo_id' => null,
-        'status_type' => null
+        'status_type' => null,
+        'statuses' => null
     ];
 
     /**
@@ -81,7 +83,8 @@ class GetPromoOffersRequest implements ModelInterface, ArrayAccess, \JsonSeriali
       */
     protected static array $openAPINullables = [
         'promo_id' => false,
-		'status_type' => false
+		'status_type' => false,
+		'statuses' => true
     ];
 
     /**
@@ -171,7 +174,8 @@ class GetPromoOffersRequest implements ModelInterface, ArrayAccess, \JsonSeriali
      */
     protected static $attributeMap = [
         'promo_id' => 'promoId',
-        'status_type' => 'statusType'
+        'status_type' => 'statusType',
+        'statuses' => 'statuses'
     ];
 
     /**
@@ -181,7 +185,8 @@ class GetPromoOffersRequest implements ModelInterface, ArrayAccess, \JsonSeriali
      */
     protected static $setters = [
         'promo_id' => 'setPromoId',
-        'status_type' => 'setStatusType'
+        'status_type' => 'setStatusType',
+        'statuses' => 'setStatuses'
     ];
 
     /**
@@ -191,7 +196,8 @@ class GetPromoOffersRequest implements ModelInterface, ArrayAccess, \JsonSeriali
      */
     protected static $getters = [
         'promo_id' => 'getPromoId',
-        'status_type' => 'getStatusType'
+        'status_type' => 'getStatusType',
+        'statuses' => 'getStatuses'
     ];
 
     /**
@@ -253,6 +259,7 @@ class GetPromoOffersRequest implements ModelInterface, ArrayAccess, \JsonSeriali
     {
         $this->setIfExists('promo_id', $data ?? [], null);
         $this->setIfExists('status_type', $data ?? [], null);
+        $this->setIfExists('statuses', $data ?? [], null);
     }
 
     /**
@@ -285,6 +292,10 @@ class GetPromoOffersRequest implements ModelInterface, ArrayAccess, \JsonSeriali
         if ($this->container['promo_id'] === null) {
             $invalidProperties[] = "'promo_id' can't be null";
         }
+        if (!is_null($this->container['statuses']) && (count($this->container['statuses']) < 1)) {
+            $invalidProperties[] = "invalid value for 'statuses', number of items must be greater than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -350,6 +361,45 @@ class GetPromoOffersRequest implements ModelInterface, ArrayAccess, \JsonSeriali
             throw new \InvalidArgumentException('non-nullable status_type cannot be null');
         }
         $this->container['status_type'] = $status_type;
+
+        return $this;
+    }
+
+    /**
+     * Gets statuses
+     *
+     * @return \YandexMarketApi\Model\PromoOfferParticipationStatusMultiFilterType[]|null
+     */
+    public function getStatuses()
+    {
+        return $this->container['statuses'];
+    }
+
+    /**
+     * Sets statuses
+     *
+     * @param \YandexMarketApi\Model\PromoOfferParticipationStatusMultiFilterType[]|null $statuses Фильтр для товаров, которые могут участвовать в акции. Можно задать несколько значений.
+     *
+     * @return self
+     */
+    public function setStatuses($statuses)
+    {
+        if (is_null($statuses)) {
+            array_push($this->openAPINullablesSetToNull, 'statuses');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('statuses', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+
+
+        if (!is_null($statuses) && (count($statuses) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $statuses when calling GetPromoOffersRequest., number of items must be greater than or equal to 1.');
+        }
+        $this->container['statuses'] = $statuses;
 
         return $this;
     }

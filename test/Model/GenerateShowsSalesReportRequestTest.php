@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -34,7 +34,7 @@ use PHPUnit\Framework\TestCase;
  * GenerateShowsSalesReportRequestTest Class Doc Comment
  *
  * @category    Class
- * @description Данные, необходимые для генерации отчета.
+ * @description Данные, необходимые для генерации отчета.  В запросе обязательно должен быть либо &#x60;businessId&#x60;, либо &#x60;campaignId&#x60;, но не оба сразу.
  * @package     YandexMarketApi
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech

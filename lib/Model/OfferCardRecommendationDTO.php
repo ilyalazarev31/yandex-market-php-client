@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -59,7 +59,8 @@ class OfferCardRecommendationDTO implements ModelInterface, ArrayAccess, \JsonSe
       */
     protected static $openAPITypes = [
         'type' => '\YandexMarketApi\Model\OfferCardRecommendationType',
-        'percent' => 'int'
+        'percent' => 'int',
+        'remaining_rating_points' => 'int'
     ];
 
     /**
@@ -71,7 +72,8 @@ class OfferCardRecommendationDTO implements ModelInterface, ArrayAccess, \JsonSe
       */
     protected static $openAPIFormats = [
         'type' => null,
-        'percent' => 'int32'
+        'percent' => 'int32',
+        'remaining_rating_points' => 'int32'
     ];
 
     /**
@@ -81,7 +83,8 @@ class OfferCardRecommendationDTO implements ModelInterface, ArrayAccess, \JsonSe
       */
     protected static array $openAPINullables = [
         'type' => false,
-		'percent' => false
+		'percent' => false,
+		'remaining_rating_points' => false
     ];
 
     /**
@@ -171,7 +174,8 @@ class OfferCardRecommendationDTO implements ModelInterface, ArrayAccess, \JsonSe
      */
     protected static $attributeMap = [
         'type' => 'type',
-        'percent' => 'percent'
+        'percent' => 'percent',
+        'remaining_rating_points' => 'remainingRatingPoints'
     ];
 
     /**
@@ -181,7 +185,8 @@ class OfferCardRecommendationDTO implements ModelInterface, ArrayAccess, \JsonSe
      */
     protected static $setters = [
         'type' => 'setType',
-        'percent' => 'setPercent'
+        'percent' => 'setPercent',
+        'remaining_rating_points' => 'setRemainingRatingPoints'
     ];
 
     /**
@@ -191,7 +196,8 @@ class OfferCardRecommendationDTO implements ModelInterface, ArrayAccess, \JsonSe
      */
     protected static $getters = [
         'type' => 'getType',
-        'percent' => 'getPercent'
+        'percent' => 'getPercent',
+        'remaining_rating_points' => 'getRemainingRatingPoints'
     ];
 
     /**
@@ -253,6 +259,7 @@ class OfferCardRecommendationDTO implements ModelInterface, ArrayAccess, \JsonSe
     {
         $this->setIfExists('type', $data ?? [], null);
         $this->setIfExists('percent', $data ?? [], null);
+        $this->setIfExists('remaining_rating_points', $data ?? [], null);
     }
 
     /**
@@ -291,6 +298,14 @@ class OfferCardRecommendationDTO implements ModelInterface, ArrayAccess, \JsonSe
 
         if (!is_null($this->container['percent']) && ($this->container['percent'] < 0)) {
             $invalidProperties[] = "invalid value for 'percent', must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['remaining_rating_points']) && ($this->container['remaining_rating_points'] > 100)) {
+            $invalidProperties[] = "invalid value for 'remaining_rating_points', must be smaller than or equal to 100.";
+        }
+
+        if (!is_null($this->container['remaining_rating_points']) && ($this->container['remaining_rating_points'] < 1)) {
+            $invalidProperties[] = "invalid value for 'remaining_rating_points', must be bigger than or equal to 1.";
         }
 
         return $invalidProperties;
@@ -366,6 +381,41 @@ class OfferCardRecommendationDTO implements ModelInterface, ArrayAccess, \JsonSe
         }
 
         $this->container['percent'] = $percent;
+
+        return $this;
+    }
+
+    /**
+     * Gets remaining_rating_points
+     *
+     * @return int|null
+     */
+    public function getRemainingRatingPoints()
+    {
+        return $this->container['remaining_rating_points'];
+    }
+
+    /**
+     * Sets remaining_rating_points
+     *
+     * @param int|null $remaining_rating_points Максимальное количество баллов рейтинга карточки, которые можно получить за выполнение рекомендаций.
+     *
+     * @return self
+     */
+    public function setRemainingRatingPoints($remaining_rating_points)
+    {
+        if (is_null($remaining_rating_points)) {
+            throw new \InvalidArgumentException('non-nullable remaining_rating_points cannot be null');
+        }
+
+        if (($remaining_rating_points > 100)) {
+            throw new \InvalidArgumentException('invalid value for $remaining_rating_points when calling OfferCardRecommendationDTO., must be smaller than or equal to 100.');
+        }
+        if (($remaining_rating_points < 1)) {
+            throw new \InvalidArgumentException('invalid value for $remaining_rating_points when calling OfferCardRecommendationDTO., must be bigger than or equal to 1.');
+        }
+
+        $this->container['remaining_rating_points'] = $remaining_rating_points;
 
         return $this;
     }

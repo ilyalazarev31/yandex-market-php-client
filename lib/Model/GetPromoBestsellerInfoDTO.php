@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -59,7 +59,8 @@ class GetPromoBestsellerInfoDTO implements ModelInterface, ArrayAccess, \JsonSer
       */
     protected static $openAPITypes = [
         'bestseller' => 'bool',
-        'entry_deadline' => '\DateTime'
+        'entry_deadline' => '\DateTime',
+        'renewal_enabled' => 'bool'
     ];
 
     /**
@@ -71,7 +72,8 @@ class GetPromoBestsellerInfoDTO implements ModelInterface, ArrayAccess, \JsonSer
       */
     protected static $openAPIFormats = [
         'bestseller' => null,
-        'entry_deadline' => 'date-time'
+        'entry_deadline' => 'date-time',
+        'renewal_enabled' => null
     ];
 
     /**
@@ -81,7 +83,8 @@ class GetPromoBestsellerInfoDTO implements ModelInterface, ArrayAccess, \JsonSer
       */
     protected static array $openAPINullables = [
         'bestseller' => false,
-		'entry_deadline' => false
+		'entry_deadline' => false,
+		'renewal_enabled' => false
     ];
 
     /**
@@ -171,7 +174,8 @@ class GetPromoBestsellerInfoDTO implements ModelInterface, ArrayAccess, \JsonSer
      */
     protected static $attributeMap = [
         'bestseller' => 'bestseller',
-        'entry_deadline' => 'entryDeadline'
+        'entry_deadline' => 'entryDeadline',
+        'renewal_enabled' => 'renewalEnabled'
     ];
 
     /**
@@ -181,7 +185,8 @@ class GetPromoBestsellerInfoDTO implements ModelInterface, ArrayAccess, \JsonSer
      */
     protected static $setters = [
         'bestseller' => 'setBestseller',
-        'entry_deadline' => 'setEntryDeadline'
+        'entry_deadline' => 'setEntryDeadline',
+        'renewal_enabled' => 'setRenewalEnabled'
     ];
 
     /**
@@ -191,7 +196,8 @@ class GetPromoBestsellerInfoDTO implements ModelInterface, ArrayAccess, \JsonSer
      */
     protected static $getters = [
         'bestseller' => 'getBestseller',
-        'entry_deadline' => 'getEntryDeadline'
+        'entry_deadline' => 'getEntryDeadline',
+        'renewal_enabled' => 'getRenewalEnabled'
     ];
 
     /**
@@ -253,6 +259,7 @@ class GetPromoBestsellerInfoDTO implements ModelInterface, ArrayAccess, \JsonSer
     {
         $this->setIfExists('bestseller', $data ?? [], null);
         $this->setIfExists('entry_deadline', $data ?? [], null);
+        $this->setIfExists('renewal_enabled', $data ?? [], null);
     }
 
     /**
@@ -350,6 +357,33 @@ class GetPromoBestsellerInfoDTO implements ModelInterface, ArrayAccess, \JsonSer
             throw new \InvalidArgumentException('non-nullable entry_deadline cannot be null');
         }
         $this->container['entry_deadline'] = $entry_deadline;
+
+        return $this;
+    }
+
+    /**
+     * Gets renewal_enabled
+     *
+     * @return bool|null
+     */
+    public function getRenewalEnabled()
+    {
+        return $this->container['renewal_enabled'];
+    }
+
+    /**
+     * Sets renewal_enabled
+     *
+     * @param bool|null $renewal_enabled Включен ли автоматический перенос ассортимента между акциями «Бестселлеры Маркета». О том, как это работает, читайте [в Справке Маркета для продавцов](https://yandex.ru/support/marketplace/ru/marketing/promos/market/bestsellers#next).  Параметр возвращается только для текущих и будущих акций «Бестселлеры Маркета».
+     *
+     * @return self
+     */
+    public function setRenewalEnabled($renewal_enabled)
+    {
+        if (is_null($renewal_enabled)) {
+            throw new \InvalidArgumentException('non-nullable renewal_enabled cannot be null');
+        }
+        $this->container['renewal_enabled'] = $renewal_enabled;
 
         return $this;
     }

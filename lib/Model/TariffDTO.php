@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -61,6 +61,7 @@ class TariffDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'type' => '\YandexMarketApi\Model\TariffType',
         'percent' => 'float',
         'amount' => 'float',
+        'currency' => '\YandexMarketApi\Model\CurrencyType',
         'parameters' => '\YandexMarketApi\Model\TariffParameterDTO[]'
     ];
 
@@ -75,6 +76,7 @@ class TariffDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'type' => null,
         'percent' => null,
         'amount' => null,
+        'currency' => null,
         'parameters' => null
     ];
 
@@ -87,6 +89,7 @@ class TariffDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'type' => false,
 		'percent' => false,
 		'amount' => false,
+		'currency' => false,
 		'parameters' => false
     ];
 
@@ -179,6 +182,7 @@ class TariffDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'type' => 'type',
         'percent' => 'percent',
         'amount' => 'amount',
+        'currency' => 'currency',
         'parameters' => 'parameters'
     ];
 
@@ -191,6 +195,7 @@ class TariffDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'type' => 'setType',
         'percent' => 'setPercent',
         'amount' => 'setAmount',
+        'currency' => 'setCurrency',
         'parameters' => 'setParameters'
     ];
 
@@ -203,6 +208,7 @@ class TariffDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'type' => 'getType',
         'percent' => 'getPercent',
         'amount' => 'getAmount',
+        'currency' => 'getCurrency',
         'parameters' => 'getParameters'
     ];
 
@@ -266,6 +272,7 @@ class TariffDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('type', $data ?? [], null);
         $this->setIfExists('percent', $data ?? [], null);
         $this->setIfExists('amount', $data ?? [], null);
+        $this->setIfExists('currency', $data ?? [], null);
         $this->setIfExists('parameters', $data ?? [], null);
     }
 
@@ -301,6 +308,9 @@ class TariffDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['amount'] === null) {
             $invalidProperties[] = "'amount' can't be null";
+        }
+        if ($this->container['currency'] === null) {
+            $invalidProperties[] = "'currency' can't be null";
         }
         if ($this->container['parameters'] === null) {
             $invalidProperties[] = "'parameters' can't be null";
@@ -361,7 +371,7 @@ class TariffDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets percent
      *
-     * @param float|null $percent {% note warning \"Этот параметр устарел\" %}  Не используйте его.  {% endnote %}  Значение тарифа в процентах.
+     * @param float|null $percent Значение тарифа в процентах.
      *
      * @return self
      * @deprecated
@@ -389,7 +399,7 @@ class TariffDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets amount
      *
-     * @param float $amount Значение тарифа в рублях.
+     * @param float $amount Значение тарифа.
      *
      * @return self
      */
@@ -399,6 +409,33 @@ class TariffDTO implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable amount cannot be null');
         }
         $this->container['amount'] = $amount;
+
+        return $this;
+    }
+
+    /**
+     * Gets currency
+     *
+     * @return \YandexMarketApi\Model\CurrencyType
+     */
+    public function getCurrency()
+    {
+        return $this->container['currency'];
+    }
+
+    /**
+     * Sets currency
+     *
+     * @param \YandexMarketApi\Model\CurrencyType $currency currency
+     *
+     * @return self
+     */
+    public function setCurrency($currency)
+    {
+        if (is_null($currency)) {
+            throw new \InvalidArgumentException('non-nullable currency cannot be null');
+        }
+        $this->container['currency'] = $currency;
 
         return $this;
     }

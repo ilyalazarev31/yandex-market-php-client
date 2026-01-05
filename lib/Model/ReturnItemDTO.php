@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -35,7 +35,7 @@ use \YandexMarketApi\ObjectSerializer;
  * ReturnItemDTO Class Doc Comment
  *
  * @category Class
- * @description Список товаров в возврате.
+ * @description Список товаров в невыкупе или возврате.
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -332,6 +332,18 @@ class ReturnItemDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['count'] === null) {
             $invalidProperties[] = "'count' can't be null";
         }
+        if (!is_null($this->container['decisions']) && (count($this->container['decisions']) < 1)) {
+            $invalidProperties[] = "invalid value for 'decisions', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['instances']) && (count($this->container['instances']) < 1)) {
+            $invalidProperties[] = "invalid value for 'instances', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['tracks']) && (count($this->container['tracks']) < 1)) {
+            $invalidProperties[] = "invalid value for 'tracks', number of items must be greater than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -360,7 +372,7 @@ class ReturnItemDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets market_sku
      *
-     * @param int|null $market_sku SKU на Маркете.
+     * @param int|null $market_sku Идентификатор карточки товара на Маркете.
      *
      * @return self
      */
@@ -392,7 +404,7 @@ class ReturnItemDTO implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets shop_sku
      *
-     * @param string $shop_sku Ваш SKU — идентификатор товара в вашей системе.  Правила использования SKU:  * У каждого товара SKU должен быть свой.  * Уже заданный SKU нельзя освободить и использовать заново для другого товара. Каждый товар должен получать новый идентификатор, до того никогда не использовавшийся в вашем каталоге.  SKU товара можно изменить в кабинете продавца на Маркете. О том, как это сделать, читайте [в Справке Маркета для продавцов](https://yandex.ru/support2/marketplace/ru/assortment/operations/edit-sku).  [Что такое SKU и как его назначать](https://yandex.ru/support/marketplace/assortment/add/index.html#fields)
+     * @param string $shop_sku Ваш SKU — идентификатор товара в вашей системе.  Правила использования SKU:  * У каждого товара SKU должен быть свой.  * Уже заданный SKU нельзя освободить и использовать заново для другого товара. Каждый товар должен получать новый идентификатор, до того никогда не использовавшийся в вашем каталоге.  SKU товара можно изменить в кабинете продавца на Маркете. О том, как это сделать, читайте [в Справке Маркета для продавцов](https://yandex.ru/support2/marketplace/ru/assortment/operations/edit-sku).  {% note warning %}  Пробельные символы в начале и конце значения автоматически удаляются. Например, `\"  SKU123  \"` и `\"SKU123\"` будут обработаны как одинаковые значения.  {% endnote %}  [Что такое SKU и как его назначать](https://yandex.ru/support/marketplace/assortment/add/index.html#fields)
      *
      * @return self
      */
@@ -472,6 +484,11 @@ class ReturnItemDTO implements ModelInterface, ArrayAccess, \JsonSerializable
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
         }
+
+
+        if (!is_null($decisions) && (count($decisions) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $decisions when calling ReturnItemDTO., number of items must be greater than or equal to 1.');
+        }
         $this->container['decisions'] = $decisions;
 
         return $this;
@@ -506,6 +523,11 @@ class ReturnItemDTO implements ModelInterface, ArrayAccess, \JsonSerializable
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
         }
+
+
+        if (!is_null($instances) && (count($instances) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $instances when calling ReturnItemDTO., number of items must be greater than or equal to 1.');
+        }
         $this->container['instances'] = $instances;
 
         return $this;
@@ -539,6 +561,11 @@ class ReturnItemDTO implements ModelInterface, ArrayAccess, \JsonSerializable
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
+        }
+
+
+        if (!is_null($tracks) && (count($tracks) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $tracks when calling ReturnItemDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['tracks'] = $tracks;
 

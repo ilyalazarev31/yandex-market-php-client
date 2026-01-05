@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -58,8 +58,6 @@ class GetOfferRecommendationsRequest implements ModelInterface, ArrayAccess, \Js
       */
     protected static $openAPITypes = [
         'offer_ids' => 'string[]',
-        'cofinance_price_filter' => '\YandexMarketApi\Model\FieldStateType',
-        'recommended_cofinance_price_filter' => '\YandexMarketApi\Model\FieldStateType',
         'competitiveness_filter' => '\YandexMarketApi\Model\PriceCompetitivenessType'
     ];
 
@@ -72,8 +70,6 @@ class GetOfferRecommendationsRequest implements ModelInterface, ArrayAccess, \Js
       */
     protected static $openAPIFormats = [
         'offer_ids' => null,
-        'cofinance_price_filter' => null,
-        'recommended_cofinance_price_filter' => null,
         'competitiveness_filter' => null
     ];
 
@@ -84,8 +80,6 @@ class GetOfferRecommendationsRequest implements ModelInterface, ArrayAccess, \Js
       */
     protected static array $openAPINullables = [
         'offer_ids' => true,
-		'cofinance_price_filter' => false,
-		'recommended_cofinance_price_filter' => false,
 		'competitiveness_filter' => false
     ];
 
@@ -176,8 +170,6 @@ class GetOfferRecommendationsRequest implements ModelInterface, ArrayAccess, \Js
      */
     protected static $attributeMap = [
         'offer_ids' => 'offerIds',
-        'cofinance_price_filter' => 'cofinancePriceFilter',
-        'recommended_cofinance_price_filter' => 'recommendedCofinancePriceFilter',
         'competitiveness_filter' => 'competitivenessFilter'
     ];
 
@@ -188,8 +180,6 @@ class GetOfferRecommendationsRequest implements ModelInterface, ArrayAccess, \Js
      */
     protected static $setters = [
         'offer_ids' => 'setOfferIds',
-        'cofinance_price_filter' => 'setCofinancePriceFilter',
-        'recommended_cofinance_price_filter' => 'setRecommendedCofinancePriceFilter',
         'competitiveness_filter' => 'setCompetitivenessFilter'
     ];
 
@@ -200,8 +190,6 @@ class GetOfferRecommendationsRequest implements ModelInterface, ArrayAccess, \Js
      */
     protected static $getters = [
         'offer_ids' => 'getOfferIds',
-        'cofinance_price_filter' => 'getCofinancePriceFilter',
-        'recommended_cofinance_price_filter' => 'getRecommendedCofinancePriceFilter',
         'competitiveness_filter' => 'getCompetitivenessFilter'
     ];
 
@@ -263,8 +251,6 @@ class GetOfferRecommendationsRequest implements ModelInterface, ArrayAccess, \Js
     public function __construct(array $data = null)
     {
         $this->setIfExists('offer_ids', $data ?? [], null);
-        $this->setIfExists('cofinance_price_filter', $data ?? [], null);
-        $this->setIfExists('recommended_cofinance_price_filter', $data ?? [], null);
         $this->setIfExists('competitiveness_filter', $data ?? [], null);
     }
 
@@ -294,6 +280,10 @@ class GetOfferRecommendationsRequest implements ModelInterface, ArrayAccess, \Js
     public function listInvalidProperties()
     {
         $invalidProperties = [];
+
+        if (!is_null($this->container['offer_ids']) && (count($this->container['offer_ids']) < 1)) {
+            $invalidProperties[] = "invalid value for 'offer_ids', number of items must be greater than or equal to 1.";
+        }
 
         return $invalidProperties;
     }
@@ -339,61 +329,12 @@ class GetOfferRecommendationsRequest implements ModelInterface, ArrayAccess, \Js
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
         }
+
+
+        if (!is_null($offer_ids) && (count($offer_ids) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $offer_ids when calling GetOfferRecommendationsRequest., number of items must be greater than or equal to 1.');
+        }
         $this->container['offer_ids'] = $offer_ids;
-
-        return $this;
-    }
-
-    /**
-     * Gets cofinance_price_filter
-     *
-     * @return \YandexMarketApi\Model\FieldStateType|null
-     */
-    public function getCofinancePriceFilter()
-    {
-        return $this->container['cofinance_price_filter'];
-    }
-
-    /**
-     * Sets cofinance_price_filter
-     *
-     * @param \YandexMarketApi\Model\FieldStateType|null $cofinance_price_filter cofinance_price_filter
-     *
-     * @return self
-     */
-    public function setCofinancePriceFilter($cofinance_price_filter)
-    {
-        if (is_null($cofinance_price_filter)) {
-            throw new \InvalidArgumentException('non-nullable cofinance_price_filter cannot be null');
-        }
-        $this->container['cofinance_price_filter'] = $cofinance_price_filter;
-
-        return $this;
-    }
-
-    /**
-     * Gets recommended_cofinance_price_filter
-     *
-     * @return \YandexMarketApi\Model\FieldStateType|null
-     */
-    public function getRecommendedCofinancePriceFilter()
-    {
-        return $this->container['recommended_cofinance_price_filter'];
-    }
-
-    /**
-     * Sets recommended_cofinance_price_filter
-     *
-     * @param \YandexMarketApi\Model\FieldStateType|null $recommended_cofinance_price_filter recommended_cofinance_price_filter
-     *
-     * @return self
-     */
-    public function setRecommendedCofinancePriceFilter($recommended_cofinance_price_filter)
-    {
-        if (is_null($recommended_cofinance_price_filter)) {
-            throw new \InvalidArgumentException('non-nullable recommended_cofinance_price_filter cannot be null');
-        }
-        $this->container['recommended_cofinance_price_filter'] = $recommended_cofinance_price_filter;
 
         return $this;
     }

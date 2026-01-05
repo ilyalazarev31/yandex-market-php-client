@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -35,7 +35,7 @@ use \YandexMarketApi\ObjectSerializer;
  * ChatMessageDTO Class Doc Comment
  *
  * @category Class
- * @description Информация о сообщениях.
+ * @description Информация о сообщении.
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -306,12 +306,20 @@ class ChatMessageDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['message_id'] === null) {
             $invalidProperties[] = "'message_id' can't be null";
         }
+        if (($this->container['message_id'] < 1)) {
+            $invalidProperties[] = "invalid value for 'message_id', must be bigger than or equal to 1.";
+        }
+
         if ($this->container['created_at'] === null) {
             $invalidProperties[] = "'created_at' can't be null";
         }
         if ($this->container['sender'] === null) {
             $invalidProperties[] = "'sender' can't be null";
         }
+        if (!is_null($this->container['payload']) && (count($this->container['payload']) < 1)) {
+            $invalidProperties[] = "invalid value for 'payload', number of items must be greater than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -349,6 +357,11 @@ class ChatMessageDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         if (is_null($message_id)) {
             throw new \InvalidArgumentException('non-nullable message_id cannot be null');
         }
+
+        if (($message_id < 1)) {
+            throw new \InvalidArgumentException('invalid value for $message_id when calling ChatMessageDTO., must be bigger than or equal to 1.');
+        }
+
         $this->container['message_id'] = $message_id;
 
         return $this;
@@ -463,6 +476,11 @@ class ChatMessageDTO implements ModelInterface, ArrayAccess, \JsonSerializable
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
+        }
+
+
+        if (!is_null($payload) && (count($payload) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $payload when calling ChatMessageDTO., number of items must be greater than or equal to 1.');
         }
         $this->container['payload'] = $payload;
 

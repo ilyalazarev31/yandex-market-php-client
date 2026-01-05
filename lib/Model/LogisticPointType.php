@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -55,8 +55,6 @@ class LogisticPointType
 
     public const PICKUP_RETAIL = 'PICKUP_RETAIL';
 
-    public const UNKNOWN = 'UNKNOWN';
-
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -69,8 +67,7 @@ class LogisticPointType
             self::PICKUP_TERMINAL,
             self::PICKUP_POST_OFFICE,
             self::PICKUP_MIXED,
-            self::PICKUP_RETAIL,
-            self::UNKNOWN
+            self::PICKUP_RETAIL
         ];
     }
 }

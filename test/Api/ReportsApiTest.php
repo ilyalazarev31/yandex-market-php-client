@@ -10,7 +10,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -72,12 +72,60 @@ class ReportsApiTest extends TestCase
     }
 
     /**
+     * Test case for generateBannersStatisticsReport
+     *
+     * Отчет по охватному продвижению.
+     *
+     */
+    public function testGenerateBannersStatisticsReport()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for generateBarcodesReport
+     *
+     * Получение файла со штрихкодами.
+     *
+     */
+    public function testGenerateBarcodesReport()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test case for generateBoostConsolidatedReport
      *
      * Отчет по бусту продаж.
      *
      */
     public function testGenerateBoostConsolidatedReport()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for generateClosureDocumentsDetalizationReport
+     *
+     * Отчет по схождению с закрывающими документами.
+     *
+     */
+    public function testGenerateClosureDocumentsDetalizationReport()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for generateClosureDocumentsReport
+     *
+     * Закрывающие документы.
+     *
+     */
+    public function testGenerateClosureDocumentsReport()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
@@ -110,10 +158,22 @@ class ReportsApiTest extends TestCase
     /**
      * Test case for generateGoodsMovementReport
      *
-     * Отчет по движению товаров (FBY).
+     * Отчет по движению товаров.
      *
      */
     public function testGenerateGoodsMovementReport()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for generateGoodsPricesReport
+     *
+     * Отчет «Цены».
+     *
+     */
+    public function testGenerateGoodsPricesReport()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
@@ -134,10 +194,34 @@ class ReportsApiTest extends TestCase
     /**
      * Test case for generateGoodsTurnoverReport
      *
-     * Отчет по оборачиваемости (FBY).
+     * Отчет по оборачиваемости.
      *
      */
     public function testGenerateGoodsTurnoverReport()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for generateJewelryFiscalReport
+     *
+     * Отчет по заказам с ювелирными изделиями.
+     *
+     */
+    public function testGenerateJewelryFiscalReport()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for generateKeyIndicatorsReport
+     *
+     * Отчет по ключевым показателям.
+     *
+     */
+    public function testGenerateKeyIndicatorsReport()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
@@ -168,6 +252,18 @@ class ReportsApiTest extends TestCase
     }
 
     /**
+     * Test case for generateSalesGeographyReport
+     *
+     * Отчет по географии продаж.
+     *
+     */
+    public function testGenerateSalesGeographyReport()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test case for generateShelfsStatisticsReport
      *
      * Отчет по полкам.
@@ -186,6 +282,18 @@ class ReportsApiTest extends TestCase
      *
      */
     public function testGenerateShipmentListDocumentReport()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for generateShowsBoostReport
+     *
+     * Отчет по бусту показов.
+     *
+     */
+    public function testGenerateShowsBoostReport()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
@@ -252,9 +360,21 @@ class ReportsApiTest extends TestCase
     }
 
     /**
+     * Test case for generateUnitedReturnsReport
+     *
+     * Отчет по невыкупам и возвратам.
+     *
+     */
+    public function testGenerateUnitedReturnsReport()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test case for getReportInfo
      *
-     * Получение заданного отчета.
+     * Получение заданного отчета или документа.
      *
      */
     public function testGetReportInfo()

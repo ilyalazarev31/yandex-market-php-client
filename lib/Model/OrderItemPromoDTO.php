@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -35,7 +35,7 @@ use \YandexMarketApi\ObjectSerializer;
  * OrderItemPromoDTO Class Doc Comment
  *
  * @category Class
- * @description Информация о вознаграждениях партнеру за скидки на товар по промокодам, купонам и акциям.
+ * @description Информация о вознаграждении продавцу за скидки на товар по промокодам, купонам и акциям.
  * @package  YandexMarketApi
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -74,8 +74,8 @@ class OrderItemPromoDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
       */
     protected static $openAPIFormats = [
         'type' => null,
-        'discount' => 'decimal',
-        'subsidy' => 'decimal',
+        'discount' => null,
+        'subsidy' => null,
         'shop_promo_id' => null,
         'market_promo_id' => null
     ];
@@ -391,7 +391,7 @@ class OrderItemPromoDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets subsidy
      *
-     * @param float $subsidy Вознаграждение партнеру от Маркета за товар, проданный в рамках акции.
+     * @param float $subsidy Вознаграждение продавцу от Маркета за товар, проданный в рамках акции.
      *
      * @return self
      */
@@ -445,7 +445,7 @@ class OrderItemPromoDTO implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets market_promo_id
      *
-     * @param string|null $market_promo_id Идентификатор акции в рамках соглашения на оказание услуг по продвижению сервиса между Маркетом и партнером.  Параметр передается, только если параметр `type=MARKET_DEAL`.
+     * @param string|null $market_promo_id Идентификатор акции в рамках соглашения на оказание услуг по продвижению сервиса между Маркетом и продавцом.
      *
      * @return self
      */

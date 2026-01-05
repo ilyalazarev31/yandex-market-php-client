@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -306,12 +306,20 @@ class GenerateUnitedOrdersRequest implements ModelInterface, ArrayAccess, \JsonS
         if ($this->container['business_id'] === null) {
             $invalidProperties[] = "'business_id' can't be null";
         }
+        if (($this->container['business_id'] < 1)) {
+            $invalidProperties[] = "invalid value for 'business_id', must be bigger than or equal to 1.";
+        }
+
         if ($this->container['date_from'] === null) {
             $invalidProperties[] = "'date_from' can't be null";
         }
         if ($this->container['date_to'] === null) {
             $invalidProperties[] = "'date_to' can't be null";
         }
+        if (!is_null($this->container['campaign_ids']) && (count($this->container['campaign_ids']) < 1)) {
+            $invalidProperties[] = "invalid value for 'campaign_ids', number of items must be greater than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -340,7 +348,7 @@ class GenerateUnitedOrdersRequest implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Sets business_id
      *
-     * @param int $business_id Идентификатор бизнеса.
+     * @param int $business_id Идентификатор кабинета. Чтобы его узнать, воспользуйтесь запросом [GET v2/campaigns](../../reference/campaigns/getCampaigns.md).  ℹ️ [Что такое кабинет и магазин на Маркете](https://yandex.ru/support/marketplace/account/introduction.html)
      *
      * @return self
      */
@@ -349,6 +357,11 @@ class GenerateUnitedOrdersRequest implements ModelInterface, ArrayAccess, \JsonS
         if (is_null($business_id)) {
             throw new \InvalidArgumentException('non-nullable business_id cannot be null');
         }
+
+        if (($business_id < 1)) {
+            throw new \InvalidArgumentException('invalid value for $business_id when calling GenerateUnitedOrdersRequest., must be bigger than or equal to 1.');
+        }
+
         $this->container['business_id'] = $business_id;
 
         return $this;
@@ -367,7 +380,7 @@ class GenerateUnitedOrdersRequest implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Sets date_from
      *
-     * @param \DateTime $date_from Начало периода, включительно.
+     * @param \DateTime $date_from Начало периода, включительно.  Формат даты: `ГГГГ-ММ-ДД`.
      *
      * @return self
      */
@@ -394,7 +407,7 @@ class GenerateUnitedOrdersRequest implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Sets date_to
      *
-     * @param \DateTime $date_to Конец периода, включительно. Максимальный период — 1 год.
+     * @param \DateTime $date_to Конец периода, включительно. Максимальный период — 1 год.  Формат даты: `ГГГГ-ММ-ДД`.
      *
      * @return self
      */
@@ -421,7 +434,7 @@ class GenerateUnitedOrdersRequest implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Sets campaign_ids
      *
-     * @param int[]|null $campaign_ids Список магазинов, которые нужны в отчете.
+     * @param int[]|null $campaign_ids Список идентификаторов кампании тех магазинов, которые нужны в отчете.
      *
      * @return self
      */
@@ -436,6 +449,11 @@ class GenerateUnitedOrdersRequest implements ModelInterface, ArrayAccess, \JsonS
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
+        }
+
+
+        if (!is_null($campaign_ids) && (count($campaign_ids) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $campaign_ids when calling GenerateUnitedOrdersRequest., number of items must be greater than or equal to 1.');
         }
         $this->container['campaign_ids'] = $campaign_ids;
 

@@ -11,7 +11,7 @@
  */
 
 /**
- * Партнерский API Маркета
+ * API Яндекс Маркета для продавцов
  *
  * API Яндекс Маркета помогает продавцам автоматизировать и упростить работу с маркетплейсом.  В числе возможностей интеграции:  * управление каталогом товаров и витриной,  * обработка заказов,  * изменение настроек магазина,  * получение отчетов.
  *
@@ -70,7 +70,8 @@ class BaseShipmentDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'order_ids' => 'int[]',
         'draft_count' => 'int',
         'planned_count' => 'int',
-        'fact_count' => 'int'
+        'fact_count' => 'int',
+        'signature' => '\YandexMarketApi\Model\SignatureDTO'
     ];
 
     /**
@@ -93,7 +94,8 @@ class BaseShipmentDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'order_ids' => 'int64',
         'draft_count' => 'int32',
         'planned_count' => 'int32',
-        'fact_count' => 'int32'
+        'fact_count' => 'int32',
+        'signature' => null
     ];
 
     /**
@@ -114,7 +116,8 @@ class BaseShipmentDTO implements ModelInterface, ArrayAccess, \JsonSerializable
 		'order_ids' => false,
 		'draft_count' => false,
 		'planned_count' => false,
-		'fact_count' => false
+		'fact_count' => false,
+		'signature' => false
     ];
 
     /**
@@ -215,7 +218,8 @@ class BaseShipmentDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'order_ids' => 'orderIds',
         'draft_count' => 'draftCount',
         'planned_count' => 'plannedCount',
-        'fact_count' => 'factCount'
+        'fact_count' => 'factCount',
+        'signature' => 'signature'
     ];
 
     /**
@@ -236,7 +240,8 @@ class BaseShipmentDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'order_ids' => 'setOrderIds',
         'draft_count' => 'setDraftCount',
         'planned_count' => 'setPlannedCount',
-        'fact_count' => 'setFactCount'
+        'fact_count' => 'setFactCount',
+        'signature' => 'setSignature'
     ];
 
     /**
@@ -257,7 +262,8 @@ class BaseShipmentDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         'order_ids' => 'getOrderIds',
         'draft_count' => 'getDraftCount',
         'planned_count' => 'getPlannedCount',
-        'fact_count' => 'getFactCount'
+        'fact_count' => 'getFactCount',
+        'signature' => 'getSignature'
     ];
 
     /**
@@ -330,6 +336,7 @@ class BaseShipmentDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('draft_count', $data ?? [], null);
         $this->setIfExists('planned_count', $data ?? [], null);
         $this->setIfExists('fact_count', $data ?? [], null);
+        $this->setIfExists('signature', $data ?? [], null);
     }
 
     /**
@@ -396,6 +403,9 @@ class BaseShipmentDTO implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'fact_count', must be bigger than or equal to 0.";
         }
 
+        if ($this->container['signature'] === null) {
+            $invalidProperties[] = "'signature' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -780,6 +790,33 @@ class BaseShipmentDTO implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         $this->container['fact_count'] = $fact_count;
+
+        return $this;
+    }
+
+    /**
+     * Gets signature
+     *
+     * @return \YandexMarketApi\Model\SignatureDTO
+     */
+    public function getSignature()
+    {
+        return $this->container['signature'];
+    }
+
+    /**
+     * Sets signature
+     *
+     * @param \YandexMarketApi\Model\SignatureDTO $signature signature
+     *
+     * @return self
+     */
+    public function setSignature($signature)
+    {
+        if (is_null($signature)) {
+            throw new \InvalidArgumentException('non-nullable signature cannot be null');
+        }
+        $this->container['signature'] = $signature;
 
         return $this;
     }
