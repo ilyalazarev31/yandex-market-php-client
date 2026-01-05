@@ -73,10 +73,6 @@ class OrderPaymentMethodType
 
     public const B2_B_ACCOUNT_POSTPAYMENT = 'B2B_ACCOUNT_POSTPAYMENT';
 
-    public const BNPL_BANK_ON_DELIVERY = 'BNPL_BANK_ON_DELIVERY';
-
-    public const BNPL_ON_DELIVERY = 'BNPL_ON_DELIVERY';
-
     public const YA_PLUS_POINTS = 'YA_PLUS_POINTS';
 
     public const UNKNOWN = 'UNKNOWN';
